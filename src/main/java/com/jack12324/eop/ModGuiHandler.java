@@ -51,7 +51,7 @@ public class ModGuiHandler implements IGuiHandler{
 	public static final int ENDERICPURIFIER =7;
 	public static final int STARHARDENER=8;
 	public static final int TRICATALYSTINFUSER=9;
-//sdaf
+
 	@Override
 	public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
