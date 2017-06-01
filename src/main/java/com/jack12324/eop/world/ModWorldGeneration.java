@@ -14,7 +14,7 @@ import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
-
+//ya
 public class ModWorldGeneration implements IWorldGenerator {
 	
 	
