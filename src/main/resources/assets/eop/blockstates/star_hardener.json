@@ -1,0 +1,31 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube",
+    "textures": {
+      "vert": "eop:blocks/machine_bottom",
+      "particle": "eop:blocks/machine_side",
+      "down": "#vert",
+      "up": "#vert",
+      "south": "#particle",
+      "north": "eop:blocks/star_hardener/front",
+      "east": "#particle",
+      "west": "#particle"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": { "y" : 0 },
+      "south": { "y" : 180 },
+      "west": { "y" : 270 },
+      "east": { "y" : 90 }
+    },
+    "on": {
+      "true": { "textures": {"north": "eop:blocks/star_hardener/front_on"} },
+      "false": {}
+    }
+  }
+}

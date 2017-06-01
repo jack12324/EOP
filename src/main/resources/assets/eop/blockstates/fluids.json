@@ -1,0 +1,21 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "starwater": {
+      "model": "forge:fluid",
+      "custom": { "fluid": "starwater" }
+    },
+    "screaminglava": {
+      "model": "forge:fluid",
+      "custom": { "fluid": "screaminglava" }
+    },
+    "dragonsoul": {
+      "model": "forge:fluid",
+      "custom": { "fluid": "dragonsoul" }
+    },
+    "liquidend": {
+      "model": "forge:fluid",
+      "custom": { "fluid": "liquidend" }
+    }
+  }
+}

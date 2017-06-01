@@ -1,0 +1,103 @@
+tile.block_advanced_machine_frame.name=Advanced Machine Frame
+tile.block_basic_machine_frame.name=Basic Machine Frame
+tile.block_cobalt.name=Cobalt Block
+tile.block_crude_machine_frame.name=Crude Machine Frame
+tile.block_elite_machine_frame.name=Elite Machine Frame
+tile.block_firestone.name=Firestone Block
+tile.block_nickel.name=Nickel Block
+tile.block_redsoul.name=Redsoul Block
+tile.block_tungsten.name=Tungsten Block
+tile.ore_cobalt.name=Cobalt Ore
+tile.ore_firestone.name=Firestone Block
+tile.ore_nickel.name=Nickel Ore
+tile.ore_redsoul.name=Redsoul Ore
+tile.ore_tungsten.name=Tungsten Ore
+
+item.component_advanced_component.name=Advanced Component
+item.component_basic_component.name=Basic Component
+item.component_crude_component.name=Crude Component
+item.component_elite_component.name=Elite Component
+item.component_energy_module.name=Energy Module
+item.dust_firestone.name=Firestone Dust
+item.dust_redsoul.name=Redsoul Dust
+item.ingot_cobalt.name=Cobalt Ingot
+item.ingot_firestone_tungsten_alloy.name=Firestone Tungsten Alloy
+item.ingot_cobalt_tungsten_alloy.name=Cobalt Tungsten Alloy
+item.ingot_iron_tungsten_alloy.name=Iron Tungsten Alloy
+item.ingot_nickel.name=Nickel Ingot
+item.ingot_nickel_tungsten_alloy.name=Nickel Tungsten Alloy
+item.ingot_soul_infused_tungsten.name=Soul Infused Tungsten
+item.ingot_tungsten.name=Tungsten Ingot
+item.ingot_tungsten_carbide_alloy.name=Tungsten Carbide Alloy
+
+item.activated_iron_dust.name=Activated Iron Dust
+item.activated_gold_dust.name=Activated Gold Dust
+item.activated_tungsten_dust.name=Activated Tungsten Dust
+item.activated_cobalt_dust.name=Activated Cobalt Dust
+item.activated_nickel_dust.name=Activated Nickel Dust
+
+item.dormant_gold_powder.name=Dormant Gold Powder
+item.dormant_iron_powder.name=Dormant Iron Powder
+item.dormant_tungsten_powder.name=Dormant Tungsten Powder
+item.dormant_cobalt_powder.name=Dormant Cobalt Powder
+item.dormant_nickel_powder.name=Dormant Nickel Powder
+
+item.excited_gold_scraps.name=Excited Gold Scraps
+item.excited_iron_scraps.name=Excited Iron Scraps
+item.excited_nickel_scraps.name=Excited Nickel Scraps
+item.excited_cobalt_scraps.name=Excited Cobalt Scraps
+item.excited_tungsten_scraps.name=Excited Tungsten Scraps
+
+item.astral_gold_slivers.name=Astral Gold Slivers
+item.astral_iron_slivers.name=Astral Iron Slivers
+item.astral_nickel_slivers.name=Astral Nickel Slivers
+item.astral_cobalt_slivers.name=Astral Cobalt Slivers
+item.astral_tungsten_slivers.name=Astral Tungsten Slivers
+
+item.pure_gold_essence.name=Pure Gold Essence
+item.pure_iron_essence.name=Pure Iron Essence
+item.pure_nickel_essence.name=Pure Nickel Essence
+item.pure_cobalt_essence.name=Pure Cobalt Essence
+item.pure_tungsten_essence.name=Pure Tungsten Essence
+
+item.axe_tungsten.name=Tungsten Axe
+item.pickaxe_tungsten.name=Tungsten Pickaxe
+item.shovel_tungsten.name=Tungsten Shovel
+item.sword_tungsten.name=Tungsten Sword
+item.hoe_tungsten.name=Tungsten Hoe
+
+item.prickly_sword.name=Prickly Sword
+
+item.helmet_tungsten.name=Tungsten Helmet
+item.chestplate_tungsten.name=Tungsten Chestplate
+item.leggings_tungsten.name=Tungsten Leggings
+item.boots_tungsten.name=Tungsten Boots
+
+item.pea.name=Pea
+item.pea_seed.name=Pea Seed
+
+tile.activation_chamber.name=Activation Chamber
+tile.catalyst_infuser.name=Catalyst Infuser
+tile.disabling_press.name=Disabling Press
+tile.dual_catalyst_infuser.name=Dual Catalyst Infuser
+tile.enderic_purifier.name=Enderic Purifier
+tile.equalizing_smelter.name=Equalizing Smelter
+tile.particle_exciter.name=Particle Exciter
+tile.pedestal.name=Egg Extractor
+tile.star_hardener.name=Star Hardener
+tile.tri_catalyst_infuser.name=Tri Catalyst Infuser
+
+tile.eop.block_screaming_lava.name=Screaming Lava
+tile.eop.block_star_water.name=Star Water
+tile.eop.block_liquid_end.name=Liquid End
+tile.eop.block_dragon_soul.name=Dragon Soul
+
+fluid.eop.screaminglava=Screaming Lava
+fluid.eop.starwater=Star Water
+fluid.eop.liquidend=Liquid End
+fluid.eop.dragonsoul=Dragon Soul
+
+item.dragon_scale.name=Dragon Scale
+item.cactus_spine.name=Cactus Spine
+
+itemGroup.eop=EOP

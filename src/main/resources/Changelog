@@ -1,0 +1,86 @@
+0.3.1
+    Fixed drops for redsoul and firestone
+    Fixed sound for redsoul
+    Improved generateOre method to take block replace type as an argument
+0.4.0
+    first attempt at tile entity with inventory
+    some crop implementation
+0.4.1
+    tile entity with working gui added
+    Activation Chamber added 
+0.4.2
+    Finished first pass at activation chamber code
+    -is absolutely disgusting and only semi-functional; viewer discretion is advised
+0.4.3
+    Activation chamber actually works now
+    Changed activation chamber gui
+    added progress bar
+    added fuel bar
+    Jacob did some crop shit
+0.4.4
+    Fixed redsoul and firestone ore drops again, maybe broke crops we'll see how it plays out tomorrow
+    Made multiple output from activation chamber possible
+    added texture for activation chamber
+    Made activation chamber orientable
+0.4.5
+    Abstracted out methods from TileEntityActivationChamber to AbstractTileEntity
+    Added Equalizing Smelter and all needed classes
+    Started basic Smelter logic
+0.4.6
+    Added modes to equalizing smelter
+    Added Button to gui
+    Created new gui
+    finished logic
+    made equalizing smelter functional
+0.4.7
+    Added spreading logic to equalizer
+    added spreading toggle button
+    fixed gui for equalizing smelter
+0.4.8 
+    all disabling press classes and code
+    gui for diabling press
+    added check in abstract te class for machines with a base block
+    updated blocks to extend BlockMachineTileEntity
+0.4.9
+    added lang code for activated dusts
+    fixed fuel bug
+    fixed ore dictionary related crash
+    removed unneeded static modifiers
+0.5.0
+    changed tile entity classes
+    seperate inventory, powered, fluidUser, and base classes
+    machines use power now
+    updated guis
+    Added some liquids
+    gave star water a texture
+    updated PacketHandler class
+    added tesla compatability
+    shards and slivers added
+0.5.1 5/15/17
+    remade abstract block class-BlockMachineTE
+        removed unneeded methods
+        added active blockstate
+            Now possible for front of blocks to be different while working
+        made facing property more simple
+    made first machine base side png
+    deleted BlockMachineTileEntity
+0.5.2 5/21/17
+    Recipes take array of inputs now
+0.5.3 5/25/17
+    Guis for:
+        tri catalyst infuser
+        dual catalyst infuser
+        catalyst infuser
+        enderic purifier
+        star hardener
+    updated en_US.lang file
+    added enderic purifier to oreLineHelper
+    fixed jacob's bad item names (gold_astral_slivers to astral_gold_slivers)
+    Jacob adding textures for machine fronts
+    lots of shit before this that I forgot to record, oh well
+    
+    
+   
+    
+ 
+    
