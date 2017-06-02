@@ -83,7 +83,7 @@ private TileEntityCatalystInfuser tileEntity;
 	
 	/**
      * Looks for changes made in the container, sends them to every listener.
-     */
+     *//*
 	@Override
     public void detectAndSendChanges()
     {
@@ -118,5 +118,5 @@ private TileEntityCatalystInfuser tileEntity;
     public void updateProgressBar(int id, int data)
     {
         tileEntity.setField(id, data);
-    }
+    }*/
 }

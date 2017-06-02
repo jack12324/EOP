@@ -28,7 +28,7 @@ public class BlockCatalystInfuser extends BlockTE<TileEntityCatalystInfuser> {
 		super(Material.ROCK, "catalyst_infuser");
 
 	}
-
+/*
 	 @Override
 	    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9){
 	        if(!world.isRemote){
@@ -41,7 +41,11 @@ public class BlockCatalystInfuser extends BlockTE<TileEntityCatalystInfuser> {
 	            return true;
 	        }
 	        return true;
-	    }
+	    }*/
+	@Override
+	protected int getGui(){
+		return ModGuiHandler.CATALYSTINFUSER;
+	}
 
 
 	// drop items in block as well as block
