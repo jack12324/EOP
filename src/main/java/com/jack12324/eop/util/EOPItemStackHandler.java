@@ -1,5 +1,7 @@
 package com.jack12324.eop.util;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -8,6 +10,18 @@ public class EOPItemStackHandler extends ItemStackHandler{
 	public EOPItemStackHandler(int slots){
         super(slots);
     }
+	@Override
+	 public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate){
+		if(canInsert())
+			return super.insertItem(slot,stack,simulate);
+		else return stack;
+	}
+	@Override
+	public ItemStack extractItem(int slot, int amount, boolean simulate){
+		if(canExtract())
+			return super.extractItem(slot, amount, simulate);
+		else return ItemStack.EMPTY;
+	}
 	
 	 public void grow(int index, int amount) {
  		getStackInSlot(index).grow(amount);
@@ -36,5 +50,13 @@ public class EOPItemStackHandler extends ItemStackHandler{
  		}
  		return itemStackRemoved;
  	}
+     protected boolean canInsert(){
+    	 return true;
+     }
+     protected boolean canExtract(){
+    	 return true;
+     }
+    	 
+    	 
 
 }
