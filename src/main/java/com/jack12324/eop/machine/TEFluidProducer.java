@@ -18,7 +18,7 @@ public abstract class TEFluidProducer extends TEFluidUser{
 	public final FluidTank outTank = new FluidTank(2000) {
 		@Override
 		public boolean canDrain() {
-			return false;
+			return true;
 		}
 
 		@Override
