@@ -28,20 +28,24 @@ public class BlockStarHardener extends BlockTE<TileEntityStarHardener> {
 		super(Material.ROCK, "star_hardener");
 
 	}
-
+/*
 	 @Override
 	    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9){
 	        if(!world.isRemote){
 	            TileEntityStarHardener te = (TileEntityStarHardener)world.getTileEntity(pos);
 	            if(te != null){
-	                if(!this.tryUseItemOnTank(player, hand, te.inTank)){
+	                if(!this.tryUseItemOnTank(player, hand, world, pos, null)){
 	                	player.openGui(ExtremeOreProcessing.instance, ModGuiHandler.STARHARDENER, world, pos.getX(), pos.getY(), pos.getZ());
 	                }
 	            }
 	            return true;
 	        }
 	        return true;
-	    }
+	    }*/
+	@Override
+	protected int getGui(){
+		return ModGuiHandler.STARHARDENER;
+	}
 
 
 	// drop items in block as well as block

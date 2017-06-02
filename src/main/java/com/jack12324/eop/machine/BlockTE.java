@@ -1,5 +1,8 @@
 package com.jack12324.eop.machine;
+import com.jack12324.eop.ExtremeOreProcessing;
+import com.jack12324.eop.ModGuiHandler;
 import com.jack12324.eop.block.BlockTileEntity;
+import com.jack12324.eop.machine.starHardener.TileEntityStarHardener;
 
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
@@ -49,20 +52,27 @@ public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>
   public static final PropertyBool PROPERTYACTIVE = PropertyBool.create("on");
 
  
-  protected boolean tryUseItemOnTank(EntityPlayer player, EnumHand hand, FluidTank tank){
-      ItemStack heldItem = player.getHeldItem(hand);
-
-      if(heldItem !=null && !heldItem.isEmpty()){
-          FluidActionResult result = FluidUtil.interactWithFluidHandler(heldItem, tank, player);
-          if(result.isSuccess()){
-              player.setHeldItem(hand, result.getResult());
-              return true;
-          }
-      }
-
-      return false;
+  protected boolean tryUseItemOnTank(EntityPlayer player, EnumHand hand, World world, BlockPos pos, EnumFacing side){
+     
+          return FluidUtil.interactWithFluidHandler(player, hand, world, pos, null);
+      
   }
-
+  @Override
+  public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9){
+      if(!world.isRemote){
+          TileEntity te = (TileEntity)world.getTileEntity(pos);
+          if(te != null){
+              if(!this.tryUseItemOnTank(player, hand, world, pos,null)&&this.getGui()!=-1){
+              	player.openGui(ExtremeOreProcessing.instance, this.getGui(), world, pos.getX(), pos.getY(), pos.getZ());
+              }
+          }
+          return true;
+      }
+      return true;
+  }
+  protected int getGui(){
+	  return -1;
+  }
  
   @Override
   public IBlockState getStateFromMeta(int meta){
