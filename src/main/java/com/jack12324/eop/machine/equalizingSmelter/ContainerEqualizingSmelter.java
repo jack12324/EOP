@@ -135,7 +135,7 @@ public class ContainerEqualizingSmelter extends Container{
     /**
      * Looks for changes made in the container, sends them to every listener.
      */
-	@Override
+	/*@Override
     public void detectAndSendChanges()
     {
 		
@@ -169,7 +169,7 @@ public class ContainerEqualizingSmelter extends Container{
     public void updateProgressBar(int id, int data)
     {
         equalizingSmelter.setField(id, data);
-    }
+    }*/
 
        
 
