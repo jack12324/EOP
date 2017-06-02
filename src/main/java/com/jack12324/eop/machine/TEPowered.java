@@ -16,6 +16,7 @@ public abstract class TEPowered extends TEInventory {
 	private int burnTimeInitialValue;
 	private int burnTimeRemaining;
 	protected int[] inProgressTime;
+	private int[] oldValues;
 	private EOPRecipes recipes;
 	protected int speedMultiplier = 1;
 	private int fuelMultiplier = 1;
@@ -74,6 +75,9 @@ public abstract class TEPowered extends TEInventory {
 		this.hasBase = slots.getBaseSlotSize() > 0 ? true : false;
 		this.usesFuel = slots.getFuelSlotSize() > 0 ? true : false;
 		storage = new EOPEnergyStorage(capacity, recieve, extract);
+		oldValues = new int[2+inProgressTime.length];
+		for(int val:oldValues)
+			val=0;
 	}
 
 	public double fractionOfPowerRemaining() {
@@ -158,14 +162,13 @@ public abstract class TEPowered extends TEInventory {
 
 			oldEnergyCheck();
 			oldActiveCheck(active);//TODO moved this inside isRemote structure not sure if right?
+			oldProgressTimeCheck();
 		}
 
 		
 
 	}
-	protected void itemUsed(){
-		
-	}
+	
 	protected void oldActiveCheck(boolean active){
 		if (active != this.lastActive) {
 			IBlockState currState = this.world.getBlockState(this.pos);
@@ -179,9 +182,19 @@ public abstract class TEPowered extends TEInventory {
 
 	protected void oldEnergyCheck() {
 		if (this.oldEnergy != this.storage.getEnergyStored() && this.sendUpdateWithInterval()) {
-			this.energyChange=this.storage.getEnergyStored()-this.oldEnergy;
+			this.energyChange=(this.storage.getEnergyStored()-this.oldEnergy)/this.ticksElapsed;//adding /ticksElapsed will get right rf/t I think
 			this.oldEnergy = this.storage.getEnergyStored();
 			
+		}
+	}
+	protected void oldProgressTimeCheck(){
+		for(int i=0; i<oldValues.length;i++){
+			if(i==0&&this.burnTimeInitialValue!=this.oldValues[i]&&this.sendUpdateWithInterval())
+				this.oldValues[i]=this.burnTimeInitialValue;
+			else if(i==1&&this.burnTimeRemaining!=this.oldValues[i]&&this.sendUpdateWithInterval())
+				this.oldValues[i]=this.burnTimeRemaining;
+			else if(this.inProgressTime[i-2]!=this.oldValues[i]&&this.sendUpdateWithInterval())
+				this.oldValues[i]=this.inProgressTime[i-2];
 		}
 	}
 
@@ -443,20 +456,6 @@ System.out.println(1);
 				return false;
 		}
 		return true;
-		/* if it isn't the fuel slot it can insert
-		if ((!(this.slotHelper.getFuel()==null||this.slotHelper.getFuelSlotSize()==0)&&index != this.slotHelper.getFuelSlotIndex(0)
-				)&&(!(this.slotHelper.getBase()==null||this.slotHelper.getBaseSlotSize()==0)&&index != this.slotHelper.getBaseSlotIndex(0))) {
-			return true;
-		}
-		// if it is the fuel slot only insert if it is fuel
-		else if(index==this.slotHelper.getBaseSlotIndex(0)) {
-			this.slots.get
-		}
-		else if(index==this.slotHelper.getFuelSlotIndex(0)){
-			ItemStack itemstack = (ItemStack) this.slots.getStackInSlot(0);
-			return isItemFuel(stack);
-		}
-		return false;*/
 	}
 
 	/** Returns true if automation can insert the given item in the given slot
@@ -486,7 +485,7 @@ System.out.println(1);
 	public boolean isRedstoneToggle() {
 		return true;
 	}
-
+/*
 	public int getField(int id) {
 		if (id == 0)
 			return this.burnTimeRemaining;
@@ -522,5 +521,5 @@ System.out.println(1);
 	public int getFieldCount() {
 		return inProgressTime.length + 3;
 	}
-
+*/
 }

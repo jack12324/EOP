@@ -26,7 +26,10 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 	private static VanillaFurnaceRecipes vanillaRecipes = new VanillaFurnaceRecipes();
 	private boolean furnaceMode = true;
 	private boolean spreadMode = true;
+	private boolean oldFurnaceMode = true;
+	private boolean oldSpreadMode = true;
 	private int dustProgress = 0;
+	private int oldDustProgress = 0;
 
 	public TileEntityEqualizingSmelter() {
 		super("equalizingSmelter", new InventorySlotHelper(4, 4, 0, 0, 1), equalizingRecipes);
@@ -40,7 +43,10 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 			int itemCount = 0;
 			int remainder = 0;
 			for (int index : this.slotHelper.getIn()) {
-				if ((this.slots.getStackInSlot(index).isEmpty() || this.slots.getStackInSlot(index).isItemEqual(workingStack))&&(Math.abs((double)(this.slots.getStackInSlot(index).getCount()-workingStack.getCount()))>1)) {
+				if ((this.slots.getStackInSlot(index).isEmpty()
+						|| this.slots.getStackInSlot(index).isItemEqual(workingStack))
+						&& (Math.abs((double) (this.slots.getStackInSlot(index).getCount()
+								- workingStack.getCount())) > 1)) {
 					indexList.add(index);
 					if (!this.slots.getStackInSlot(index).isEmpty())
 						itemCount += this.slots.getStackInSlot(index).getCount();
@@ -73,33 +79,33 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 	}
 
 	@Override
-	public void updateEntity() {//TODO fix it all
+	public void updateEntity() {
+		
+		if (!this.world.isRemote) {
+			if (spreadMode)
+				spread();
+			int speed = 1;
+			if (furnaceMode) {
+				for (int i = 0; i < 4; i++) {
+					if (canUseF(this.slotHelper.getInSlotIndex(i), this.slotHelper.getOutSlotIndex(i)))
+						speed++;
+				}
 
-		// If there is nothing to smelt or there is no room in the output, reset
-		// cookTime and return
-		if (spreadMode)
-			spread();
-		int speed = 1;
-		if (furnaceMode) {
-			for (int i = 0; i < 4; i++) {
-				if (canUseF(this.slotHelper.getInSlotIndex(i), this.slotHelper.getOutSlotIndex(i)))
-					speed++;
+				if (speed != 1)
+					speed--;
+				this.setSpeedMultiplier(speed);
+				this.setFuelMultiplier((int) (speed * (.5 + speed / 2.0)));
+				furnaceUpdate();
 			}
 
-			if (speed != 1)
-				speed--;
-			this.setSpeedMultiplier(speed);
-			this.setFuelMultiplier((int) (speed * (.5 + speed / 2.0)));
-			furnaceUpdate();
+			else {
+				setFuelMultiplier(1);
+				setSpeedMultiplier(1);
+
+				super.updateEntity();
+			}
+			this.oldModeCheck();
 		}
-
-		else {
-			setFuelMultiplier(1);
-			setSpeedMultiplier(1);
-
-			super.updateEntity();
-		}
-
 	}
 
 	@Override
@@ -113,8 +119,7 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 
 			if (output.isEmpty()) {
 				this.setInventory(this.slotHelper.getOtherSlotIndex(0), result.copy());
-			}
-			else if (output.getItem() == result.getItem())
+			} else if (output.getItem() == result.getItem())
 				this.slots.grow(this.slotHelper.getOtherSlotIndex(0), result.getCount());
 			dustProgress = 0;
 		}
@@ -126,14 +131,27 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 	}
 
 	@Override
+	protected void oldProgressTimeCheck() {
+		super.oldProgressTimeCheck();
+		if (this.oldDustProgress != this.dustProgress && this.sendUpdateWithInterval())
+			this.oldDustProgress = this.dustProgress;
+	}
+
+	protected void oldModeCheck() {
+		if (this.oldFurnaceMode != this.furnaceMode && this.sendUpdateWithInterval())
+			this.oldFurnaceMode = this.furnaceMode;
+		if (this.oldSpreadMode != this.spreadMode && this.sendUpdateWithInterval())
+			this.oldSpreadMode = this.spreadMode;
+	}
+/*
+	@Override
 	public int getField(int id) {
 		if (id == 2) {
 			if (furnaceMode)
 				return 1;
 			else
 				return 0;
-		}
-		else if (id == 1)
+		} else if (id == 1)
 			return dustProgress;
 		else if (id == 0) {
 			if (spreadMode)
@@ -153,16 +171,14 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 				this.furnaceMode = true;
 			else
 				this.furnaceMode = false;
-		}
-		else if (id == 1)
+		} else if (id == 1)
 			this.dustProgress = value;
 		else if (id == 0) {
 			if (value == 1)
 				this.spreadMode = true;
 			else
 				this.spreadMode = false;
-		}
-		else
+		} else
 			super.setField(id - 3, value);
 
 	}
@@ -171,7 +187,7 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 	public int getFieldCount() {
 		return super.getFieldCount() + 3;
 	}
-
+*/
 	@Override
 	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
 		if (type != NBTType.SAVE_BLOCK) {
@@ -197,7 +213,8 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 	@Nullable
 	@Override
 	public ITextComponent getDisplayName() {
-		return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName());
+		return this.hasCustomName() ? new TextComponentString(this.getName())
+				: new TextComponentTranslation(this.getName());
 	}
 
 	/** Get the name of this object. For players this returns their username */
@@ -211,7 +228,8 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 	}
 
 	public static void registerFixesEqualizingSmelter(DataFixer fixer) {
-		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityEqualizingSmelter.class, new String[] { "Items" }));
+		fixer.registerWalker(FixTypes.BLOCK_ENTITY,
+				new ItemStackDataLists(TileEntityEqualizingSmelter.class, new String[] { "Items" }));
 	}
 
 	public boolean getMode() {
@@ -234,8 +252,6 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 
 	public void furnaceUpdate() {
 		super.superUpdate();
-		// If there is nothing to smelt or there is no room in the output, reset
-		// cookTime and return
 		boolean active = false;
 		if (!this.world.isRemote) {
 			for (int i = 0; i < this.inProgressTime.length; i++) {
@@ -253,6 +269,7 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 				}
 				this.oldActiveCheck(active);
 				this.oldEnergyCheck();
+				this.oldProgressTimeCheck();
 			}
 
 		}
@@ -275,8 +292,7 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 		if (burning && powered) {
 			inProgressTime[i] += speedMultiplier;
 			active = true;
-		}
-		else {
+		} else {
 			inProgressTime[i] -= 2;
 		}
 
@@ -293,26 +309,28 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 		return active;
 	}
 
-	/** Returns true if the machine can activate an item, i.e. has a source
-	 * item, destination stack isn't full, etc. */
+	/**
+	 * Returns true if the machine can activate an item, i.e. has a source item,
+	 * destination stack isn't full, etc.
+	 */
 
-	/** determines if the item in the input slot can be activated and if there
-	 * is a place to put it afterwards. ie an open output slot */
+	/**
+	 * determines if the item in the input slot can be activated and if there is
+	 * a place to put it afterwards. ie an open output slot
+	 */
 
 	protected boolean canUseF(int indexIn, int indexOut) {
 
 		if (((ItemStack) this.slots.getStackInSlot(indexIn)).isEmpty()) {
 
 			return false;
-		}
-		else {
+		} else {
 
 			ItemStack itemstack = vanillaRecipes.getResult((ItemStack) this.slots.getStackInSlot(indexIn));
 
 			if (itemstack.isEmpty()) {
 				return false;
-			}
-			else {
+			} else {
 				ItemStack itemstack1 = (ItemStack) this.slots.getStackInSlot(indexOut);
 				if (itemstack1.isEmpty()) {
 					return true;
@@ -326,8 +344,10 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 		}
 	}
 
-	/** Turn one item from the inventory input stack into the appropriate output
-	 * item in the result stack */
+	/**
+	 * Turn one item from the inventory input stack into the appropriate output
+	 * item in the result stack
+	 */
 	public void useItemF(int indexIn, int indexOut) {
 		ItemStack input = (ItemStack) this.slots.getStackInSlot(indexIn);
 		ItemStack result = vanillaRecipes.getResult(input);
@@ -335,8 +355,7 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 
 		if (output.isEmpty()) {
 			this.slots.setStackInSlot(indexOut, result.copy());
-		}
-		else if (output.getItem() == result.getItem()) {
+		} else if (output.getItem() == result.getItem()) {
 			output.grow(result.getCount());
 		}
 

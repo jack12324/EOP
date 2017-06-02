@@ -23,40 +23,11 @@ public class TileEntityCatalystInfuser extends TEFluidProducer {
 
 	private static CatalystInfuserRecipes recipes = CatalystInfuserRecipes.INSTANCE;
 
-	private String catalystInfuserCustomName = "container.catalystInfuser.name";
-
 	public TileEntityCatalystInfuser() {
 	super("catalystInfuser",new InventorySlotHelper(1,0, 0, 0,0),recipes,FluidRegistry.LAVA,100,4000,InitFluids.fluidScreamingLava,100,4000);
 	}
-	
 
-	
-	
-	
-	
-	/** standard code to look up what the human-readable name is */
-	@Nullable
-	@Override
-	public ITextComponent getDisplayName() {
-		return this.hasCustomName() ? new TextComponentString(this.getName())
-				: new TextComponentTranslation(this.getName());
-	}
-
-	/**
-	 * Get the name of this object. For players this returns their username
-	 */
-	public String getName() {
-		return this.hasCustomName() ? this.catalystInfuserCustomName : "container.catalystInfuser.name";
-	}
-
-	/**
-	 * Returns true if this thing is named
-	 */
-	public boolean hasCustomName() {
-		return true;
-	}
-
-	public static void registerFixesParticleExciter(DataFixer fixer) {
+	public static void registerFixesCatalystInfuser(DataFixer fixer) {
 		fixer.registerWalker(FixTypes.BLOCK_ENTITY,
 				new ItemStackDataLists(TileEntityCatalystInfuser.class, new String[] { "Items" }));
 	}

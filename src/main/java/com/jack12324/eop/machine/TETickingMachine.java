@@ -237,7 +237,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable{
     }
 
     protected boolean sendUpdateWithInterval(){
-        if(this.ticksElapsed%5 == 0){
+        if(this.ticksElapsed%4 == 0){
             this.sendUpdate();
             return true;
         }
