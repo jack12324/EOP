@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = ExtremeOreProcessing.modID, name = ExtremeOreProcessing.name, version = ExtremeOreProcessing.version)
 public class ExtremeOreProcessing {
-	
+	//test
 	//basic Mod info
 	public static final String modID = "eop";
 	public static final String name = "Extreme Ore Processing";
