@@ -1,21 +1,16 @@
-package com.jack12324.eop.machine.pedestal;
+package com.jack12324.eop.machine;
+
+import com.jack12324.eop.item.ModItems;
+import com.jack12324.eop.machine.slot.SlotSpecific;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraft.tileentity.TileEntity;
 
-public class ContainerPedestal extends Container{
-	
-	@Override
-	public boolean canInteractWith(EntityPlayer player){
-		return true;
-	}
-	
+public abstract class MachineContainer extends Container {
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
@@ -51,15 +46,22 @@ public class ContainerPedestal extends Container{
 		return itemstack;
 	}
 	
-	public ContainerPedestal(InventoryPlayer playerInv, final TileEntityPedestal pedestal) {
-		IItemHandler inventory = pedestal.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
-		addSlotToContainer(new SlotItemHandler(inventory, 0, 43, 46) {
+	protected void addUpgradeSlots(TEInventory te){
+		addSlotToContainer(new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(0), 20, 20, ModItems.speedUpgrade,10) {
 			@Override
 			public void onSlotChanged() {
-				pedestal.markDirty();
+				te.markDirty();
 			}
 		});
+		addSlotToContainer(new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(1), 40, 20, ModItems.energyUpgrade,10) {
+			@Override
+			public void onSlotChanged() {
+				te.markDirty();
+			}
+		});
+	}
 	
+	protected void addInventorySlots(InventoryPlayer playerInv){
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 9; j++) {
 				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));

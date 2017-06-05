@@ -1,7 +1,6 @@
 package com.jack12324.eop.block;
 
 
-import com.jack12324.eop.block.pedestal.BlockPedestal;
 import com.jack12324.eop.item.ItemModelProvider;
 import com.jack12324.eop.item.ItemOreDictionary;
 import com.jack12324.eop.item.ModItems;
@@ -12,6 +11,7 @@ import com.jack12324.eop.machine.dualCatalystInfuser.BlockDualCatalystInfuser;
 import com.jack12324.eop.machine.endericPurifier.BlockEndericPurifier;
 import com.jack12324.eop.machine.equalizingSmelter.BlockEqualizingSmelter;
 import com.jack12324.eop.machine.particleExciter.BlockParticleExciter;
+import com.jack12324.eop.machine.pedestal.BlockPedestal;
 import com.jack12324.eop.machine.starHardener.BlockStarHardener;
 import com.jack12324.eop.machine.triCatalystInfuser.BlockTriCatalystInfuser;
 

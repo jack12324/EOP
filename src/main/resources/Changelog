@@ -78,7 +78,7 @@
     fixed jacob's bad item names (gold_astral_slivers to astral_gold_slivers)
     Jacob adding textures for machine fronts
     lots of shit before this that I forgot to record, oh well
-0.7.0
+0.7.0 6/2/17
     Using catalyst Infuser to test if getDisplayName() is needed in child class
     Made canDrain() return true for outTank in Fluid Producer
     added /ticksElapsed in TEPowered to maybe get right rf/t
@@ -87,3 +87,8 @@
     commented out getField() and setField()
     testing new fluid interaction and parent onBlockActivated with StarHardener and CatalystInfuser
     changed EOPItemStackHandler so insert extract automation might actually work
+    
+Feature upgrades 6/5/17
+    moved pedestal package to machines
+    Added contructor to add slots in InventorySlotHelper
+    Added abstract machine container, testing with activation chamber

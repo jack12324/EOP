@@ -18,7 +18,7 @@ public abstract class TEPowered extends TEInventory {
 	protected int[] inProgressTime;
 	private int[] oldValues;
 	private EOPRecipes recipes;
-	protected int speedMultiplier = 1;
+	protected int baseSpeed = 1;
 	private int fuelMultiplier = 1;
 	private boolean hasBase;
 	protected boolean usesFuel;
@@ -28,12 +28,16 @@ public abstract class TEPowered extends TEInventory {
 
 	public EOPEnergyStorage storage;
 
-	public void setSpeedMultiplier(int speedMultiplier) {
-		this.speedMultiplier = speedMultiplier;
+	public void setBaseSpeed(int speedMultiplier) {
+		this.baseSpeed = speedMultiplier;
 	}
 
 	public void setFuelMultiplier(int fuelMultiplier) {
 		this.fuelMultiplier = fuelMultiplier;
+	}
+	
+	protected double getPowerToUse(){
+		return getEnergyUse() * Math.pow(1.2589254117942, (double)this.getSpeedSlots()-(double)this.getEnergySlots())*getSpeedMultiplier();
 	}
 
 	public int getEnergyUse() {
@@ -44,8 +48,8 @@ public abstract class TEPowered extends TEInventory {
 		return energyChange;
 	}
 
-	public int getSpeedMultiplier() {
-		return this.speedMultiplier;
+	public double getSpeedMultiplier() {
+		return this.baseSpeed* Math.pow(1.2589254117942, (double)this.getSpeedSlots());
 	}
 
 	public int getFuelMultiplier() {
@@ -69,7 +73,8 @@ public abstract class TEPowered extends TEInventory {
 	}
 
 	public TEPowered(String name, InventorySlotHelper slots, EOPRecipes recipes, int capacity, int recieve, int extract) {
-		super(slots, name);
+		
+		super(new InventorySlotHelper(slots,2), name);
 		inProgressTime = new int[slots.getInSlotSize()];
 		this.recipes = recipes;
 		this.hasBase = slots.getBaseSlotSize() > 0 ? true : false;
@@ -99,7 +104,7 @@ public abstract class TEPowered extends TEInventory {
 	public int secondsOfFuelRemaining() {
 		if (burnTimeRemaining <= 0 || fuelMultiplier <= 0)
 			return 0;
-		return burnTimeRemaining / (20 * fuelMultiplier * speedMultiplier);
+		return(int)( burnTimeRemaining / (20 * fuelMultiplier * getSpeedMultiplier()));
 	}
 
 	/** Returns the amount of cook time completed on the currently cooking
@@ -136,6 +141,13 @@ public abstract class TEPowered extends TEInventory {
 		}
 		this.storage.readFromNBT(compound);
 		super.readSyncableNBT(compound, type);
+	}
+	
+	protected int getSpeedSlots(){
+		return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(0)).getCount();
+	}
+	protected int getEnergySlots(){
+		return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(1)).getCount();
 	}
 
 	public void superUpdate() {
@@ -193,7 +205,7 @@ public abstract class TEPowered extends TEInventory {
 				this.oldValues[i]=this.burnTimeInitialValue;
 			else if(i==1&&this.burnTimeRemaining!=this.oldValues[i]&&this.sendUpdateWithInterval())
 				this.oldValues[i]=this.burnTimeRemaining;
-			else if(this.inProgressTime[i-2]!=this.oldValues[i]&&this.sendUpdateWithInterval())
+			else if(i>1&&this.inProgressTime[i-2]!=this.oldValues[i]&&this.sendUpdateWithInterval())
 				this.oldValues[i]=this.inProgressTime[i-2];
 		}
 	}
@@ -217,7 +229,7 @@ public abstract class TEPowered extends TEInventory {
 			// If fuel is available, keep cooking the item, otherwise start
 			// "uncooking" it at double speed
 			if (burning && powered) {
-				inProgressTime[0] += speedMultiplier;
+				inProgressTime[0] += getSpeedMultiplier();
 				active = true;
 			}
 			else {
@@ -243,9 +255,10 @@ public abstract class TEPowered extends TEInventory {
 
 	protected boolean usePower() {
 		boolean powered = false;
+		double amountToUse = this.getPowerToUse();
 
-		if (this.storage.getEnergyStored() >= this.getEnergyUse() * fuelMultiplier/(double)speedMultiplier) {
-			this.storage.extractEnergyInternal((int)(this.getEnergyUse() * fuelMultiplier/(double)speedMultiplier), false);
+		if (this.storage.getEnergyStored() >= amountToUse) {
+			this.storage.extractEnergyInternal((int)amountToUse, false);
 			powered = true;
 
 		}

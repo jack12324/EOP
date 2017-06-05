@@ -6,6 +6,7 @@ public class InventorySlotHelper {
 	private int[] fuel;
 	private int[] base;
 	int[] other;
+	int[] upgrade;
 public InventorySlotHelper(int in, int out, int fuel, int base, int other){
 	int totalSlots=0;
 	
@@ -34,7 +35,15 @@ public InventorySlotHelper(int in, int out, int fuel, int base, int other){
 		this.other[i]=totalSlots;
 		totalSlots++;
 	}
+	this.upgrade=new int[0];
 	
+}
+public InventorySlotHelper(InventorySlotHelper slots, int upgrade){
+	this(slots.getInSlotSize(),slots.getOutSlotSize(),slots.getFuelSlotSize(),slots.getBaseSlotSize(),slots.getOtherSlotSize());
+	this.upgrade = new int[upgrade];
+	for(int i=0; i<upgrade; i++){
+		this.upgrade[i]=this.getTotalSize()-this.getUpgradeSlotSize()-1+i;
+	}
 }
 public int getInSlotIndex(int i){
 	return getIn()[i];
@@ -50,6 +59,9 @@ public int getBaseSlotIndex(int i){
 }
 public int getOtherSlotIndex(int i){
 	return other[i];
+}
+public int getUpgradeSlotIndex(int i){
+	return upgrade[i];
 }
 
 public int getBaseSlotSize(){
@@ -67,8 +79,11 @@ public int getFuelSlotSize(){
 public int getOtherSlotSize(){
 	return other.length;
 }
+public int getUpgradeSlotSize(){
+	return upgrade.length;
+}
 public int getTotalSize(){
-	return getBaseSlotSize()+getInSlotSize()+getOutSlotSize()+getFuelSlotSize()+getOtherSlotSize();
+	return getBaseSlotSize()+getInSlotSize()+getOutSlotSize()+getFuelSlotSize()+getOtherSlotSize()+getUpgradeSlotSize();
 }
 public int[] getIn() {
 	return in;
@@ -94,4 +109,5 @@ public int[] getBase() {
 public void setBase(int[] base) {
 	this.base = base;
 }
+
 }

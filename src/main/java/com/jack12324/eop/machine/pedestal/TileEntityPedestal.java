@@ -1,4 +1,4 @@
-package com.jack12324.eop.block.pedestal;
+package com.jack12324.eop.machine.pedestal;
 
 import javax.annotation.Nullable;
 
