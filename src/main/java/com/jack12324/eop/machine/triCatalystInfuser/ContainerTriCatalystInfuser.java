@@ -87,48 +87,8 @@ private TileEntityTriCatalystInfuser tileEntity;
 		return itemstack;
 	}
 
-
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return tileEntity.isUsableByPlayer(playerIn);
 	}
-	
-	/**
-     * Looks for changes made in the container, sends them to every listener.
-     */
-	@Override
-    public void detectAndSendChanges()
-    {
-		
-        super.detectAndSendChanges();
-        
-        boolean allFieldsHaveChanged = false;
-        boolean fieldHasChanged [] = new boolean[tileEntity.getFieldCount()];
-        if (cachedFields == null){
-        	cachedFields = new int[tileEntity.getFieldCount()];
-        	allFieldsHaveChanged = true;
-        }
-        for (int i = 0; i < cachedFields.length; ++i){
-        	if(allFieldsHaveChanged || cachedFields[i] != tileEntity.getField(i)){
-        		cachedFields[i] = tileEntity.getField(i);
-        		fieldHasChanged[i] = true;
-        	}
-        }
-        
-        for(IContainerListener listener : this.listeners){
-        	for(int fieldID = 0; fieldID< tileEntity.getFieldCount(); ++fieldID){
-        		if(fieldHasChanged[fieldID]){
-        			listener.sendProgressBarUpdate(this, fieldID, cachedFields[fieldID]);
-        		}
-        	}
-        }
-
-       
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int id, int data)
-    {
-        tileEntity.setField(id, data);
-    }
 }

@@ -481,41 +481,4 @@ public abstract class TEPowered extends TEInventory {
 	public boolean isRedstoneToggle() {
 		return true;
 	}
-/*
-	public int getField(int id) {
-		if (id == 0)
-			return this.burnTimeRemaining;
-		else if (id == 1)
-			return this.burnTimeInitialValue;
-		else if (id == 2) {
-			if (hasBase)
-				return 1;
-			else
-				return 2;
-		}
-		else if (id > 2 && id < inProgressTime.length + 3)
-			return this.inProgressTime[id - 3];
-		else
-			return 0;
-	}
-
-	public void setField(int id, int value) {
-		if (id == 0)
-			this.burnTimeRemaining = value;
-		else if (id == 1)
-			this.burnTimeInitialValue = value;
-		else if (id == 2) {
-			if (value == 1)
-				this.hasBase = true;
-			else
-				this.hasBase = false;
-		}
-		else if (id > 2 && id < inProgressTime.length + 3)
-			this.inProgressTime[id - 3] = value;
-	}
-
-	public int getFieldCount() {
-		return inProgressTime.length + 3;
-	}
-*/
 }

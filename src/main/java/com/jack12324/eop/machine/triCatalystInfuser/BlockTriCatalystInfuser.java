@@ -29,19 +29,7 @@ public class BlockTriCatalystInfuser extends BlockTE<TileEntityTriCatalystInfuse
 
 	}
 
-	 @Override
-	    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9){
-	        if(!world.isRemote){
-	            TileEntityTriCatalystInfuser te = (TileEntityTriCatalystInfuser)world.getTileEntity(pos);
-	            if(te != null){
-	                if(!this.tryUseItemOnTank(player, hand, te.inTank)){
-	                	player.openGui(ExtremeOreProcessing.instance, ModGuiHandler.TRICATALYSTINFUSER, world, pos.getX(), pos.getY(), pos.getZ());
-	                }
-	            }
-	            return true;
-	        }
-	        return true;
-	    }
+	 
 
 
 	// drop items in block as well as block

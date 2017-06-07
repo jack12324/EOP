@@ -102,45 +102,7 @@ public class ContainerDisablingPress extends Container{
 	}
 	
 	
-    /**
-     * Looks for changes made in the container, sends them to every listener.
-     */
-	@Override
-    public void detectAndSendChanges()
-    {
-		
-        super.detectAndSendChanges();
-        
-        boolean allFieldsHaveChanged = false;
-        boolean fieldHasChanged [] = new boolean[disablingPress.getFieldCount()];
-        if (cachedFields == null){
-        	cachedFields = new int[disablingPress.getFieldCount()];
-        	allFieldsHaveChanged = true;
-        }
-        for (int i = 0; i < cachedFields.length; ++i){
-        	if(allFieldsHaveChanged || cachedFields[i] != disablingPress.getField(i)){
-        		cachedFields[i] = disablingPress.getField(i);
-        		fieldHasChanged[i] = true;
-        	}
-        }
-        
-        for(IContainerListener listener : this.listeners){
-        	for(int fieldID = 0; fieldID< disablingPress.getFieldCount(); ++fieldID){
-        		if(fieldHasChanged[fieldID]){
-        			listener.sendProgressBarUpdate(this, fieldID, cachedFields[fieldID]);
-        		}
-        	}
-        }
-
-       
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int id, int data)
-    {
-        disablingPress.setField(id, data);
-    }
-
+   
        
 
 }
