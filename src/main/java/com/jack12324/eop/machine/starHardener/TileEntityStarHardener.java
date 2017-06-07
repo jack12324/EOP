@@ -25,31 +25,6 @@ public class TileEntityStarHardener extends TEFluidUser {
 	}
 	
 
-	
-	
-	
-	
-	/** standard code to look up what the human-readable name is */
-	@Nullable
-	@Override
-	public ITextComponent getDisplayName() {
-		return this.hasCustomName() ? new TextComponentString(this.getName())
-				: new TextComponentTranslation(this.getName());
-	}
-
-	/**
-	 * Get the name of this object. For players this returns their username
-	 */
-	public String getName() {
-		return this.hasCustomName() ? this.starHardenerCustomName : "container.starHardener.name";
-	}
-
-	/**
-	 * Returns true if this thing is named
-	 */
-	public boolean hasCustomName() {
-		return true;
-	}
 
 	public static void registerFixesStarHardener(DataFixer fixer) {
 		fixer.registerWalker(FixTypes.BLOCK_ENTITY,

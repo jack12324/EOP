@@ -90,8 +90,6 @@ public class ModRecipes {
 		Item scraps = OreLineHelper.INSTANCE.get("excited"+name+"Scraps");
 		Item slivers = OreLineHelper.INSTANCE.get("astral"+name+"Slivers");
 		Item essence = OreLineHelper.INSTANCE.get("pure"+name+"Essence");
-		
-		System.out.println("crack"+ore.getUnlocalizedName());
 
 		ActivationChamberRecipes.INSTANCE.addActivation(new Item[]{ore}, new ItemStack(dust,2), new int[]{1});
 		DisablingPressRecipes.INSTANCE.addActivation(new Item[]{ore, Item.getItemFromBlock(Blocks.SAND)}, new ItemStack(powder,3), new int[]{1,1});

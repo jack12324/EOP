@@ -1,5 +1,6 @@
 package com.jack12324.eop.machine;
 import com.jack12324.eop.ExtremeOreProcessing;
+import com.jack12324.eop.FluidUtilTest;
 import com.jack12324.eop.ModGuiHandler;
 import com.jack12324.eop.block.BlockTileEntity;
 import com.jack12324.eop.machine.starHardener.TileEntityStarHardener;
@@ -53,8 +54,8 @@ public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>
 
  
   protected boolean tryUseItemOnTank(EntityPlayer player, EnumHand hand, World world, BlockPos pos, EnumFacing side){
-     
-          return FluidUtil.interactWithFluidHandler(player, hand, world, pos, null);
+     System.out.println("tryUseItemOnTank");
+          return FluidUtilTest.interactWithFluidHandler(player, hand, world, pos, null);
       
   }
   @Override

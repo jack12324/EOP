@@ -54,7 +54,6 @@ public class BlockPedestal extends BlockTE<TileEntityPedestal>{
             TileEntityPedestal te = (TileEntityPedestal)world.getTileEntity(pos);
             if(te != null){
                 if(true){//!this.tryUseItemOnTank(player, hand, te.tank)){
-                	System.out.println("tap");
                 	player.openGui(ExtremeOreProcessing.instance, ModGuiHandler.PEDESTAL, world, pos.getX(), pos.getY(), pos.getZ());
                 }
             }

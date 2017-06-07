@@ -76,10 +76,8 @@ public class EndericPurifierRecipes extends EOPRecipes{
 					if (equal) {
 						equal=false;
 						for (int j = 0; j < stack.length; j++) {
-							System.out.println(stack2[j].getItem().getUnlocalizedName()+"   "+stack[i].getItem().getUnlocalizedName());
 							if (stack2[j].getItem() == stack[i].getItem()&& (stack2[j].getMetadata() == 32767 || stack2[j].getMetadata() == stack[i].getMetadata())){
 								equal = true;
-								System.out.println("break");
 								}
 
 						}

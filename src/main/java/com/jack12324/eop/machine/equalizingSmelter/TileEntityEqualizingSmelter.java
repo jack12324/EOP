@@ -112,7 +112,6 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 	public void useItem() {
 		super.useItem();
 		dustProgress++;
-		System.out.println(dustProgress);
 		if (dustProgress >= 4) {
 			ItemStack result = new ItemStack(ModItems.dustFirestone);
 			ItemStack output = this.getInventory(this.slotHelper.getOtherSlotIndex(0));

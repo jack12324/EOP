@@ -37,7 +37,7 @@ public class TileEntityPedestal extends TEInventory {
 	public final FluidTank tank = new FluidTank(1000) {
 		@Override
 		public boolean canDrain() {
-			return false;
+			return true;
 		}
 
 		@Override

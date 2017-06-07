@@ -1,17 +1,21 @@
 package com.jack12324.eop.machine;
 
+import com.jack12324.eop.fluids.InitFluids;
 import com.jack12324.eop.machine.TETickingMachine.NBTType;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerFluidMap;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class TEFluidProducer extends TEFluidUser{
-
+	private final FluidHandlerFluidMap handlerMap;
 	private Fluid outFluid;
 	private int fluidProduceAmount;
 	private int oldFluidAmount;
@@ -26,12 +30,16 @@ public abstract class TEFluidProducer extends TEFluidUser{
 			return fluid.getFluid() == outFluid;
 		}
 	};
+	
 
 	public TEFluidProducer(String name, InventorySlotHelper slots, EOPRecipes recipes, Fluid inFluid, int fluidUseAmount,int inTankSize,Fluid outFluid,int fluidProduceAmount, int outTankSize) {
 		super(name, slots, recipes,inFluid,fluidUseAmount,inTankSize);
-		this.outFluid = inFluid;
+		this.outFluid = outFluid;
 		this.fluidProduceAmount = fluidUseAmount;
 		this.outTank.setCapacity(outTankSize);
+		 this.handlerMap = new FluidHandlerFluidMap();
+	        this.handlerMap.addHandler(inFluid, this.inTank);
+	        this.handlerMap.addHandler(outFluid, this.outTank);
 
 	}
 
@@ -73,7 +81,10 @@ public abstract class TEFluidProducer extends TEFluidUser{
 		else
 			return false;
 	}
-	
+	 @Override
+	    public IFluidHandler getFluidHandler(EnumFacing facing){
+	        return this.handlerMap;
+	    }
 
 	@Override
 	public void useItem() {

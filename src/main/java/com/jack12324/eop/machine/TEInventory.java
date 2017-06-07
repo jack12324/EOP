@@ -1,5 +1,7 @@
 package com.jack12324.eop.machine;
 
+import javax.annotation.Nonnull;
+
 import com.jack12324.eop.util.EOPItemStackHandler;
 import com.jack12324.eop.util.InventorySlotHelper;
 
@@ -20,13 +22,16 @@ public abstract class TEInventory extends TETickingMachine{
         super(name);
         this.slotHelper = slots;
         this.slots = new EOPItemStackHandler(slotHelper.getTotalSize()){
-            
+        	
+            @Override
             public boolean canInsert(ItemStack stack, int slot){
+            	System.out.println("can Insert TEI");
                 return TEInventory.this.isItemValidForSlot(slot, stack);
             }
 
-            
+            @Override
             public boolean canExtract(ItemStack stack, int slot){
+            	System.out.println("canExtract TEI");
                 return TEInventory.this.canExtractItem(slot, stack);
             }
             @Override
@@ -85,10 +90,12 @@ public abstract class TEInventory extends TETickingMachine{
     }
 
     public boolean isItemValidForSlot(int slot, ItemStack stack){
+    	System.out.println("isItemValidForSlot TEInventory");
         return true;
     }
 
     public boolean canExtractItem(int slot, ItemStack stack){
+    	System.out.println("canExtractItem TEInventory");
     	for(int index:this.slotHelper.getOut()){
     		if (index==slot)
     			return true;

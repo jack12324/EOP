@@ -93,10 +93,10 @@ public class ContainerActivationChamber extends Container {
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return activationChamber.isUsableByPlayer(playerIn);
 	}
-	
+	/*
 	/**
      * Looks for changes made in the container, sends them to every listener.
-     */
+     *
 	@Override
     public void detectAndSendChanges()
     {
@@ -133,5 +133,5 @@ public class ContainerActivationChamber extends Container {
         activationChamber.setField(id, data);
     }
        
-
+*/
 }

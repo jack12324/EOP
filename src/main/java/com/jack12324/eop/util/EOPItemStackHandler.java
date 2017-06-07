@@ -12,13 +12,15 @@ public class EOPItemStackHandler extends ItemStackHandler{
     }
 	@Override
 	 public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate){
-		if(canInsert())
+		System.out.println("insert EOPISH");
+		if(canInsert(stack,slot))
 			return super.insertItem(slot,stack,simulate);
 		else return stack;
 	}
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate){
-		if(canExtract())
+		System.out.println("extract EOPISH");
+		if(canExtract(this.getStackInSlot(slot),slot))
 			return super.extractItem(slot, amount, simulate);
 		else return ItemStack.EMPTY;
 	}
@@ -50,10 +52,10 @@ public class EOPItemStackHandler extends ItemStackHandler{
  		}
  		return itemStackRemoved;
  	}
-     protected boolean canInsert(){
+     protected boolean canInsert(ItemStack stack, int slot){
     	 return true;
      }
-     protected boolean canExtract(){
+     protected boolean canExtract(ItemStack stack, int slot){
     	 return true;
      }
     	 

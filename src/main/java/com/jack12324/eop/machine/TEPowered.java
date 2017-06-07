@@ -89,8 +89,7 @@ public abstract class TEPowered extends TEInventory {
 
 	/** returns the amount of fuel remaining on the currently burning item */
 	public double fractionOfFuelRemaining() {
-		if (burnTimeInitialValue <= 0){
-			System.out.println("yeet"+burnTimeRemaining);return 0;}
+		if (burnTimeInitialValue <= 0){return 0;}
 		double fraction = burnTimeRemaining / (double) burnTimeInitialValue;
 		return MathHelper.clamp(fraction, 0.0, 1.0);
 	}
@@ -193,7 +192,7 @@ public abstract class TEPowered extends TEInventory {
 				this.oldValues[i]=this.burnTimeInitialValue;
 			else if(i==1&&this.burnTimeRemaining!=this.oldValues[i]&&this.sendUpdateWithInterval())
 				this.oldValues[i]=this.burnTimeRemaining;
-			else if(this.inProgressTime[i-2]!=this.oldValues[i]&&this.sendUpdateWithInterval())
+			else if(i>1&&this.inProgressTime[i-2]!=this.oldValues[i]&&this.sendUpdateWithInterval())
 				this.oldValues[i]=this.inProgressTime[i-2];
 		}
 	}
@@ -232,7 +231,6 @@ public abstract class TEPowered extends TEInventory {
 			if (inProgressTime[0] >= COOK_TIME_FOR_COMPLETION) {
 				useItem();
 				inProgressTime[0] = 0;
-				System.out.println("3");
 
 			}
 			for (int i=0;i<inProgressTime.length;i++) {
@@ -296,22 +294,18 @@ public abstract class TEPowered extends TEInventory {
 
 		for (int index : getInputSlotIndices()) {
 			if (((ItemStack) this.slots.getStackInSlot(index)).isEmpty()) {
-System.out.println(1);
 				return false;
 			}
 		}
 		ItemStack result = recipes.getResult(getInputSlotItemStacks());
 
 		if (result == null || result.isEmpty()) {
-			System.out.println(2);
 			return false;
 		}
 		else if(this instanceof TEFluidProducer){
-			System.out.println(3);
 			return true;
 		}
 		else {
-			System.out.println(4);
 			return getOutSlot(result) == -1 ? false : true;
 		}
 
@@ -450,6 +444,7 @@ System.out.println(1);
 	 * (ignoring stack size) into the given slot. For guis use
 	 * Slot.isItemValid */
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		System.out.println("isItemValidForSlot TEPowered");
 		// cant insert into output slot
 		for(int indexes: this.slotHelper.getOut()){
 			if(index==indexes)
@@ -461,6 +456,7 @@ System.out.println(1);
 	/** Returns true if automation can insert the given item in the given slot
 	 * from the given side. */
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+		System.out.println("canInsertItem TEPowered");
 		for(int i:this.slotHelper.getOut()){
     		if (i==index)
     			return false;

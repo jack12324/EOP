@@ -3,9 +3,11 @@ package com.jack12324.eop.machine;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -77,6 +79,10 @@ public abstract class TEFluidUser extends TEPowered {
 			return false;
 		}
 	}
+	@Override
+	public IFluidHandler getFluidHandler(EnumFacing facing){
+        return this.inTank;
+    }
 
 	@Override
 	public void useItem() {

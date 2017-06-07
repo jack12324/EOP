@@ -162,12 +162,10 @@ public class GuiEqualizingSmelter extends GuiContainer {
 
 	private void actionPerformed(GuiButton button, int mbutton) throws IOException {
 		if (button.id == 53) {
-			System.out.println("pressed");
 
 			tileEntity.setMode(mbutton == 0 ? !tileEntity.getMode() : !tileEntity.getMode());
 			PacketHandler.NETWORK.sendToServer(new PacketClientState(tileEntity));
 		} else if (button.id == 57) {
-			System.out.println("pressed");
 
 			tileEntity.setSpreadMode(mbutton == 0 ? !tileEntity.getSpreadMode() : !tileEntity.getSpreadMode());
 			PacketHandler.NETWORK.sendToServer(new PacketClientState(tileEntity));

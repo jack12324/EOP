@@ -27,7 +27,6 @@ public class ClientProxy extends CommonProxy {
 	 
 	    public void preInit(FMLPreInitializationEvent event){
 	        ExtremeOreProcessing.LOGGER.info("PreInitializing ClientProxy...");
-	        System.out.println("money");
 
 	       // for(Map.Entry<ItemStack, ModelResourceLocation> entry : MODEL_LOCATIONS_FOR_REGISTERING.entrySet()){
 	       //     ModelLoader.setCustomModelResourceLocation(entry.getKey().getItem(), entry.getKey().getItemDamage(), entry.getValue());
