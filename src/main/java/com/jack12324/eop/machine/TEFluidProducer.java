@@ -1,5 +1,6 @@
 package com.jack12324.eop.machine;
 
+import com.jack12324.eop.machine.TETickingMachine.NBTType;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,7 +15,7 @@ public abstract class TEFluidProducer extends TEFluidUser{
 	private final FluidHandlerFluidMap handlerMap;
 	private Fluid outFluid;
 	private int fluidProduceAmount;
-	private int oldFluidAmount;
+	private int oldOutFluidAmount;
 	public final FluidTank outTank = new FluidTank(2000) {
 		@Override
 		public boolean canDrain() {
@@ -41,32 +42,39 @@ public abstract class TEFluidProducer extends TEFluidUser{
 
 	@Override
 	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		this.outTank.writeToNBT(compound);
 		NBTTagCompound tag = new NBTTagCompound();
+		this.outTank.writeToNBT(tag);
 		compound.setTag("outTank", tag);
 		super.writeSyncableNBT(compound, type);
+		System.out.println("TEFP write");
 	}
 
 	@Override
 	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
-		this.outTank.readFromNBT(compound);
 		NBTTagCompound tag = compound.getCompoundTag("outTank");
+		this.outTank.readFromNBT(tag);
 		super.readSyncableNBT(compound, type);
+		System.out.println("TEFP read");
 	}
 
-	
-
+	private int counter=0;
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 		if(!world.isRemote){
 			this.oldOutFluidCheck();
+			if(counter%20==0)
+			System.out.println("Server    "+this.inTank.getFluidAmount()+"    "+this.outTank.getFluidAmount());
 		}
+		if(world.isRemote&&counter%20==0)
+			System.out.println("Client    "+this.inTank.getFluidAmount()+"    "+this.outTank.getFluidAmount());
+		counter++;
 	}
 
 	protected void oldOutFluidCheck() {
-		if (this.oldFluidAmount != this.outTank.getFluidAmount() && this.sendUpdateWithInterval()) {
-			this.oldFluidAmount = this.outTank.getFluidAmount();
+		if (this.oldOutFluidAmount != this.outTank.getFluidAmount() && this.sendUpdateWithInterval()) {
+			System.out.println("outfluid");
+			this.oldOutFluidAmount = this.outTank.getFluidAmount();
 		}
 	}
 

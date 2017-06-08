@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class TEFluidUser extends TEPowered {
 	private Fluid inFluid;
 	private int fluidUseAmount;
-	private int oldFluidAmount;
+	private int oldInFluidAmount;
 	public final FluidTank inTank = new FluidTank(2000) {
 		@Override
 		public boolean canDrain() {
@@ -41,17 +41,19 @@ public abstract class TEFluidUser extends TEPowered {
 
 	@Override
 	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		this.inTank.writeToNBT(compound);
 		NBTTagCompound tag = new NBTTagCompound();
+		this.inTank.writeToNBT(tag);
 		compound.setTag("inTank", tag);
 		super.writeSyncableNBT(compound, type);
+		System.out.println("TEFU write");
 	}
 
 	@Override
 	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
-		this.inTank.readFromNBT(compound);
 		NBTTagCompound tag = compound.getCompoundTag("inTank");
+		this.inTank.readFromNBT(tag);
 		super.readSyncableNBT(compound, type);
+		System.out.println("TEFU read");
 	}
 
 	
@@ -64,8 +66,9 @@ public abstract class TEFluidUser extends TEPowered {
 	}
 
 	protected void oldInFluidCheck() {
-		if (this.oldFluidAmount != this.inTank.getFluidAmount() && this.sendUpdateWithInterval()) {
-			this.oldFluidAmount = this.inTank.getFluidAmount();
+		if (this.oldInFluidAmount != this.inTank.getFluidAmount() && this.sendUpdateWithInterval()) {
+			System.out.println("influid");
+			this.oldInFluidAmount = this.inTank.getFluidAmount();
 		}
 	}
 	
