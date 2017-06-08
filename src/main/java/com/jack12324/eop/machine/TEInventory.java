@@ -120,6 +120,7 @@ public abstract class TEInventory extends TETickingMachine{
         }
     }
 
+    
     @Override
     public int getComparatorStrength(){
         return ItemHandlerHelper.calcRedstoneFromInventory(this.slots);

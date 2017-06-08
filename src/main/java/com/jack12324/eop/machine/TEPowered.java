@@ -443,6 +443,7 @@ public abstract class TEPowered extends TEInventory {
 	/** Returns true if automation is allowed to insert the given stack
 	 * (ignoring stack size) into the given slot. For guis use
 	 * Slot.isItemValid */
+	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		System.out.println("isItemValidForSlot TEPowered");
 		// cant insert into output slot

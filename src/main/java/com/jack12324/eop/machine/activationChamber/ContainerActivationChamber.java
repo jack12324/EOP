@@ -1,6 +1,7 @@
 package com.jack12324.eop.machine.activationChamber;
 
 
+import com.jack12324.eop.machine.slot.SlotItemHandlerEOP;
 import com.jack12324.eop.machine.slot.SlotOutput;
 import com.jack12324.eop.machine.slot.SlotSpecific;
 
@@ -22,7 +23,7 @@ public class ContainerActivationChamber extends Container {
 	public ContainerActivationChamber(InventoryPlayer playerInv, final TileEntityActivationChamber activationChamber) {
 		this.activationChamber = activationChamber;
 		
-		addSlotToContainer(new SlotItemHandler(activationChamber.slots, 0, 26, 30) {
+		addSlotToContainer(new SlotItemHandlerEOP(activationChamber.slots, 0, 26, 30) {
 			@Override
 			public void onSlotChanged() {
 				activationChamber.markDirty();

@@ -118,8 +118,9 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 
 			if (output.isEmpty()) {
 				this.setInventory(this.slotHelper.getOtherSlotIndex(0), result.copy());
-			} else if (output.getItem() == result.getItem())
-				this.slots.grow(this.slotHelper.getOtherSlotIndex(0), result.getCount());
+			} else if (output.getItem() == result.getItem()){
+				result.setCount(output.getCount()+1);
+				this.setInventory(this.slotHelper.getOtherSlotIndex(0), result);}
 			dustProgress = 0;
 		}
 	}
