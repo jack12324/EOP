@@ -1,18 +1,12 @@
 package com.jack12324.eop.machine.catalystInfuser;
 
-import com.jack12324.eop.machine.slot.SlotOutput;
-import com.jack12324.eop.machine.slot.SlotSpecific;
+import com.jack12324.eop.machine.slot.SlotItemHandlerEOP;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerCatalystInfuser extends Container{
 	private int [] cachedFields;
@@ -21,7 +15,7 @@ private TileEntityCatalystInfuser tileEntity;
 	public ContainerCatalystInfuser(InventoryPlayer playerInv, final TileEntityCatalystInfuser tileEntity) {
 		this.tileEntity = tileEntity;
 		
-		addSlotToContainer(new SlotItemHandler(tileEntity.slots, 0, 44, 34) {
+		addSlotToContainer(new SlotItemHandlerEOP(tileEntity.slots, 0, 44, 34) {
 			@Override
 			public void onSlotChanged() {
 				tileEntity.markDirty();

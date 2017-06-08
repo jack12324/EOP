@@ -1,7 +1,5 @@
 package com.jack12324.eop.recipe;
 
-import java.lang.reflect.Field;
-
 import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.item.ItemBase;
 import com.jack12324.eop.item.ModArmor;

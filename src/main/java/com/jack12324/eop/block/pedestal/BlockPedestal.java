@@ -4,7 +4,6 @@ import javax.annotation.Nullable;
 
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.ModGuiHandler;
-import com.jack12324.eop.block.BlockTileEntity;
 import com.jack12324.eop.machine.BlockTE;
 
 import net.minecraft.block.material.Material;
@@ -15,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;

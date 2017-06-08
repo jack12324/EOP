@@ -1,7 +1,5 @@
 package com.jack12324.eop.machine;
 
-import javax.annotation.Nonnull;
-
 import com.jack12324.eop.util.EOPItemStackHandler;
 import com.jack12324.eop.util.InventorySlotHelper;
 

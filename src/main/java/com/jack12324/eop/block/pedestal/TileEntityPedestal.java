@@ -1,29 +1,19 @@
 package com.jack12324.eop.block.pedestal;
 
-import javax.annotation.Nullable;
-
 import com.jack12324.eop.fluids.InitFluids;
 import com.jack12324.eop.machine.BlockTE;
-import com.jack12324.eop.machine.EOPRecipes;
 import com.jack12324.eop.machine.TEInventory;
-import com.jack12324.eop.machine.TETickingMachine.NBTType;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class TileEntityPedestal extends TEInventory {
 

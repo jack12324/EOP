@@ -1,7 +1,5 @@
 package com.jack12324.eop.machine;
 
-import com.jack12324.eop.fluids.InitFluids;
-import com.jack12324.eop.machine.TETickingMachine.NBTType;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,8 +9,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerFluidMap;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class TEFluidProducer extends TEFluidUser{
 	private final FluidHandlerFluidMap handlerMap;

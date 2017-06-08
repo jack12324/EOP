@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jack12324.eop.ExtremeOreProcessing;
-import com.jack12324.eop.machine.TEFluidUser;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;

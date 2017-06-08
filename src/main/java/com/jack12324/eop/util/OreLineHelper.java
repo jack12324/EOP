@@ -9,7 +9,6 @@ import com.jack12324.eop.item.ModItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public class OreLineHelper {
 	public static OreLineHelper INSTANCE = new OreLineHelper();

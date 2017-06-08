@@ -1,16 +1,19 @@
 package com.jack12324.eop.block.pedestal;
 
+import com.jack12324.eop.machine.slot.SlotItemHandlerEOP;
+import com.jack12324.eop.util.EOPItemStackHandler;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerPedestal extends Container{
-	
+	private TileEntityPedestal pedestal;
 	@Override
 	public boolean canInteractWith(EntityPlayer player){
 		return true;
@@ -52,8 +55,8 @@ public class ContainerPedestal extends Container{
 	}
 	
 	public ContainerPedestal(InventoryPlayer playerInv, final TileEntityPedestal pedestal) {
-		IItemHandler inventory = pedestal.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
-		addSlotToContainer(new SlotItemHandler(inventory, 0, 43, 46) {
+		this.pedestal=pedestal;
+		addSlotToContainer(new SlotItemHandlerEOP(pedestal.slots, 0, 43, 46) {
 			@Override
 			public void onSlotChanged() {
 				pedestal.markDirty();

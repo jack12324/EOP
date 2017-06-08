@@ -4,14 +4,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.common.collect.Maps;
-import com.jack12324.eop.block.ModBlocks;
-import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.EOPRecipes;
-import com.jack12324.eop.machine.activationChamber.ActivationChamberRecipes;
-import com.jack12324.eop.machine.starHardener.StarHardenerRecipes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

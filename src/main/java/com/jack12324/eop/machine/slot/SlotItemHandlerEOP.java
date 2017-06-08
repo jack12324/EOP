@@ -1,13 +1,10 @@
 package com.jack12324.eop.machine.slot;
 
+import com.jack12324.eop.util.EOPItemStackHandler;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-
-import javax.annotation.Nonnull;
-
-import com.jack12324.eop.util.EOPItemStackHandler;
 
 public class SlotItemHandlerEOP extends SlotItemHandler {
 

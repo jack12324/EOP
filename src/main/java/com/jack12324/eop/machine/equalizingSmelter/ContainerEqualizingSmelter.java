@@ -1,16 +1,13 @@
 package com.jack12324.eop.machine.equalizingSmelter;
 
+import com.jack12324.eop.machine.slot.SlotItemHandlerEOP;
 import com.jack12324.eop.machine.slot.SlotOutput;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerEqualizingSmelter extends Container{
 	
@@ -23,25 +20,25 @@ public class ContainerEqualizingSmelter extends Container{
 		
 		
 		
-		addSlotToContainer(new SlotItemHandler(equalizingSmelter.slots, 0,26, 28) {
+		addSlotToContainer(new SlotItemHandlerEOP(equalizingSmelter.slots, 0,26, 28) {
 			@Override
 			public void onSlotChanged() {
 				equalizingSmelter.markDirty();
 			}
 		});
-		addSlotToContainer(new SlotItemHandler(equalizingSmelter.slots, 1, 134, 28) {
+		addSlotToContainer(new SlotItemHandlerEOP(equalizingSmelter.slots, 1, 134, 28) {
 			@Override
 			public void onSlotChanged() {
 				equalizingSmelter.markDirty();
 			}
 		});
-		addSlotToContainer(new SlotItemHandler(equalizingSmelter.slots, 2, 26, 64) {
+		addSlotToContainer(new SlotItemHandlerEOP(equalizingSmelter.slots, 2, 26, 64) {
 			@Override
 			public void onSlotChanged() {
 				equalizingSmelter.markDirty();
 			}
 		});
-		addSlotToContainer(new SlotItemHandler(equalizingSmelter.slots, 3, 134, 64) {
+		addSlotToContainer(new SlotItemHandlerEOP(equalizingSmelter.slots, 3, 134, 64) {
 			@Override
 			public void onSlotChanged() {
 				equalizingSmelter.markDirty();

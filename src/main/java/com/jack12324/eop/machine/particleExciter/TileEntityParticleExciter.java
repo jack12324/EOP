@@ -4,7 +4,6 @@ import javax.annotation.Nullable;
 
 import com.jack12324.eop.fluids.InitFluids;
 import com.jack12324.eop.machine.TEFluidUser;
-import com.jack12324.eop.machine.TEPowered;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.util.datafix.DataFixer;

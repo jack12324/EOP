@@ -1,22 +1,12 @@
 package com.jack12324.eop.machine.catalystInfuser;
 
-import javax.annotation.Nullable;
-
 import com.jack12324.eop.fluids.InitFluids;
 import com.jack12324.eop.machine.TEFluidProducer;
-import com.jack12324.eop.machine.TEFluidUser;
-import com.jack12324.eop.machine.TEPowered;
-import com.jack12324.eop.machine.particleExciter.TileEntityParticleExciter;
 import com.jack12324.eop.util.InventorySlotHelper;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class TileEntityCatalystInfuser extends TEFluidProducer {

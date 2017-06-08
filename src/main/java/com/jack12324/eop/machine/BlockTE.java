@@ -1,8 +1,6 @@
 package com.jack12324.eop.machine;
 import com.jack12324.eop.ExtremeOreProcessing;
-import com.jack12324.eop.ModGuiHandler;
 import com.jack12324.eop.block.BlockTileEntity;
-import com.jack12324.eop.machine.starHardener.TileEntityStarHardener;
 
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
@@ -21,8 +19,6 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidActionResult;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
 
 public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>{
