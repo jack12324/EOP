@@ -1,170 +1,144 @@
 package com.jack12324.eop.util;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class EOPItemStackHandler extends ItemStackHandler{
+public class EOPItemStackHandler extends ItemStackHandler {
 
-    private boolean tempIgnoreConditions;
+	private boolean tempIgnore;
 
-   
-    public static boolean isValid(ItemStack stack){
-    	return stack != null && !stack.isEmpty();
-    }
-    
-    public EOPItemStackHandler(int slots){
-        super(slots);
-    }
+	public EOPItemStackHandler(int slots) {
+		super(slots);
+	}
 
-    public void decrStackSize(int slot, int amount){
-        this.setStackInSlot(slot, addStackSize(this.getStackInSlot(slot), -amount));
-    }
+	public void grow(int index, int amount) {
+		getStackInSlot(index).grow(amount);
+	}
 
-    public NonNullList<ItemStack> getItems(){
-        return this.stacks;
-    }
+	public void setInventorySlotContents(int slotIndex, ItemStack itemstack) {
+		setStackInSlot(slotIndex, itemstack);
+		if (itemstack.isEmpty() && itemstack.getCount() > getSlotLimit(slotIndex)) {
+			itemstack.setCount(getSlotLimit(slotIndex));
+		}
+	}
 
-    @Override
-    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate){
-        if(!isValid(stack)){
-            return ItemStack.EMPTY;
-        }
-        this.validateSlotIndex(slot);
+	public ItemStack decrStackSize(int slotIndex, int count) {
+		ItemStack itemStackInSlot = getStackInSlot(slotIndex);
+		if (itemStackInSlot.isEmpty())
+			return ItemStack.EMPTY;
 
-        ItemStack existing = this.stacks.get(slot);
+		ItemStack itemStackRemoved;
+		if (itemStackInSlot.getCount() <= count) {
+			itemStackRemoved = itemStackInSlot;
+			setInventorySlotContents(slotIndex, ItemStack.EMPTY);
+		} else {
+			itemStackRemoved = itemStackInSlot.splitStack(count);
+			if (itemStackInSlot.getCount() == 0) {
+				setInventorySlotContents(slotIndex, ItemStack.EMPTY);
+			}
+		}
+		return itemStackRemoved;
+	}
 
-        int limit = this.getStackLimit(slot, stack);
-        if(isValid(existing)){
-            if(!ItemHandlerHelper.canItemStacksStack(stack, existing)){
-                return stack;
-            }
-            limit -= existing.getCount();
-        }
-        if(limit <= 0){
-            return stack;
-        }
+	@Override
+	public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+		if (stack.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
+		this.validateSlotIndex(slot);
 
-        if(!this.tempIgnoreConditions && !this.canInsert(stack, slot)){
-            return stack;
-        }
+		ItemStack existing = this.stacks.get(slot);
 
-        boolean reachedLimit = stack.getCount() > limit;
-        if(!simulate){
-            if(!isValid(existing)){
-                this.stacks.set(slot, reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, limit) : stack);
-            }
-            else{
-                existing.grow(reachedLimit ? limit : stack.getCount());
-            }
+		int limit = this.getStackLimit(slot, stack);
+		if (!existing.isEmpty()) {
+			if (!ItemHandlerHelper.canItemStacksStack(stack, existing)) {
+				return stack;
+			}
+			limit -= existing.getCount();
+		}
+		if (limit <= 0) {
+			return stack;
+		}
 
-            this.onContentsChanged(slot);
-        }
+		if (!this.tempIgnore && !this.canInsert(stack, slot)) {
+			return stack;
+		}
 
-        return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.getCount()-limit) : ItemStack.EMPTY;
+		boolean reachedLimit = stack.getCount() > limit;
+		if (!simulate) {
+			if (existing.isEmpty()) {
+				this.stacks.set(slot, reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, limit) : stack);
+			} else {
+				existing.grow(reachedLimit ? limit : stack.getCount());
+			}
 
-    }
+			this.onContentsChanged(slot);
+		}
 
-    public ItemStack insertItemInternal(int slot, ItemStack stack, boolean simulate){
-        this.tempIgnoreConditions = true;
-        ItemStack result = this.insertItem(slot, stack, simulate);
-        this.tempIgnoreConditions = false;
-        return result;
-    }
+		return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.getCount() - limit) : ItemStack.EMPTY;
 
-    @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate){
-        if(amount <= 0){
-            return ItemStack.EMPTY;
-        }
-        this.validateSlotIndex(slot);
+	}
 
-        ItemStack existing = this.stacks.get(slot);
-        if(!isValid(existing)){
-            return ItemStack.EMPTY;
-        }
+	public ItemStack insertItemIgnoreCondition(int slot, ItemStack stack, boolean simulate) {
+		this.tempIgnore = true;
+		ItemStack result = this.insertItem(slot, stack, simulate);
+		this.tempIgnore = false;
+		return result;
+	}
 
-        int toExtract = Math.min(amount, existing.getMaxStackSize());
-        if(toExtract <= 0){
-            return ItemStack.EMPTY;
-        }
+	@Override
+	public ItemStack extractItem(int slot, int amount, boolean simulate) {
+		if (amount <= 0) {
+			return ItemStack.EMPTY;
+		}
+		this.validateSlotIndex(slot);
 
-        if(!this.tempIgnoreConditions && !this.canExtract(this.getStackInSlot(slot), slot)){
-            return ItemStack.EMPTY;
-        }
+		ItemStack existing = this.stacks.get(slot);
+		if (existing.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
 
-        if(existing.getCount() <= toExtract){
-            if(!simulate){
-                this.stacks.set(slot, ItemStack.EMPTY);
-                this.onContentsChanged(slot);
-            }
-            return existing;
-        }
-        else{
-            if(!simulate){
-                this.stacks.set(slot, ItemHandlerHelper.copyStackWithSize(existing, existing.getCount()-toExtract));
-                this.onContentsChanged(slot);
-            }
-            return ItemHandlerHelper.copyStackWithSize(existing, toExtract);
-        }
-    }
+		int toExtract = Math.min(amount, existing.getMaxStackSize());
+		if (toExtract <= 0) {
+			return ItemStack.EMPTY;
+		}
 
-    public ItemStack extractItemInternal(int slot, int amount, boolean simulate){
-        this.tempIgnoreConditions = true;
-        ItemStack result = this.extractItem(slot, amount, simulate);
-        this.tempIgnoreConditions = false;
-        return result;
-    }
+		if (!this.tempIgnore && !this.canExtract(this.getStackInSlot(slot), slot)) {
+			return ItemStack.EMPTY;
+		}
 
-    public boolean canInsert(ItemStack stack, int slot){
-        return true;
-    }
+		if (existing.getCount() <= toExtract) {
+			if (!simulate) {
+				this.stacks.set(slot, ItemStack.EMPTY);
+				this.onContentsChanged(slot);
+			}
+			return existing;
+		} else {
+			if (!simulate) {
+				this.stacks.set(slot, ItemHandlerHelper.copyStackWithSize(existing, existing.getCount() - toExtract));
+				this.onContentsChanged(slot);
+			}
+			return ItemHandlerHelper.copyStackWithSize(existing, toExtract);
+		}
+	}
 
-    public boolean canExtract(ItemStack stack, int slot){
-        return true;
-    }
-    
-    public static ItemStack setStackSize(ItemStack stack, int size){
-        return setStackSize(stack, size, false);
-    }
+	public ItemStack extractItemIgnoreCondition(int slot, int amount, boolean simulate) {
+		this.tempIgnore = true;
+		ItemStack result = this.extractItem(slot, amount, simulate);
+		this.tempIgnore = false;
+		return result;
+	}
 
-    public static ItemStack setStackSize(ItemStack stack, int size, boolean containerOnEmpty){
-        if(size <= 0){
-            if(isValid(stack) && containerOnEmpty){
-                return stack.getItem().getContainerItem(stack);
-            }
-            else{
-                return ItemStack.EMPTY;
-            }
-        }
-        stack.setCount(size);
-        return stack;
-    }
+	public boolean canInsert(ItemStack stack, int slot) {
+		return true;
+	}
 
-    public static ItemStack addStackSize(ItemStack stack, int size){
-        return addStackSize(stack, size, false);
-    }
+	public boolean canExtract(ItemStack stack, int slot) {
+		return true;
+	}
 
-    public static ItemStack addStackSize(ItemStack stack, int size, boolean containerOnEmpty){
-        return setStackSize(stack, getStackSize(stack)+size, containerOnEmpty);
-    }
-
-    public static boolean isIInvEmpty(NonNullList<ItemStack> slots){
-        for(ItemStack stack : slots){
-            if(isValid(stack)){
-                return false;
-            }
-        }
-
-        return true;
-    }
-    public static int getStackSize(ItemStack stack){
-        if(!isValid(stack)){
-            return 0;
-        }
-        else{
-            return stack.getCount();
-        }
-    }
 }
