@@ -26,22 +26,6 @@ import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
 
-/**
- * User: The Grey Ghost
- * Date: 24/12/2014
- *
- * BlockVariants uses a model which
- * - doesn't occupy the entire 1x1x1m space,
- * - is made up of two pieces,
- * - uses a CUTOUT texture (with seethrough holes)
- * - has variants (can face in four directions, and can be four different colours)
- * We can walk over it without colliding.
- * For background information on blocks see here http://greyminecraftcoder.blogspot.com.au/2014/12/blocks-18.html
- * For a couple of the methods below the Forge guys have marked it as deprecated.  But you still need to override those
- *   "deprecated" block methods.  What they mean is "when you want to find out if a block is (eg) isOpaqueCube(),
- *   don't call block.isOpaqueCube(), call iBlockState.isOpaqueCube() instead".
- * If that doesn't make sense to you yet, don't worry.  Just ignore the "deprecated method" warning.
- */
 public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>{
 
   public BlockTE(Material material, String name)

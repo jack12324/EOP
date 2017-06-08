@@ -29,7 +29,10 @@ public class BlockParticleExciter extends BlockTE<TileEntityParticleExciter> {
 
 	}
 
-
+	@Override
+	protected int getGui(){
+		return ModGuiHandler.PARTICLEEXCITER;
+	}
 
 	// drop items in block as well as block
 	@Override

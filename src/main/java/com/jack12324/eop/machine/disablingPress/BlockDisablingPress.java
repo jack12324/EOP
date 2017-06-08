@@ -24,13 +24,8 @@ public class BlockDisablingPress extends BlockTE<TileEntityDisablingPress> {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) {
-			player.openGui(ExtremeOreProcessing.instance, ModGuiHandler.DISABLINGPRESS, world, pos.getX(), pos.getY(),
-					pos.getZ());
-		}
-		return true;
+	protected int getGui(){
+		return ModGuiHandler.DISABLINGPRESS;
 	}
 
 	// drop items in block as well as block

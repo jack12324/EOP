@@ -29,7 +29,10 @@ public class BlockTriCatalystInfuser extends BlockTE<TileEntityTriCatalystInfuse
 
 	}
 
-	 
+	@Override
+	protected int getGui(){
+		return ModGuiHandler.TRICATALYSTINFUSER;
+	}
 
 
 	// drop items in block as well as block

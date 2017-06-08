@@ -28,20 +28,7 @@ public class BlockCatalystInfuser extends BlockTE<TileEntityCatalystInfuser> {
 		super(Material.ROCK, "catalyst_infuser");
 
 	}
-/*
-	 @Override
-	    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9){
-	        if(!world.isRemote){
-	            TileEntityCatalystInfuser te = (TileEntityCatalystInfuser)world.getTileEntity(pos);
-	            if(te != null){
-	                if(!this.tryUseItemOnTank(player, hand, te.inTank)){
-	                	player.openGui(ExtremeOreProcessing.instance, ModGuiHandler.CATALYSTINFUSER, world, pos.getX(), pos.getY(), pos.getZ());
-	                }
-	            }
-	            return true;
-	        }
-	        return true;
-	    }*/
+
 	@Override
 	protected int getGui(){
 		return ModGuiHandler.CATALYSTINFUSER;

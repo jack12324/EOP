@@ -27,14 +27,9 @@ public class BlockActivationChamber extends BlockTE<TileEntityActivationChamber>
 	
 
 	
-	@Override 
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) 
-	{
-		if (!world.isRemote) 
-		{
-			player.openGui(ExtremeOreProcessing.instance, ModGuiHandler.ACTIVATIONCHAMBER, world, pos.getX(), pos.getY(), pos.getZ());
-		}
-		return true;
+	@Override
+	protected int getGui(){
+		return ModGuiHandler.ACTIVATIONCHAMBER;
 	}
 	
 	//drop items in block as well as block

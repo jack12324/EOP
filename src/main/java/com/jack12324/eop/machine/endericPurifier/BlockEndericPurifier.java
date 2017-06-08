@@ -30,7 +30,10 @@ public class BlockEndericPurifier extends BlockTE<TileEntityEndericPurifier> {
 	}
 
 	 
-
+	@Override
+	protected int getGui(){
+		return ModGuiHandler.ENDERICPURIFIER;
+	}
 
 	// drop items in block as well as block
 	@Override
