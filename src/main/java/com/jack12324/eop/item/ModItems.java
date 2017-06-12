@@ -78,6 +78,9 @@ public class ModItems {
 	public static ItemBase pureNickelEssence;
 	public static ItemBase pureCobaltEssence;
 	public static ItemBase pureTungstenEssence;
+	
+	public static ItemBase speedUpgrade;
+	public static ItemBase energyUpgrade;
 
 	public static ItemBase dragonScale;
 
@@ -161,6 +164,10 @@ public class ModItems {
 		pureNickelEssence = register(new ItemBase("pure_nickel_essence"));
 		pureCobaltEssence = register(new ItemBase("pure_cobalt_essence"));
 		pureTungstenEssence = register(new ItemBase("pure_tungsten_essence"));
+		
+		//upgrades
+		speedUpgrade = register(new ItemBase("speed_upgrade"));
+		energyUpgrade = register(new ItemBase("energy_upgrade"));
 
 		//God tier scales
 		dragonScale = register(new ItemBase("dragon_scale"));

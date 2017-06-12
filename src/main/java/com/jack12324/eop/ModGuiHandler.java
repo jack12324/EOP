@@ -1,8 +1,5 @@
 package com.jack12324.eop;
 
-import com.jack12324.eop.block.pedestal.ContainerPedestal;
-import com.jack12324.eop.block.pedestal.GuiPedestal;
-import com.jack12324.eop.block.pedestal.TileEntityPedestal;
 import com.jack12324.eop.machine.activationChamber.ContainerActivationChamber;
 import com.jack12324.eop.machine.activationChamber.GuiActivationChamber;
 import com.jack12324.eop.machine.activationChamber.TileEntityActivationChamber;
@@ -24,6 +21,9 @@ import com.jack12324.eop.machine.equalizingSmelter.TileEntityEqualizingSmelter;
 import com.jack12324.eop.machine.particleExciter.ContainerParticleExciter;
 import com.jack12324.eop.machine.particleExciter.GuiParticleExciter;
 import com.jack12324.eop.machine.particleExciter.TileEntityParticleExciter;
+import com.jack12324.eop.machine.pedestal.ContainerPedestal;
+import com.jack12324.eop.machine.pedestal.GuiPedestal;
+import com.jack12324.eop.machine.pedestal.TileEntityPedestal;
 import com.jack12324.eop.machine.starHardener.ContainerStarHardener;
 import com.jack12324.eop.machine.starHardener.GuiStarHardener;
 import com.jack12324.eop.machine.starHardener.TileEntityStarHardener;
