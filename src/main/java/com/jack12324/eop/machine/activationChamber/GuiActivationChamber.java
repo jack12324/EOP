@@ -99,7 +99,7 @@ public class GuiActivationChamber extends GuiContainer {
 			hoveringText = powerBar.drawText(mouseX, mouseY);
 
 		// If hoveringText is not empty draw the hovering text
-		if (!hoveringText.isEmpty()) {
+		if (hoveringText!=null && !hoveringText.isEmpty()) {
 			drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
 		}
 
