@@ -29,8 +29,8 @@ public class PowerBar extends Gui {
 
 	final int POWER_XPOS = 8;
 	final int POWER_YPOS = 20;
-	final int POWER_ICON_U = 247; // texture position of POWER icon
-	final int POWER_ICON_V = 147;
+	final int POWER_ICON_U = 0; // texture position of POWER icon
+	final int POWER_ICON_V = 109;
 	final int POWER_WIDTH = 8;
 	final int POWER_HEIGHT = 45;
 
