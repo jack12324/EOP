@@ -52,7 +52,7 @@ public class PowerBar extends Gui {
 			int powerPercentage = (int) (tileEntity.fractionOfPowerRemaining() * 100);
 			hoveringText.add(powerPercentage + "%");
 			hoveringText.add(tileEntity.storage.getEnergyStored() + "/" + tileEntity.storage.getMaxEnergyStored());
-			hoveringText.add(tileEntity.getEnergyChange() + "rf/t");
+			hoveringText.add(tileEntity.getEnergyPerTick() + "rf/t");
 			return (ArrayList<String>) hoveringText;
 		}
 		return null;

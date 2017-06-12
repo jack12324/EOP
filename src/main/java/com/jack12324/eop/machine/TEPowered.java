@@ -1,6 +1,8 @@
 package com.jack12324.eop.machine;
 
 import com.jack12324.eop.util.InventorySlotHelper;
+import com.jack12324.eop.util.Upgrade;
+import com.jack12324.eop.util.UpgradeHelper;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +14,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public abstract class TEPowered extends TEInventory {
-	protected final double COOK_TIME_FOR_COMPLETION = 200;
+	protected final double BASE_TICKS_NEEDED = 200;
+	private double ticksNeeded = BASE_TICKS_NEEDED;
+	protected final double BASE_ENERGY_PER_TICK=50;
+	private double energyPerTick=BASE_ENERGY_PER_TICK;
 	private int burnTimeInitialValue;
 	private int burnTimeRemaining;
 	protected int[] inProgressTime;
@@ -22,9 +27,7 @@ public abstract class TEPowered extends TEInventory {
 	private int fuelMultiplier = 1;
 	private boolean hasBase;
 	protected boolean usesFuel;
-	public int energyUse = 50;
 	private int oldEnergy;
-	private int energyChange=0;
 
 	public EOPEnergyStorage storage;
 
@@ -35,23 +38,10 @@ public abstract class TEPowered extends TEInventory {
 	public void setFuelMultiplier(int fuelMultiplier) {
 		this.fuelMultiplier = fuelMultiplier;
 	}
-	
-	protected double getPowerToUse(){
-		return getEnergyUse() * Math.pow(1.2589254117942, (double)this.getSpeedSlots()-(double)this.getEnergySlots())*getSpeedMultiplier();
-	}
 
-	public int getEnergyUse() {
-		return energyUse;
-	}
-	
-	public int getEnergyChange(){
-		return energyChange;
-	}
-
-	public double getSpeedMultiplier() {
-		return this.baseSpeed* Math.pow(1.2589254117942, (double)this.getSpeedSlots());
-	}
-
+public double getEnergyPerTick(){
+	return energyPerTick;
+}
 	public int getFuelMultiplier() {
 		return this.fuelMultiplier;
 	}
@@ -104,13 +94,13 @@ public abstract class TEPowered extends TEInventory {
 	public int secondsOfFuelRemaining() {
 		if (burnTimeRemaining <= 0 || fuelMultiplier <= 0)
 			return 0;
-		return(int)( burnTimeRemaining / (20 * fuelMultiplier * getSpeedMultiplier()));
+		return(int)( burnTimeRemaining / (20 * fuelMultiplier * BASE_TICKS_NEEDED/ticksNeeded));
 	}
 
 	/** Returns the amount of cook time completed on the currently cooking
 	 * item. */
 	public double fractionOfActivationTimeComplete(int index) {
-		double fraction = this.inProgressTime[index] / (double) COOK_TIME_FOR_COMPLETION;
+		double fraction = this.inProgressTime[index] / ticksNeeded;
 		return MathHelper.clamp(fraction, 0.0, 1.0);
 	}
 
@@ -122,7 +112,8 @@ public abstract class TEPowered extends TEInventory {
 			compound.setIntArray("ProgressTime", this.inProgressTime);
 			compound.setInteger("burnTimeInitialValue", burnTimeInitialValue);
 			compound.setBoolean("hasBase", this.hasBase);
-			compound.setInteger("energyChange", energyChange);
+			compound.setDouble("energyPerTick", energyPerTick);
+			compound.setDouble("ticksNeeded", ticksNeeded);
 		}
 		this.storage.writeToNBT(compound);
 		super.writeSyncableNBT(compound, type);
@@ -137,19 +128,22 @@ public abstract class TEPowered extends TEInventory {
 			this.burnTimeRemaining = compound.getInteger("BurnTime");
 			this.hasBase = compound.getBoolean("hasBase");
 			this.inProgressTime = compound.getIntArray("ProgressTime").clone();
-			this.energyChange=compound.getInteger("energyChange");
+			this.energyPerTick=compound.getDouble("energyPerTick");
+			this.ticksNeeded=compound.getDouble("ticksNeeded");
 		}
 		this.storage.readFromNBT(compound);
 		super.readSyncableNBT(compound, type);
 	}
+	public int getUpgrade(Upgrade type){
+		switch(type){
+			case SPEED:
+				return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(0)).getCount();
+			case ENERGY:
+				return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(1)).getCount();
+			default:
+				return 0;	}	
+	}
 	
-	protected int getSpeedSlots(){
-		return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(0)).getCount();
-	}
-	protected int getEnergySlots(){
-		return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(1)).getCount();
-	}
-
 	public void superUpdate() {
 		super.updateEntity();
 	}
@@ -170,8 +164,7 @@ public abstract class TEPowered extends TEInventory {
 			else {
 				resetTime();
 			}
-			
-
+			this.resetUpgradeStats();
 			oldEnergyCheck();
 			oldActiveCheck(active);//TODO moved this inside isRemote structure not sure if right?
 			oldProgressTimeCheck();
@@ -194,7 +187,6 @@ public abstract class TEPowered extends TEInventory {
 
 	protected void oldEnergyCheck() {
 		if (this.oldEnergy != this.storage.getEnergyStored() && this.sendUpdateWithInterval()) {
-			this.energyChange=(this.storage.getEnergyStored()-this.oldEnergy)/this.ticksElapsed;//adding /ticksElapsed will get right rf/t I think
 			this.oldEnergy = this.storage.getEnergyStored();
 			
 		}
@@ -229,7 +221,7 @@ public abstract class TEPowered extends TEInventory {
 			// If fuel is available, keep cooking the item, otherwise start
 			// "uncooking" it at double speed
 			if (burning && powered) {
-				inProgressTime[0] += getSpeedMultiplier();
+				inProgressTime[0] += 1;
 				active = true;
 			}
 			else {
@@ -241,7 +233,7 @@ public abstract class TEPowered extends TEInventory {
 
 			// If cookTime has reached maxCookTime smelt the item and reset
 			// cookTime
-			if (inProgressTime[0] >= COOK_TIME_FOR_COMPLETION) {
+			if (inProgressTime[0] >= ticksNeeded) {
 				useItem();
 				inProgressTime[0] = 0;
 				System.out.println("3");
@@ -255,10 +247,9 @@ public abstract class TEPowered extends TEInventory {
 
 	protected boolean usePower() {
 		boolean powered = false;
-		double amountToUse = this.getPowerToUse();
 
-		if (this.storage.getEnergyStored() >= amountToUse) {
-			this.storage.extractEnergyInternal((int)amountToUse, false);
+		if (this.storage.getEnergyStored() >=getEnergyPerTick() ) {
+			this.storage.extractEnergyInternal((int)getEnergyPerTick(), false);
 			powered = true;
 
 		}
@@ -447,6 +438,10 @@ System.out.println(1);
 			return net.minecraftforge.fml.common.registry.GameRegistry.getFuelValue(stack);
 		}
 	}
+	protected void resetUpgradeStats(){
+		ticksNeeded = UpgradeHelper.getTicks(this, BASE_TICKS_NEEDED);
+		energyPerTick = UpgradeHelper.getEnergyPerTick(this, BASE_ENERGY_PER_TICK);
+	}
 
 	/** determines if an item is acceptable fuel for the machine */
 	public boolean isItemFuel(ItemStack stack) {
@@ -498,41 +493,4 @@ System.out.println(1);
 	public boolean isRedstoneToggle() {
 		return true;
 	}
-/*
-	public int getField(int id) {
-		if (id == 0)
-			return this.burnTimeRemaining;
-		else if (id == 1)
-			return this.burnTimeInitialValue;
-		else if (id == 2) {
-			if (hasBase)
-				return 1;
-			else
-				return 2;
-		}
-		else if (id > 2 && id < inProgressTime.length + 3)
-			return this.inProgressTime[id - 3];
-		else
-			return 0;
-	}
-
-	public void setField(int id, int value) {
-		if (id == 0)
-			this.burnTimeRemaining = value;
-		else if (id == 1)
-			this.burnTimeInitialValue = value;
-		else if (id == 2) {
-			if (value == 1)
-				this.hasBase = true;
-			else
-				this.hasBase = false;
-		}
-		else if (id > 2 && id < inProgressTime.length + 3)
-			this.inProgressTime[id - 3] = value;
-	}
-
-	public int getFieldCount() {
-		return inProgressTime.length + 3;
-	}
-*/
 }
