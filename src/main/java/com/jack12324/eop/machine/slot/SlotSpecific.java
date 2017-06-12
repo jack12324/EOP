@@ -38,6 +38,7 @@ public class SlotSpecific extends SlotItemHandler {
 
 	@Override
 	public int getSlotStackLimit() {
+		System.out.println(limit);
 		return limit;
 
 	}

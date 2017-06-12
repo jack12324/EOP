@@ -42,7 +42,7 @@ public InventorySlotHelper(InventorySlotHelper slots, int upgrade){
 	this(slots.getInSlotSize(),slots.getOutSlotSize(),slots.getFuelSlotSize(),slots.getBaseSlotSize(),slots.getOtherSlotSize());
 	this.upgrade = new int[upgrade];
 	for(int i=0; i<upgrade; i++){
-		this.upgrade[i]=this.getTotalSize()-this.getUpgradeSlotSize()-1+i;
+		this.upgrade[i]=this.getTotalSize()-this.getUpgradeSlotSize()+i;
 	}
 }
 public int getInSlotIndex(int i){
