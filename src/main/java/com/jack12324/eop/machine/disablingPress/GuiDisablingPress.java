@@ -58,7 +58,7 @@ public class GuiDisablingPress extends GuiContainer{
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, 175, 165);
 		
 		// get cook progress as a double between 0 and 1
-		double cookProgress = tileEntity.fractionOfActivationTimeComplete(0);
+		double cookProgress = tileEntity.fractionOfProgressTimeComplete(0);
 		// draw the cook progress bar
 		drawTexturedModalRect(guiLeft + COOK_BAR_XPOS, guiTop + COOK_BAR_YPOS, COOK_BAR_ICON_U, COOK_BAR_ICON_V, (int)(cookProgress * COOK_BAR_WIDTH), COOK_BAR_HEIGHT);
 		
@@ -86,7 +86,7 @@ public class GuiDisablingPress extends GuiContainer{
 		// If the mouse is over the progress bar add the progress bar hovering text
 		if (isInRect(guiLeft + COOK_BAR_XPOS, guiTop + COOK_BAR_YPOS, COOK_BAR_WIDTH, COOK_BAR_HEIGHT, mouseX, mouseY)){
 			hoveringText.add("Progress:");
-			int cookPercentage =(int)(tileEntity.fractionOfActivationTimeComplete(0) * 100);
+			int cookPercentage =(int)(tileEntity.fractionOfProgressTimeComplete(0) * 100);
 			hoveringText.add(cookPercentage + "%");
 			}
 

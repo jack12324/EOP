@@ -98,7 +98,7 @@ public double getEnergyPerTick(){
 
 	/** Returns the amount of cook time completed on the currently cooking
 	 * item. */
-	public double fractionOfActivationTimeComplete(int index) {
+	public double fractionOfProgressTimeComplete(int index) {
 		double fraction = this.inProgressTime[index] / ticksNeeded;
 		return MathHelper.clamp(fraction, 0.0, 1.0);
 	}

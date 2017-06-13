@@ -70,7 +70,7 @@ public class GuiEqualizingSmelter extends GuiContainer {
 		// get cook progress as a double between 0 and 1
 		double[] cookProgress = new double[4];
 		for (int i = 0; i < 4; i++) {
-			cookProgress[i] = tileEntity.fractionOfActivationTimeComplete(i);
+			cookProgress[i] = tileEntity.fractionOfProgressTimeComplete(i);
 			if (i % 2 != 0) {
 				int xOffset = (int) ((1.0 - cookProgress[i]) * COOK_BAR_WIDTH);
 				drawTexturedModalRect(guiLeft + COOK_BAR_XPOS[i] + xOffset, guiTop + COOK_BAR_YPOS[i],
@@ -110,7 +110,7 @@ public class GuiEqualizingSmelter extends GuiContainer {
 			if (isInRect(guiLeft + COOK_BAR_XPOS[i], guiTop + COOK_BAR_YPOS[i], COOK_BAR_WIDTH, COOK_BAR_HEIGHT, mouseX,
 					mouseY)) {
 				hoveringText.add("Progress:");
-				int cookPercentage = (int) (tileEntity.fractionOfActivationTimeComplete(i) * 100);
+				int cookPercentage = (int) (tileEntity.fractionOfProgressTimeComplete(i) * 100);
 				hoveringText.add(cookPercentage + "%");
 			}
 		}

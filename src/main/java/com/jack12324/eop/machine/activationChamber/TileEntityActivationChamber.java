@@ -28,7 +28,7 @@ public class TileEntityActivationChamber extends TEPowered  {
 	List<Integer> fuelTime = new ArrayList<Integer>(Arrays.asList(400,4000));
 
 	public TileEntityActivationChamber() {
-		super("activationChamber",new InventorySlotHelper(1,1, 1, 0,0),recipes);
+		super("activation_chamber",new InventorySlotHelper(1,1, 1, 0,0),recipes);
 	}
 
 	@Override

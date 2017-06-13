@@ -48,7 +48,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable{
     }
 
     public String getDisplayedName(){
-        return I18n.format("container."+name+ ".name");
+        return I18n.format("tile."+name+ ".name");
     }
 
     @Override

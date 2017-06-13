@@ -12,10 +12,9 @@ public class TileEntityStarHardener extends TEFluidUser {
 
 	private static StarHardenerRecipes recipes = StarHardenerRecipes.INSTANCE;
 
-	private String starHardenerCustomName = "container.starHardener.name";
 
 	public TileEntityStarHardener() {
-		super("starHardener",new InventorySlotHelper(1,1, 0, 1,0),recipes,InitFluids.fluidStarWater,100,4000);
+		super("star_hardener",new InventorySlotHelper(1,1, 0, 1,0),recipes,InitFluids.fluidStarWater,100,4000);
 	}
 	
 

@@ -2,6 +2,7 @@ package com.jack12324.eop.machine.activationChamber;
 
 
 import com.jack12324.eop.machine.MachineContainer;
+import com.jack12324.eop.machine.slot.SlotItemHandlerEOP;
 import com.jack12324.eop.machine.slot.SlotOutput;
 import com.jack12324.eop.machine.slot.SlotSpecific;
 
@@ -13,7 +14,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerActivationChamber extends MachineContainer {
     
@@ -23,7 +23,7 @@ public class ContainerActivationChamber extends MachineContainer {
 	public ContainerActivationChamber(InventoryPlayer playerInv, final TileEntityActivationChamber activationChamber) {
 		this.activationChamber = activationChamber;
 		
-		addSlotToContainer(new SlotItemHandler(activationChamber.slots, 0, 26, 30) {
+		addSlotToContainer(new SlotItemHandlerEOP(activationChamber.slots, 0, 26, 30) {
 			@Override
 			public void onSlotChanged() {
 				activationChamber.markDirty();
