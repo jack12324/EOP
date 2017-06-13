@@ -27,7 +27,7 @@ public class GuiActivationChamber extends GuiContainer {
 		super(inventorySlotsIn);
 		this.playerInv = playerInv;
 		this.tileEntity = tileEntity;
-		powerBar=new PowerBar(tileEntity,guiLeft,guiTop);
+		
 	}
 
 	// some [x,y] coordinates of graphical elements

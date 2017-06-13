@@ -6,6 +6,7 @@ import java.util.List;
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.util.FluidBar;
+import com.jack12324.eop.util.PowerBar;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -21,7 +22,7 @@ public class GuiCatalystInfuser extends GuiContainer {
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID, "textures/gui/catalyst_infuser.png");
 	private FluidBar fb;
 	private FluidBar fb2;
-
+	PowerBar powerBar;
 	public GuiCatalystInfuser(Container inventorySlotsIn, InventoryPlayer playerInv, TileEntityCatalystInfuser tileEntity) {
 		super(inventorySlotsIn);
 		this.playerInv = playerInv;
@@ -35,13 +36,6 @@ public class GuiCatalystInfuser extends GuiContainer {
 	final int COOK_BAR_ICON_V = 172;
 	final int COOK_BAR_WIDTH = 68;
 	final int COOK_BAR_HEIGHT = 12;
-
-	final int POWER_XPOS = 9;
-	final int POWER_YPOS = 21;
-	final int POWER_ICON_U = 247; // texture position of POWER icon
-	final int POWER_ICON_V = 147;
-	final int POWER_WIDTH = 8;
-	final int POWER_HEIGHT = 45;
 	
 	final int FLUID_XPOS=25;
 	final int FLUID_YPOS=18;
@@ -69,10 +63,7 @@ public class GuiCatalystInfuser extends GuiContainer {
 		// draw the cook progress bar
 		drawTexturedModalRect(guiLeft + COOK_BAR_XPOS, guiTop + COOK_BAR_YPOS, COOK_BAR_ICON_U, COOK_BAR_ICON_V, (int) (cookProgress * COOK_BAR_WIDTH), COOK_BAR_HEIGHT);
 
-		// draw the fuel remaining bar for the power bar
-		double powerRemaining = tileEntity.fractionOfPowerRemaining();
-		int yOffset = (int) ((1.0 - powerRemaining) * POWER_HEIGHT);
-		drawTexturedModalRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS + yOffset, POWER_ICON_U, POWER_ICON_V + yOffset, POWER_WIDTH, POWER_HEIGHT - yOffset);
+		
 		
 		//FluidBar fb = new FluidBar(this.tileEntity.inTank,guiLeft+FLUID_XPOS, guiTop+FLUID_YPOS);
 		fb.draw();
@@ -98,12 +89,7 @@ public class GuiCatalystInfuser extends GuiContainer {
 
 		
 
-		if (isInRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS, POWER_WIDTH, POWER_HEIGHT, mouseX, mouseY)) {
-			hoveringText.add("Energy Stored:");
-			int powerPercentage = (int) (tileEntity.fractionOfPowerRemaining() * 100);
-			hoveringText.add(powerPercentage + "%");
-			hoveringText.add(tileEntity.storage.getEnergyStored() + "/" + tileEntity.storage.getMaxEnergyStored());
-			hoveringText.add(tileEntity.energyUse + "rf/t");
+		
 		}
 		
 		if(hoveringText==null||hoveringText.isEmpty())
