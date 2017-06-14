@@ -3,74 +3,86 @@ package com.jack12324.eop.machine;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jack12324.eop.ExtremeOreProcessing;
-import com.jack12324.eop.block.ModBlocks;
-import com.jack12324.eop.machine.starHardener.TileEntityStarHardener;
 import com.jack12324.eop.util.FluidBar;
 import com.jack12324.eop.util.PowerBar;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiBase extends GuiContainer {
 	private InventoryPlayer playerInv;
 	private TEPowered tileEntity;
 	private ResourceLocation BG_TEXTURE;
-	private int baseWidth;
-	private int baseHeight;
+	private int baseWidth = 175;
+	private int baseHeight = 165;
 	private PowerBar powerBar;
 	private FluidBar fluidBar;
 	private int progressBar[];
 	private int fuelBar[];
-	private int tankX = -1;
-	private int tankY = -1;
-	boolean fluid =false;
-	boolean fuel=false;
+	private int tankX = 25;
+	private int tankY = 18;
+	boolean fluid = false;
+	boolean fuel = false;
 
-	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity, String resourceLocation,
-			int baseWidth, int baseHeight, int[] progressVals) {
+	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+			ResourceLocation resourceLocation, int[] progressVals) {
 		super(inventorySlotsIn);
-		BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID, resourceLocation);
+		BG_TEXTURE = resourceLocation;
 		this.playerInv = playerInv;
 		this.tileEntity = tileEntity;
-		this.baseHeight = baseHeight;
-		this.baseWidth = baseWidth;
 		this.progressBar = new int[progressVals.length];
 		for (int i = 0; i < progressBar.length; i++)
 			this.progressBar[i] = progressVals[i];
-		
+		if (tileEntity instanceof TEFluidUser)
+			fluid = true;
+
 	}
 
-	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity, String resourceLocation,
-			int baseHeight, int baseWidth, int[] progressVals, int tankX, int tankY) {
+	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+			ResourceLocation resourceLocation, int baseWidth, int baseHeight, int[] progressVals) {
+		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, progressVals);
+		this.baseHeight = baseHeight;
+		this.baseWidth = baseWidth;
+	}
+
+	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+			ResourceLocation resourceLocation, int baseHeight, int baseWidth, int[] progressVals, int tankX,
+			int tankY) {
 		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, baseHeight, baseWidth, progressVals);
 		this.tankX = tankX;
 		this.tankY = tankY;
-		fluid =true;
 
 	}
 
-	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity, String resourceLocation,
-			int baseHeight, int baseWidth, int[] progressVals, int[] fuelVals) {
+	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+			ResourceLocation resourceLocation, int baseHeight, int baseWidth, int[] progressVals, int[] fuelVals) {
 		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, baseHeight, baseWidth, progressVals);
 		this.fuelBar = new int[fuelVals.length];
 		for (int i = 0; i < fuelBar.length; i++)
 			this.fuelBar[i] = fuelVals[i];
-		fuel=true;
+		fuel = true;
 
 	}
-	
+
+	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+			ResourceLocation resourceLocation, int[] progressVals, int[] fuelVals) {
+		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, progressVals);
+		this.fuelBar = new int[fuelVals.length];
+		for (int i = 0; i < fuelBar.length; i++)
+			this.fuelBar[i] = fuelVals[i];
+		fuel = true;
+
+	}
+
 	@Override
-	public void initGui(){
+	public void initGui() {
 		super.initGui();
-		powerBar=new PowerBar(tileEntity,guiLeft,guiTop);
-		if(fluid)
+		powerBar = new PowerBar(tileEntity, guiLeft, guiTop);
+		if (fluid)
 			fluidBar = new FluidBar(((TEFluidUser) tileEntity).inTank, guiLeft + tankX, guiTop + tankY);
 	}
 
@@ -84,7 +96,7 @@ public class GuiBase extends GuiContainer {
 		if (fuel)
 			this.drawFuelBar();
 		this.drawProgressBar();
-		//this.drawPowerBar();
+		// this.drawPowerBar();
 		if (fluid)
 			this.drawFluidBar();
 		this.drawPowerBar();
@@ -130,7 +142,8 @@ public class GuiBase extends GuiContainer {
 			int cookPercentage = (int) (tileEntity.fractionOfProgressTimeComplete(0) * 100);
 			hoveringText.add(cookPercentage + "%");
 		}
-		if (fuel&&isInRect(guiLeft + this.fuelBar[0], guiTop + this.fuelBar[1], this.fuelBar[4], this.fuelBar[5], mouseX, mouseY)) {
+		if (fuel && isInRect(guiLeft + this.fuelBar[0], guiTop + this.fuelBar[1], this.fuelBar[4], this.fuelBar[5],
+				mouseX, mouseY)) {
 			hoveringText.add("Fuel Time:");
 			hoveringText.add(tileEntity.secondsOfFuelRemaining() + "s");
 		}
@@ -138,18 +151,26 @@ public class GuiBase extends GuiContainer {
 		if (hoveringText == null || hoveringText.isEmpty())
 			hoveringText = powerBar.drawText(mouseX, mouseY);
 
-		if (fluid&&(hoveringText == null || hoveringText.isEmpty()))
-			hoveringText = (ArrayList<String>) fluidBar.drawText(mouseX, mouseY);
+		if (fluid && (hoveringText == null || hoveringText.isEmpty()))
+			hoveringText = fluidText(mouseX, mouseY);
 
-		// If hoveringText is not empty draw the hovering text
-		if (hoveringText != null && !hoveringText.isEmpty()) {
-			drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
-		}
+		this.drawText(hoveringText, mouseX, mouseY);
 
 	}
 
 	public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
 		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
+	}
+
+	protected ArrayList<String> fluidText(int mouseX, int mouseY) {
+		return fluidBar.drawText(mouseX, mouseY);
+	}
+
+	public void drawText(List<String> hoveringText, int mouseX, int mouseY) {
+		// If hoveringText is not empty draw the hovering text
+		if (hoveringText != null && !hoveringText.isEmpty()) {
+			drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
+		}
 	}
 
 }

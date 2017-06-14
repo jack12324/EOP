@@ -28,36 +28,39 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = ExtremeOreProcessing.modID, name = ExtremeOreProcessing.name, version = ExtremeOreProcessing.version)
 public class ExtremeOreProcessing {
-	//test
-	//basic Mod info
+	// test
+	// basic Mod info
 	public static final String modID = "eop";
 	public static final String name = "Extreme Ore Processing";
 	public static final String version = "0.2.0";
 	public static EOPTab creativeTab = new EOPTab();
-	
+
 	public static final Logger LOGGER = LogManager.getLogger("Extreme Ore Processing");
-	
-	//tool materials
-	public static final Item.ToolMaterial tungstenToolMaterial = EnumHelper.addToolMaterial("TUNGSTEN", 3, 2000, 10, 4, 20);
-	public static final ItemArmor.ArmorMaterial tungstenArmorMaterial = EnumHelper.addArmorMaterial("TUNGSTEN", modID + ":tungsten", 35, new int[]{4,9,7,4}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0f);
-	public static final ItemArmor.ArmorMaterial cobaltArmorMaterial = EnumHelper.addArmorMaterial("COBALT", modID + ":cobalt", 20, new int[]{5, 10, 8, 5}, 9 , SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0f);
+
+	// tool materials
+	public static final Item.ToolMaterial tungstenToolMaterial = EnumHelper.addToolMaterial("TUNGSTEN", 3, 2000, 10, 4,
+			20);
+	public static final ItemArmor.ArmorMaterial tungstenArmorMaterial = EnumHelper.addArmorMaterial("TUNGSTEN",
+			modID + ":tungsten", 35, new int[] { 4, 9, 7, 4 }, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0f);
+	public static final ItemArmor.ArmorMaterial cobaltArmorMaterial = EnumHelper.addArmorMaterial("COBALT",
+			modID + ":cobalt", 20, new int[] { 5, 10, 8, 5 }, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0f);
 	public static final Item.ToolMaterial cactusToolMaterial = EnumHelper.addToolMaterial("CACTUS", 3, 2000, 10, 4, 20);
 	public static boolean teslaLoaded;
-	
+
 	@Mod.Instance(modID)
 	public static ExtremeOreProcessing instance;
-	
+
 	static {
 		FluidRegistry.enableUniversalBucket(); // Must be called before preInit
 	}
-	
+
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		//modItems needs to be before ModBlocks or drops won't work properly
+		// modItems needs to be before ModBlocks or drops won't work properly
 		System.out.println(name + " is loading!");
-		
-		 teslaLoaded = Loader.isModLoaded("tesla");
-		
+
+		teslaLoaded = Loader.isModLoaded("tesla");
+
 		ModItems.init();
 		ModBlocks.init();
 		ModItems.initSeeds();
@@ -67,19 +70,18 @@ public class ExtremeOreProcessing {
 		PacketHandler.init();
 		proxy.preInit(event);
 	}
-	
+
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		ModRecipes.init();
 	}
-	
+
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		
+
 	}
-	
+
 	@SidedProxy(serverSide = "com.jack12324.eop.proxy.CommonProxy", clientSide = "com.jack12324.eop.proxy.ClientProxy")
 	public static CommonProxy proxy;
-	
 
 }

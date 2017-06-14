@@ -20,7 +20,7 @@ public class BlockParticleExciter extends BlockTE<TileEntityParticleExciter> {
 	}
 
 	@Override
-	protected int getGui(){
+	protected int getGui() {
 		return ModGuiHandler.PARTICLEEXCITER;
 	}
 

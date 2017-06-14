@@ -10,22 +10,18 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ActivationChamberRecipes extends EOPRecipes{
+public class ActivationChamberRecipes extends EOPRecipes {
 	public static ActivationChamberRecipes INSTANCE = new ActivationChamberRecipes();
-	//the list of activation results
+	// the list of activation results
 	private final Map<ItemStack[], ItemStack> activationList = Maps.<ItemStack[], ItemStack>newHashMap();
-    
- 
-    
-    public ActivationChamberRecipes()
-    {
-        
 
-        
-    }
+	public ActivationChamberRecipes() {
 
-    /** Adds a activation recipe, where the input item is an instance of
-	 * Block. */
+	}
+
+	/**
+	 * Adds a activation recipe, where the input item is an instance of Block.
+	 */
 	public void addActivationRecipeForBlock(Block[] input, ItemStack stack, int[] number) {
 		Item[] itemInputs = new Item[input.length];
 		for (int i = 0; i < itemInputs.length; i++) {
@@ -43,17 +39,20 @@ public class ActivationChamberRecipes extends EOPRecipes{
 		this.addActivationRecipe(input2, stack);
 	}
 
-	/** Adds a activation recipe using an ItemStack as the input for the
-	 * recipe. */
+	/**
+	 * Adds a activation recipe using an ItemStack as the input for the recipe.
+	 */
 	public void addActivationRecipe(ItemStack[] input, ItemStack stack) {
 		if (getResult(input) != ItemStack.EMPTY) {
-			net.minecraftforge.fml.common.FMLLog.info("Ignored activation recipe with conflicting input: " + input + " = " + stack);
+			net.minecraftforge.fml.common.FMLLog
+					.info("Ignored activation recipe with conflicting input: " + input + " = " + stack);
 			return;
 		}
 		this.activationList.put(input, stack);
 	}
 
 	/** Returns the activation result of an item. */
+	@Override
 	public ItemStack getResult(ItemStack[] stack) {
 		for (Entry<ItemStack[], ItemStack> entry : this.activationList.entrySet()) {
 			if (this.compareItemStacks(stack, entry.getKey())) {
@@ -64,24 +63,27 @@ public class ActivationChamberRecipes extends EOPRecipes{
 		return ItemStack.EMPTY;
 	}
 
-	/** Compares two itemstacks to ensure that they are the same. This checks 
-	 * both the item and the metadata of the item. */
+	/**
+	 * Compares two itemstacks to ensure that they are the same. This checks
+	 * both the item and the metadata of the item.
+	 */
 	private boolean compareItemStacks(ItemStack[] stack, ItemStack[] stack2) {
 		boolean size = stack.length == stack2.length;
 		boolean equal = true;
 		if (size) {
 			for (int i = 0; i < stack.length; i++) {
 				if (equal) {
-					equal=false;
+					equal = false;
 					for (int j = 0; j < stack.length; j++) {
-						if (stack2[j].getItem() == stack[i].getItem()&& (stack2[j].getMetadata() == 32767 || stack2[j].getMetadata() == stack[i].getMetadata()))
+						if (stack2[j].getItem() == stack[i].getItem() && (stack2[j].getMetadata() == 32767
+								|| stack2[j].getMetadata() == stack[i].getMetadata()))
 							equal = true;
 
 					}
 				}
 			}
 		}
-		return (size&&equal);
+		return (size && equal);
 	}
 
 	public Map<ItemStack[], ItemStack> getActivationList() {

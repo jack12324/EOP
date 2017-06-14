@@ -10,17 +10,17 @@ import net.minecraft.item.Item;
 public class BlockDustOre extends BlockModOre {
 
 	private Item drop;
-	private int meta=0;
+	private int meta = 0;
 	private int least_quantity;
 	private int most_quantity;
 
-	
-	public BlockDustOre(Material material, String name, String harvestTool, int harvestLevel, Item drop, int least, int most, float hardness, float resistance, SoundType sound) {
+	public BlockDustOre(Material material, String name, String harvestTool, int harvestLevel, Item drop, int least,
+			int most, float hardness, float resistance, SoundType sound) {
 		super(material, name, harvestTool, harvestLevel, hardness, resistance, sound);
 		this.drop = drop;
 		this.least_quantity = least;
 		this.most_quantity = most;
-		
+
 	}
 
 	@Override
@@ -30,14 +30,14 @@ public class BlockDustOre extends BlockModOre {
 
 	@Override
 	public int damageDropped(IBlockState blockstate) {
-	    return this.meta;
+		return this.meta;
 	}
 
 	@Override
 	public int quantityDropped(IBlockState blockstate, int fortune, Random random) {
-	    if (this.least_quantity >= this.most_quantity)
-	        return this.least_quantity;
-	    return this.least_quantity + random.nextInt(this.most_quantity - this.least_quantity + fortune + 1);
+		if (this.least_quantity >= this.most_quantity)
+			return this.least_quantity;
+		return this.least_quantity + random.nextInt(this.most_quantity - this.least_quantity + fortune + 1);
 	}
 
 }

@@ -20,9 +20,10 @@ public class BlockDualCatalystInfuser extends BlockTE<TileEntityDualCatalystInfu
 	}
 
 	@Override
-	protected int getGui(){
+	protected int getGui() {
 		return ModGuiHandler.DUALCATALYSTINFUSER;
 	}
+
 	// drop items in block as well as block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {

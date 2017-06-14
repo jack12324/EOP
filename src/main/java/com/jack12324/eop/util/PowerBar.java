@@ -5,13 +5,9 @@ import java.util.List;
 
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.machine.TEPowered;
-import com.jack12324.eop.machine.activationChamber.TileEntityActivationChamber;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class PowerBar extends Gui {
@@ -19,7 +15,8 @@ public class PowerBar extends Gui {
 	private TEPowered tileEntity;
 	int guiLeft;
 	int guiTop;
-	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID, "textures/gui/fluid_bar.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
+			"textures/gui/fluid_bar.png");
 
 	public PowerBar(TEPowered tileEntity, int guiLeft, int guiTop) {
 		this.tileEntity = tileEntity;
@@ -52,7 +49,7 @@ public class PowerBar extends Gui {
 			int powerPercentage = (int) (tileEntity.fractionOfPowerRemaining() * 100);
 			hoveringText.add(powerPercentage + "%");
 			hoveringText.add(tileEntity.storage.getEnergyStored() + "/" + tileEntity.storage.getMaxEnergyStored());
-			hoveringText.add(tileEntity.getEnergyPerTick() + "rf/t");
+			hoveringText.add((int) tileEntity.getEnergyPerTick() + "rf/t");
 			return (ArrayList<String>) hoveringText;
 		}
 		return null;

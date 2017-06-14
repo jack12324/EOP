@@ -1,34 +1,24 @@
 package com.jack12324.eop.machine.pedestal;
 
-import javax.annotation.Nullable;
-
 import com.jack12324.eop.fluids.InitFluids;
 import com.jack12324.eop.machine.BlockTE;
-import com.jack12324.eop.machine.EOPRecipes;
 import com.jack12324.eop.machine.TEInventory;
-import com.jack12324.eop.machine.TETickingMachine.NBTType;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class TileEntityPedestal extends TEInventory {
 
 	public TileEntityPedestal() {
-		super(new InventorySlotHelper(1,0,0,0,0), "pedestal");
+		super(new InventorySlotHelper(1, 0, 0, 0, 0), "pedestal");
 	}
 
 	private Fluid dragonSoul = InitFluids.fluidDragonSoul;
@@ -65,7 +55,7 @@ public class TileEntityPedestal extends TEInventory {
 	public void updateEntity() {
 		super.updateEntity();
 		boolean active = false;
-		if (!world.isRemote){
+		if (!world.isRemote) {
 			active = this.useLogic(canUse());
 			oldFluidCheck();
 		}
@@ -83,7 +73,9 @@ public class TileEntityPedestal extends TEInventory {
 
 	protected boolean canUse() {
 
-		if (this.slots.getStackInSlot(0).isEmpty() || !(this.slots.getStackInSlot(0).getItem() == (Item.getItemFromBlock(Blocks.DRAGON_EGG))) || this.tank.getFluidAmount() >= tank.getCapacity())
+		if (this.slots.getStackInSlot(0).isEmpty()
+				|| !(this.slots.getStackInSlot(0).getItem() == (Item.getItemFromBlock(Blocks.DRAGON_EGG)))
+				|| this.tank.getFluidAmount() >= tank.getCapacity())
 
 			return false;
 
@@ -103,8 +95,7 @@ public class TileEntityPedestal extends TEInventory {
 			if (fillTick == 4) {
 				this.tank.fillInternal(new FluidStack(InitFluids.fluidDragonSoul, 1), true);
 				fillTick = 1;
-			}
-			else
+			} else
 				fillTick++;
 		}
 

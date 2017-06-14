@@ -37,7 +37,7 @@ public class GuiEqualizingSmelter extends GuiContainer {
 	final int[] COOK_BAR_ICON_V = { 88, 33, 52, 70 };
 	final int COOK_BAR_WIDTH = 25;
 	final int COOK_BAR_HEIGHT = 16;
-	
+
 	final int DUST_XPOS = 82;
 	final int DUST_YPOS = 24;
 	final int DUST_ICON_U = 180; // texture position of flame icon
@@ -79,7 +79,6 @@ public class GuiEqualizingSmelter extends GuiContainer {
 				drawTexturedModalRect(guiLeft + COOK_BAR_XPOS[i], guiTop + COOK_BAR_YPOS[i], COOK_BAR_ICON_U,
 						COOK_BAR_ICON_V[i], (int) (cookProgress[i] * COOK_BAR_WIDTH), COOK_BAR_HEIGHT);
 		}
-		
 
 		// extraFirestone slot
 		double dustProgress = tileEntity.fractionOfDustProgress();
@@ -127,21 +126,19 @@ public class GuiEqualizingSmelter extends GuiContainer {
 				hoveringText.add("Smelter Mode: Equalizing");
 		}
 
-		
 		// hovering text for firestone slot
 		if (isInRect(guiLeft + DUST_XPOS, guiTop + DUST_YPOS, DUST_WIDTH, DUST_HEIGHT, mouseX, mouseY)) {
 			hoveringText.add("Progress:");
 			int dustPercentage = (int) (tileEntity.fractionOfDustProgress() * 100);
 			hoveringText.add(dustPercentage + "%");
 		}
-		
-		if (isInRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS, POWER_WIDTH, POWER_HEIGHT, mouseX,
-				mouseY)) {
+
+		if (isInRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS, POWER_WIDTH, POWER_HEIGHT, mouseX, mouseY)) {
 			hoveringText.add("Energy Stored:");
 			int powerPercentage = (int) (tileEntity.fractionOfPowerRemaining() * 100);
 			hoveringText.add(powerPercentage + "%");
-			hoveringText.add(tileEntity.storage.getEnergyStored()+"/"+tileEntity.storage.getMaxEnergyStored());
-			hoveringText.add(tileEntity.getEnergyChange()+"rf/t");
+			hoveringText.add(tileEntity.storage.getEnergyStored() + "/" + tileEntity.storage.getMaxEnergyStored());
+			hoveringText.add((int) tileEntity.getEnergyPerTick() + "rf/t");
 		}
 
 		// If hoveringText is not empty draw the hovering text

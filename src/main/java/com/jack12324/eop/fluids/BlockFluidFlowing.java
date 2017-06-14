@@ -14,56 +14,52 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockFluidFlowing extends BlockFluidClassic {
 
-    private final String name;
+	private final String name;
 
-    public BlockFluidFlowing(Fluid fluid, Material material, String unlocalizedName){
-        super(fluid, material);
-        this.name = unlocalizedName;
-        this.displacements.put(this, false);
-        
-        this.register();
-        }
+	public BlockFluidFlowing(Fluid fluid, Material material, String unlocalizedName) {
+		super(fluid, material);
+		this.name = unlocalizedName;
+		this.displacements.put(this, false);
 
-        private void register(){
-           registerBlock(this, this.getItemBlock(), this.getBaseName(), this.shouldAddCreative());
-        }
-        
-        public static void registerBlock(Block block, ModItemBlock itemBlock, String name, boolean addTab){
-            block.setUnlocalizedName(ExtremeOreProcessing.modID+"."+name);
+		this.register();
+	}
 
-            block.setRegistryName(ExtremeOreProcessing.modID, name);
-            GameRegistry.register(block);
+	private void register() {
+		registerBlock(this, this.getItemBlock(), this.getBaseName(), this.shouldAddCreative());
+	}
 
-            itemBlock.setRegistryName(block.getRegistryName());
-            GameRegistry.register(itemBlock);
+	public static void registerBlock(Block block, ModItemBlock itemBlock, String name, boolean addTab) {
+		block.setUnlocalizedName(ExtremeOreProcessing.modID + "." + name);
 
-            block.setCreativeTab(ExtremeOreProcessing.creativeTab);
-        }
+		block.setRegistryName(ExtremeOreProcessing.modID, name);
+		GameRegistry.register(block);
 
-        protected String getBaseName(){
-            return this.name;
-        }
+		itemBlock.setRegistryName(block.getRegistryName());
+		GameRegistry.register(itemBlock);
 
-        protected ModItemBlock getItemBlock(){
-            return new ModItemBlock(this);
-        }
+		block.setCreativeTab(ExtremeOreProcessing.creativeTab);
+	}
 
-        public boolean shouldAddCreative(){
-            return false;
-        }
+	protected String getBaseName() {
+		return this.name;
+	}
 
-        @Override
-        public boolean canDisplace(IBlockAccess world, BlockPos pos){
-            return !world.getBlockState(pos).getMaterial().isLiquid() && super.canDisplace(world, pos);
-        }
+	protected ModItemBlock getItemBlock() {
+		return new ModItemBlock(this);
+	}
 
-        @Override
-        public boolean displaceIfPossible(World world, BlockPos pos){
-            return !world.getBlockState(pos).getMaterial().isLiquid() && super.displaceIfPossible(world, pos);
-        }
+	public boolean shouldAddCreative() {
+		return false;
+	}
 
-       
-    
+	@Override
+	public boolean canDisplace(IBlockAccess world, BlockPos pos) {
+		return !world.getBlockState(pos).getMaterial().isLiquid() && super.canDisplace(world, pos);
+	}
 
-    
+	@Override
+	public boolean displaceIfPossible(World world, BlockPos pos) {
+		return !world.getBlockState(pos).getMaterial().isLiquid() && super.displaceIfPossible(world, pos);
+	}
+
 }

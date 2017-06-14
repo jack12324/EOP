@@ -8,31 +8,30 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-public class BlockBase extends Block implements ItemModelProvider{
+public class BlockBase extends Block implements ItemModelProvider {
 	protected String name;
-	
+
 	public BlockBase(Material material, String name) {
 		super(material);
-		
+
 		this.name = name;
-		
+
 		setCreativeTab(ExtremeOreProcessing.creativeTab);
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setHardness(5f);
-		setResistance(30f); 
+		setResistance(30f);
 	}
-	
+
 	@Override
-	public void registerItemModel(Item itemBlock){
+	public void registerItemModel(Item itemBlock) {
 		ExtremeOreProcessing.proxy.registerItemRenderer(itemBlock, 0, name);
 	}
-	
+
 	@Override
-	public BlockBase setCreativeTab(CreativeTabs tab){
+	public BlockBase setCreativeTab(CreativeTabs tab) {
 		super.setCreativeTab(tab);
 		return this;
 	}
-	
 
 }

@@ -20,7 +20,7 @@ public class BlockDisablingPress extends BlockTE<TileEntityDisablingPress> {
 	}
 
 	@Override
-	protected int getGui(){
+	protected int getGui() {
 		return ModGuiHandler.DISABLINGPRESS;
 	}
 

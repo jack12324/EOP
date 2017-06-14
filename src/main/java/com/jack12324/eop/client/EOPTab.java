@@ -12,14 +12,14 @@ public class EOPTab extends CreativeTabs {
 		super(ExtremeOreProcessing.modID);
 		setBackgroundImageName("item_search.png");
 	}
-	
+
 	@Override
-	public ItemStack getTabIconItem(){
+	public ItemStack getTabIconItem() {
 		return new ItemStack(ModItems.ingotTungsten);
 	}
-	
+
 	@Override
-	public boolean hasSearchBar(){
+	public boolean hasSearchBar() {
 		return true;
 	}
 }

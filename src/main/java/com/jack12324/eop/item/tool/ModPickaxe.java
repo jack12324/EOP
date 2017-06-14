@@ -16,7 +16,7 @@ public class ModPickaxe extends net.minecraft.item.ItemPickaxe implements ItemMo
 		this.name = name;
 		super.setCreativeTab(ExtremeOreProcessing.creativeTab);
 	}
-	
+
 	@Override
 	public void registerItemModel(Item item) {
 		ExtremeOreProcessing.proxy.registerItemRenderer(this, 0, name);

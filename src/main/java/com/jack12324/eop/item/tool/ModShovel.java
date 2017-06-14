@@ -17,7 +17,7 @@ public class ModShovel extends ItemSpade implements ItemModelProvider {
 		this.name = name;
 		super.setCreativeTab(ExtremeOreProcessing.creativeTab);
 	}
-	
+
 	@Override
 	public void registerItemModel(Item item) {
 		ExtremeOreProcessing.proxy.registerItemRenderer(this, 0, name);

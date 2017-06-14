@@ -16,7 +16,8 @@ public class SlotItemHandlerEOP extends SlotItemHandler {
 	}
 
 	/**
-	 * simulates insert and returns true if the stack is able to be inserted using insertItemPlayer()
+	 * simulates insert and returns true if the stack is able to be inserted
+	 * using insertItemPlayer()
 	 */
 	@Override
 	public boolean isItemValid(ItemStack stack) {
@@ -29,7 +30,6 @@ public class SlotItemHandlerEOP extends SlotItemHandler {
 		}
 		return false;
 	}
-
 
 	@Override
 	public int getItemStackLimit(ItemStack stack) {

@@ -19,9 +19,8 @@ public class BlockEndericPurifier extends BlockTE<TileEntityEndericPurifier> {
 
 	}
 
-	 
 	@Override
-	protected int getGui(){
+	protected int getGui() {
 		return ModGuiHandler.ENDERICPURIFIER;
 	}
 

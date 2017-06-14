@@ -20,7 +20,8 @@ public class FluidBar extends Gui {
 	private FluidTank tank;
 	private final int HEIGHT = 49;
 	private final int WIDTH = 18;
-	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID, "textures/gui/fluid_bar.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
+			"textures/gui/fluid_bar.png");
 
 	public FluidBar(FluidTank tank, int x, int y) {
 		this.x = x;
@@ -33,18 +34,18 @@ public class FluidBar extends Gui {
 		Minecraft mc = Minecraft.getMinecraft();
 		mc.renderEngine.bindTexture(TEXTURE);
 		drawTexturedModalRect(this.x, this.y, 0, 49, WIDTH, HEIGHT);
-		//Draw fluid
+		// Draw fluid
 		FluidStack stack = this.tank.getFluid();
 		Fluid fluid = stack == null ? null : stack.getFluid();
 		if (fluid != null && fluid.getStill() != null) {
 			TextureAtlasSprite fluidTexture = mc.getTextureMapBlocks().getTextureExtry(fluid.getStill().toString());
 			mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			int fluidHeight = (int)((HEIGHT-2) * (this.tank.getFluidAmount() / (double) this.tank.getCapacity()));
+			int fluidHeight = (int) ((HEIGHT - 2) * (this.tank.getFluidAmount() / (double) this.tank.getCapacity()));
 			System.out.println(fluidHeight);
-			
-			drawTexturedModalRect(this.x, this.y + ((HEIGHT-1) - fluidHeight), fluidTexture, WIDTH, fluidHeight);
 
-			//Draw lines over fluid
+			drawTexturedModalRect(this.x, this.y + ((HEIGHT - 1) - fluidHeight), fluidTexture, WIDTH, fluidHeight);
+
+			// Draw lines over fluid
 
 			mc.renderEngine.bindTexture(TEXTURE);
 			drawTexturedModalRect(this.x, this.y, 0, 0, WIDTH, HEIGHT);
@@ -54,7 +55,7 @@ public class FluidBar extends Gui {
 	public ArrayList<String> drawText(int mouseX, int mouseY) {
 		List<String> hoveringText = new ArrayList<String>();
 		if (isInRect(this.x, this.y, WIDTH, HEIGHT, mouseX, mouseY) && this.tank.getFluid() != null) {
-			
+
 			hoveringText.add(this.tank.getFluid().getLocalizedName());
 			hoveringText.add(this.tank.getFluidAmount() + "/" + (this.tank.getCapacity() + " mB"));
 			return (ArrayList<String>) hoveringText;

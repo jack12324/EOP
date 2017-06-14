@@ -28,10 +28,12 @@ public abstract class TEFluidUser extends TEPowered {
 	};
 
 	public TEFluidUser(String name, InventorySlotHelper slots, EOPRecipes recipes, Fluid inFluid, int fluidUseAmount) {
-		this(name,slots,recipes,inFluid,fluidUseAmount,2000);
+		this(name, slots, recipes, inFluid, fluidUseAmount, 2000);
 
 	}
-	public TEFluidUser(String name, InventorySlotHelper slots, EOPRecipes recipes, Fluid inFluid, int fluidUseAmount,int tankSize) {
+
+	public TEFluidUser(String name, InventorySlotHelper slots, EOPRecipes recipes, Fluid inFluid, int fluidUseAmount,
+			int tankSize) {
 		super(name, slots, recipes);
 		this.inFluid = inFluid;
 		this.fluidUseAmount = fluidUseAmount;
@@ -56,13 +58,12 @@ public abstract class TEFluidUser extends TEPowered {
 		System.out.println("TEFU read");
 	}
 
-	
-
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if(!this.world.isRemote){
-			oldInFluidCheck();}	
+		if (!this.world.isRemote) {
+			oldInFluidCheck();
+		}
 	}
 
 	protected void oldInFluidCheck() {
@@ -71,21 +72,21 @@ public abstract class TEFluidUser extends TEPowered {
 			this.oldInFluidAmount = this.inTank.getFluidAmount();
 		}
 	}
-	
+
 	@Override
-	protected boolean canUse(){
-		if(super.canUse()&&this.inTank.getFluidAmount()>this.fluidUseAmount){
+	protected boolean canUse() {
+		if (super.canUse() && this.inTank.getFluidAmount() > this.fluidUseAmount) {
 			return true;
-			
-		}
-		else{
+
+		} else {
 			return false;
 		}
 	}
+
 	@Override
-	public IFluidHandler getFluidHandler(EnumFacing facing){
-        return this.inTank;
-    }
+	public IFluidHandler getFluidHandler(EnumFacing facing) {
+		return this.inTank;
+	}
 
 	@Override
 	public void useItem() {

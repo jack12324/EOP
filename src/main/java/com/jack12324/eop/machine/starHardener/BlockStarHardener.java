@@ -18,12 +18,11 @@ public class BlockStarHardener extends BlockTE<TileEntityStarHardener> {
 		super(Material.ROCK, "star_hardener");
 
 	}
-	
+
 	@Override
-	protected int getGui(){
+	protected int getGui() {
 		return ModGuiHandler.STARHARDENER;
 	}
-
 
 	// drop items in block as well as block
 	@Override

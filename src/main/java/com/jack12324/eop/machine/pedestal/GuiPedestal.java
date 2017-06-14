@@ -27,7 +27,8 @@ public class GuiPedestal extends GuiContainer {
 		this.playerInv = playerInv;
 	}
 
-	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID, "textures/gui/pedestal.png");
+	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
+			"textures/gui/pedestal.png");
 
 	@Override
 	public void initGui() {
@@ -53,7 +54,7 @@ public class GuiPedestal extends GuiContainer {
 		fontRendererObj.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
 
 		List<String> hoveringText = new ArrayList<String>();
-		hoveringText = (ArrayList<String>) fb.drawText(mouseX, mouseY);
+		hoveringText = fb.drawText(mouseX, mouseY);
 
 		// If hoveringText is not empty draw the hovering text
 		if (hoveringText != null && !hoveringText.isEmpty()) {

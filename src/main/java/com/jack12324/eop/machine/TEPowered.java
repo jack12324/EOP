@@ -14,22 +14,34 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public abstract class TEPowered extends TEInventory {
-	protected final double BASE_TICKS_NEEDED = 200;
+	private final double BASE_TICKS_NEEDED = 200;
 	private double ticksNeeded = BASE_TICKS_NEEDED;
-	protected final double BASE_ENERGY_PER_TICK=50;
-	private double energyPerTick=BASE_ENERGY_PER_TICK;
+	private final double BASE_ENERGY_PER_TICK = 50;
+	private double energyPerTick = BASE_ENERGY_PER_TICK;
 	private int burnTimeInitialValue;
 	private int burnTimeRemaining;
-	protected int[] inProgressTime;
+	private int[] inProgressTime;
 	private int[] oldValues;
 	private EOPRecipes recipes;
-	protected int baseSpeed = 1;
+	private int baseSpeed = 1;
 	private int fuelMultiplier = 1;
 	private boolean hasBase;
-	protected boolean usesFuel;
+	private boolean usesFuel;
 	private int oldEnergy;
 
 	public EOPEnergyStorage storage;
+
+	public double getTicksNeeded() {
+		return ticksNeeded;
+	}
+
+	public int getInProgressTime(int index) {
+		return inProgressTime[index];
+	}
+
+	public void setInProgressTime(int index, int value) {
+		inProgressTime[index] = value;
+	}
 
 	public void setBaseSpeed(int speedMultiplier) {
 		this.baseSpeed = speedMultiplier;
@@ -39,9 +51,10 @@ public abstract class TEPowered extends TEInventory {
 		this.fuelMultiplier = fuelMultiplier;
 	}
 
-public double getEnergyPerTick(){
-	return energyPerTick;
-}
+	public double getEnergyPerTick() {
+		return energyPerTick;
+	}
+
 	public int getFuelMultiplier() {
 		return this.fuelMultiplier;
 	}
@@ -62,17 +75,18 @@ public double getEnergyPerTick(){
 		this(name, slots, recipes, 100000, 100000, 0);
 	}
 
-	public TEPowered(String name, InventorySlotHelper slots, EOPRecipes recipes, int capacity, int recieve, int extract) {
-		
-		super(new InventorySlotHelper(slots,2), name);
+	public TEPowered(String name, InventorySlotHelper slots, EOPRecipes recipes, int capacity, int recieve,
+			int extract) {
+
+		super(new InventorySlotHelper(slots, 2), name);
 		inProgressTime = new int[slots.getInSlotSize()];
 		this.recipes = recipes;
 		this.hasBase = slots.getBaseSlotSize() > 0 ? true : false;
 		this.usesFuel = slots.getFuelSlotSize() > 0 ? true : false;
 		storage = new EOPEnergyStorage(capacity, recieve, extract);
-		oldValues = new int[2+inProgressTime.length];
-		for(int val:oldValues)
-			val=0;
+		oldValues = new int[2 + inProgressTime.length];
+		for (int val : oldValues)
+			val = 0;
 	}
 
 	public double fractionOfPowerRemaining() {
@@ -84,7 +98,9 @@ public double getEnergyPerTick(){
 
 	/** returns the amount of fuel remaining on the currently burning item */
 	public double fractionOfFuelRemaining() {
-		if (burnTimeInitialValue <= 0){return 0;}
+		if (burnTimeInitialValue <= 0) {
+			return 0;
+		}
 		double fraction = burnTimeRemaining / (double) burnTimeInitialValue;
 		return MathHelper.clamp(fraction, 0.0, 1.0);
 	}
@@ -93,13 +109,14 @@ public double getEnergyPerTick(){
 	public int secondsOfFuelRemaining() {
 		if (burnTimeRemaining <= 0 || fuelMultiplier <= 0)
 			return 0;
-		return(int)( burnTimeRemaining / (20 * fuelMultiplier * BASE_TICKS_NEEDED/ticksNeeded));
+		return (int) (burnTimeRemaining / (20 * fuelMultiplier * BASE_TICKS_NEEDED / getTicksNeeded()));
 	}
 
-	/** Returns the amount of cook time completed on the currently cooking
-	 * item. */
+	/**
+	 * Returns the amount of cook time completed on the currently cooking item.
+	 */
 	public double fractionOfProgressTimeComplete(int index) {
-		double fraction = this.inProgressTime[index] / ticksNeeded;
+		double fraction = this.inProgressTime[index] / getTicksNeeded();
 		return MathHelper.clamp(fraction, 0.0, 1.0);
 	}
 
@@ -112,7 +129,7 @@ public double getEnergyPerTick(){
 			compound.setInteger("burnTimeInitialValue", burnTimeInitialValue);
 			compound.setBoolean("hasBase", this.hasBase);
 			compound.setDouble("energyPerTick", energyPerTick);
-			compound.setDouble("ticksNeeded", ticksNeeded);
+			compound.setDouble("ticksNeeded", getTicksNeeded());
 		}
 		this.storage.writeToNBT(compound);
 		super.writeSyncableNBT(compound, type);
@@ -123,26 +140,29 @@ public double getEnergyPerTick(){
 	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
 		if (type != NBTType.SAVE_BLOCK) {
 			slots.deserializeNBT(compound.getCompoundTag("inventory"));
-			this.burnTimeInitialValue = usesFuel? getFuelBurnTime((ItemStack) this.slots.getStackInSlot(this.slotHelper.getFuelSlotIndex(0))):0;
+			this.burnTimeInitialValue = usesFuel
+					? getFuelBurnTime(this.slots.getStackInSlot(this.slotHelper.getFuelSlotIndex(0))) : 0;
 			this.burnTimeRemaining = compound.getInteger("BurnTime");
 			this.hasBase = compound.getBoolean("hasBase");
 			this.inProgressTime = compound.getIntArray("ProgressTime").clone();
-			this.energyPerTick=compound.getDouble("energyPerTick");
-			this.ticksNeeded=compound.getDouble("ticksNeeded");
+			this.energyPerTick = compound.getDouble("energyPerTick");
+			this.ticksNeeded = compound.getDouble("ticksNeeded");
 		}
 		this.storage.readFromNBT(compound);
 		super.readSyncableNBT(compound, type);
 	}
-	public int getUpgrade(Upgrade type){
-		switch(type){
-			case SPEED:
-				return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(0)).getCount();
-			case ENERGY:
-				return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(1)).getCount();
-			default:
-				return 0;	}	
+
+	public int getUpgrade(Upgrade type) {
+		switch (type) {
+		case SPEED:
+			return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(0)).getCount();
+		case ENERGY:
+			return this.slots.getStackInSlot(this.slotHelper.getUpgradeSlotIndex(1)).getCount();
+		default:
+			return 0;
+		}
 	}
-	
+
 	public void superUpdate() {
 		super.updateEntity();
 	}
@@ -157,7 +177,7 @@ public double getEnergyPerTick(){
 		boolean active = false;
 		if (!this.world.isRemote) {
 			if (canUse()) {
-					active = this.useLogic();
+				active = this.useLogic();
 			}
 
 			else {
@@ -165,15 +185,14 @@ public double getEnergyPerTick(){
 			}
 			this.resetUpgradeStats();
 			oldEnergyCheck();
-			oldActiveCheck(active);//TODO moved this inside isRemote structure not sure if right?
+			oldActiveCheck(active);// TODO moved this inside isRemote structure
+									// not sure if right?
 			oldProgressTimeCheck();
 		}
 
-		
-
 	}
-	
-	protected void oldActiveCheck(boolean active){
+
+	protected void oldActiveCheck(boolean active) {
 		if (active != this.lastActive) {
 			IBlockState currState = this.world.getBlockState(this.pos);
 			if (currState.getValue(BlockTE.PROPERTYACTIVE) != (active)) {
@@ -187,67 +206,67 @@ public double getEnergyPerTick(){
 	protected void oldEnergyCheck() {
 		if (this.oldEnergy != this.storage.getEnergyStored() && this.sendUpdateWithInterval()) {
 			this.oldEnergy = this.storage.getEnergyStored();
-			
+
 		}
 	}
-	protected void oldProgressTimeCheck(){
-		for(int i=0; i<oldValues.length;i++){
-			if(i==0&&this.burnTimeInitialValue!=this.oldValues[i]&&this.sendUpdateWithInterval())
-				this.oldValues[i]=this.burnTimeInitialValue;
-			else if(i==1&&this.burnTimeRemaining!=this.oldValues[i]&&this.sendUpdateWithInterval())
-				this.oldValues[i]=this.burnTimeRemaining;
-			else if(i>1&&this.inProgressTime[i-2]!=this.oldValues[i]&&this.sendUpdateWithInterval())
-				this.oldValues[i]=this.inProgressTime[i-2];
+
+	protected void oldProgressTimeCheck() {
+		for (int i = 0; i < oldValues.length; i++) {
+			if (i == 0 && this.burnTimeInitialValue != this.oldValues[i] && this.sendUpdateWithInterval())
+				this.oldValues[i] = this.burnTimeInitialValue;
+			else if (i == 1 && this.burnTimeRemaining != this.oldValues[i] && this.sendUpdateWithInterval())
+				this.oldValues[i] = this.burnTimeRemaining;
+			else if (i > 1 && this.inProgressTime[i - 2] != this.oldValues[i] && this.sendUpdateWithInterval())
+				this.oldValues[i] = this.inProgressTime[i - 2];
 		}
 	}
 
 	protected void resetTime() {
-		for(int i=0; i< inProgressTime.length;i++)
-		inProgressTime[i] = 0;//TODO fix
+		for (int i = 0; i < inProgressTime.length; i++)
+			inProgressTime[i] = 0;// TODO fix
 	}
 
 	protected boolean useLogic() {
 		boolean burning;
 		boolean powered;
 		boolean active = false;
-			burning = true;
-			powered = usePower();
-			active = false;
-			if (usesFuel && powered) {
-				burning = burnFuel();
-			}
+		burning = true;
+		powered = usePower();
+		active = false;
+		if (usesFuel && powered) {
+			burning = burnFuel();
+		}
 
-			// If fuel is available, keep cooking the item, otherwise start
-			// "uncooking" it at double speed
-			if (burning && powered) {
-				inProgressTime[0] += 1;
-				active = true;
-			}
-			else {
-				inProgressTime[0] -= 2;
-			}
+		// If fuel is available, keep cooking the item, otherwise start
+		// "uncooking" it at double speed
+		if (burning && powered) {
+			inProgressTime[0] += 1;
+			active = true;
+		} else {
+			inProgressTime[0] -= 2;
+		}
 
-			if (inProgressTime[0] < 0)
-				inProgressTime[0] = 0;
+		if (inProgressTime[0] < 0)
+			inProgressTime[0] = 0;
 
-			// If cookTime has reached maxCookTime smelt the item and reset
-			// cookTime
-			if (inProgressTime[0] >= ticksNeeded) {
-				useItem();
-				inProgressTime[0] = 0;
+		// If cookTime has reached maxCookTime smelt the item and reset
+		// cookTime
+		if (inProgressTime[0] >= getTicksNeeded()) {
+			useItem();
+			inProgressTime[0] = 0;
 
-			}
-			for (int i=0;i<inProgressTime.length;i++) {
-				inProgressTime[i]=inProgressTime[0];
-			}
+		}
+		for (int i = 0; i < inProgressTime.length; i++) {
+			inProgressTime[i] = inProgressTime[0];
+		}
 		return active;
 	}
 
 	protected boolean usePower() {
 		boolean powered = false;
 
-		if (this.storage.getEnergyStored() >=getEnergyPerTick() ) {
-			this.storage.extractEnergyInternal((int)getEnergyPerTick(), false);
+		if (this.storage.getEnergyStored() >= getEnergyPerTick()) {
+			this.storage.extractEnergyInternal((int) getEnergyPerTick(), false);
 			powered = true;
 
 		}
@@ -265,7 +284,8 @@ public double getEnergyPerTick(){
 			burnTimeRemaining -= fuelMultiplier;
 		}
 		if (burnTimeRemaining <= 0) {
-			if (!slots.getStackInSlot(fuelSlotNumber).isEmpty() && getFuelBurnTime(slots.getStackInSlot(fuelSlotNumber)) > 0) {
+			if (!slots.getStackInSlot(fuelSlotNumber).isEmpty()
+					&& getFuelBurnTime(slots.getStackInSlot(fuelSlotNumber)) > 0) {
 				// If the stack in this slot is not null and is fuel, set
 				// burnTimeRemaining & burnTimeInitialValue to the item's burn
 				// time and decrease the stack size
@@ -278,7 +298,8 @@ public double getEnergyPerTick(){
 				// not have a container item getContainerItem returns null which
 				// sets the slot contents to null
 				if (slots.getStackInSlot(fuelSlotNumber).getCount() == 0) { // getStackSize()
-					slots.setStackInSlot(fuelSlotNumber, slots.getStackInSlot(fuelSlotNumber).getItem().getContainerItem(slots.getStackInSlot(fuelSlotNumber)));
+					slots.setStackInSlot(fuelSlotNumber, slots.getStackInSlot(fuelSlotNumber).getItem()
+							.getContainerItem(slots.getStackInSlot(fuelSlotNumber)));
 				}
 			}
 		}
@@ -288,16 +309,20 @@ public double getEnergyPerTick(){
 		return burning;
 	}
 
-	/** Returns true if the machine can activate an item, i.e. has a source
-	 * item, destination stack isn't full, etc. */
+	/**
+	 * Returns true if the machine can activate an item, i.e. has a source item,
+	 * destination stack isn't full, etc.
+	 */
 
-	/** determines if the item in the input slot can be activated and if there
-	 * is a place to put it afterwards. ie an open output slot */
+	/**
+	 * determines if the item in the input slot can be activated and if there is
+	 * a place to put it afterwards. ie an open output slot
+	 */
 
 	protected boolean canUse() {
 
 		for (int index : getInputSlotIndices()) {
-			if (((ItemStack) this.slots.getStackInSlot(index)).isEmpty()) {
+			if (this.slots.getStackInSlot(index).isEmpty()) {
 				return false;
 			}
 		}
@@ -305,18 +330,17 @@ public double getEnergyPerTick(){
 
 		if (result == null || result.isEmpty()) {
 			return false;
-		}
-		else if(this instanceof TEFluidProducer){
+		} else if (this instanceof TEFluidProducer) {
 			return true;
-		}
-		else {
+		} else {
 			return getOutSlot(result) == -1 ? false : true;
 		}
 
 	}
 
-	/** @return array of ints corresponding to input slots and base slot
-	 *         indices */
+	/**
+	 * @return array of ints corresponding to input slots and base slot indices
+	 */
 	public int[] getInputSlotIndices() {
 		int[] stack = new int[this.slotHelper.getInSlotSize() + this.slotHelper.getBaseSlotSize()];
 		int count = 0;
@@ -333,8 +357,9 @@ public double getEnergyPerTick(){
 		return stack;
 	}
 
-	/** @return array of ItemStacks corresponding to input slots and base
-	 *         slots */
+	/**
+	 * @return array of ItemStacks corresponding to input slots and base slots
+	 */
 	public ItemStack[] getInputSlotItemStacks() {
 		ItemStack[] stack = new ItemStack[this.slotHelper.getInSlotSize() + this.slotHelper.getBaseSlotSize()];
 		int count = 0;
@@ -351,23 +376,24 @@ public double getEnergyPerTick(){
 		return stack;
 	}
 
-	/** @param itemstack
+	/**
+	 * @param itemstack
 	 *            ItemStack which is the result stack
-	 * @return index of available output slot or -1 if none are available */
+	 * @return index of available output slot or -1 if none are available
+	 */
 	public int getOutSlot(ItemStack itemstack) {
 		ItemStack outSlot;
 		boolean slotUsable = false;
 		for (int i = 0; i < this.slotHelper.getOutSlotSize(); i++) {
-			outSlot = (ItemStack) this.slots.getStackInSlot(this.slotHelper.getOutSlotIndex(i));
+			outSlot = this.slots.getStackInSlot(this.slotHelper.getOutSlotIndex(i));
 			if (outSlot.isEmpty()) {
 				slotUsable = true;
-			}
-			else if (!outSlot.isItemEqual(itemstack)) {
+			} else if (!outSlot.isItemEqual(itemstack)) {
 				slotUsable = false;
-			}
-			else {
+			} else {
 				int result = outSlot.getCount() + itemstack.getCount();
-				slotUsable = result <= this.slots.getSlotLimit(this.slotHelper.getOutSlotIndex(i)) && result <= outSlot.getMaxStackSize();
+				slotUsable = result <= this.slots.getSlotLimit(this.slotHelper.getOutSlotIndex(i))
+						&& result <= outSlot.getMaxStackSize();
 			}
 			if (slotUsable)
 				return this.slotHelper.getOutSlotIndex(i);
@@ -376,36 +402,38 @@ public double getEnergyPerTick(){
 		return -1;
 	}
 
-	/** Turn one item from the inventory input stack into the appropriate output
-	 * item in the result stack */
+	/**
+	 * Turn one item from the inventory input stack into the appropriate output
+	 * item in the result stack
+	 */
 	public void useItem() {
 
-		//if (this.canUse()) {
-			ItemStack[] input = getInputSlotItemStacks();
-			ItemStack result = recipes.getResult(input);
-			int outIndex = this.getOutSlot(result);
-			ItemStack output=null;//TODO risky
-			if(outIndex!=-1)
-				output = (ItemStack) this.slots.getStackInSlot(outIndex);
+		// if (this.canUse()) {
+		ItemStack[] input = getInputSlotItemStacks();
+		ItemStack result = recipes.getResult(input);
+		int outIndex = this.getOutSlot(result);
+		ItemStack output = null;// TODO risky
+		if (outIndex != -1)
+			output = this.slots.getStackInSlot(outIndex);
 
-			if(this instanceof TEFluidProducer){
-				//does nothing because no item output
-			}
-			else if (output.isEmpty()) {
-				this.slots.setStackInSlot(outIndex, result.copy());
-			}
-			else if (output.getItem() == result.getItem()) {
-				output.grow(result.getCount());
-			}
+		if (this instanceof TEFluidProducer) {
+			// does nothing because no item output
+		} else if (output.isEmpty()) {
+			this.slots.setStackInSlot(outIndex, result.copy());
+		} else if (output.getItem() == result.getItem()) {
+			output.grow(result.getCount());
+		}
 
-			for (ItemStack stack : input) {
-				stack.shrink(1);
-			}
-		//}
+		for (ItemStack stack : input) {
+			stack.shrink(1);
+		}
+		// }
 	}
 
-	/** Returns the number of ticks that the supplied fuel item will keep the
-	 * activationChamber burning, or 0 if the item isn't fuel */
+	/**
+	 * Returns the number of ticks that the supplied fuel item will keep the
+	 * activationChamber burning, or 0 if the item isn't fuel
+	 */
 	public Item getFuel(int i) {
 		return null;
 	}
@@ -421,8 +449,7 @@ public double getEnergyPerTick(){
 	public int getFuelBurnTime(ItemStack stack) {
 		if (stack.isEmpty()) {
 			return 0;
-		}
-		else {
+		} else {
 			Item item = stack.getItem();
 			for (int i = 0; i < this.getFuelSize(); i++) {
 				if (this.getFuel(i).equals(item))
@@ -432,7 +459,8 @@ public double getEnergyPerTick(){
 			return net.minecraftforge.fml.common.registry.GameRegistry.getFuelValue(stack);
 		}
 	}
-	protected void resetUpgradeStats(){
+
+	protected void resetUpgradeStats() {
 		ticksNeeded = UpgradeHelper.getTicks(this, BASE_TICKS_NEEDED);
 		energyPerTick = UpgradeHelper.getEnergyPerTick(this, BASE_ENERGY_PER_TICK);
 	}
@@ -442,38 +470,43 @@ public double getEnergyPerTick(){
 		return this.getFuelBurnTime(stack) > 0;
 	}
 
-	/** Don't rename this method to canInteractWith due to conflicts with
-	 * Container */
+	/**
+	 * Don't rename this method to canInteractWith due to conflicts with
+	 * Container
+	 */
 	public boolean isUsableByPlayer(EntityPlayer player) {
-		return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+		return this.world.getTileEntity(this.pos) != this ? false
+				: player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D,
+						this.pos.getZ() + 0.5D) <= 64.0D;
 	}
 
-	/** Returns true if automation is allowed to insert the given stack
-	 * (ignoring stack size) into the given slot. For guis use
-	 * Slot.isItemValid */
+	/**
+	 * Returns true if automation is allowed to insert the given stack (ignoring
+	 * stack size) into the given slot. For guis use Slot.isItemValid
+	 */
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		System.out.println("isItemValidForSlot TEPowered");
 		// cant insert into output slot
-		for(int indexes: this.slotHelper.getOut()){
-			if(index==indexes)
+		for (int indexes : this.slotHelper.getOut()) {
+			if (index == indexes)
 				return false;
 		}
 		return true;
 	}
 
-	/** Returns true if automation can insert the given item in the given slot
-	 * from the given side. */
+	/**
+	 * Returns true if automation can insert the given item in the given slot
+	 * from the given side.
+	 */
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
 		System.out.println("canInsertItem TEPowered");
-		for(int i:this.slotHelper.getOut()){
-    		if (i==index)
-    			return false;
-    	}
+		for (int i : this.slotHelper.getOut()) {
+			if (i == index)
+				return false;
+		}
 		return this.isItemValidForSlot(index, itemStackIn);
 	}
-
-	
 
 	@Override
 	public int getComparatorStrength() {
