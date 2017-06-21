@@ -1,10 +1,10 @@
-package com.jack12324.eop.machine;
+package com.jack12324.eop.util.gui;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jack12324.eop.util.FluidBar;
-import com.jack12324.eop.util.PowerBar;
+import com.jack12324.eop.machine.TEFluidUser;
+import com.jack12324.eop.machine.TEPowered;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;

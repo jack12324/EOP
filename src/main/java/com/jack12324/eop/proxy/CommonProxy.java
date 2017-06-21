@@ -1,8 +1,10 @@
 package com.jack12324.eop.proxy;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class CommonProxy {
 
@@ -17,6 +19,10 @@ public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent event) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public EntityPlayer getPlayer(MessageContext context) {
+		return context.getServerHandler().playerEntity;
 	}
 
 }

@@ -172,8 +172,8 @@ public class ModItems {
 		pureTungstenEssence = register(new ItemBase("pure_tungsten_essence"));
 
 		// upgrades
-		speedUpgrade = register(new ItemBase("speed_upgrade"));
-		energyUpgrade = register(new ItemBase("energy_upgrade"));
+		speedUpgrade = register(new ItemBase("speed_upgrade", 10));
+		energyUpgrade = register(new ItemBase("energy_upgrade", 10));
 
 		// God tier scales
 		dragonScale = register(new ItemBase("dragon_scale"));

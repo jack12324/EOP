@@ -5,13 +5,17 @@ import com.jack12324.eop.fluids.InitFluids;
 import com.jack12324.eop.util.FluidStateMapper;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class ClientProxy extends CommonProxy {
 	// private static final Map<ItemStack, ModelResourceLocation>
@@ -55,6 +59,15 @@ public class ClientProxy extends CommonProxy {
 		ModelBakery.registerItemVariants(item);
 		ModelLoader.setCustomMeshDefinition(item, mapper);
 		ModelLoader.setCustomStateMapper(block, mapper);
+	}
+
+	@Override
+	public EntityPlayer getPlayer(MessageContext context) {
+		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
+			return context.getServerHandler().playerEntity;
+		} else {
+			return Minecraft.getMinecraft().player;
+		}
 	}
 
 }

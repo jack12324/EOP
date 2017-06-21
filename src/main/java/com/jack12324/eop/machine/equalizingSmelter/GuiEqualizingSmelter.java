@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jack12324.eop.ExtremeOreProcessing;
+import com.jack12324.eop.packet.PacketClientToServer;
 import com.jack12324.eop.packet.PacketHandler;
 
 import net.minecraft.client.gui.FontRenderer;
@@ -13,6 +14,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiEqualizingSmelter extends GuiContainer {
@@ -158,15 +160,26 @@ public class GuiEqualizingSmelter extends GuiContainer {
 	}
 
 	private void actionPerformed(GuiButton button, int mbutton) throws IOException {
-		if (button.id == 53) {
-
-			tileEntity.setMode(mbutton == 0 ? !tileEntity.getMode() : !tileEntity.getMode());
-			PacketHandler.NETWORK.sendToServer(new PacketClientState(tileEntity));
-		} else if (button.id == 57) {
-
-			tileEntity.setSpreadMode(mbutton == 0 ? !tileEntity.getSpreadMode() : !tileEntity.getSpreadMode());
-			PacketHandler.NETWORK.sendToServer(new PacketClientState(tileEntity));
-		} else {
+		if (button.id == 53 || button.id == 57) {
+			System.out.println("53 or 57");
+			NBTTagCompound compound = new NBTTagCompound();
+			compound.setInteger("X", tileEntity.getPos().getX());
+			compound.setInteger("Y", tileEntity.getPos().getY());
+			compound.setInteger("Z", tileEntity.getPos().getZ());
+			compound.setInteger("buttonID", button.id);
+			PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_TOGGLE_BUTTON));
+		}
+		/*
+		 * if (button.id == 53) {
+		 * 
+		 * tileEntity.setMode(mbutton == 0 ? !tileEntity.getMode() :
+		 * !tileEntity.getMode()); PacketHandler.NETWORK.sendToServer(new
+		 * PacketClientState(tileEntity)); } else if (button.id == 57) {
+		 * 
+		 * tileEntity.setSpreadMode(mbutton == 0 ? !tileEntity.getSpreadMode() :
+		 * !tileEntity.getSpreadMode()); PacketHandler.NETWORK.sendToServer(new
+		 * PacketClientState(tileEntity)); }
+		 */else {
 			super.actionPerformed(button);
 		}
 	}

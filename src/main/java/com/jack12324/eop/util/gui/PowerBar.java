@@ -1,4 +1,4 @@
-package com.jack12324.eop.util;
+package com.jack12324.eop.util.gui;
 
 import java.util.ArrayList;
 import java.util.List;

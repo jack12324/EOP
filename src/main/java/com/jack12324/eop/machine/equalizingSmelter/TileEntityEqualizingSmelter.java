@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jack12324.eop.item.ModItems;
+import com.jack12324.eop.machine.IButtonUse;
 import com.jack12324.eop.machine.TEPowered;
 import com.jack12324.eop.util.InventorySlotHelper;
 
@@ -11,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
 
-public class TileEntityEqualizingSmelter extends TEPowered {
+public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse {
 	private static EqualizingSmelterRecipes equalizingRecipes = EqualizingSmelterRecipes.INSTANCE;
 	private static VanillaFurnaceRecipes vanillaRecipes = new VanillaFurnaceRecipes();
 	private boolean furnaceMode = true;
@@ -23,6 +24,16 @@ public class TileEntityEqualizingSmelter extends TEPowered {
 
 	public TileEntityEqualizingSmelter() {
 		super("equalizing_smelter", new InventorySlotHelper(4, 4, 0, 0, 1), equalizingRecipes);
+	}
+
+	@Override
+	public void onButtonPress(int buttonId) {
+		if (buttonId == 53)
+			furnaceMode = !furnaceMode;
+		else if (buttonId == 57)
+			spreadMode = !spreadMode;
+		else
+			System.out.println(buttonId + " is not a valid button id for " + this.getDisplayedName());
 	}
 
 	private void spread() {

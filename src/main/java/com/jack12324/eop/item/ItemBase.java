@@ -15,6 +15,11 @@ public class ItemBase extends Item implements ItemModelProvider {
 		setRegistryName(name);
 	}
 
+	public ItemBase(String name, int maxSize) {
+		this(name);
+		this.setMaxStackSize(maxSize);
+	}
+
 	@Override
 	public void registerItemModel(Item item) {
 		ExtremeOreProcessing.proxy.registerItemRenderer(item, 0, name);

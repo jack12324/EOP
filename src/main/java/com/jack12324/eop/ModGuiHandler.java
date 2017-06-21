@@ -1,5 +1,7 @@
 package com.jack12324.eop;
 
+import com.jack12324.eop.machine.ContainerUpgrades;
+import com.jack12324.eop.machine.TEInventory;
 import com.jack12324.eop.machine.activationChamber.ContainerActivationChamber;
 import com.jack12324.eop.machine.activationChamber.GuiActivationChamber;
 import com.jack12324.eop.machine.activationChamber.TileEntityActivationChamber;
@@ -30,8 +32,11 @@ import com.jack12324.eop.machine.starHardener.TileEntityStarHardener;
 import com.jack12324.eop.machine.triCatalystInfuser.ContainerTriCatalystInfuser;
 import com.jack12324.eop.machine.triCatalystInfuser.GuiTriCatalystInfuser;
 import com.jack12324.eop.machine.triCatalystInfuser.TileEntityTriCatalystInfuser;
+import com.jack12324.eop.util.gui.GuiUpgrade;
 
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -49,6 +54,7 @@ public class ModGuiHandler implements IGuiHandler {
 	public static final int ENDERICPURIFIER = 7;
 	public static final int STARHARDENER = 8;
 	public static final int TRICATALYSTINFUSER = 9;
+	public static final int UPGRADES = 10;
 
 	@Override
 	public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -83,6 +89,8 @@ public class ModGuiHandler implements IGuiHandler {
 		case TRICATALYSTINFUSER:
 			return new ContainerTriCatalystInfuser(player.inventory,
 					(TileEntityTriCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
+		case UPGRADES:
+			return new ContainerUpgrades(player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 		default:
 			return null;
 
@@ -123,9 +131,20 @@ public class ModGuiHandler implements IGuiHandler {
 		case TRICATALYSTINFUSER:
 			return new GuiTriCatalystInfuser(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
 					(TileEntityTriCatalystInfuser) world.getTileEntity(xyz));
+		case UPGRADES:
+			return new GuiUpgrade(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+					world.getTileEntity(xyz));
 		default:
 			return null;
 		}
+	}
+
+	public Container getServerGuiElement(int id, EntityPlayer player, World world, BlockPos pos) {
+		return getServerGuiElement(id, player, world, pos.getX(), pos.getY(), pos.getZ());
+	}
+
+	public Object getClientGuiElement(int id, EntityPlayer player, World world, BlockPos pos) {
+		return getClientGuiElement(id, player, world, pos.getX(), pos.getY(), pos.getZ());
 	}
 
 }

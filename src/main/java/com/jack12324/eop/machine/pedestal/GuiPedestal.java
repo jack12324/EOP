@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.block.ModBlocks;
-import com.jack12324.eop.util.FluidBar;
+import com.jack12324.eop.util.gui.FluidBar;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;

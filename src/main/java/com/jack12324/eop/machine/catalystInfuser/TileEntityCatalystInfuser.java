@@ -11,7 +11,7 @@ public class TileEntityCatalystInfuser extends TEFluidProducer {
 	private static CatalystInfuserRecipes recipes = CatalystInfuserRecipes.INSTANCE;
 
 	public TileEntityCatalystInfuser() {
-		super("catalystInfuser", new InventorySlotHelper(1, 0, 0, 0, 0), recipes, FluidRegistry.LAVA, 100, 4000,
+		super("catalyst_infuser", new InventorySlotHelper(1, 0, 0, 0, 0), recipes, FluidRegistry.LAVA, 100, 4000,
 				InitFluids.fluidScreamingLava, 100, 4000);
 	}
 }
