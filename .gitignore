@@ -1,6 +1,5 @@
 # eclipse
 bin
-libs
 *.launch
 .settings
 .metadata
@@ -21,3 +20,4 @@ build
 # other
 eclipse
 run
+libs
