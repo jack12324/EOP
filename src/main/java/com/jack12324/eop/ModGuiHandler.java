@@ -38,6 +38,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -55,6 +56,33 @@ public class ModGuiHandler implements IGuiHandler {
 	public static final int STARHARDENER = 8;
 	public static final int TRICATALYSTINFUSER = 9;
 	public static final int UPGRADES = 10;
+	
+	public static int getTileGui(TileEntity te){
+		
+		if (te instanceof TileEntityActivationChamber)
+			return ACTIVATIONCHAMBER;
+		else if (te instanceof TileEntityEqualizingSmelter)
+			return EQUALIZINGSMELTER;
+		else if (te instanceof TileEntityDisablingPress)
+			return DISABLINGPRESS;
+		else if (te instanceof TileEntityParticleExciter)
+			return PARTICLEEXCITER;
+		else if (te instanceof TileEntityPedestal)
+			return PEDESTAL;
+		else if (te instanceof TileEntityCatalystInfuser)
+			return CATALYSTINFUSER;
+		else if (te instanceof TileEntityDualCatalystInfuser)
+			return DUALCATALYSTINFUSER;
+		else if (te instanceof TileEntityEndericPurifier)
+			return ENDERICPURIFIER;
+		else if (te instanceof TileEntityStarHardener)
+			return STARHARDENER;
+		else if (te instanceof TileEntityTriCatalystInfuser)
+			return TRICATALYSTINFUSER;
+		else
+			return -1;
+		
+	}
 
 	@Override
 	public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
