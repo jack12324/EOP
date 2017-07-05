@@ -1,16 +1,25 @@
 package com.jack12324.eop.util.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jack12324.eop.ModGuiHandler;
 import com.jack12324.eop.machine.TEFluidUser;
 import com.jack12324.eop.machine.TEPowered;
+import com.jack12324.eop.packet.PacketClientToServer;
+import com.jack12324.eop.packet.PacketHandler;
+import com.jack12324.eop.util.Coord4D;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiBase extends GuiContainer {
@@ -81,6 +90,7 @@ public class GuiBase extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
+		this.buttonList.add(new GuiButton(69, guiLeft - 30, guiTop, 30, 20, "Upgrades"));
 		powerBar = new PowerBar(tileEntity, guiLeft, guiTop);
 		if (fluid)
 			fluidBar = new FluidBar(((TEFluidUser) tileEntity).inTank, guiLeft + tankX, guiTop + tankY);
@@ -170,6 +180,23 @@ public class GuiBase extends GuiContainer {
 		// If hoveringText is not empty draw the hovering text
 		if (hoveringText != null && !hoveringText.isEmpty()) {
 			drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
+		}
+	}
+	@Override
+	protected void actionPerformed(GuiButton par1GuiButton) throws IOException {
+		actionPerformed(par1GuiButton, 0);
+	}
+
+	private void actionPerformed(GuiButton button, int mbutton) throws IOException {
+		EntityPlayer player = Minecraft.getMinecraft().player;
+		if (button.id == 69) {
+			NBTTagCompound compound = new NBTTagCompound();
+			Coord4D pos = new Coord4D(tileEntity.getPos(), tileEntity.getWorld());
+			compound = pos.write(compound);
+			compound.setInteger("guiID", ModGuiHandler.UPGRADES);
+			PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_BUTTON2));
+		} else {
+			super.actionPerformed(button);
 		}
 	}
 
