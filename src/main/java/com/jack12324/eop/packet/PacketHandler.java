@@ -62,7 +62,7 @@ public class PacketHandler {
 		}
 	};
 
-	public static final IDataHandler GUI_BUTTON2 = new IDataHandler() {
+	public static final IDataHandler GUI_UPGRADE_BUTTON = new IDataHandler() {
 		@Override
 		public void handleData(NBTTagCompound compound, MessageContext context) {
 			EntityPlayer player = ExtremeOreProcessing.proxy.getPlayer(context);
@@ -84,7 +84,7 @@ public class PacketHandler {
 
 					compound.setInteger("window", window);
 
-					NETWORK.sendTo(new PacketServerToClient(compound, PacketHandler.GUI_BUTTON2), playerMP);
+					NETWORK.sendTo(new PacketServerToClient(compound, PacketHandler.GUI_UPGRADE_BUTTON), playerMP);
 
 					playerMP.openContainer = modGuiHandler.getServerGuiElement(compound.getInteger("guiID"), playerMP,
 							player.world, coord4D.getPos());
@@ -105,16 +105,9 @@ public class PacketHandler {
 		NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(ExtremeOreProcessing.modID);
 		NETWORK.registerMessage(PacketServerToClient.Handler.class, PacketServerToClient.class, 0, Side.CLIENT);
 		NETWORK.registerMessage(PacketClientToServer.Handler.class, PacketClientToServer.class, 1, Side.SERVER);
-		// NETWORK.registerMessage(PacketClientState.class,
-		// PacketClientState.class, 2, Side.SERVER);// TODO
-		// add // button
-		// handler
-		// and
-		// erase
-		// this
 
 		DATA_HANDLERS.add(TILE_ENTITY_HANDLER);
-		DATA_HANDLERS.add(GUI_BUTTON2);
+		DATA_HANDLERS.add(GUI_UPGRADE_BUTTON);
 		DATA_HANDLERS.add(GUI_TOGGLE_BUTTON);
 	}
 

@@ -194,7 +194,7 @@ public class GuiBase extends GuiContainer {
 			Coord4D pos = new Coord4D(tileEntity.getPos(), tileEntity.getWorld());
 			compound = pos.write(compound);
 			compound.setInteger("guiID", ModGuiHandler.UPGRADES);
-			PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_BUTTON2));
+			PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_UPGRADE_BUTTON));
 		} else {
 			super.actionPerformed(button);
 		}
