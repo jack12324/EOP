@@ -56,9 +56,9 @@ public class ModGuiHandler implements IGuiHandler {
 	public static final int STARHARDENER = 8;
 	public static final int TRICATALYSTINFUSER = 9;
 	public static final int UPGRADES = 10;
-	
-	public static int getTileGui(TileEntity te){
-		
+
+	public static int getTileGui(TileEntity te) {
+
 		if (te instanceof TileEntityActivationChamber)
 			return ACTIVATIONCHAMBER;
 		else if (te instanceof TileEntityEqualizingSmelter)
@@ -81,7 +81,7 @@ public class ModGuiHandler implements IGuiHandler {
 			return TRICATALYSTINFUSER;
 		else
 			return -1;
-		
+
 	}
 
 	@Override

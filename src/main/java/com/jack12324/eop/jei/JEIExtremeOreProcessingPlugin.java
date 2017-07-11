@@ -24,23 +24,24 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
 
 @JEIPlugin
-public class JEIExtremeOreProcessingPlugin implements IModPlugin{
+public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 
 	public static IJeiHelpers jeiHelpers;
 	public static IModRegistry modRegistry;
+
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void registerIngredients(IModIngredientRegistration registry) {
 		// TODO Auto-generated method stub
-		
-	}
-	Map<Class, EOPRecipeCategory> categories = new LinkedHashMap<>();
 
+	}
+
+	Map<Class, EOPRecipeCategory> categories = new LinkedHashMap<>();
 
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
@@ -48,25 +49,24 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin{
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		categories.put(recipeTest.class, new activationChamberRecipeCategory(guiHelper));
 		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
-		
+
 	}
 
 	@Override
 	public void register(IModRegistry registryIn) {
 		modRegistry = registryIn;
-		for(EOPRecipeCategory<Object, IRecipeWrapper> cat : categories.values())
-		{
+		for (EOPRecipeCategory<Object, IRecipeWrapper> cat : categories.values()) {
 			cat.addCatalysts(registryIn);
 			modRegistry.handleRecipes(cat.getRecipeClass(), cat, cat.getRecipeCategoryUid());
 		}
 		modRegistry.addRecipes(RecipeHolder.ACTIVATIONRECIPES, "eop.activation_chamber");
-		
+
 	}
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

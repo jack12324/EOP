@@ -49,5 +49,4 @@ public class GuiActivationChamber extends GuiBase {
 			20// height
 	};
 
-
 }

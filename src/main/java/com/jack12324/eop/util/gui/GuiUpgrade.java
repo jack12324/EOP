@@ -22,12 +22,13 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiUpgrade extends GuiContainer {
 
-	private ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID, "textures/gui/upgradeScreenGui.png");
+	private ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
+			"textures/gui/upgradeScreenGui.png");
 	TileEntity tileEntity;
 
 	public GuiUpgrade(Container serverGuiElement, InventoryPlayer inventory, TileEntity tileEntity) {
 		super(serverGuiElement);
-		this.tileEntity=tileEntity;
+		this.tileEntity = tileEntity;
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class GuiUpgrade extends GuiContainer {
 		// gui base
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, 20, 20);
 	}
-	
+
 	@Override
 	public void initGui() {
 		super.initGui();

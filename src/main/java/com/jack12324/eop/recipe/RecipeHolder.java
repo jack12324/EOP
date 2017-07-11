@@ -9,8 +9,8 @@ import net.minecraft.item.ItemStack;
 public class RecipeHolder {
 
 	public static final ArrayList<recipeTest> ACTIVATIONRECIPES = new ArrayList<recipeTest>();
-	
-	 public static void addTestActivationRecipe(ItemStack input, ItemStack output){
-		 ACTIVATIONRECIPES.add(new recipeTest(input, output));
-	    }
+
+	public static void addTestActivationRecipe(ItemStack input, ItemStack output) {
+		ACTIVATIONRECIPES.add(new recipeTest(input, output));
+	}
 }

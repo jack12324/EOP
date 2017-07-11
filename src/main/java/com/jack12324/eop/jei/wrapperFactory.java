@@ -6,7 +6,7 @@ import com.jack12324.eop.machine.activationChamber.recipeTest;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
 
-public class wrapperFactory implements IRecipeWrapperFactory	{
+public class wrapperFactory implements IRecipeWrapperFactory {
 
 	@Override
 	public IRecipeWrapper getRecipeWrapper(Object recipe) {

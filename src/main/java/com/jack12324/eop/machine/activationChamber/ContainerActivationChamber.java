@@ -35,7 +35,7 @@ public class ContainerActivationChamber extends MachineContainer {
 			}
 		});
 
-		//this.addUpgradeSlots(activationChamber);
+		// this.addUpgradeSlots(activationChamber);
 		this.addInventorySlots(playerInv);
 	}
 

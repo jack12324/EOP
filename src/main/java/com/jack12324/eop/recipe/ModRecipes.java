@@ -115,11 +115,11 @@ public class ModRecipes {
 		// God tier cactus spines
 		GameRegistry.addRecipe(new ShapedOreRecipe((ModItems.cactusSpine), "ab ", "   ", "   ", 'a', Items.IRON_SWORD,
 				'b', Blocks.CACTUS));
-		
+
 		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.EMERALD), new ItemStack(Items.FERMENTED_SPIDER_EYE));
 		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.ARROW, 2), new ItemStack(Items.GLOWSTONE_DUST));
-		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.EGG), new ItemStack(Items.LEATHER,9));
-		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.APPLE, 2), new ItemStack(Items.POTATO,4));
+		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.EGG), new ItemStack(Items.LEATHER, 9));
+		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.APPLE, 2), new ItemStack(Items.POTATO, 4));
 
 	}
 
