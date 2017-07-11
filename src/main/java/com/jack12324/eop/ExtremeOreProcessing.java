@@ -36,6 +36,7 @@ public class ExtremeOreProcessing {
 	public static EOPTab creativeTab = new EOPTab();
 
 	public static final Logger LOGGER = LogManager.getLogger("Extreme Ore Processing");
+	
 
 	// tool materials
 	public static final Item.ToolMaterial tungstenToolMaterial = EnumHelper.addToolMaterial("TUNGSTEN", 3, 2000, 10, 4,
@@ -46,6 +47,7 @@ public class ExtremeOreProcessing {
 			modID + ":cobalt", 20, new int[] { 5, 10, 8, 5 }, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0f);
 	public static final Item.ToolMaterial cactusToolMaterial = EnumHelper.addToolMaterial("CACTUS", 3, 2000, 10, 4, 20);
 	public static boolean teslaLoaded;
+	
 
 	@Mod.Instance(modID)
 	public static ExtremeOreProcessing instance;

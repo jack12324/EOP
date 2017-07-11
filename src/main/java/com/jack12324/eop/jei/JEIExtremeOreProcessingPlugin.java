@@ -1,10 +1,18 @@
 package com.jack12324.eop.jei;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+import com.jack12324.eop.jei.activationChamber.activationChamberRecipeCategory;
+import com.jack12324.eop.jei.activationChamber.activationChamberRecipeWrapper;
 import com.jack12324.eop.machine.activationChamber.ActivationChamberRecipes;
+import com.jack12324.eop.machine.activationChamber.recipeTest;
+import com.jack12324.eop.recipe.RecipeHolder;
 
 import mezz.jei.api.BlankModPlugin;
+import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -12,10 +20,14 @@ import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapperFactory;
 
 @JEIPlugin
 public class JEIExtremeOreProcessingPlugin implements IModPlugin{
 
+	public static IJeiHelpers jeiHelpers;
+	public static IModRegistry modRegistry;
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
 		// TODO Auto-generated method stub
@@ -27,17 +39,27 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin{
 		// TODO Auto-generated method stub
 		
 	}
+	Map<Class, EOPRecipeCategory> categories = new LinkedHashMap<>();
+
 
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
-		// TODO Auto-generated method stub
+		jeiHelpers = registry.getJeiHelpers();
+		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+		categories.put(recipeTest.class, new activationChamberRecipeCategory(guiHelper));
+		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
 		
 	}
 
 	@Override
-	public void register(IModRegistry registry) {
-		// TODO Auto-generated method stub
-		registry.addRecipes((Collection<?>) ActivationChamberRecipes.INSTANCE, "eop.activationChamber" );
+	public void register(IModRegistry registryIn) {
+		modRegistry = registryIn;
+		for(EOPRecipeCategory<Object, IRecipeWrapper> cat : categories.values())
+		{
+			cat.addCatalysts(registryIn);
+			modRegistry.handleRecipes(cat.getRecipeClass(), cat, cat.getRecipeCategoryUid());
+		}
+		modRegistry.addRecipes(RecipeHolder.ACTIVATIONRECIPES, "eop.activation_chamber");
 		
 	}
 

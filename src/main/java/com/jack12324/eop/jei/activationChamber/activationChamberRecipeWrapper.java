@@ -1,28 +1,29 @@
 package com.jack12324.eop.jei.activationChamber;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import com.jack12324.eop.machine.activationChamber.recipeTest;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 
 public class activationChamberRecipeWrapper extends BlankRecipeWrapper {
 	
-	public final ActivationChamberRecipe recipe;
+	private final ItemStack input;
+	private final ItemStack output;
 	
-	public activationChamberRecipeWrapper(ActivationChamberRecipe recipe){
-		this.recipe=recipe;
+	public activationChamberRecipeWrapper(recipeTest recipe){
+		this.input = recipe.inputStack;
+		this.output = recipe.outputStack;
 	}
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInput(ItemStack.class, this.recipe.inputStack);
-
-        
-        ingredients.setOutput(ItemStack.class, this.recipe.outputStack);
+		ingredients.setInput(ItemStack.class, input);
+		ingredients.setOutput(ItemStack.class, output);
 		
 	}
 
