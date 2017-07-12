@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.jack12324.eop.machine.EOPRecipes;
-import com.jack12324.eop.recipe.ActivationChamberRecipe;
+import com.jack12324.eop.recipe.BasicRecipe;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
@@ -16,7 +16,7 @@ public class activationChamberRecipeWrapper extends BlankRecipeWrapper {
 	private final ItemStack input;
 	private final ItemStack output;
 
-	public activationChamberRecipeWrapper(ActivationChamberRecipe recipe) {
+	public activationChamberRecipeWrapper(BasicRecipe recipe) {
 		this.input = recipe.getInputStack();
 		this.output = recipe.getOutputStack();
 

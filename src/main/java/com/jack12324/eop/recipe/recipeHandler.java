@@ -2,6 +2,11 @@ package com.jack12324.eop.recipe;
 
 import java.util.ArrayList;
 
+import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
+import com.jack12324.eop.recipe.recipeInterfaces.IMultipleInputRecipe;
+import com.jack12324.eop.recipe.recipeInterfaces.IOneInputRecipe;
+import com.jack12324.eop.recipe.recipeInterfaces.IOneOutput;
+
 import net.minecraft.item.ItemStack;
 
 public class recipeHandler {

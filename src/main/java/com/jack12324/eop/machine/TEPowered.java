@@ -2,8 +2,8 @@ package com.jack12324.eop.machine;
 
 import java.util.ArrayList;
 
-import com.jack12324.eop.recipe.EOPRecipe;
 import com.jack12324.eop.recipe.recipeHandler;
+import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 import com.jack12324.eop.util.Upgrade;
 import com.jack12324.eop.util.UpgradeHelper;

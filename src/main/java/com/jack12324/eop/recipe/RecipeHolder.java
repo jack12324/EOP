@@ -2,7 +2,10 @@ package com.jack12324.eop.recipe;
 
 import java.util.ArrayList;
 
+import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
+
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 public class RecipeHolder {
 
@@ -22,11 +25,15 @@ public class RecipeHolder {
 	public static final ArrayList<EOPRecipe> PEDESTALRECIPES = new ArrayList<EOPRecipe>();
 
 	public static void addActivationChamberRecipe(ItemStack input, ItemStack output) {
-		addActivationChamberRecipe(input, output);
+		ACTIVATIONCHAMBERRECIPES.add(new BasicRecipe(input, output));
 	}
 
 	public static void addDisablingPressRecipe(ItemStack input, ItemStack output) {
-		addDisablingPressRecipe(input, output);
+		DISABLINGPRESSRECIPES.add(new BasicRecipe(input, output));
+	}
+
+	public static void addCatalystInfuserRecipe(ItemStack itemInput, FluidStack inFluid, FluidStack outFluid) {
+		CATALYSTINFUSERRECIPES.add(new InfuserRecipe(itemInput, inFluid, outFluid));
 	}
 
 }

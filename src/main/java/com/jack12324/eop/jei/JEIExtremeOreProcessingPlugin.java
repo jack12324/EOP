@@ -8,7 +8,7 @@ import com.jack12324.eop.jei.activationChamber.activationChamberRecipeCategory;
 import com.jack12324.eop.jei.activationChamber.activationChamberRecipeWrapper;
 import com.jack12324.eop.machine.activationChamber.ActivationChamberRecipes;
 import com.jack12324.eop.recipe.RecipeHolder;
-import com.jack12324.eop.recipe.ActivationChamberRecipe;
+import com.jack12324.eop.recipe.BasicRecipe;
 
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IGuiHelper;
@@ -48,7 +48,7 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 		jeiHelpers = registry.getJeiHelpers();
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
-		categories.put(ActivationChamberRecipe.class, new activationChamberRecipeCategory(guiHelper));
+		categories.put(BasicRecipe.class, new activationChamberRecipeCategory(guiHelper));
 
 		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
 
