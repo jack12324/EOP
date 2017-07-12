@@ -2,7 +2,7 @@ package com.jack12324.eop.machine;
 
 import java.util.ArrayList;
 
-import com.jack12324.eop.recipe.recipeHandler;
+import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 import com.jack12324.eop.util.Upgrade;
@@ -330,17 +330,23 @@ public abstract class TEPowered extends TEInventory {
 				return false;
 			}
 		}
-		ItemStack result = recipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
-		// ItemStack result = recipes.getResult(getInputSlotItemStacks());
+		if (!(this instanceof TEFluidUser)) {
+			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
 
-		if (result == null || result.isEmpty()) {
-			return false;
-		} else if (this instanceof TEFluidProducer) {
-			return true;
-		} else {
-			return getOutSlot(result) == -1 ? false : true;
-		}
+			if (result == null || result.isEmpty()) {
+				return false;
+			} else if (this instanceof TEFluidProducer) {
+				return true;
+			} else {
+				return getOutSlot(result) == -1 ? false : true;
+			}
+		} else
+			return this.fluidCanUse();
 
+	}
+
+	public boolean fluidCanUse() {
+		return false;
 	}
 
 	public ArrayList<EOPRecipe> getRecipeList() {
@@ -417,27 +423,27 @@ public abstract class TEPowered extends TEInventory {
 	 */
 	public void useItem() {
 
-		// if (this.canUse()) {
 		ItemStack[] input = getInputSlotItemStacks();
-		ItemStack result = recipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
-		// ItemStack result = recipes.getResult(input);
+		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
 		int outIndex = this.getOutSlot(result);
 		ItemStack output = null;// TODO risky
-		if (outIndex != -1)
+		if (outIndex != -1) {
 			output = this.slots.getStackInSlot(outIndex);
+			if (output.isEmpty()) {
+				this.slots.setStackInSlot(outIndex, result.copy());
+			} else if (output.getItem() == result.getItem()) {
+				output.grow(result.getCount());
+			}
 
-		if (this instanceof TEFluidProducer) {
-			// does nothing because no item output
-		} else if (output.isEmpty()) {
-			this.slots.setStackInSlot(outIndex, result.copy());
-		} else if (output.getItem() == result.getItem()) {
-			output.grow(result.getCount());
+			for (ItemStack stack : input) {
+				stack.shrink(1);
+			}
 		}
+		this.useFluid(input);
+	}
 
-		for (ItemStack stack : input) {
-			stack.shrink(1);
-		}
-		// }
+	public void useFluid(ItemStack[] input) {
+
 	}
 
 	/**

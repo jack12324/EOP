@@ -1,7 +1,12 @@
 package com.jack12324.eop.machine;
 
+import java.util.ArrayList;
+
+import com.jack12324.eop.recipe.RecipeHandler;
+import com.jack12324.eop.recipe.recipeInterfaces.IFluidInRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
@@ -12,8 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class TEFluidUser extends TEPowered {
-	private Fluid inFluid;
-	private int fluidUseAmount;
+	private ArrayList<Fluid> inFluid;
 	private int oldInFluidAmount;
 	public final FluidTank inTank = new FluidTank(2000) {
 		@Override
@@ -23,7 +27,7 @@ public abstract class TEFluidUser extends TEPowered {
 
 		@Override
 		public boolean canFillFluidType(FluidStack fluid) {
-			return fluid.getFluid() == inFluid;
+			return inFluid.contains(fluid);
 		}
 	};
 
@@ -35,8 +39,7 @@ public abstract class TEFluidUser extends TEPowered {
 	public TEFluidUser(String name, InventorySlotHelper slots, EOPRecipes recipes, Fluid inFluid, int fluidUseAmount,
 			int tankSize) {
 		super(name, slots, recipes);
-		this.inFluid = inFluid;
-		this.fluidUseAmount = fluidUseAmount;
+		this.inFluid = new ArrayList<Fluid>(RecipeHandler.getInFluids(this.getRecipeList()));
 		this.inTank.setCapacity(tankSize);
 
 	}
@@ -84,14 +87,28 @@ public abstract class TEFluidUser extends TEPowered {
 	}
 
 	@Override
+	public boolean fluidCanUse() {
+		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(),
+				this.inTank.getFluid());
+
+		if (result == null || result.isEmpty()) {
+			return false;
+		} else if (this instanceof TEFluidProducer) {
+			return true;
+		} else {
+			return getOutSlot(result) == -1 ? false : true;
+		}
+	}
+
+	@Override
 	public IFluidHandler getFluidHandler(EnumFacing facing) {
 		return this.inTank;
 	}
 
 	@Override
-	public void useItem() {
-		super.useItem();
-		inTank.drainInternal(fluidUseAmount, true);
+	public void useFluid(ItemStack[] input) {
+		inTank.drainInternal(
+				RecipeHandler.getInFluidAmountUsed(this.getRecipeList(), input, inTank.getFluid().getFluid()), true);
 	}
 
 	@SideOnly(Side.CLIENT)

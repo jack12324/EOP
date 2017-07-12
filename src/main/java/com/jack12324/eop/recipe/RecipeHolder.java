@@ -33,7 +33,8 @@ public class RecipeHolder {
 	}
 
 	public static void addCatalystInfuserRecipe(ItemStack itemInput, FluidStack inFluid, FluidStack outFluid) {
-		CATALYSTINFUSERRECIPES.add(new InfuserRecipe(itemInput, inFluid, outFluid));
+		ItemStack[] items = { itemInput };
+		CATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
 	}
 
 }
