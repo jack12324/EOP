@@ -12,7 +12,6 @@ import com.jack12324.eop.item.tool.ModPickaxe;
 import com.jack12324.eop.item.tool.ModShovel;
 import com.jack12324.eop.item.tool.ModSword;
 import com.jack12324.eop.machine.activationChamber.ActivationChamberRecipes;
-import com.jack12324.eop.machine.activationChamber.recipeTest;
 import com.jack12324.eop.machine.disablingPress.DisablingPressRecipes;
 import com.jack12324.eop.machine.endericPurifier.EndericPurifierRecipes;
 import com.jack12324.eop.machine.equalizingSmelter.EqualizingSmelterRecipes;
@@ -116,10 +115,11 @@ public class ModRecipes {
 		GameRegistry.addRecipe(new ShapedOreRecipe((ModItems.cactusSpine), "ab ", "   ", "   ", 'a', Items.IRON_SWORD,
 				'b', Blocks.CACTUS));
 
-		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.EMERALD), new ItemStack(Items.FERMENTED_SPIDER_EYE));
-		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.ARROW, 2), new ItemStack(Items.GLOWSTONE_DUST));
-		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.EGG), new ItemStack(Items.LEATHER, 9));
-		RecipeHolder.addTestActivationRecipe(new ItemStack(Items.APPLE, 2), new ItemStack(Items.POTATO, 4));
+		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.EMERALD),
+				new ItemStack(Items.FERMENTED_SPIDER_EYE));
+		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.ARROW, 2), new ItemStack(Items.GLOWSTONE_DUST));
+		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.EGG), new ItemStack(Items.LEATHER, 9));
+		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.APPLE, 2), new ItemStack(Items.POTATO, 4));
 
 	}
 

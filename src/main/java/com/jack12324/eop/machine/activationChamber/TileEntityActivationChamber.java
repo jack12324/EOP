@@ -7,6 +7,8 @@ import java.util.List;
 import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.TEPowered;
+import com.jack12324.eop.recipe.EOPRecipe;
+import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.item.Item;
@@ -36,5 +38,10 @@ public class TileEntityActivationChamber extends TEPowered {
 	@Override
 	public int getFuelTime(int i) {
 		return fuelTime.get(i);
+	}
+
+	@Override
+	public ArrayList<EOPRecipe> getRecipeList() {
+		return RecipeHolder.ACTIVATIONCHAMBERRECIPES;
 	}
 }

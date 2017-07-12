@@ -3,7 +3,7 @@ package com.jack12324.eop.jei.activationChamber;
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.jei.EOPRecipeCategory;
-import com.jack12324.eop.machine.activationChamber.recipeTest;
+import com.jack12324.eop.recipe.ActivationChamberRecipe;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -19,7 +19,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class activationChamberRecipeCategory extends EOPRecipeCategory<recipeTest, activationChamberRecipeWrapper> {
+public class activationChamberRecipeCategory
+		extends EOPRecipeCategory<ActivationChamberRecipe, activationChamberRecipeWrapper> {
 
 	private final static ResourceLocation background = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/activation_chamber.png");
@@ -28,7 +29,7 @@ public class activationChamberRecipeCategory extends EOPRecipeCategory<recipeTes
 
 	public activationChamberRecipeCategory(IGuiHelper helper) {
 		super("activation_chamber", "tile.activation_chamber.name", helper.createDrawable(background, 3, 3, 170, 80),
-				recipeTest.class, new ItemStack(ModBlocks.activationChamber, 1));
+				ActivationChamberRecipe.class, new ItemStack(ModBlocks.activationChamber, 1));
 
 		progress = helper.createAnimatedDrawable(helper.createDrawable(background, 3, 169, 78, 15), 200,
 				StartDirection.LEFT, false);
@@ -48,7 +49,7 @@ public class activationChamberRecipeCategory extends EOPRecipeCategory<recipeTes
 	}
 
 	@Override
-	public IRecipeWrapper getRecipeWrapper(recipeTest recipe) {
+	public IRecipeWrapper getRecipeWrapper(ActivationChamberRecipe recipe) {
 		return new activationChamberRecipeWrapper(recipe);
 	}
 

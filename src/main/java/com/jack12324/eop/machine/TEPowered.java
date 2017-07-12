@@ -1,5 +1,9 @@
 package com.jack12324.eop.machine;
 
+import java.util.ArrayList;
+
+import com.jack12324.eop.recipe.EOPRecipe;
+import com.jack12324.eop.recipe.recipeHandler;
 import com.jack12324.eop.util.InventorySlotHelper;
 import com.jack12324.eop.util.Upgrade;
 import com.jack12324.eop.util.UpgradeHelper;
@@ -326,7 +330,8 @@ public abstract class TEPowered extends TEInventory {
 				return false;
 			}
 		}
-		ItemStack result = recipes.getResult(getInputSlotItemStacks());
+		ItemStack result = recipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
+		// ItemStack result = recipes.getResult(getInputSlotItemStacks());
 
 		if (result == null || result.isEmpty()) {
 			return false;
@@ -336,6 +341,10 @@ public abstract class TEPowered extends TEInventory {
 			return getOutSlot(result) == -1 ? false : true;
 		}
 
+	}
+
+	public ArrayList<EOPRecipe> getRecipeList() {
+		return null;
 	}
 
 	/**
@@ -410,7 +419,8 @@ public abstract class TEPowered extends TEInventory {
 
 		// if (this.canUse()) {
 		ItemStack[] input = getInputSlotItemStacks();
-		ItemStack result = recipes.getResult(input);
+		ItemStack result = recipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
+		// ItemStack result = recipes.getResult(input);
 		int outIndex = this.getOutSlot(result);
 		ItemStack output = null;// TODO risky
 		if (outIndex != -1)

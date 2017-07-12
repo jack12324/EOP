@@ -7,8 +7,8 @@ import java.util.Map;
 import com.jack12324.eop.jei.activationChamber.activationChamberRecipeCategory;
 import com.jack12324.eop.jei.activationChamber.activationChamberRecipeWrapper;
 import com.jack12324.eop.machine.activationChamber.ActivationChamberRecipes;
-import com.jack12324.eop.machine.activationChamber.recipeTest;
 import com.jack12324.eop.recipe.RecipeHolder;
+import com.jack12324.eop.recipe.ActivationChamberRecipe;
 
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IGuiHelper;
@@ -47,7 +47,9 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		jeiHelpers = registry.getJeiHelpers();
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		categories.put(recipeTest.class, new activationChamberRecipeCategory(guiHelper));
+
+		categories.put(ActivationChamberRecipe.class, new activationChamberRecipeCategory(guiHelper));
+
 		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
 
 	}
@@ -59,7 +61,7 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 			cat.addCatalysts(registryIn);
 			modRegistry.handleRecipes(cat.getRecipeClass(), cat, cat.getRecipeCategoryUid());
 		}
-		modRegistry.addRecipes(RecipeHolder.ACTIVATIONRECIPES, "eop.activation_chamber");
+		modRegistry.addRecipes(RecipeHolder.ACTIVATIONCHAMBERRECIPES, "eop.activation_chamber");
 
 	}
 
