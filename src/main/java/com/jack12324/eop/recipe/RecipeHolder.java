@@ -37,4 +37,23 @@ public class RecipeHolder {
 		CATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
 	}
 
+	public static void addDualCatalystInfuserRecipe(ItemStack item1, ItemStack item2, FluidStack inFluid,
+			FluidStack outFluid) {
+		ItemStack[] items = { item1, item2 };
+		DUALCATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
+	}
+
+	public static void addTriCatalystInfuserRecipe(ItemStack item1, ItemStack item2, ItemStack item3,
+			FluidStack inFluid, FluidStack outFluid) {
+		ItemStack[] items = { item1, item2, item3 };
+		TRICATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
+	}
+
+	public static void addEndericPurifierRecipe(ItemStack itemInput, ItemStack base, FluidStack inFluid,
+			ItemStack itemOutput) {
+		ItemStack[] items = { itemInput };
+		ItemStack[] bases = { base };
+		ENDERICPURIFIERRECIPES.add(new AdvancedRecipe(items, bases, inFluid, itemOutput));
+	}
+
 }

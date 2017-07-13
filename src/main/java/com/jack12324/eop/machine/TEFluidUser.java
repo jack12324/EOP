@@ -77,24 +77,12 @@ public abstract class TEFluidUser extends TEPowered {
 	}
 
 	@Override
-	protected boolean canUse() {
-		if (super.canUse() && this.inTank.getFluidAmount() > this.fluidUseAmount) {
-			return true;
-
-		} else {
-			return false;
-		}
-	}
-
-	@Override
 	public boolean fluidCanUse() {
 		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(),
-				this.inTank.getFluid());
+				this.getBaseSlotItemStacks(), this.inTank.getFluid());
 
 		if (result == null || result.isEmpty()) {
 			return false;
-		} else if (this instanceof TEFluidProducer) {
-			return true;
 		} else {
 			return getOutSlot(result) == -1 ? false : true;
 		}
@@ -109,6 +97,13 @@ public abstract class TEFluidUser extends TEPowered {
 	public void useFluid(ItemStack[] input) {
 		inTank.drainInternal(
 				RecipeHandler.getInFluidAmountUsed(this.getRecipeList(), input, inTank.getFluid().getFluid()), true);
+	}
+
+	public void useFluid(ItemStack[] input, ItemStack[] base) {
+		inTank.drainInternal(
+				RecipeHandler.getInFluidAmountUsed(this.getRecipeList(), input, base, inTank.getFluid().getFluid()),
+				true);
+
 	}
 
 	@SideOnly(Side.CLIENT)

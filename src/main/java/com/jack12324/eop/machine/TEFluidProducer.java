@@ -1,7 +1,9 @@
 package com.jack12324.eop.machine;
 
+import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.util.InventorySlotHelper;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
@@ -56,20 +58,14 @@ public abstract class TEFluidProducer extends TEFluidUser {
 		System.out.println("TEFP read");
 	}
 
-	private int counter = 0;
-
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
 		if (!world.isRemote) {
 			this.oldOutFluidCheck();
-			if (counter % 20 == 0)
-				System.out
-						.println("Server    " + this.inTank.getFluidAmount() + "    " + this.outTank.getFluidAmount());
+
 		}
-		if (world.isRemote && counter % 20 == 0)
-			System.out.println("Client    " + this.inTank.getFluidAmount() + "    " + this.outTank.getFluidAmount());
-		counter++;
+
 	}
 
 	protected void oldOutFluidCheck() {
@@ -80,22 +76,33 @@ public abstract class TEFluidProducer extends TEFluidUser {
 	}
 
 	@Override
-	protected boolean canUse() {
-		if (super.canUse() && ((this.outTank.getFluidAmount() + this.fluidProduceAmount) < this.outTank.getCapacity()))
-			return true;
-		else
+	public boolean fluidCanUse() {
+		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), getInputSlotItemStacks(),
+				this.getBaseSlotItemStacks(), this.inTank.getFluid());
+
+		if (result == null || (this.outTank.getFluidAmount() > 0 && !result.isFluidEqual(this.outTank.getFluid()))
+				|| this.outTank.getFluidAmount() + result.amount > this.outTank.getCapacity()) {
 			return false;
+		} else
+			return true;
+	}
+
+	@Override
+	public void useFluid(ItemStack[] input) {
+		super.useFluid(input);
+		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), input, this.inTank.getFluid());
+		outTank.fillInternal(result, true);
+	}
+
+	public void useFluid(ItemStack[] input, ItemStack[] base) {
+		super.useFluid(input, base);
+		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), input, base, this.inTank.getFluid());
+		outTank.fillInternal(result, true);
 	}
 
 	@Override
 	public IFluidHandler getFluidHandler(EnumFacing facing) {
 		return this.handlerMap;
-	}
-
-	@Override
-	public void useItem() {
-		super.useItem();
-		outTank.fillInternal(new FluidStack(outFluid, fluidProduceAmount), true);
 	}
 
 }
