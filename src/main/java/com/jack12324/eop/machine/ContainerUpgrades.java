@@ -12,6 +12,7 @@ public class ContainerUpgrades extends MachineContainer {
 		this.addInventorySlots(playerInv);
 	}
 
+	@Override
 	protected void addUpgradeSlots(TEInventory te) {
 		System.out.println(te == null);
 		addSlotToContainer(

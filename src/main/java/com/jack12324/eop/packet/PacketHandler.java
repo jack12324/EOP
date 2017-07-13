@@ -90,7 +90,7 @@ public class PacketHandler {
 				}
 			} else {
 				System.out.println("cli");
-				FMLCommonHandler.instance().showGuiScreen((GuiScreen) modGuiHandler
+				FMLCommonHandler.instance().showGuiScreen(modGuiHandler
 						.getClientGuiElement(compound.getInteger("guiID"), player, player.world, coord4D.getPos()));
 				player.openContainer.windowId = compound.getInteger("window");
 			}
