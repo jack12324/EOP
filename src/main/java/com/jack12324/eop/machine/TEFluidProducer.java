@@ -1,5 +1,7 @@
 package com.jack12324.eop.machine;
 
+import java.util.ArrayList;
+
 import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.util.InventorySlotHelper;
 
@@ -14,8 +16,7 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerFluidMap;
 
 public abstract class TEFluidProducer extends TEFluidUser {
 	private final FluidHandlerFluidMap handlerMap;
-	private Fluid outFluid;
-	private int fluidProduceAmount;
+	private ArrayList<Fluid> outFluid;
 	private int oldOutFluidAmount;
 	public final FluidTank outTank = new FluidTank(2000) {
 		@Override
@@ -25,19 +26,20 @@ public abstract class TEFluidProducer extends TEFluidUser {
 
 		@Override
 		public boolean canFillFluidType(FluidStack fluid) {
-			return fluid.getFluid() == outFluid;
+			return outFluid.contains(fluid);
 		}
 	};
 
-	public TEFluidProducer(String name, InventorySlotHelper slots, EOPRecipes recipes, Fluid inFluid,
-			int fluidUseAmount, int inTankSize, Fluid outFluid, int fluidProduceAmount, int outTankSize) {
-		super(name, slots, recipes, inFluid, fluidUseAmount, inTankSize);
-		this.outFluid = outFluid;
-		this.fluidProduceAmount = fluidUseAmount;
+	public TEFluidProducer(String name, InventorySlotHelper slots, int inTankSize, int outTankSize) {
+		super(name, slots, inTankSize);
+		this.outFluid = new ArrayList<Fluid>(RecipeHandler.getOutFluids(this.getRecipeList()));
 		this.outTank.setCapacity(outTankSize);
 		this.handlerMap = new FluidHandlerFluidMap();
-		this.handlerMap.addHandler(inFluid, this.inTank);
-		this.handlerMap.addHandler(outFluid, this.outTank);
+
+		for (Fluid fluid : this.inFluid)
+			this.handlerMap.addHandler(fluid, this.inTank);
+		for (Fluid fluid : this.outFluid)
+			this.handlerMap.addHandler(fluid, this.outTank);
 
 	}
 

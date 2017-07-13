@@ -26,7 +26,6 @@ public abstract class TEPowered extends TEInventory {
 	private int burnTimeRemaining;
 	private int[] inProgressTime;
 	private int[] oldValues;
-	private EOPRecipes recipes;
 	private int baseSpeed = 1;
 	private int fuelMultiplier = 1;
 	private boolean hasBase;
@@ -37,16 +36,15 @@ public abstract class TEPowered extends TEInventory {
 
 	private boolean lastActive = false;
 
-	public TEPowered(String name, InventorySlotHelper slots, EOPRecipes recipes) {
-		this(name, slots, recipes, 100000, 100000, 0);
+	public TEPowered(String name, InventorySlotHelper slots) {
+		this(name, slots, 100000, 100000, 0);
 	}
 
-	public TEPowered(String name, InventorySlotHelper slots, EOPRecipes recipes, int capacity, int recieve,
+	public TEPowered(String name, InventorySlotHelper slots, int capacity, int recieve,
 			int extract) {
 
 		super(new InventorySlotHelper(slots, 2), name);
 		inProgressTime = new int[slots.getInSlotSize()];
-		this.recipes = recipes;
 		this.hasBase = slots.getBaseSlotSize() > 0 ? true : false;
 		this.usesFuel = slots.getFuelSlotSize() > 0 ? true : false;
 		storage = new EOPEnergyStorage(capacity, recieve, extract);
@@ -401,9 +399,6 @@ public abstract class TEPowered extends TEInventory {
 		this.slots.setStackInSlot(i, itemStack);
 	}
 
-	public void setRecipes(EOPRecipes recipes) {
-		this.recipes = recipes;
-	}
 
 	public void superUpdate() {
 		super.updateEntity();

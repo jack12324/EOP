@@ -8,10 +8,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class TileEntityDualCatalystInfuser extends TEFluidProducer {
 
-	private static DualCatalystInfuserRecipes recipes = DualCatalystInfuserRecipes.INSTANCE;
 
 	public TileEntityDualCatalystInfuser() {
-		super("dual_catalyst_infuser", new InventorySlotHelper(2, 0, 0, 0, 0), recipes, FluidRegistry.WATER, 100, 4000,
-				InitFluids.fluidStarWater, 100, 4000);
+		super("dual_catalyst_infuser", new InventorySlotHelper(2, 0, 0, 0, 0), 4000, 4000);
 	}
 }

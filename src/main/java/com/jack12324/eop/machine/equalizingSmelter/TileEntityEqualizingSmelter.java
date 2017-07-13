@@ -13,7 +13,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
 
 public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse {
-	private static EqualizingSmelterRecipes equalizingRecipes = EqualizingSmelterRecipes.INSTANCE;
 	private static VanillaFurnaceRecipes vanillaRecipes = new VanillaFurnaceRecipes();
 	private boolean furnaceMode = true;
 	private boolean spreadMode = true;
@@ -23,7 +22,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	private int oldDustProgress = 0;
 
 	public TileEntityEqualizingSmelter() {
-		super("equalizing_smelter", new InventorySlotHelper(4, 4, 0, 0, 1), equalizingRecipes);
+		super("equalizing_smelter", new InventorySlotHelper(4, 4, 0, 0, 1));
 	}
 
 	@Override

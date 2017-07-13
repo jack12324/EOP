@@ -2,6 +2,7 @@ package com.jack12324.eop.recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IBaseRecipe;
@@ -287,6 +288,28 @@ public class RecipeHandler {
 				return recipe;
 		}
 		return null;
+	}
+
+	public static Collection<? extends Fluid> getOutFluids(ArrayList<EOPRecipe> recipeList) {
+		ArrayList<Fluid> fluids = new ArrayList<Fluid>();
+		for (EOPRecipe recipe : recipeList) {
+			Fluid fluid = ((IFluidOutRecipe) recipe).getOutFluidStack().getFluid();
+			if (!fluids.contains(fluid))
+				fluids.add(fluid);
+		}
+		return fluids;
+	}
+
+	public static FluidStack getFluidOutput(ArrayList<EOPRecipe> recipeList, ItemStack input) {
+		EOPRecipe recipe;
+		recipe = getRecipeFromInput(recipeList, input);
+		return recipe == null ? null : ((IFluidOutRecipe) recipe).getOutFluidStack();
+	}
+
+	public static int getPedestalSpeed(ItemStack input) {
+		EOPRecipe recipe;
+		recipe = getRecipeFromInput(RecipeHolder.PEDESTALRECIPES, input);
+		return recipe == null ? -1 : ((PedestalRecipe) recipe).getPedestalSpeed();
 	}
 
 }

@@ -54,5 +54,21 @@ public class RecipeHolder {
 		ItemStack[] items = { item1, item2, item3 };
 		TRICATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
 	}
+	
+	public static void addParticleExciterRecipe(ItemStack itemInput, ItemStack base, FluidStack inFluid,
+			ItemStack itemOutput) {
+		ItemStack[] items = { itemInput };
+		PARTICLEEXCITERRECIPES.add(new AdvancedRecipe(items, base, inFluid, itemOutput));
+	}
+	public static void addStarHardenerRecipe(ItemStack itemInput, ItemStack base, FluidStack inFluid,
+			ItemStack itemOutput) {
+		ItemStack[] items = { itemInput };
+		STARHARDENERRECIPES.add(new AdvancedRecipe(items, base, inFluid, itemOutput));
+	}
+	
+	public static void addTEqualizingSmelterRecipe(ItemStack item1, ItemStack item2, ItemStack item3, ItemStack item4, ItemStack output) {
+		ItemStack[] items = { item1, item2, item3,item4 };
+		EQUALIZINGSMELTERRECIPES.add(new EQSRecipe(items, output));
+	}
 
 }

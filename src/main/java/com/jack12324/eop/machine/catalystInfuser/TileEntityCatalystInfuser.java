@@ -8,10 +8,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class TileEntityCatalystInfuser extends TEFluidProducer {
 
-	private static CatalystInfuserRecipes recipes = CatalystInfuserRecipes.INSTANCE;
 
 	public TileEntityCatalystInfuser() {
-		super("catalyst_infuser", new InventorySlotHelper(1, 0, 0, 0, 0), recipes, FluidRegistry.LAVA, 100, 4000,
-				InitFluids.fluidScreamingLava, 100, 4000);
+		super("catalyst_infuser", new InventorySlotHelper(1, 0, 0, 0, 0), 4000, 4000);
 	}
 }
