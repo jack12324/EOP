@@ -3,7 +3,6 @@ package com.jack12324.eop.machine;
 import java.util.ArrayList;
 
 import com.jack12324.eop.recipe.RecipeHandler;
-import com.jack12324.eop.recipe.recipeInterfaces.IFluidInRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.item.ItemStack;

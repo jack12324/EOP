@@ -34,9 +34,7 @@ import com.jack12324.eop.machine.triCatalystInfuser.GuiTriCatalystInfuser;
 import com.jack12324.eop.machine.triCatalystInfuser.TileEntityTriCatalystInfuser;
 import com.jack12324.eop.util.gui.GuiUpgrade;
 
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

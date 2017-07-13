@@ -1,14 +1,11 @@
 package com.jack12324.eop.recipe;
 
-import java.util.ArrayList;
-
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IFluidInRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IFluidOutRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IMultipleInputRecipe;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 public class InfuserRecipe implements EOPRecipe, IMultipleInputRecipe, IFluidInRecipe, IFluidOutRecipe {

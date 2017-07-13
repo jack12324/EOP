@@ -1,16 +1,12 @@
 package com.jack12324.eop.jei;
 
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.jack12324.eop.jei.activationChamber.activationChamberRecipeCategory;
-import com.jack12324.eop.jei.activationChamber.activationChamberRecipeWrapper;
-import com.jack12324.eop.machine.activationChamber.ActivationChamberRecipes;
-import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.BasicRecipe;
+import com.jack12324.eop.recipe.RecipeHolder;
 
-import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
@@ -21,7 +17,6 @@ import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import mezz.jei.api.recipe.IRecipeWrapperFactory;
 
 @JEIPlugin
 public class JEIExtremeOreProcessingPlugin implements IModPlugin {

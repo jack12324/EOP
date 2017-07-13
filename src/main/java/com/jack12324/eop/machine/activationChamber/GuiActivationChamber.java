@@ -1,24 +1,11 @@
 package com.jack12324.eop.machine.activationChamber;
 
-import java.io.IOException;
-
 import com.jack12324.eop.ExtremeOreProcessing;
-import com.jack12324.eop.ModGuiHandler;
-import com.jack12324.eop.machine.equalizingSmelter.PacketClientState;
-import com.jack12324.eop.packet.PacketClientToServer;
-import com.jack12324.eop.packet.PacketHandler;
-import com.jack12324.eop.util.Coord4D;
 import com.jack12324.eop.util.gui.GuiBase;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 
 public class GuiActivationChamber extends GuiBase {
 	private TileEntityActivationChamber tileEntity;

@@ -9,7 +9,6 @@ import com.jack12324.eop.packet.PacketHandler;
 import com.jack12324.eop.util.Coord4D;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;

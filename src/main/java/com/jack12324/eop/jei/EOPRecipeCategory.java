@@ -7,18 +7,14 @@ import javax.annotation.Nullable;
 
 import com.jack12324.eop.ExtremeOreProcessing;
 
-import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 //Copied partially from the Immersive engineering mod, credit to BluSunrize
 public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>

@@ -1,16 +1,10 @@
 package com.jack12324.eop.machine;
 
 import com.jack12324.eop.item.ModItems;
-import com.jack12324.eop.machine.activationChamber.TileEntityActivationChamber;
-import com.jack12324.eop.machine.slot.SlotItemHandlerEOP;
-import com.jack12324.eop.machine.slot.SlotOutput;
 import com.jack12324.eop.machine.slot.SlotSpecific;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
 public class ContainerUpgrades extends MachineContainer {
 	public ContainerUpgrades(InventoryPlayer playerInv, final TEInventory te) {

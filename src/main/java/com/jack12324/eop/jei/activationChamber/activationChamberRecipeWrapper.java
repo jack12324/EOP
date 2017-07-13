@@ -1,9 +1,5 @@
 package com.jack12324.eop.jei.activationChamber;
 
-import java.util.Arrays;
-import java.util.List;
-
-import com.jack12324.eop.machine.EOPRecipes;
 import com.jack12324.eop.recipe.BasicRecipe;
 
 import mezz.jei.api.ingredients.IIngredients;
