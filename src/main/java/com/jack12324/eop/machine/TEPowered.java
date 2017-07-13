@@ -325,57 +325,28 @@ public abstract class TEPowered extends TEInventory {
 
 	protected boolean canUse() {
 
-		for (int index : getInputSlotIndices()) {
-			if (this.slots.getStackInSlot(index).isEmpty()) {
+		if (!this.hasBase) {
+			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
+
+			if (result == null || result.isEmpty()) {
 				return false;
+			} else {
+				return getOutSlot(result) == -1 ? false : true;
+			}
+		} else {
+			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), getBase());
+
+			if (result == null || result.isEmpty()) {
+				return false;
+			} else {
+				return getOutSlot(result) == -1 ? false : true;
 			}
 		}
-		if (!(this instanceof TEFluidUser) && !this.hasBase) {
-			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
 
-			if (result == null || result.isEmpty()) {
-				return false;
-			} else {
-				return getOutSlot(result) == -1 ? false : true;
-			}
-		} else if (!(this instanceof TEFluidUser)) {
-			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
-
-			if (result == null || result.isEmpty()) {
-				return false;
-			} else {
-				return getOutSlot(result) == -1 ? false : true;
-			}
-		} else
-			return this.fluidCanUse();
-
-	}
-
-	public boolean fluidCanUse() {
-		return false;
 	}
 
 	public ArrayList<EOPRecipe> getRecipeList() {
 		return null;
-	}
-
-	/**
-	 * @return array of ints corresponding to input slots and base slot indices
-	 */
-	public int[] getInputSlotIndices() {
-		int[] stack = new int[this.slotHelper.getInSlotSize() + this.slotHelper.getBaseSlotSize()];
-		int count = 0;
-		for (int i = 0; i < this.slotHelper.getInSlotSize(); i++) {
-			stack[i] = this.slotHelper.getInSlotIndex(i);
-			count++;
-		}
-		if (count < stack.length - 1) {
-			for (int i = 0; i < this.slotHelper.getBaseSlotSize(); i++) {
-				stack[count] = this.slotHelper.getBaseSlotIndex(i);
-				count++;
-			}
-		}
-		return stack;
 	}
 
 	/**
@@ -434,7 +405,7 @@ public abstract class TEPowered extends TEInventory {
 	public void useItem() {
 
 		ItemStack[] input = getInputSlotItemStacks();
-		ItemStack[] base = getBaseSlotItemStacks();
+		ItemStack base = getBase();
 		ItemStack result;
 		if (hasBase)
 			result = RecipeHandler.getItemOutput(this.getRecipeList(), input, base);
@@ -460,11 +431,15 @@ public abstract class TEPowered extends TEInventory {
 			this.useFluid(input);
 	}
 
+	public ItemStack getBase() {
+		return this.slots.getStackInSlot(this.slotHelper.getBaseSlotIndex(0));
+	}
+
 	public void useFluid(ItemStack[] input) {
 
 	}
 
-	public void useFluid(ItemStack[] input, ItemStack[] base) {
+	public void useFluid(ItemStack[] input, ItemStack base) {
 
 	}
 

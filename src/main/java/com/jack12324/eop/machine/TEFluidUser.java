@@ -77,9 +77,9 @@ public abstract class TEFluidUser extends TEPowered {
 	}
 
 	@Override
-	public boolean fluidCanUse() {
-		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(),
-				this.getBaseSlotItemStacks(), this.inTank.getFluid());
+	public boolean canUse() {
+		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), this.getBase(),
+				this.inTank.getFluid());
 
 		if (result == null || result.isEmpty()) {
 			return false;
@@ -99,7 +99,7 @@ public abstract class TEFluidUser extends TEPowered {
 				RecipeHandler.getInFluidAmountUsed(this.getRecipeList(), input, inTank.getFluid().getFluid()), true);
 	}
 
-	public void useFluid(ItemStack[] input, ItemStack[] base) {
+	public void useFluid(ItemStack[] input, ItemStack base) {
 		inTank.drainInternal(
 				RecipeHandler.getInFluidAmountUsed(this.getRecipeList(), input, base, inTank.getFluid().getFluid()),
 				true);

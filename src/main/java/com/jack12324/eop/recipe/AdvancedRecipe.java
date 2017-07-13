@@ -13,11 +13,11 @@ import net.minecraftforge.fluids.FluidStack;
 public class AdvancedRecipe implements EOPRecipe, IFluidInRecipe, IBaseRecipe, IMultipleInputRecipe, IOneOutput {
 
 	private ItemStack[] inputStack;
-	private ItemStack[] baseStack;
+	private ItemStack baseStack;
 	private ItemStack outputStack;
 	private FluidStack inFluid;
 
-	public AdvancedRecipe(ItemStack[] itemInput, ItemStack[] base, FluidStack inFluid, ItemStack itemOutput) {
+	public AdvancedRecipe(ItemStack[] itemInput, ItemStack base, FluidStack inFluid, ItemStack itemOutput) {
 		this.inputStack = itemInput;
 		this.inFluid = inFluid;
 		this.baseStack = base;
@@ -46,7 +46,7 @@ public class AdvancedRecipe implements EOPRecipe, IFluidInRecipe, IBaseRecipe, I
 	}
 
 	@Override
-	public ItemStack[] getBaseStacks() {
+	public ItemStack getBaseStack() {
 		return baseStack;
 	}
 

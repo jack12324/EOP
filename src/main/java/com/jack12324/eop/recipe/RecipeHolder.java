@@ -52,8 +52,7 @@ public class RecipeHolder {
 	public static void addEndericPurifierRecipe(ItemStack itemInput, ItemStack base, FluidStack inFluid,
 			ItemStack itemOutput) {
 		ItemStack[] items = { itemInput };
-		ItemStack[] bases = { base };
-		ENDERICPURIFIERRECIPES.add(new AdvancedRecipe(items, bases, inFluid, itemOutput));
+		ENDERICPURIFIERRECIPES.add(new AdvancedRecipe(items, base, inFluid, itemOutput));
 	}
 
 }
