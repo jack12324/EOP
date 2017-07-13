@@ -19,15 +19,15 @@ public class activationChamberRecipeWrapper extends BlankRecipeWrapper {
 	}
 
 	@Override
-	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInput(ItemStack.class, input);
-		ingredients.setOutput(ItemStack.class, output);
+	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 
 	}
 
 	@Override
-	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
+	public void getIngredients(IIngredients ingredients) {
+		ingredients.setInput(ItemStack.class, input);
+		ingredients.setOutput(ItemStack.class, output);
 
 	}
 

@@ -12,24 +12,24 @@ import net.minecraft.util.ResourceLocation;
 
 public class PowerBar extends Gui {
 
+	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
+			"textures/gui/fluid_bar.png");
 	private TEPowered tileEntity;
 	int guiLeft;
 	int guiTop;
-	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
-			"textures/gui/fluid_bar.png");
-
-	public PowerBar(TEPowered tileEntity, int guiLeft, int guiTop) {
-		this.tileEntity = tileEntity;
-		this.guiLeft = guiLeft;
-		this.guiTop = guiTop;
-	}
 
 	final int POWER_XPOS = 8;
+
 	final int POWER_YPOS = 20;
 	final int POWER_ICON_U = 0; // texture position of POWER icon
 	final int POWER_ICON_V = 109;
 	final int POWER_WIDTH = 8;
 	final int POWER_HEIGHT = 45;
+	public PowerBar(TEPowered tileEntity, int guiLeft, int guiTop) {
+		this.tileEntity = tileEntity;
+		this.guiLeft = guiLeft;
+		this.guiTop = guiTop;
+	}
 
 	public void draw() {
 		Minecraft mc = Minecraft.getMinecraft();

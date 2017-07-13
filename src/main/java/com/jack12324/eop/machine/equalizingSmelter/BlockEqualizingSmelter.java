@@ -18,11 +18,6 @@ public class BlockEqualizingSmelter extends BlockTE<TileEntityEqualizingSmelter>
 
 	}
 
-	@Override
-	protected int getGui() {
-		return ModGuiHandler.EQUALIZINGSMELTER;
-	}
-
 	// drop items in block as well as block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
@@ -33,15 +28,20 @@ public class BlockEqualizingSmelter extends BlockTE<TileEntityEqualizingSmelter>
 		super.breakBlock(world, pos, state);
 	}
 
-	@Override
-	public Class<TileEntityEqualizingSmelter> getTileEntityClass() {
-		return TileEntityEqualizingSmelter.class;
-	}
-
 	@Nullable
 	@Override
 	public TileEntityEqualizingSmelter createTileEntity(World world, IBlockState state) {
 		return new TileEntityEqualizingSmelter();
+	}
+
+	@Override
+	protected int getGui() {
+		return ModGuiHandler.EQUALIZINGSMELTER;
+	}
+
+	@Override
+	public Class<TileEntityEqualizingSmelter> getTileEntityClass() {
+		return TileEntityEqualizingSmelter.class;
 	}
 
 }

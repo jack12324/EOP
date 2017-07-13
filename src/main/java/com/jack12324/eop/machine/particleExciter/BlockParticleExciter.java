@@ -19,11 +19,6 @@ public class BlockParticleExciter extends BlockTE<TileEntityParticleExciter> {
 
 	}
 
-	@Override
-	protected int getGui() {
-		return ModGuiHandler.PARTICLEEXCITER;
-	}
-
 	// drop items in block as well as block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
@@ -34,15 +29,20 @@ public class BlockParticleExciter extends BlockTE<TileEntityParticleExciter> {
 		super.breakBlock(world, pos, state);
 	}
 
-	@Override
-	public Class<TileEntityParticleExciter> getTileEntityClass() {
-		return TileEntityParticleExciter.class;
-	}
-
 	@Nullable
 	@Override
 	public TileEntityParticleExciter createTileEntity(World world, IBlockState state) {
 		return new TileEntityParticleExciter();
+	}
+
+	@Override
+	protected int getGui() {
+		return ModGuiHandler.PARTICLEEXCITER;
+	}
+
+	@Override
+	public Class<TileEntityParticleExciter> getTileEntityClass() {
+		return TileEntityParticleExciter.class;
 	}
 
 }

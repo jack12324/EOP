@@ -21,13 +21,13 @@ public class InfuserRecipe implements EOPRecipe, IMultipleInputRecipe, IFluidInR
 	}
 
 	@Override
-	public FluidStack getOutFluidStack() {
-		return outFluid;
+	public FluidStack getInFluidStack() {
+		return inFluid;
 	}
 
 	@Override
-	public FluidStack getInFluidStack() {
-		return inFluid;
+	public int getInFluidUseAmount() {
+		return inFluid.amount;
 	}
 
 	@Override
@@ -36,8 +36,8 @@ public class InfuserRecipe implements EOPRecipe, IMultipleInputRecipe, IFluidInR
 	}
 
 	@Override
-	public int getInFluidUseAmount() {
-		return inFluid.amount;
+	public FluidStack getOutFluidStack() {
+		return outFluid;
 	}
 
 }

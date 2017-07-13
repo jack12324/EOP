@@ -26,13 +26,6 @@ public class PacketClientState implements IMessage, IMessageHandler<PacketClient
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf) {
-		buf.writeLong(pos);
-		buf.writeBoolean(mode);
-		buf.writeBoolean(spreadMode);
-	}
-
-	@Override
 	public void fromBytes(ByteBuf buf) {
 		pos = buf.readLong();
 		mode = buf.readBoolean();
@@ -55,5 +48,12 @@ public class PacketClientState implements IMessage, IMessageHandler<PacketClient
 			ctx.getServerHandler().playerEntity.world.notifyBlockUpdate(message.getPos(), bs, bs, 3);
 		}
 		return null;
+	}
+
+	@Override
+	public void toBytes(ByteBuf buf) {
+		buf.writeLong(pos);
+		buf.writeBoolean(mode);
+		buf.writeBoolean(spreadMode);
 	}
 }

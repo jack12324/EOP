@@ -19,11 +19,6 @@ public class BlockTriCatalystInfuser extends BlockTE<TileEntityTriCatalystInfuse
 
 	}
 
-	@Override
-	protected int getGui() {
-		return ModGuiHandler.TRICATALYSTINFUSER;
-	}
-
 	// drop items in block as well as block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
@@ -34,15 +29,20 @@ public class BlockTriCatalystInfuser extends BlockTE<TileEntityTriCatalystInfuse
 		super.breakBlock(world, pos, state);
 	}
 
-	@Override
-	public Class<TileEntityTriCatalystInfuser> getTileEntityClass() {
-		return TileEntityTriCatalystInfuser.class;
-	}
-
 	@Nullable
 	@Override
 	public TileEntityTriCatalystInfuser createTileEntity(World world, IBlockState state) {
 		return new TileEntityTriCatalystInfuser();
+	}
+
+	@Override
+	protected int getGui() {
+		return ModGuiHandler.TRICATALYSTINFUSER;
+	}
+
+	@Override
+	public Class<TileEntityTriCatalystInfuser> getTileEntityClass() {
+		return TileEntityTriCatalystInfuser.class;
 	}
 
 }

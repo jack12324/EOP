@@ -24,28 +24,11 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 	public static IJeiHelpers jeiHelpers;
 	public static IModRegistry modRegistry;
 
-	@Override
-	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void registerIngredients(IModIngredientRegistration registry) {
-		// TODO Auto-generated method stub
-
-	}
-
 	Map<Class, EOPRecipeCategory> categories = new LinkedHashMap<>();
 
 	@Override
-	public void registerCategories(IRecipeCategoryRegistration registry) {
-		jeiHelpers = registry.getJeiHelpers();
-		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-
-		categories.put(BasicRecipe.class, new activationChamberRecipeCategory(guiHelper));
-
-		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
+	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+		// TODO Auto-generated method stub
 
 	}
 
@@ -61,7 +44,24 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 	}
 
 	@Override
-	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+	public void registerCategories(IRecipeCategoryRegistration registry) {
+		jeiHelpers = registry.getJeiHelpers();
+		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+
+		categories.put(BasicRecipe.class, new activationChamberRecipeCategory(guiHelper));
+
+		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
+
+	}
+
+	@Override
+	public void registerIngredients(IModIngredientRegistration registry) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
 		// TODO Auto-generated method stub
 
 	}

@@ -42,12 +42,27 @@ public abstract class TEFluidProducer extends TEFluidUser {
 	}
 
 	@Override
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		NBTTagCompound tag = new NBTTagCompound();
-		this.outTank.writeToNBT(tag);
-		compound.setTag("outTank", tag);
-		super.writeSyncableNBT(compound, type);
-		System.out.println("TEFP write");
+	public boolean canUse() {
+		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), getInputSlotItemStacks(), this.getBase(),
+				this.inTank.getFluid());
+
+		if (result == null || (this.outTank.getFluidAmount() > 0 && !result.isFluidEqual(this.outTank.getFluid()))
+				|| this.outTank.getFluidAmount() + result.amount > this.outTank.getCapacity()) {
+			return false;
+		} else
+			return true;
+	}
+
+	@Override
+	public IFluidHandler getFluidHandler(EnumFacing facing) {
+		return this.handlerMap;
+	}
+
+	protected void oldOutFluidCheck() {
+		if (this.oldOutFluidAmount != this.outTank.getFluidAmount() && this.sendUpdateWithInterval()) {
+			System.out.println("outfluid");
+			this.oldOutFluidAmount = this.outTank.getFluidAmount();
+		}
 	}
 
 	@Override
@@ -68,25 +83,6 @@ public abstract class TEFluidProducer extends TEFluidUser {
 
 	}
 
-	protected void oldOutFluidCheck() {
-		if (this.oldOutFluidAmount != this.outTank.getFluidAmount() && this.sendUpdateWithInterval()) {
-			System.out.println("outfluid");
-			this.oldOutFluidAmount = this.outTank.getFluidAmount();
-		}
-	}
-
-	@Override
-	public boolean canUse() {
-		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), getInputSlotItemStacks(), this.getBase(),
-				this.inTank.getFluid());
-
-		if (result == null || (this.outTank.getFluidAmount() > 0 && !result.isFluidEqual(this.outTank.getFluid()))
-				|| this.outTank.getFluidAmount() + result.amount > this.outTank.getCapacity()) {
-			return false;
-		} else
-			return true;
-	}
-
 	@Override
 	public void useFluid(ItemStack[] input) {
 		super.useFluid(input);
@@ -101,8 +97,12 @@ public abstract class TEFluidProducer extends TEFluidUser {
 	}
 
 	@Override
-	public IFluidHandler getFluidHandler(EnumFacing facing) {
-		return this.handlerMap;
+	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
+		NBTTagCompound tag = new NBTTagCompound();
+		this.outTank.writeToNBT(tag);
+		compound.setTag("outTank", tag);
+		super.writeSyncableNBT(compound, type);
+		System.out.println("TEFP write");
 	}
 
 }

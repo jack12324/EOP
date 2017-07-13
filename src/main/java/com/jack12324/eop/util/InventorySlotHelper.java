@@ -49,52 +49,60 @@ public class InventorySlotHelper {
 		}
 	}
 
-	public int getInSlotIndex(int i) {
-		return getIn()[i];
-	}
-
-	public int getOutSlotIndex(int i) {
-		return getOut()[i];
-	}
-
-	public int getFuelSlotIndex(int i) {
-		return getFuel()[i];
+	public int[] getBase() {
+		return base;
 	}
 
 	public int getBaseSlotIndex(int i) {
 		return getBase()[i];
 	}
 
-	public int getOtherSlotIndex(int i) {
-		return other[i];
-	}
-
-	public int getUpgradeSlotIndex(int i) {
-		return upgrade[i];
-	}
-
 	public int getBaseSlotSize() {
 		return getBase().length;
 	}
 
-	public int getInSlotSize() {
-		return getIn().length;
+	public int[] getFuel() {
+		return fuel;
 	}
 
-	public int getOutSlotSize() {
-		return getOut().length;
+	public int getFuelSlotIndex(int i) {
+		return getFuel()[i];
 	}
 
 	public int getFuelSlotSize() {
 		return getFuel().length;
 	}
 
+	public int[] getIn() {
+		return in;
+	}
+
+	public int getInSlotIndex(int i) {
+		return getIn()[i];
+	}
+
+	public int getInSlotSize() {
+		return getIn().length;
+	}
+
+	public int getOtherSlotIndex(int i) {
+		return other[i];
+	}
+
 	public int getOtherSlotSize() {
 		return other.length;
 	}
 
-	public int getUpgradeSlotSize() {
-		return upgrade.length;
+	public int[] getOut() {
+		return out;
+	}
+
+	public int getOutSlotIndex(int i) {
+		return getOut()[i];
+	}
+
+	public int getOutSlotSize() {
+		return getOut().length;
 	}
 
 	public int getTotalSize() {
@@ -102,36 +110,28 @@ public class InventorySlotHelper {
 				+ getUpgradeSlotSize();
 	}
 
-	public int[] getIn() {
-		return in;
+	public int getUpgradeSlotIndex(int i) {
+		return upgrade[i];
 	}
 
-	public void setIn(int[] in) {
-		this.in = in;
+	public int getUpgradeSlotSize() {
+		return upgrade.length;
 	}
 
-	public int[] getOut() {
-		return out;
-	}
-
-	public void setOut(int[] out) {
-		this.out = out;
-	}
-
-	public int[] getFuel() {
-		return fuel;
+	public void setBase(int[] base) {
+		this.base = base;
 	}
 
 	public void setFuel(int[] fuel) {
 		this.fuel = fuel;
 	}
 
-	public int[] getBase() {
-		return base;
+	public void setIn(int[] in) {
+		this.in = in;
 	}
 
-	public void setBase(int[] base) {
-		this.base = base;
+	public void setOut(int[] out) {
+		this.out = out;
 	}
 
 }

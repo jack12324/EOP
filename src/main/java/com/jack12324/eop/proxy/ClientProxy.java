@@ -18,13 +18,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class ClientProxy extends CommonProxy {
-	// private static final Map<ItemStack, ModelResourceLocation>
-	// MODEL_LOCATIONS_FOR_REGISTERING = new HashMap<ItemStack,
-	// ModelResourceLocation>();
 	@Override
-	public void registerItemRenderer(Item item, int meta, String id) {
-		ModelLoader.setCustomModelResourceLocation(item, meta,
-				new ModelResourceLocation(ExtremeOreProcessing.modID + ":" + id, "inventory"));
+	public EntityPlayer getPlayer(MessageContext context) {
+		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
+			return context.getServerHandler().playerEntity;
+		} else {
+			return Minecraft.getMinecraft().player;
+		}
 	}
 
 	@Override
@@ -61,13 +61,13 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomStateMapper(block, mapper);
 	}
 
+	// private static final Map<ItemStack, ModelResourceLocation>
+	// MODEL_LOCATIONS_FOR_REGISTERING = new HashMap<ItemStack,
+	// ModelResourceLocation>();
 	@Override
-	public EntityPlayer getPlayer(MessageContext context) {
-		if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
-			return context.getServerHandler().playerEntity;
-		} else {
-			return Minecraft.getMinecraft().player;
-		}
+	public void registerItemRenderer(Item item, int meta, String id) {
+		ModelLoader.setCustomModelResourceLocation(item, meta,
+				new ModelResourceLocation(ExtremeOreProcessing.modID + ":" + id, "inventory"));
 	}
 
 }

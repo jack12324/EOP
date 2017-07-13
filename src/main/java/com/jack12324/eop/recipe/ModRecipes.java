@@ -27,6 +27,51 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class ModRecipes {
 
+	private static void addOreLine(String name) {
+		Item ore = OreLineHelper.get("ore" + name);
+		Item ingot = OreLineHelper.get("ingot" + name);
+		Item dust = OreLineHelper.get("activated" + name + "Dust");
+		Item powder = OreLineHelper.get("dormant" + name + "Powder");
+		Item scraps = OreLineHelper.get("excited" + name + "Scraps");
+		Item slivers = OreLineHelper.get("astral" + name + "Slivers");
+		Item essence = OreLineHelper.get("pure" + name + "Essence");
+
+		ActivationChamberRecipes.INSTANCE.addActivation(new Item[] { ore }, new ItemStack(dust, 2), new int[] { 1 });
+		DisablingPressRecipes.INSTANCE.addActivation(new Item[] { ore, Item.getItemFromBlock(Blocks.SAND) },
+				new ItemStack(powder, 3), new int[] { 1, 1 });
+		ParticleExciterRecipes.INSTANCE.addActivation(new Item[] { ore, Item.getItemFromBlock(Blocks.NETHERRACK) },
+				new ItemStack(scraps, 4), new int[] { 1, 1 });
+		StarHardenerRecipes.INSTANCE.addActivation(new Item[] { ore, Item.getItemFromBlock(Blocks.OBSIDIAN) },
+				new ItemStack(slivers, 5), new int[] { 1, 1 });
+		EndericPurifierRecipes.INSTANCE.addActivation(new Item[] { ore, Item.getItemFromBlock(Blocks.END_STONE) },
+				new ItemStack(essence, 6), new int[] { 1, 1 });
+
+		StarHardenerRecipes.INSTANCE.addActivation(new Item[] { essence, Item.getItemFromBlock(Blocks.OBSIDIAN) },
+				new ItemStack(slivers, 1), new int[] { 1, 1 });
+		ParticleExciterRecipes.INSTANCE.addActivation(new Item[] { slivers, Item.getItemFromBlock(Blocks.NETHERRACK) },
+				new ItemStack(scraps, 1), new int[] { 1, 1 });
+		DisablingPressRecipes.INSTANCE.addActivation(new Item[] { scraps, Item.getItemFromBlock(Blocks.SAND) },
+				new ItemStack(powder, 1), new int[] { 1, 1 });
+		ActivationChamberRecipes.INSTANCE.addActivation(new Item[] { powder }, new ItemStack(dust, 1), new int[] { 1 });
+		EqualizingSmelterRecipes.INSTANCE.addActivation(new Item[] { dust, dust, dust, dust }, new ItemStack(ingot, 4),
+				new int[] { 1, 1, 1, 1 });
+	}
+
+	private static void armorToolRecipes(ModArmor helmet, ModArmor chestplate, ModArmor leggings, ModArmor boots,
+			ModSword sword, ModPickaxe pickaxe, ModAxe axe, ModShovel shovel, ModHoe hoe, ItemBase material) {
+		GameRegistry.addShapedRecipe(new ItemStack(helmet), "aaa", "a a", 'a', material);
+		GameRegistry.addShapedRecipe(new ItemStack(chestplate), "a a", "aaa", "aaa", 'a', material);
+		GameRegistry.addShapedRecipe(new ItemStack(leggings), "aaa", "a a", "a a", 'a', material);
+		GameRegistry.addShapedRecipe(new ItemStack(boots), "a a", "a a", 'a', material);
+
+		GameRegistry.addShapedRecipe(new ItemStack(sword), " a ", " a ", " b ", 'a', material, 'b', Items.STICK);
+		GameRegistry.addShapedRecipe(new ItemStack(pickaxe), "aaa", " b ", " b ", 'a', material, 'b', Items.STICK);
+		GameRegistry.addShapedRecipe(new ItemStack(axe), "aa ", "ab ", " b ", 'a', material, 'b', Items.STICK);
+		GameRegistry.addShapedRecipe(new ItemStack(shovel), " a ", " b ", " b ", 'a', material, 'b', Items.STICK);
+		GameRegistry.addShapedRecipe(new ItemStack(hoe), "aa ", " b ", " b ", 'a', material, 'b', Items.STICK);
+
+	}
+
 	public static void init() {
 		// block to ingots
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.ingotTungsten, 9), ModBlocks.blockTungsten);
@@ -118,51 +163,6 @@ public class ModRecipes {
 		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.ARROW, 2), new ItemStack(Items.GLOWSTONE_DUST));
 		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.EGG), new ItemStack(Items.LEATHER, 9));
 		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.APPLE, 2), new ItemStack(Items.POTATO, 4));
-
-	}
-
-	private static void addOreLine(String name) {
-		Item ore = OreLineHelper.get("ore" + name);
-		Item ingot = OreLineHelper.get("ingot" + name);
-		Item dust = OreLineHelper.get("activated" + name + "Dust");
-		Item powder = OreLineHelper.get("dormant" + name + "Powder");
-		Item scraps = OreLineHelper.get("excited" + name + "Scraps");
-		Item slivers = OreLineHelper.get("astral" + name + "Slivers");
-		Item essence = OreLineHelper.get("pure" + name + "Essence");
-
-		ActivationChamberRecipes.INSTANCE.addActivation(new Item[] { ore }, new ItemStack(dust, 2), new int[] { 1 });
-		DisablingPressRecipes.INSTANCE.addActivation(new Item[] { ore, Item.getItemFromBlock(Blocks.SAND) },
-				new ItemStack(powder, 3), new int[] { 1, 1 });
-		ParticleExciterRecipes.INSTANCE.addActivation(new Item[] { ore, Item.getItemFromBlock(Blocks.NETHERRACK) },
-				new ItemStack(scraps, 4), new int[] { 1, 1 });
-		StarHardenerRecipes.INSTANCE.addActivation(new Item[] { ore, Item.getItemFromBlock(Blocks.OBSIDIAN) },
-				new ItemStack(slivers, 5), new int[] { 1, 1 });
-		EndericPurifierRecipes.INSTANCE.addActivation(new Item[] { ore, Item.getItemFromBlock(Blocks.END_STONE) },
-				new ItemStack(essence, 6), new int[] { 1, 1 });
-
-		StarHardenerRecipes.INSTANCE.addActivation(new Item[] { essence, Item.getItemFromBlock(Blocks.OBSIDIAN) },
-				new ItemStack(slivers, 1), new int[] { 1, 1 });
-		ParticleExciterRecipes.INSTANCE.addActivation(new Item[] { slivers, Item.getItemFromBlock(Blocks.NETHERRACK) },
-				new ItemStack(scraps, 1), new int[] { 1, 1 });
-		DisablingPressRecipes.INSTANCE.addActivation(new Item[] { scraps, Item.getItemFromBlock(Blocks.SAND) },
-				new ItemStack(powder, 1), new int[] { 1, 1 });
-		ActivationChamberRecipes.INSTANCE.addActivation(new Item[] { powder }, new ItemStack(dust, 1), new int[] { 1 });
-		EqualizingSmelterRecipes.INSTANCE.addActivation(new Item[] { dust, dust, dust, dust }, new ItemStack(ingot, 4),
-				new int[] { 1, 1, 1, 1 });
-	}
-
-	private static void armorToolRecipes(ModArmor helmet, ModArmor chestplate, ModArmor leggings, ModArmor boots,
-			ModSword sword, ModPickaxe pickaxe, ModAxe axe, ModShovel shovel, ModHoe hoe, ItemBase material) {
-		GameRegistry.addShapedRecipe(new ItemStack(helmet), "aaa", "a a", 'a', material);
-		GameRegistry.addShapedRecipe(new ItemStack(chestplate), "a a", "aaa", "aaa", 'a', material);
-		GameRegistry.addShapedRecipe(new ItemStack(leggings), "aaa", "a a", "a a", 'a', material);
-		GameRegistry.addShapedRecipe(new ItemStack(boots), "a a", "a a", 'a', material);
-
-		GameRegistry.addShapedRecipe(new ItemStack(sword), " a ", " a ", " b ", 'a', material, 'b', Items.STICK);
-		GameRegistry.addShapedRecipe(new ItemStack(pickaxe), "aaa", " b ", " b ", 'a', material, 'b', Items.STICK);
-		GameRegistry.addShapedRecipe(new ItemStack(axe), "aa ", "ab ", " b ", 'a', material, 'b', Items.STICK);
-		GameRegistry.addShapedRecipe(new ItemStack(shovel), " a ", " b ", " b ", 'a', material, 'b', Items.STICK);
-		GameRegistry.addShapedRecipe(new ItemStack(hoe), "aa ", " b ", " b ", 'a', material, 'b', Items.STICK);
 
 	}
 

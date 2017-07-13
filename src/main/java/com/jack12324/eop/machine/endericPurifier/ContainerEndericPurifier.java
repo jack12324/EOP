@@ -49,6 +49,11 @@ public class ContainerEndericPurifier extends Container {
 	}
 
 	@Override
+	public boolean canInteractWith(EntityPlayer playerIn) {
+		return tileEntity.isUsableByPlayer(playerIn);
+	}
+
+	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
@@ -81,11 +86,6 @@ public class ContainerEndericPurifier extends Container {
 		}
 
 		return itemstack;
-	}
-
-	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
-		return tileEntity.isUsableByPlayer(playerIn);
 	}
 
 }

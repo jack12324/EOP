@@ -8,18 +8,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiStarHardener extends GuiBase {
-	private TileEntityStarHardener tileEntity;
-	private InventoryPlayer playerInv;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/star_hardener.png");
-
-	public GuiStarHardener(Container inventorySlotsIn, InventoryPlayer playerInv, TileEntityStarHardener tileEntity) {
-		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);
-		this.playerInv = playerInv;
-		this.tileEntity = tileEntity;
-
-	}
-
 	static int[] progressBarVals = { 64, // X to start draw
 			27, // y to start draw
 			4, // x of texture location
@@ -27,5 +17,15 @@ public class GuiStarHardener extends GuiBase {
 			62, // width
 			31// height
 	};
+	private TileEntityStarHardener tileEntity;
+
+	private InventoryPlayer playerInv;
+
+	public GuiStarHardener(Container inventorySlotsIn, InventoryPlayer playerInv, TileEntityStarHardener tileEntity) {
+		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);
+		this.playerInv = playerInv;
+		this.tileEntity = tileEntity;
+
+	}
 
 }

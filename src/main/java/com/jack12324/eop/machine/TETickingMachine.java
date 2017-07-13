@@ -33,139 +33,9 @@ import net.minecraftforge.items.IItemHandler;
 
 public abstract class TETickingMachine extends TileEntity implements ITickable {
 
-	private final String name;
-	public boolean isRedstonePowered;
-	public boolean isPulseMode;
-	public boolean stopFromDropping;
-	protected int ticksElapsed;
-	protected TileEntity[] tilesAround = new TileEntity[6];
-	protected boolean hasSavedDataOnChangeOrWorldStart;
-
-	private Object teslaWrapper;
-
-	public TETickingMachine(String name) {
-		this.name = name;
+	public enum NBTType {
+		SAVE_TILE, SYNC, SAVE_BLOCK
 	}
-
-	public String getDisplayedName() {
-		return I18n.format("tile." + name + ".name");
-	}
-
-	@Override
-	public ITextComponent getDisplayName() {
-		return new TextComponentString(this.getDisplayedName());
-	}
-
-	@Override
-	public final NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		this.writeSyncableNBT(compound, NBTType.SAVE_TILE);
-		return compound;
-	}
-
-	@Override
-	public final void readFromNBT(NBTTagCompound compound) {
-		this.readSyncableNBT(compound, NBTType.SAVE_TILE);
-	}
-
-	@Override
-	public final SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound compound = new NBTTagCompound();
-		this.writeSyncableNBT(compound, NBTType.SYNC);
-		return new SPacketUpdateTileEntity(this.pos, -1, compound);
-	}
-
-	@Override
-	public final void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		this.readSyncableNBT(pkt.getNbtCompound(), NBTType.SYNC);
-	}
-
-	@Override
-	public final NBTTagCompound getUpdateTag() {
-		NBTTagCompound compound = new NBTTagCompound();
-		this.writeSyncableNBT(compound, NBTType.SYNC);
-		return compound;
-	}
-
-	@Override
-	public final void handleUpdateTag(NBTTagCompound compound) {
-		this.readSyncableNBT(compound, NBTType.SYNC);
-	}
-
-	public final void sendUpdate() {
-		if (this.world != null && !this.world.isRemote) {
-			NBTTagCompound compound = new NBTTagCompound();
-			this.writeSyncableNBT(compound, NBTType.SYNC);
-
-			NBTTagCompound data = new NBTTagCompound();
-			data.setTag("Data", compound);
-			data.setInteger("X", this.pos.getX());
-			data.setInteger("Y", this.pos.getY());
-			data.setInteger("Z", this.pos.getZ());
-			PacketHandler.NETWORK.sendToAllAround(new PacketServerToClient(data, PacketHandler.TILE_ENTITY_HANDLER),
-					new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.getPos().getX(),
-							this.getPos().getY(), this.getPos().getZ(), 64));
-		}
-	}
-
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		if (type != NBTType.SAVE_BLOCK) {
-			super.writeToNBT(compound);
-		}
-
-		if (type == NBTType.SAVE_TILE) {
-			compound.setBoolean("Redstone", this.isRedstonePowered);
-			compound.setInteger("TicksElapsed", this.ticksElapsed);
-			compound.setBoolean("StopDrop", this.stopFromDropping);
-		}
-		if (this.isRedstoneToggle() && (type != NBTType.SAVE_BLOCK || this.isPulseMode)) {
-			compound.setBoolean("IsPulseMode", this.isPulseMode);
-		}
-	}
-
-	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
-		if (type != NBTType.SAVE_BLOCK) {
-			super.readFromNBT(compound);
-		}
-
-		if (type == NBTType.SAVE_TILE) {
-			this.isRedstonePowered = compound.getBoolean("Redstone");
-			this.ticksElapsed = compound.getInteger("TicksElapsed");
-			this.stopFromDropping = compound.getBoolean("StopDrop");
-		}
-		if (this.isRedstoneToggle()) {
-			this.isPulseMode = compound.getBoolean("IsPulseMode");
-		}
-	}
-
-	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-		return !oldState.getBlock().isAssociatedBlock(newState.getBlock());
-	}
-
-	@Override
-	public final void update() {
-		this.updateEntity();
-	}
-
-	public int getComparatorStrength() {
-		return 0;
-	}
-
-	public void updateEntity() {
-		this.ticksElapsed++;
-
-		if (!this.world.isRemote) {
-
-			if (!this.hasSavedDataOnChangeOrWorldStart) {
-				if (this.shouldSaveDataOnChangeOrWorldStart()) {
-					this.saveDataOnChangeOrWorldStart();
-				}
-
-				this.hasSavedDataOnChangeOrWorldStart = true;
-			}
-		}
-	}
-
 	public static void doEnergyInteraction(TileEntity tileFrom, TileEntity tileTo, EnumFacing sideTo, int maxTransfer) {
 		if (maxTransfer > 0) {
 			EnumFacing opp = sideTo == null ? null : sideTo.getOpposite();
@@ -201,7 +71,6 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 			}
 		}
 	}
-
 	public static void doFluidInteraction(TileEntity tileFrom, TileEntity tileTo, EnumFacing sideTo, int maxTransfer) {
 		if (maxTransfer > 0) {
 			if (tileFrom.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, sideTo)
@@ -218,42 +87,30 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 			}
 		}
 	}
+	private final String name;
+	public boolean isRedstonePowered;
+	public boolean isPulseMode;
+	public boolean stopFromDropping;
 
-	public void saveDataOnChangeOrWorldStart() {
-		for (EnumFacing side : EnumFacing.values()) {
-			BlockPos pos = this.pos.offset(side);
-			if (this.world.isBlockLoaded(pos)) {
-				this.tilesAround[side.ordinal()] = this.world.getTileEntity(pos);
-			}
-		}
+	protected int ticksElapsed;
+
+	protected TileEntity[] tilesAround = new TileEntity[6];
+
+	protected boolean hasSavedDataOnChangeOrWorldStart;
+
+	private Object teslaWrapper;
+
+	public TETickingMachine(String name) {
+		this.name = name;
 	}
 
-	public boolean shouldSaveDataOnChangeOrWorldStart() {
-		return true;
-	}
+	public void activateOnPulse() {
 
-	public void setRedstonePowered(boolean powered) {
-		this.isRedstonePowered = powered;
-		this.markDirty();
 	}
 
 	public boolean canPlayerUse(EntityPlayer player) {
 		return player.getDistanceSq(this.getPos().getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64
 				&& !this.isInvalid() && this.world.getTileEntity(this.pos) == this;
-	}
-
-	protected boolean sendUpdateWithInterval() {
-		if (this.ticksElapsed % 2 == 0) {
-			this.sendUpdate();
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return this.getCapability(capability, facing) != null;
 	}
 
 	@Override
@@ -288,11 +145,24 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		return super.getCapability(capability, facing);
 	}
 
-	public IFluidHandler getFluidHandler(EnumFacing facing) {
-		return null;
+	public int getComparatorStrength() {
+		return 0;
+	}
+
+	public String getDisplayedName() {
+		return I18n.format("tile." + name + ".name");
+	}
+
+	@Override
+	public ITextComponent getDisplayName() {
+		return new TextComponentString(this.getDisplayedName());
 	}
 
 	public IEnergyStorage getEnergyStorage(EnumFacing facing) {
+		return null;
+	}
+
+	public IFluidHandler getFluidHandler(EnumFacing facing) {
 		return null;
 	}
 
@@ -300,19 +170,149 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		return null;
 	}
 
+	@Override
+	public final SPacketUpdateTileEntity getUpdatePacket() {
+		NBTTagCompound compound = new NBTTagCompound();
+		this.writeSyncableNBT(compound, NBTType.SYNC);
+		return new SPacketUpdateTileEntity(this.pos, -1, compound);
+	}
+
+	@Override
+	public final NBTTagCompound getUpdateTag() {
+		NBTTagCompound compound = new NBTTagCompound();
+		this.writeSyncableNBT(compound, NBTType.SYNC);
+		return compound;
+	}
+
+	@Override
+	public final void handleUpdateTag(NBTTagCompound compound) {
+		this.readSyncableNBT(compound, NBTType.SYNC);
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		return this.getCapability(capability, facing) != null;
+	}
+
 	public boolean isRedstoneToggle() {
 		return false;
 	}
 
-	public void activateOnPulse() {
+	@Override
+	public final void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		this.readSyncableNBT(pkt.getNbtCompound(), NBTType.SYNC);
+	}
 
+	@Override
+	public final void readFromNBT(NBTTagCompound compound) {
+		this.readSyncableNBT(compound, NBTType.SAVE_TILE);
+	}
+
+	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
+		if (type != NBTType.SAVE_BLOCK) {
+			super.readFromNBT(compound);
+		}
+
+		if (type == NBTType.SAVE_TILE) {
+			this.isRedstonePowered = compound.getBoolean("Redstone");
+			this.ticksElapsed = compound.getInteger("TicksElapsed");
+			this.stopFromDropping = compound.getBoolean("StopDrop");
+		}
+		if (this.isRedstoneToggle()) {
+			this.isPulseMode = compound.getBoolean("IsPulseMode");
+		}
 	}
 
 	public boolean respondsToPulses() {
 		return this.isRedstoneToggle() && this.isPulseMode;
 	}
 
-	public enum NBTType {
-		SAVE_TILE, SYNC, SAVE_BLOCK
+	public void saveDataOnChangeOrWorldStart() {
+		for (EnumFacing side : EnumFacing.values()) {
+			BlockPos pos = this.pos.offset(side);
+			if (this.world.isBlockLoaded(pos)) {
+				this.tilesAround[side.ordinal()] = this.world.getTileEntity(pos);
+			}
+		}
+	}
+
+	public final void sendUpdate() {
+		if (this.world != null && !this.world.isRemote) {
+			NBTTagCompound compound = new NBTTagCompound();
+			this.writeSyncableNBT(compound, NBTType.SYNC);
+
+			NBTTagCompound data = new NBTTagCompound();
+			data.setTag("Data", compound);
+			data.setInteger("X", this.pos.getX());
+			data.setInteger("Y", this.pos.getY());
+			data.setInteger("Z", this.pos.getZ());
+			PacketHandler.NETWORK.sendToAllAround(new PacketServerToClient(data, PacketHandler.TILE_ENTITY_HANDLER),
+					new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.getPos().getX(),
+							this.getPos().getY(), this.getPos().getZ(), 64));
+		}
+	}
+
+	protected boolean sendUpdateWithInterval() {
+		if (this.ticksElapsed % 2 == 0) {
+			this.sendUpdate();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void setRedstonePowered(boolean powered) {
+		this.isRedstonePowered = powered;
+		this.markDirty();
+	}
+
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+		return !oldState.getBlock().isAssociatedBlock(newState.getBlock());
+	}
+
+	public boolean shouldSaveDataOnChangeOrWorldStart() {
+		return true;
+	}
+
+	@Override
+	public final void update() {
+		this.updateEntity();
+	}
+
+	public void updateEntity() {
+		this.ticksElapsed++;
+
+		if (!this.world.isRemote) {
+
+			if (!this.hasSavedDataOnChangeOrWorldStart) {
+				if (this.shouldSaveDataOnChangeOrWorldStart()) {
+					this.saveDataOnChangeOrWorldStart();
+				}
+
+				this.hasSavedDataOnChangeOrWorldStart = true;
+			}
+		}
+	}
+
+	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
+		if (type != NBTType.SAVE_BLOCK) {
+			super.writeToNBT(compound);
+		}
+
+		if (type == NBTType.SAVE_TILE) {
+			compound.setBoolean("Redstone", this.isRedstonePowered);
+			compound.setInteger("TicksElapsed", this.ticksElapsed);
+			compound.setBoolean("StopDrop", this.stopFromDropping);
+		}
+		if (this.isRedstoneToggle() && (type != NBTType.SAVE_BLOCK || this.isPulseMode)) {
+			compound.setBoolean("IsPulseMode", this.isPulseMode);
+		}
+	}
+
+	@Override
+	public final NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		this.writeSyncableNBT(compound, NBTType.SAVE_TILE);
+		return compound;
 	}
 }

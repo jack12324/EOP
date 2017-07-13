@@ -25,13 +25,13 @@ public class AdvancedRecipe implements EOPRecipe, IFluidInRecipe, IBaseRecipe, I
 	}
 
 	@Override
-	public FluidStack getInFluidStack() {
-		return inFluid;
+	public ItemStack getBaseStack() {
+		return baseStack;
 	}
 
 	@Override
-	public ItemStack[] getInputStacks() {
-		return inputStack;
+	public FluidStack getInFluidStack() {
+		return inFluid;
 	}
 
 	@Override
@@ -40,13 +40,13 @@ public class AdvancedRecipe implements EOPRecipe, IFluidInRecipe, IBaseRecipe, I
 	}
 
 	@Override
-	public ItemStack getOutputStack() {
-		return outputStack;
+	public ItemStack[] getInputStacks() {
+		return inputStack;
 	}
 
 	@Override
-	public ItemStack getBaseStack() {
-		return baseStack;
+	public ItemStack getOutputStack() {
+		return outputStack;
 	}
 
 }

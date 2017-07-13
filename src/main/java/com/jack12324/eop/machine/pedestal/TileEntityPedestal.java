@@ -17,11 +17,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityPedestal extends TEInventory {
 
-	public TileEntityPedestal() {
-		super(new InventorySlotHelper(1, 0, 0, 0, 0), "pedestal");
-	}
-
 	private Fluid dragonSoul = InitFluids.fluidDragonSoul;
+
 	private int oldFluidAmount;
 	private boolean lastActive = false;
 	public final FluidTank tank = new FluidTank(1000) {
@@ -35,13 +32,33 @@ public class TileEntityPedestal extends TEInventory {
 			return fluid.getFluid() == dragonSoul;
 		}
 	};
+	private int fillTick = 1;
 
-	@Override
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		this.tank.writeToNBT(compound);
-		NBTTagCompound tag = new NBTTagCompound();
-		compound.setTag("tank", tag);
-		super.writeSyncableNBT(compound, type);
+	public TileEntityPedestal() {
+		super(new InventorySlotHelper(1, 0, 0, 0, 0), "pedestal");
+	}
+
+	protected boolean canUse() {
+
+		if (this.slots.getStackInSlot(0).isEmpty()
+				|| !(this.slots.getStackInSlot(0).getItem() == (Item.getItemFromBlock(Blocks.DRAGON_EGG)))
+				|| this.tank.getFluidAmount() >= tank.getCapacity())
+
+			return false;
+
+		else
+			return true;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public int getTankScaled(int i) {
+		return (int) (this.tank.getFluidAmount() * i / (double) this.tank.getCapacity());
+	}
+
+	protected void oldFluidCheck() {
+		if (this.oldFluidAmount != this.tank.getFluidAmount() && this.sendUpdateWithInterval()) {
+			this.oldFluidAmount = this.tank.getFluidAmount();
+		}
 	}
 
 	@Override
@@ -71,20 +88,6 @@ public class TileEntityPedestal extends TEInventory {
 		}
 	}
 
-	protected boolean canUse() {
-
-		if (this.slots.getStackInSlot(0).isEmpty()
-				|| !(this.slots.getStackInSlot(0).getItem() == (Item.getItemFromBlock(Blocks.DRAGON_EGG)))
-				|| this.tank.getFluidAmount() >= tank.getCapacity())
-
-			return false;
-
-		else
-			return true;
-	}
-
-	private int fillTick = 1;
-
 	protected boolean useLogic(boolean canUse) {
 		boolean active = false;
 
@@ -102,15 +105,12 @@ public class TileEntityPedestal extends TEInventory {
 		return active;
 	}
 
-	protected void oldFluidCheck() {
-		if (this.oldFluidAmount != this.tank.getFluidAmount() && this.sendUpdateWithInterval()) {
-			this.oldFluidAmount = this.tank.getFluidAmount();
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	public int getTankScaled(int i) {
-		return (int) (this.tank.getFluidAmount() * i / (double) this.tank.getCapacity());
+	@Override
+	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
+		this.tank.writeToNBT(compound);
+		NBTTagCompound tag = new NBTTagCompound();
+		compound.setTag("tank", tag);
+		super.writeSyncableNBT(compound, type);
 	}
 
 }

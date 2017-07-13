@@ -46,6 +46,15 @@ public class VanillaFurnaceRecipes {
 	}
 
 	/**
+	 * Compares two itemstacks to ensure that they are the same. This checks
+	 * both the item and the metadata of the item.
+	 */
+	private boolean compareItemStacks(ItemStack stack1, ItemStack stack2) {
+		return stack2.getItem() == stack1.getItem()
+				&& (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata());
+	}
+
+	/**
 	 * Returns the smelting result of an item.
 	 */
 	public ItemStack getResult(ItemStack stack) {
@@ -56,19 +65,6 @@ public class VanillaFurnaceRecipes {
 		}
 
 		return ItemStack.EMPTY;
-	}
-
-	/**
-	 * Compares two itemstacks to ensure that they are the same. This checks
-	 * both the item and the metadata of the item.
-	 */
-	private boolean compareItemStacks(ItemStack stack1, ItemStack stack2) {
-		return stack2.getItem() == stack1.getItem()
-				&& (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata());
-	}
-
-	public Map<ItemStack, ItemStack> getSmeltingList() {
-		return this.smeltingList;
 	}
 
 	public float getSmeltingExperience(ItemStack stack) {
@@ -83,6 +79,10 @@ public class VanillaFurnaceRecipes {
 		}
 
 		return 0.0F;
+	}
+
+	public Map<ItemStack, ItemStack> getSmeltingList() {
+		return this.smeltingList;
 	}
 
 }

@@ -39,27 +39,6 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 			registry.addRecipeCatalyst(stack, getUid());
 	}
 
-	@Nullable
-	@Override
-	public IDrawable getIcon() {
-		return null;
-	}
-
-	@Override
-	public String getUid() {
-		return "eop." + uniqueName;
-	}
-
-	@Override
-	public String getTitle() {
-		return localizedName;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return background;
-	}
-
 	@Override
 	public void drawExtras(Minecraft minecraft) {
 		System.out.println("yeet");
@@ -71,13 +50,19 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 	}
 
 	@Override
-	public List<String> getTooltipStrings(int mouseX, int mouseY) {
-		return Collections.emptyList();
+	public IDrawable getBackground() {
+		return background;
 	}
 
-	// @Override
-	public Class<T> getRecipeClass() {
-		return this.recipeClass;
+	@Nullable
+	@Override
+	public IDrawable getIcon() {
+		return null;
+	}
+
+	@Override
+	public String getModName() {
+		return ExtremeOreProcessing.name;
 	}
 
 	// @Override
@@ -86,12 +71,27 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 	}
 
 	// @Override
-	public boolean isRecipeValid(T recipe) {
-		return true;
+	public Class<T> getRecipeClass() {
+		return this.recipeClass;
 	}
 
 	@Override
-	public String getModName() {
-		return ExtremeOreProcessing.name;
+	public String getTitle() {
+		return localizedName;
+	}
+
+	@Override
+	public List<String> getTooltipStrings(int mouseX, int mouseY) {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public String getUid() {
+		return "eop." + uniqueName;
+	}
+
+	// @Override
+	public boolean isRecipeValid(T recipe) {
+		return true;
 	}
 }

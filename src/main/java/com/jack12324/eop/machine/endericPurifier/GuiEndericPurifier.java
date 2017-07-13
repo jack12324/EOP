@@ -9,10 +9,18 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiEndericPurifier extends GuiBase {
-	private TileEntityEndericPurifier tileEntity;
-	private InventoryPlayer playerInv;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/enderic_purifier.png");
+	static int[] progressBarVals = { 42, // X to start draw
+			36, // y to start draw
+			6, // x of texture location
+			172, // y of texture location
+			89, // width
+			13// height
+	};
+	private TileEntityEndericPurifier tileEntity;
+	private InventoryPlayer playerInv;
+
 	private FluidBar fb;
 
 	public GuiEndericPurifier(Container inventorySlotsIn, InventoryPlayer playerInv,
@@ -22,13 +30,5 @@ public class GuiEndericPurifier extends GuiBase {
 		this.tileEntity = tileEntity;
 
 	}
-
-	static int[] progressBarVals = { 42, // X to start draw
-			36, // y to start draw
-			6, // x of texture location
-			172, // y of texture location
-			89, // width
-			13// height
-	};
 
 }

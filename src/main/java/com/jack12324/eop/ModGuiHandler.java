@@ -82,45 +82,8 @@ public class ModGuiHandler implements IGuiHandler {
 
 	}
 
-	@Override
-	public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		switch (ID) {
-		case ACTIVATIONCHAMBER:
-			return new ContainerActivationChamber(player.inventory,
-					(TileEntityActivationChamber) world.getTileEntity(new BlockPos(x, y, z)));
-		case EQUALIZINGSMELTER:
-			return new ContainerEqualizingSmelter(player.inventory,
-					(TileEntityEqualizingSmelter) world.getTileEntity(new BlockPos(x, y, z)));
-		case DISABLINGPRESS:
-			return new ContainerDisablingPress(player.inventory,
-					(TileEntityDisablingPress) world.getTileEntity(new BlockPos(x, y, z)));
-		case PARTICLEEXCITER:
-			return new ContainerParticleExciter(player.inventory,
-					(TileEntityParticleExciter) world.getTileEntity(new BlockPos(x, y, z)));
-		case PEDESTAL:
-			return new ContainerPedestal(player.inventory,
-					(TileEntityPedestal) world.getTileEntity(new BlockPos(x, y, z)));
-		case CATALYSTINFUSER:
-			return new ContainerCatalystInfuser(player.inventory,
-					(TileEntityCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
-		case DUALCATALYSTINFUSER:
-			return new ContainerDualCatalystInfuser(player.inventory,
-					(TileEntityDualCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
-		case ENDERICPURIFIER:
-			return new ContainerEndericPurifier(player.inventory,
-					(TileEntityEndericPurifier) world.getTileEntity(new BlockPos(x, y, z)));
-		case STARHARDENER:
-			return new ContainerStarHardener(player.inventory,
-					(TileEntityStarHardener) world.getTileEntity(new BlockPos(x, y, z)));
-		case TRICATALYSTINFUSER:
-			return new ContainerTriCatalystInfuser(player.inventory,
-					(TileEntityTriCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
-		case UPGRADES:
-			return new ContainerUpgrades(player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
-		default:
-			return null;
-
-		}
+	public Object getClientGuiElement(int id, EntityPlayer player, World world, BlockPos pos) {
+		return getClientGuiElement(id, player, world, pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	@Override
@@ -169,8 +132,45 @@ public class ModGuiHandler implements IGuiHandler {
 		return getServerGuiElement(id, player, world, pos.getX(), pos.getY(), pos.getZ());
 	}
 
-	public Object getClientGuiElement(int id, EntityPlayer player, World world, BlockPos pos) {
-		return getClientGuiElement(id, player, world, pos.getX(), pos.getY(), pos.getZ());
+	@Override
+	public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		switch (ID) {
+		case ACTIVATIONCHAMBER:
+			return new ContainerActivationChamber(player.inventory,
+					(TileEntityActivationChamber) world.getTileEntity(new BlockPos(x, y, z)));
+		case EQUALIZINGSMELTER:
+			return new ContainerEqualizingSmelter(player.inventory,
+					(TileEntityEqualizingSmelter) world.getTileEntity(new BlockPos(x, y, z)));
+		case DISABLINGPRESS:
+			return new ContainerDisablingPress(player.inventory,
+					(TileEntityDisablingPress) world.getTileEntity(new BlockPos(x, y, z)));
+		case PARTICLEEXCITER:
+			return new ContainerParticleExciter(player.inventory,
+					(TileEntityParticleExciter) world.getTileEntity(new BlockPos(x, y, z)));
+		case PEDESTAL:
+			return new ContainerPedestal(player.inventory,
+					(TileEntityPedestal) world.getTileEntity(new BlockPos(x, y, z)));
+		case CATALYSTINFUSER:
+			return new ContainerCatalystInfuser(player.inventory,
+					(TileEntityCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
+		case DUALCATALYSTINFUSER:
+			return new ContainerDualCatalystInfuser(player.inventory,
+					(TileEntityDualCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
+		case ENDERICPURIFIER:
+			return new ContainerEndericPurifier(player.inventory,
+					(TileEntityEndericPurifier) world.getTileEntity(new BlockPos(x, y, z)));
+		case STARHARDENER:
+			return new ContainerStarHardener(player.inventory,
+					(TileEntityStarHardener) world.getTileEntity(new BlockPos(x, y, z)));
+		case TRICATALYSTINFUSER:
+			return new ContainerTriCatalystInfuser(player.inventory,
+					(TileEntityTriCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
+		case UPGRADES:
+			return new ContainerUpgrades(player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+		default:
+			return null;
+
+		}
 	}
 
 }

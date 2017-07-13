@@ -10,6 +10,35 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public abstract class MachineContainer extends Container {
+	protected void addInventorySlots(InventoryPlayer playerInv) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++) {
+				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+			}
+		}
+
+		for (int k = 0; k < 9; k++) {
+			addSlotToContainer(new Slot(playerInv, k, 8 + k * 18, 142));
+		}
+	}
+
+	protected void addUpgradeSlots(TEInventory te) {
+		addSlotToContainer(
+				new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(0), 20, 20, ModItems.speedUpgrade) {
+					@Override
+					public void onSlotChanged() {
+						te.markDirty();
+					}
+				});
+		addSlotToContainer(
+				new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(1), 40, 20, ModItems.energyUpgrade) {
+					@Override
+					public void onSlotChanged() {
+						te.markDirty();
+					}
+				});
+	}
+
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
@@ -43,35 +72,6 @@ public abstract class MachineContainer extends Container {
 		}
 
 		return itemstack;
-	}
-
-	protected void addUpgradeSlots(TEInventory te) {
-		addSlotToContainer(
-				new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(0), 20, 20, ModItems.speedUpgrade) {
-					@Override
-					public void onSlotChanged() {
-						te.markDirty();
-					}
-				});
-		addSlotToContainer(
-				new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(1), 40, 20, ModItems.energyUpgrade) {
-					@Override
-					public void onSlotChanged() {
-						te.markDirty();
-					}
-				});
-	}
-
-	protected void addInventorySlots(InventoryPlayer playerInv) {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 9; j++) {
-				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-			}
-		}
-
-		for (int k = 0; k < 9; k++) {
-			addSlotToContainer(new Slot(playerInv, k, 8 + k * 18, 142));
-		}
 	}
 
 }

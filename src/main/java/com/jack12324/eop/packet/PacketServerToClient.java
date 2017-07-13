@@ -14,7 +14,24 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PacketServerToClient implements IMessage {
 
+	public static class Handler implements IMessageHandler<PacketServerToClient, IMessage> {
+
+		@Override
+		@SideOnly(Side.CLIENT)
+		public IMessage onMessage(final PacketServerToClient message, final MessageContext ctx) {
+			Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+				@Override
+				public void run() {
+					if (message.data != null && message.handler != null) {
+						message.handler.handleData(message.data, ctx);
+					}
+				}
+			});
+			return null;
+		}
+	}
 	private NBTTagCompound data;
+
 	private IDataHandler handler;
 
 	public PacketServerToClient() {
@@ -47,22 +64,5 @@ public class PacketServerToClient implements IMessage {
 
 		buffer.writeCompoundTag(this.data);
 		buffer.writeInt(PacketHandler.DATA_HANDLERS.indexOf(this.handler));
-	}
-
-	public static class Handler implements IMessageHandler<PacketServerToClient, IMessage> {
-
-		@Override
-		@SideOnly(Side.CLIENT)
-		public IMessage onMessage(final PacketServerToClient message, final MessageContext ctx) {
-			Minecraft.getMinecraft().addScheduledTask(new Runnable() {
-				@Override
-				public void run() {
-					if (message.data != null && message.handler != null) {
-						message.handler.handleData(message.data, ctx);
-					}
-				}
-			});
-			return null;
-		}
 	}
 }

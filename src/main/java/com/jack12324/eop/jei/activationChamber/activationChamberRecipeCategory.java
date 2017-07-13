@@ -32,6 +32,16 @@ public class activationChamberRecipeCategory extends EOPRecipeCategory<BasicReci
 	}
 
 	@Override
+	protected void drawProgress(Minecraft minecraft) {
+		progress.draw(minecraft, 46, 27);
+	}
+
+	@Override
+	public IRecipeWrapper getRecipeWrapper(BasicRecipe recipe) {
+		return new activationChamberRecipeWrapper(recipe);
+	}
+
+	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, activationChamberRecipeWrapper recipeWrapper,
 			IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
@@ -42,16 +52,6 @@ public class activationChamberRecipeCategory extends EOPRecipeCategory<BasicReci
 		if (ingredients.getOutputs(ItemStack.class).size() > 0)
 			guiItemStacks.set(1, ingredients.getOutputs(ItemStack.class).get(0));
 
-	}
-
-	@Override
-	public IRecipeWrapper getRecipeWrapper(BasicRecipe recipe) {
-		return new activationChamberRecipeWrapper(recipe);
-	}
-
-	@Override
-	protected void drawProgress(Minecraft minecraft) {
-		progress.draw(minecraft, 46, 27);
 	}
 
 }

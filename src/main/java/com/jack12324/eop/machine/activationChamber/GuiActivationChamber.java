@@ -8,19 +8,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiActivationChamber extends GuiBase {
-	private TileEntityActivationChamber tileEntity;
-	private InventoryPlayer playerInv;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/activation_chamber.png");
-
-	public GuiActivationChamber(Container inventorySlotsIn, InventoryPlayer playerInv,
-			TileEntityActivationChamber tileEntity) {
-		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals, fuelVals);
-		this.playerInv = playerInv;
-		this.tileEntity = tileEntity;
-
-	}
-
 	static int[] progressBarVals = { 49, // X to start draw
 			30, // y to start draw
 			3, // x of texture location
@@ -35,5 +24,16 @@ public class GuiActivationChamber extends GuiBase {
 			3, // width
 			20// height
 	};
+
+	private TileEntityActivationChamber tileEntity;
+
+	private InventoryPlayer playerInv;
+	public GuiActivationChamber(Container inventorySlotsIn, InventoryPlayer playerInv,
+			TileEntityActivationChamber tileEntity) {
+		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals, fuelVals);
+		this.playerInv = playerInv;
+		this.tileEntity = tileEntity;
+
+	}
 
 }

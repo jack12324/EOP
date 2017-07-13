@@ -19,11 +19,6 @@ public class BlockEndericPurifier extends BlockTE<TileEntityEndericPurifier> {
 
 	}
 
-	@Override
-	protected int getGui() {
-		return ModGuiHandler.ENDERICPURIFIER;
-	}
-
 	// drop items in block as well as block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
@@ -34,15 +29,20 @@ public class BlockEndericPurifier extends BlockTE<TileEntityEndericPurifier> {
 		super.breakBlock(world, pos, state);
 	}
 
-	@Override
-	public Class<TileEntityEndericPurifier> getTileEntityClass() {
-		return TileEntityEndericPurifier.class;
-	}
-
 	@Nullable
 	@Override
 	public TileEntityEndericPurifier createTileEntity(World world, IBlockState state) {
 		return new TileEntityEndericPurifier();
+	}
+
+	@Override
+	protected int getGui() {
+		return ModGuiHandler.ENDERICPURIFIER;
+	}
+
+	@Override
+	public Class<TileEntityEndericPurifier> getTileEntityClass() {
+		return TileEntityEndericPurifier.class;
 	}
 
 }

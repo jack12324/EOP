@@ -13,13 +13,13 @@ public class BlockCropPea extends BlockCrops {
 	}
 
 	@Override
-	protected Item getSeed() {
-		return ModItems.peaSeed;
+	protected Item getCrop() {
+		return ModItems.pea;
 	}
 
 	@Override
-	protected Item getCrop() {
-		return ModItems.pea;
+	protected Item getSeed() {
+		return ModItems.peaSeed;
 	}
 
 }

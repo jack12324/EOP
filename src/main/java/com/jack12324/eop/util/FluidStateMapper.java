@@ -29,12 +29,12 @@ public class FluidStateMapper extends StateMapperBase implements ItemMeshDefinit
 	}
 
 	@Override
-	protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+	public ModelResourceLocation getModelLocation(ItemStack stack) {
 		return this.location;
 	}
 
 	@Override
-	public ModelResourceLocation getModelLocation(ItemStack stack) {
+	protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
 		return this.location;
 	}
 }

@@ -6,15 +6,6 @@ import net.minecraft.creativetab.CreativeTabs;
 
 public class BlockModOre extends BlockBase {
 
-	// non ore dict with specific level
-	public BlockModOre(String name, int harvestLevel) {
-		super(Material.ROCK, name);
-
-		setHarvestLevel("pickaxe", harvestLevel);
-		setHardness(3f);
-		setResistance(15f);
-	}
-
 	// full control constructor
 	public BlockModOre(Material material, String name, String harvestTool, int harvestLevel, float hardness,
 			float resistance, SoundType sound) {
@@ -24,6 +15,15 @@ public class BlockModOre extends BlockBase {
 		setHarvestLevel(harvestTool, harvestLevel);
 		setHardness(hardness);
 		setResistance(resistance);
+	}
+
+	// non ore dict with specific level
+	public BlockModOre(String name, int harvestLevel) {
+		super(Material.ROCK, name);
+
+		setHarvestLevel("pickaxe", harvestLevel);
+		setHardness(3f);
+		setResistance(15f);
 	}
 
 	@Override

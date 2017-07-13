@@ -15,19 +15,19 @@ public abstract class BlockTileEntity<TE extends TileEntity> extends BlockBase {
 		super(material, name);
 	}
 
-	public abstract Class<TE> getTileEntityClass();
+	@Nullable
+	@Override
+	public abstract TE createTileEntity(World world, IBlockState state);
 
 	public TE getTileEntity(IBlockAccess world, BlockPos pos) {
 		return (TE) world.getTileEntity(pos);
 	}
 
+	public abstract Class<TE> getTileEntityClass();
+
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
 	}
-
-	@Nullable
-	@Override
-	public abstract TE createTileEntity(World world, IBlockState state);
 
 }

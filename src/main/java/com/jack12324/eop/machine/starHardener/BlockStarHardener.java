@@ -19,11 +19,6 @@ public class BlockStarHardener extends BlockTE<TileEntityStarHardener> {
 
 	}
 
-	@Override
-	protected int getGui() {
-		return ModGuiHandler.STARHARDENER;
-	}
-
 	// drop items in block as well as block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
@@ -34,15 +29,20 @@ public class BlockStarHardener extends BlockTE<TileEntityStarHardener> {
 		super.breakBlock(world, pos, state);
 	}
 
-	@Override
-	public Class<TileEntityStarHardener> getTileEntityClass() {
-		return TileEntityStarHardener.class;
-	}
-
 	@Nullable
 	@Override
 	public TileEntityStarHardener createTileEntity(World world, IBlockState state) {
 		return new TileEntityStarHardener();
+	}
+
+	@Override
+	protected int getGui() {
+		return ModGuiHandler.STARHARDENER;
+	}
+
+	@Override
+	public Class<TileEntityStarHardener> getTileEntityClass() {
+		return TileEntityStarHardener.class;
 	}
 
 }

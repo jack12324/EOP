@@ -12,6 +12,10 @@ import net.minecraft.item.Item;
 
 public class OreLineHelper {
 	public static OreLineHelper INSTANCE = new OreLineHelper();
+	public static Item get(String key) {
+		return INSTANCE.list.get(key);
+	}
+
 	private final Map<String, Item> list = Maps.<String, Item>newHashMap();
 
 	public OreLineHelper() {
@@ -56,9 +60,5 @@ public class OreLineHelper {
 		list.put("astralNickelSlivers", ModItems.astralNickelSlivers);
 		list.put("pureNickelEssence", ModItems.pureNickelEssence);
 
-	}
-
-	public static Item get(String key) {
-		return INSTANCE.list.get(key);
 	}
 }

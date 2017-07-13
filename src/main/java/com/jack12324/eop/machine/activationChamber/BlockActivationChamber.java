@@ -18,11 +18,6 @@ public class BlockActivationChamber extends BlockTE<TileEntityActivationChamber>
 		super(Material.ROCK, "activation_chamber");
 	}
 
-	@Override
-	protected int getGui() {
-		return ModGuiHandler.ACTIVATIONCHAMBER;
-	}
-
 	// drop items in block as well as block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
@@ -33,15 +28,20 @@ public class BlockActivationChamber extends BlockTE<TileEntityActivationChamber>
 		super.breakBlock(world, pos, state);
 	}
 
-	@Override
-	public Class<TileEntityActivationChamber> getTileEntityClass() {
-		return TileEntityActivationChamber.class;
-	}
-
 	@Nullable
 	@Override
 	public TileEntityActivationChamber createTileEntity(World world, IBlockState state) {
 		return new TileEntityActivationChamber();
+	}
+
+	@Override
+	protected int getGui() {
+		return ModGuiHandler.ACTIVATIONCHAMBER;
+	}
+
+	@Override
+	public Class<TileEntityActivationChamber> getTileEntityClass() {
+		return TileEntityActivationChamber.class;
 	}
 
 }

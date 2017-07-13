@@ -23,6 +23,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiBase extends GuiContainer {
+	public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
+		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
+	}
 	private InventoryPlayer playerInv;
 	private TEPowered tileEntity;
 	private ResourceLocation BG_TEXTURE;
@@ -35,21 +38,8 @@ public class GuiBase extends GuiContainer {
 	private int tankX = 25;
 	private int tankY = 18;
 	boolean fluid = false;
+
 	boolean fuel = false;
-
-	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
-			ResourceLocation resourceLocation, int[] progressVals) {
-		super(inventorySlotsIn);
-		BG_TEXTURE = resourceLocation;
-		this.playerInv = playerInv;
-		this.tileEntity = tileEntity;
-		this.progressBar = new int[progressVals.length];
-		for (int i = 0; i < progressBar.length; i++)
-			this.progressBar[i] = progressVals[i];
-		if (tileEntity instanceof TEFluidUser)
-			fluid = true;
-
-	}
 
 	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
 			ResourceLocation resourceLocation, int baseWidth, int baseHeight, int[] progressVals) {
@@ -78,6 +68,20 @@ public class GuiBase extends GuiContainer {
 	}
 
 	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+			ResourceLocation resourceLocation, int[] progressVals) {
+		super(inventorySlotsIn);
+		BG_TEXTURE = resourceLocation;
+		this.playerInv = playerInv;
+		this.tileEntity = tileEntity;
+		this.progressBar = new int[progressVals.length];
+		for (int i = 0; i < progressBar.length; i++)
+			this.progressBar[i] = progressVals[i];
+		if (tileEntity instanceof TEFluidUser)
+			fluid = true;
+
+	}
+
+	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
 			ResourceLocation resourceLocation, int[] progressVals, int[] fuelVals) {
 		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, progressVals);
 		this.fuelBar = new int[fuelVals.length];
@@ -88,12 +92,32 @@ public class GuiBase extends GuiContainer {
 	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
-		this.buttonList.add(new GuiButton(69, guiLeft - 30, guiTop, 30, 20, "Upgrades"));
-		powerBar = new PowerBar(tileEntity, guiLeft, guiTop);
-		if (fluid)
-			fluidBar = new FluidBar(((TEFluidUser) tileEntity).inTank, guiLeft + tankX, guiTop + tankY);
+	protected void actionPerformed(GuiButton par1GuiButton) throws IOException {
+		actionPerformed(par1GuiButton, 0);
+	}
+
+	private void actionPerformed(GuiButton button, int mbutton) throws IOException {
+		EntityPlayer player = Minecraft.getMinecraft().player;
+		if (button.id == 69) {
+			NBTTagCompound compound = new NBTTagCompound();
+			Coord4D pos = new Coord4D(tileEntity.getPos(), tileEntity.getWorld());
+			compound = pos.write(compound);
+			compound.setInteger("guiID", ModGuiHandler.UPGRADES);
+			PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_UPGRADE_BUTTON));
+		} else {
+			super.actionPerformed(button);
+		}
+	}
+
+	protected void drawFluidBar() {
+		fluidBar.draw();
+	}
+
+	protected void drawFuelBar() {
+		double burnRemaining = tileEntity.fractionOfFuelRemaining();
+		int yOffset = (int) ((1.0 - burnRemaining) * this.fuelBar[5]);
+		drawTexturedModalRect(guiLeft + this.fuelBar[0], guiTop + this.fuelBar[1] + yOffset, this.fuelBar[2],
+				this.fuelBar[3] + yOffset, this.fuelBar[4], this.fuelBar[5] - yOffset);
 	}
 
 	@Override
@@ -110,29 +134,6 @@ public class GuiBase extends GuiContainer {
 		if (fluid)
 			this.drawFluidBar();
 		this.drawPowerBar();
-	}
-
-	protected void drawFuelBar() {
-		double burnRemaining = tileEntity.fractionOfFuelRemaining();
-		int yOffset = (int) ((1.0 - burnRemaining) * this.fuelBar[5]);
-		drawTexturedModalRect(guiLeft + this.fuelBar[0], guiTop + this.fuelBar[1] + yOffset, this.fuelBar[2],
-				this.fuelBar[3] + yOffset, this.fuelBar[4], this.fuelBar[5] - yOffset);
-	}
-
-	protected void drawFluidBar() {
-		fluidBar.draw();
-	}
-
-	protected void drawPowerBar() {
-		powerBar.draw();
-	}
-
-	protected void drawProgressBar() {
-		// get cook progress as a double between 0 and 1
-		double cookProgress = tileEntity.fractionOfProgressTimeComplete(0);
-		// draw the cook progress bar
-		drawTexturedModalRect(guiLeft + this.progressBar[0], guiTop + this.progressBar[1], this.progressBar[2],
-				this.progressBar[3], (int) (cookProgress * this.progressBar[4]), this.progressBar[5]);
 	}
 
 	@Override
@@ -168,12 +169,16 @@ public class GuiBase extends GuiContainer {
 
 	}
 
-	public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
-		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
+	protected void drawPowerBar() {
+		powerBar.draw();
 	}
 
-	protected ArrayList<String> fluidText(int mouseX, int mouseY) {
-		return fluidBar.drawText(mouseX, mouseY);
+	protected void drawProgressBar() {
+		// get cook progress as a double between 0 and 1
+		double cookProgress = tileEntity.fractionOfProgressTimeComplete(0);
+		// draw the cook progress bar
+		drawTexturedModalRect(guiLeft + this.progressBar[0], guiTop + this.progressBar[1], this.progressBar[2],
+				this.progressBar[3], (int) (cookProgress * this.progressBar[4]), this.progressBar[5]);
 	}
 
 	public void drawText(List<String> hoveringText, int mouseX, int mouseY) {
@@ -183,22 +188,17 @@ public class GuiBase extends GuiContainer {
 		}
 	}
 
-	@Override
-	protected void actionPerformed(GuiButton par1GuiButton) throws IOException {
-		actionPerformed(par1GuiButton, 0);
+	protected ArrayList<String> fluidText(int mouseX, int mouseY) {
+		return fluidBar.drawText(mouseX, mouseY);
 	}
 
-	private void actionPerformed(GuiButton button, int mbutton) throws IOException {
-		EntityPlayer player = Minecraft.getMinecraft().player;
-		if (button.id == 69) {
-			NBTTagCompound compound = new NBTTagCompound();
-			Coord4D pos = new Coord4D(tileEntity.getPos(), tileEntity.getWorld());
-			compound = pos.write(compound);
-			compound.setInteger("guiID", ModGuiHandler.UPGRADES);
-			PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_UPGRADE_BUTTON));
-		} else {
-			super.actionPerformed(button);
-		}
+	@Override
+	public void initGui() {
+		super.initGui();
+		this.buttonList.add(new GuiButton(69, guiLeft - 30, guiTop, 30, 20, "Upgrades"));
+		powerBar = new PowerBar(tileEntity, guiLeft, guiTop);
+		if (fluid)
+			fluidBar = new FluidBar(((TEFluidUser) tileEntity).inTank, guiLeft + tankX, guiTop + tankY);
 	}
 
 }

@@ -15,6 +15,27 @@ public class SlotItemHandlerEOP extends SlotItemHandler {
 		this.handler = handler;
 	}
 
+	@Override
+	public boolean canTakeStack(EntityPlayer playerIn) {
+		return !this.handler.extractItemIgnoreCondition(this.getSlotIndex(), 1, true).isEmpty();
+	}
+
+	@Override
+	public ItemStack decrStackSize(int amount) {
+		return this.handler.extractItemIgnoreCondition(this.getSlotIndex(), amount, false);
+	}
+
+	@Override
+	public int getItemStackLimit(ItemStack stack) {
+		ItemStack maxAdd = stack.copy();
+		maxAdd.setCount(stack.getMaxStackSize());
+		ItemStack currentStack = this.handler.getStackInSlot(this.getSlotIndex());
+		this.handler.setStackInSlot(this.getSlotIndex(), ItemStack.EMPTY);
+		ItemStack remainder = this.handler.insertItemIgnoreCondition(this.getSlotIndex(), maxAdd, true);
+		this.handler.setStackInSlot(this.getSlotIndex(), currentStack);
+		return stack.getMaxStackSize() - remainder.getCount();
+	}
+
 	/**
 	 * simulates insert and returns true if the stack is able to be inserted
 	 * using insertItemPlayer()
@@ -29,26 +50,5 @@ public class SlotItemHandlerEOP extends SlotItemHandler {
 			return remainder == null || remainder.getCount() < stack.getCount();
 		}
 		return false;
-	}
-
-	@Override
-	public int getItemStackLimit(ItemStack stack) {
-		ItemStack maxAdd = stack.copy();
-		maxAdd.setCount(stack.getMaxStackSize());
-		ItemStack currentStack = this.handler.getStackInSlot(this.getSlotIndex());
-		this.handler.setStackInSlot(this.getSlotIndex(), ItemStack.EMPTY);
-		ItemStack remainder = this.handler.insertItemIgnoreCondition(this.getSlotIndex(), maxAdd, true);
-		this.handler.setStackInSlot(this.getSlotIndex(), currentStack);
-		return stack.getMaxStackSize() - remainder.getCount();
-	}
-
-	@Override
-	public boolean canTakeStack(EntityPlayer playerIn) {
-		return !this.handler.extractItemIgnoreCondition(this.getSlotIndex(), 1, true).isEmpty();
-	}
-
-	@Override
-	public ItemStack decrStackSize(int amount) {
-		return this.handler.extractItemIgnoreCondition(this.getSlotIndex(), amount, false);
 	}
 }

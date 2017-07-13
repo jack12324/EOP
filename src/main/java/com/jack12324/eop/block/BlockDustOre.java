@@ -24,13 +24,13 @@ public class BlockDustOre extends BlockModOre {
 	}
 
 	@Override
-	public Item getItemDropped(IBlockState blockstate, Random random, int fortune) {
-		return this.drop;
+	public int damageDropped(IBlockState blockstate) {
+		return this.meta;
 	}
 
 	@Override
-	public int damageDropped(IBlockState blockstate) {
-		return this.meta;
+	public Item getItemDropped(IBlockState blockstate, Random random, int fortune) {
+		return this.drop;
 	}
 
 	@Override

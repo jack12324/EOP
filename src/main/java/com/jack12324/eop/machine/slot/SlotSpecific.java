@@ -12,9 +12,11 @@ import net.minecraft.item.ItemStack;
 public class SlotSpecific extends SlotItemHandlerEOP {
 	List<Item> items;
 
-	public SlotSpecific(EOPItemStackHandler inventory, int index, int x, int y, List<Item> items) {
+	public SlotSpecific(EOPItemStackHandler inventory, int index, int x, int y, Block item) {
 		super(inventory, index, x, y);
-		this.items = new ArrayList<Item>(items);
+		this.items = new ArrayList<Item>();
+		items.add(Item.getItemFromBlock(item));
+
 	}
 
 	public SlotSpecific(EOPItemStackHandler inventory, int index, int x, int y, Item item) {
@@ -24,11 +26,9 @@ public class SlotSpecific extends SlotItemHandlerEOP {
 
 	}
 
-	public SlotSpecific(EOPItemStackHandler inventory, int index, int x, int y, Block item) {
+	public SlotSpecific(EOPItemStackHandler inventory, int index, int x, int y, List<Item> items) {
 		super(inventory, index, x, y);
-		this.items = new ArrayList<Item>();
-		items.add(Item.getItemFromBlock(item));
-
+		this.items = new ArrayList<Item>(items);
 	}
 
 	@Override

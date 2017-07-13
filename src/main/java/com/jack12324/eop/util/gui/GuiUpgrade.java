@@ -31,20 +31,6 @@ public class GuiUpgrade extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		GlStateManager.color(1, 1, 1, 1);
-		mc.getTextureManager().bindTexture(BG_TEXTURE);
-		// gui base
-		drawTexturedModalRect(guiLeft, guiTop, 0, 0, 20, 20);
-	}
-
-	@Override
-	public void initGui() {
-		super.initGui();
-		this.buttonList.add(new GuiButton(70, guiLeft - 30, guiTop, 30, 20, "Exit"));
-	}
-
-	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) throws IOException {
 		actionPerformed(par1GuiButton, 0);
 	}
@@ -60,6 +46,20 @@ public class GuiUpgrade extends GuiContainer {
 		} else {
 			super.actionPerformed(button);
 		}
+	}
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+		GlStateManager.color(1, 1, 1, 1);
+		mc.getTextureManager().bindTexture(BG_TEXTURE);
+		// gui base
+		drawTexturedModalRect(guiLeft, guiTop, 0, 0, 20, 20);
+	}
+
+	@Override
+	public void initGui() {
+		super.initGui();
+		this.buttonList.add(new GuiButton(70, guiLeft - 30, guiTop, 30, 20, "Exit"));
 	}
 
 }

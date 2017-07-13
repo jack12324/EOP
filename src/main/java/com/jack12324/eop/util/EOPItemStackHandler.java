@@ -14,15 +14,12 @@ public class EOPItemStackHandler extends ItemStackHandler {
 		super(slots);
 	}
 
-	public void grow(int index, int amount) {
-		getStackInSlot(index).grow(amount);
+	public boolean canExtract(ItemStack stack, int slot) {
+		return true;
 	}
 
-	public void setInventorySlotContents(int slotIndex, ItemStack itemstack) {
-		setStackInSlot(slotIndex, itemstack);
-		if (itemstack.isEmpty() && itemstack.getCount() > getSlotLimit(slotIndex)) {
-			itemstack.setCount(getSlotLimit(slotIndex));
-		}
+	public boolean canInsert(ItemStack stack, int slot) {
+		return true;
 	}
 
 	public ItemStack decrStackSize(int slotIndex, int count) {
@@ -41,6 +38,53 @@ public class EOPItemStackHandler extends ItemStackHandler {
 			}
 		}
 		return itemStackRemoved;
+	}
+
+	@Override
+	public ItemStack extractItem(int slot, int amount, boolean simulate) {
+		if (amount <= 0) {
+			return ItemStack.EMPTY;
+		}
+		this.validateSlotIndex(slot);
+
+		ItemStack existing = this.stacks.get(slot);
+		if (existing.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
+
+		int toExtract = Math.min(amount, existing.getMaxStackSize());
+		if (toExtract <= 0) {
+			return ItemStack.EMPTY;
+		}
+
+		if (!this.tempIgnore && !this.canExtract(this.getStackInSlot(slot), slot)) {
+			return ItemStack.EMPTY;
+		}
+
+		if (existing.getCount() <= toExtract) {
+			if (!simulate) {
+				this.stacks.set(slot, ItemStack.EMPTY);
+				this.onContentsChanged(slot);
+			}
+			return existing;
+		} else {
+			if (!simulate) {
+				this.stacks.set(slot, ItemHandlerHelper.copyStackWithSize(existing, existing.getCount() - toExtract));
+				this.onContentsChanged(slot);
+			}
+			return ItemHandlerHelper.copyStackWithSize(existing, toExtract);
+		}
+	}
+
+	public ItemStack extractItemIgnoreCondition(int slot, int amount, boolean simulate) {
+		this.tempIgnore = true;
+		ItemStack result = this.extractItem(slot, amount, simulate);
+		this.tempIgnore = false;
+		return result;
+	}
+
+	public void grow(int index, int amount) {
+		getStackInSlot(index).grow(amount);
 	}
 
 	@Override
@@ -89,55 +133,11 @@ public class EOPItemStackHandler extends ItemStackHandler {
 		return result;
 	}
 
-	@Override
-	public ItemStack extractItem(int slot, int amount, boolean simulate) {
-		if (amount <= 0) {
-			return ItemStack.EMPTY;
+	public void setInventorySlotContents(int slotIndex, ItemStack itemstack) {
+		setStackInSlot(slotIndex, itemstack);
+		if (itemstack.isEmpty() && itemstack.getCount() > getSlotLimit(slotIndex)) {
+			itemstack.setCount(getSlotLimit(slotIndex));
 		}
-		this.validateSlotIndex(slot);
-
-		ItemStack existing = this.stacks.get(slot);
-		if (existing.isEmpty()) {
-			return ItemStack.EMPTY;
-		}
-
-		int toExtract = Math.min(amount, existing.getMaxStackSize());
-		if (toExtract <= 0) {
-			return ItemStack.EMPTY;
-		}
-
-		if (!this.tempIgnore && !this.canExtract(this.getStackInSlot(slot), slot)) {
-			return ItemStack.EMPTY;
-		}
-
-		if (existing.getCount() <= toExtract) {
-			if (!simulate) {
-				this.stacks.set(slot, ItemStack.EMPTY);
-				this.onContentsChanged(slot);
-			}
-			return existing;
-		} else {
-			if (!simulate) {
-				this.stacks.set(slot, ItemHandlerHelper.copyStackWithSize(existing, existing.getCount() - toExtract));
-				this.onContentsChanged(slot);
-			}
-			return ItemHandlerHelper.copyStackWithSize(existing, toExtract);
-		}
-	}
-
-	public ItemStack extractItemIgnoreCondition(int slot, int amount, boolean simulate) {
-		this.tempIgnore = true;
-		ItemStack result = this.extractItem(slot, amount, simulate);
-		this.tempIgnore = false;
-		return result;
-	}
-
-	public boolean canInsert(ItemStack stack, int slot) {
-		return true;
-	}
-
-	public boolean canExtract(ItemStack stack, int slot) {
-		return true;
 	}
 
 }

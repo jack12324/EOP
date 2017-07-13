@@ -18,19 +18,15 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiEqualizingSmelter extends GuiContainer {
-	private TileEntityEqualizingSmelter tileEntity;
-	private InventoryPlayer playerInv;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/equalizing_smelter.png");
 	private static final int SMELT_MODE_BUTTON_ID = 53;
-
-	public GuiEqualizingSmelter(Container inventorySlotsIn, InventoryPlayer playerInv,
-			TileEntityEqualizingSmelter tileEntity) {
-		super(inventorySlotsIn);
-		this.playerInv = playerInv;
-		this.tileEntity = tileEntity;
-
+	public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
+		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
 	}
+	private TileEntityEqualizingSmelter tileEntity;
+
+	private InventoryPlayer playerInv;
 
 	// some [x,y] coordinates of graphical elements
 	final int[] COOK_BAR_XPOS = { 44, 107, 44, 107 };
@@ -54,11 +50,42 @@ public class GuiEqualizingSmelter extends GuiContainer {
 	final int POWER_WIDTH = 8;
 	final int POWER_HEIGHT = 45;
 
+	public GuiEqualizingSmelter(Container inventorySlotsIn, InventoryPlayer playerInv,
+			TileEntityEqualizingSmelter tileEntity) {
+		super(inventorySlotsIn);
+		this.playerInv = playerInv;
+		this.tileEntity = tileEntity;
+
+	}
+
 	@Override
-	public void initGui() {
-		super.initGui();
-		this.buttonList.add(new GuiButton(53, guiLeft - 30, guiTop, 30, 20, "Mode"));
-		this.buttonList.add(new GuiButton(57, guiLeft - 40, guiTop + 20, 40, 20, "Spread"));
+	protected void actionPerformed(GuiButton par1GuiButton) throws IOException {
+		actionPerformed(par1GuiButton, 0);
+	}
+
+	private void actionPerformed(GuiButton button, int mbutton) throws IOException {
+		if (button.id == 53 || button.id == 57) {
+			System.out.println("53 or 57");
+			NBTTagCompound compound = new NBTTagCompound();
+			compound.setInteger("X", tileEntity.getPos().getX());
+			compound.setInteger("Y", tileEntity.getPos().getY());
+			compound.setInteger("Z", tileEntity.getPos().getZ());
+			compound.setInteger("buttonID", button.id);
+			PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_TOGGLE_BUTTON));
+		}
+		/*
+		 * if (button.id == 53) {
+		 * 
+		 * tileEntity.setMode(mbutton == 0 ? !tileEntity.getMode() :
+		 * !tileEntity.getMode()); PacketHandler.NETWORK.sendToServer(new
+		 * PacketClientState(tileEntity)); } else if (button.id == 57) {
+		 * 
+		 * tileEntity.setSpreadMode(mbutton == 0 ? !tileEntity.getSpreadMode() :
+		 * !tileEntity.getSpreadMode()); PacketHandler.NETWORK.sendToServer(new
+		 * PacketClientState(tileEntity)); }
+		 */else {
+			super.actionPerformed(button);
+		}
 	}
 
 	@Override
@@ -150,38 +177,11 @@ public class GuiEqualizingSmelter extends GuiContainer {
 
 	}
 
-	public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
-		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
-	}
-
 	@Override
-	protected void actionPerformed(GuiButton par1GuiButton) throws IOException {
-		actionPerformed(par1GuiButton, 0);
-	}
-
-	private void actionPerformed(GuiButton button, int mbutton) throws IOException {
-		if (button.id == 53 || button.id == 57) {
-			System.out.println("53 or 57");
-			NBTTagCompound compound = new NBTTagCompound();
-			compound.setInteger("X", tileEntity.getPos().getX());
-			compound.setInteger("Y", tileEntity.getPos().getY());
-			compound.setInteger("Z", tileEntity.getPos().getZ());
-			compound.setInteger("buttonID", button.id);
-			PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_TOGGLE_BUTTON));
-		}
-		/*
-		 * if (button.id == 53) {
-		 * 
-		 * tileEntity.setMode(mbutton == 0 ? !tileEntity.getMode() :
-		 * !tileEntity.getMode()); PacketHandler.NETWORK.sendToServer(new
-		 * PacketClientState(tileEntity)); } else if (button.id == 57) {
-		 * 
-		 * tileEntity.setSpreadMode(mbutton == 0 ? !tileEntity.getSpreadMode() :
-		 * !tileEntity.getSpreadMode()); PacketHandler.NETWORK.sendToServer(new
-		 * PacketClientState(tileEntity)); }
-		 */else {
-			super.actionPerformed(button);
-		}
+	public void initGui() {
+		super.initGui();
+		this.buttonList.add(new GuiButton(53, guiLeft - 30, guiTop, 30, 20, "Mode"));
+		this.buttonList.add(new GuiButton(57, guiLeft - 40, guiTop + 20, 40, 20, "Spread"));
 	}
 
 }

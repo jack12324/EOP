@@ -95,6 +95,12 @@ public class ModBlocks {
 
 	}
 
+	public static <T extends Block> T register(T block) {
+		ItemBlock itemBlock = new ItemBlock(block);
+		itemBlock.setRegistryName(block.getRegistryName());
+		return register(block, itemBlock);
+	}
+
 	private static <T extends Block> T register(T block, ItemBlock itemBlock) {
 		GameRegistry.register(block);
 
@@ -117,12 +123,6 @@ public class ModBlocks {
 		}
 		return block;
 
-	}
-
-	public static <T extends Block> T register(T block) {
-		ItemBlock itemBlock = new ItemBlock(block);
-		itemBlock.setRegistryName(block.getRegistryName());
-		return register(block, itemBlock);
 	}
 
 }

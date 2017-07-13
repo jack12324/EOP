@@ -54,6 +54,19 @@ public class ExtremeOreProcessing {
 		FluidRegistry.enableUniversalBucket(); // Must be called before preInit
 	}
 
+	@SidedProxy(serverSide = "com.jack12324.eop.proxy.CommonProxy", clientSide = "com.jack12324.eop.proxy.ClientProxy")
+	public static CommonProxy proxy;
+
+	@Mod.EventHandler
+	public void init(FMLInitializationEvent event) {
+		ModRecipes.init();
+	}
+
+	@Mod.EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+
+	}
+
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		// modItems needs to be before ModBlocks or drops won't work properly
@@ -70,18 +83,5 @@ public class ExtremeOreProcessing {
 		PacketHandler.init();
 		proxy.preInit(event);
 	}
-
-	@Mod.EventHandler
-	public void init(FMLInitializationEvent event) {
-		ModRecipes.init();
-	}
-
-	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-
-	}
-
-	@SidedProxy(serverSide = "com.jack12324.eop.proxy.CommonProxy", clientSide = "com.jack12324.eop.proxy.ClientProxy")
-	public static CommonProxy proxy;
 
 }

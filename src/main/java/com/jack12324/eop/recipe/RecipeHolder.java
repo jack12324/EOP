@@ -28,13 +28,13 @@ public class RecipeHolder {
 		ACTIVATIONCHAMBERRECIPES.add(new BasicRecipe(input, output));
 	}
 
-	public static void addDisablingPressRecipe(ItemStack input, ItemStack output) {
-		DISABLINGPRESSRECIPES.add(new BasicRecipe(input, output));
-	}
-
 	public static void addCatalystInfuserRecipe(ItemStack itemInput, FluidStack inFluid, FluidStack outFluid) {
 		ItemStack[] items = { itemInput };
 		CATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
+	}
+
+	public static void addDisablingPressRecipe(ItemStack input, ItemStack output) {
+		DISABLINGPRESSRECIPES.add(new BasicRecipe(input, output));
 	}
 
 	public static void addDualCatalystInfuserRecipe(ItemStack item1, ItemStack item2, FluidStack inFluid,
@@ -43,16 +43,16 @@ public class RecipeHolder {
 		DUALCATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
 	}
 
-	public static void addTriCatalystInfuserRecipe(ItemStack item1, ItemStack item2, ItemStack item3,
-			FluidStack inFluid, FluidStack outFluid) {
-		ItemStack[] items = { item1, item2, item3 };
-		TRICATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
-	}
-
 	public static void addEndericPurifierRecipe(ItemStack itemInput, ItemStack base, FluidStack inFluid,
 			ItemStack itemOutput) {
 		ItemStack[] items = { itemInput };
 		ENDERICPURIFIERRECIPES.add(new AdvancedRecipe(items, base, inFluid, itemOutput));
+	}
+
+	public static void addTriCatalystInfuserRecipe(ItemStack item1, ItemStack item2, ItemStack item3,
+			FluidStack inFluid, FluidStack outFluid) {
+		ItemStack[] items = { item1, item2, item3 };
+		TRICATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
 	}
 
 }

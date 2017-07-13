@@ -12,19 +12,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiTriCatalystInfuser extends GuiBase {
-	private TileEntityTriCatalystInfuser tileEntity;
-	private InventoryPlayer playerInv;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/tri_catalyst_infuser.png");
-	private FluidBar fb2;
-
-	public GuiTriCatalystInfuser(Container inventorySlotsIn, InventoryPlayer playerInv,
-			TileEntityTriCatalystInfuser tileEntity) {
-		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);
-		this.playerInv = playerInv;
-		this.tileEntity = tileEntity;
-	}
-
 	static int[] progressBarVals = { 43, // X to start draw
 			18, // y to start draw
 			2, // x of texture location
@@ -32,14 +21,19 @@ public class GuiTriCatalystInfuser extends GuiBase {
 			88, // width
 			49// height
 	};
+	private TileEntityTriCatalystInfuser tileEntity;
+	private InventoryPlayer playerInv;
+
+	private FluidBar fb2;
 
 	final int FLUID_XPOS2 = 151;
-	final int FLUID_YPOS2 = 18;
 
-	@Override
-	public void initGui() {
-		super.initGui();
-		this.fb2 = new FluidBar(this.tileEntity.outTank, guiLeft + FLUID_XPOS2, guiTop + FLUID_YPOS2);
+	final int FLUID_YPOS2 = 18;
+	public GuiTriCatalystInfuser(Container inventorySlotsIn, InventoryPlayer playerInv,
+			TileEntityTriCatalystInfuser tileEntity) {
+		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);
+		this.playerInv = playerInv;
+		this.tileEntity = tileEntity;
 	}
 
 	@Override
@@ -57,6 +51,12 @@ public class GuiTriCatalystInfuser extends GuiBase {
 		else
 			return super.fluidText(mouseX, mouseY);
 
+	}
+
+	@Override
+	public void initGui() {
+		super.initGui();
+		this.fb2 = new FluidBar(this.tileEntity.outTank, guiLeft + FLUID_XPOS2, guiTop + FLUID_YPOS2);
 	}
 
 }

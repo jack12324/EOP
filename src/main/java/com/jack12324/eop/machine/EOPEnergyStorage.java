@@ -9,6 +9,20 @@ public class EOPEnergyStorage extends EnergyStorage {
 		super(capacity, maxReceive, maxExtract);
 	}
 
+	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		if (!this.canExtract()) {
+			return 0;
+		}
+		int energy = this.getEnergyStored();
+
+		int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
+		if (!simulate) {
+			this.setEnergyStored(energy - energyExtracted);
+		}
+		return energyExtracted;
+	}
+
 	public int extractEnergyInternal(int maxExtract, boolean simulate) {
 		int before = this.maxExtract;
 		this.maxExtract = Integer.MAX_VALUE;
@@ -19,14 +33,8 @@ public class EOPEnergyStorage extends EnergyStorage {
 		return toReturn;
 	}
 
-	public int receiveEnergyInternal(int maxReceive, boolean simulate) {
-		int before = this.maxReceive;
-		this.maxReceive = Integer.MAX_VALUE;
-
-		int toReturn = this.receiveEnergy(maxReceive, simulate);
-
-		this.maxReceive = before;
-		return toReturn;
+	public void readFromNBT(NBTTagCompound compound) {
+		this.setEnergyStored(compound.getInteger("Energy"));
 	}
 
 	@Override
@@ -44,29 +52,21 @@ public class EOPEnergyStorage extends EnergyStorage {
 		return energyReceived;
 	}
 
-	@Override
-	public int extractEnergy(int maxExtract, boolean simulate) {
-		if (!this.canExtract()) {
-			return 0;
-		}
-		int energy = this.getEnergyStored();
+	public int receiveEnergyInternal(int maxReceive, boolean simulate) {
+		int before = this.maxReceive;
+		this.maxReceive = Integer.MAX_VALUE;
 
-		int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
-		if (!simulate) {
-			this.setEnergyStored(energy - energyExtracted);
-		}
-		return energyExtracted;
-	}
+		int toReturn = this.receiveEnergy(maxReceive, simulate);
 
-	public void readFromNBT(NBTTagCompound compound) {
-		this.setEnergyStored(compound.getInteger("Energy"));
-	}
-
-	public void writeToNBT(NBTTagCompound compound) {
-		compound.setInteger("Energy", this.getEnergyStored());
+		this.maxReceive = before;
+		return toReturn;
 	}
 
 	public void setEnergyStored(int energy) {
 		this.energy = energy;
+	}
+
+	public void writeToNBT(NBTTagCompound compound) {
+		compound.setInteger("Energy", this.getEnergyStored());
 	}
 }

@@ -8,19 +8,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiDisablingPress extends GuiBase {
-	private TileEntityDisablingPress tileEntity;
-	private InventoryPlayer playerInv;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/disabling_press.png");
-
-	public GuiDisablingPress(Container inventorySlotsIn, InventoryPlayer playerInv,
-			TileEntityDisablingPress tileEntity) {
-		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals, fuelVals);
-		this.playerInv = playerInv;
-		this.tileEntity = tileEntity;
-
-	}
-
 	static int[] progressBarVals = { 45, // X to start draw
 			24, // y to start draw
 			3, // x of texture location
@@ -35,5 +24,16 @@ public class GuiDisablingPress extends GuiBase {
 			12, // width
 			12// height
 	};
+
+	private TileEntityDisablingPress tileEntity;
+
+	private InventoryPlayer playerInv;
+	public GuiDisablingPress(Container inventorySlotsIn, InventoryPlayer playerInv,
+			TileEntityDisablingPress tileEntity) {
+		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals, fuelVals);
+		this.playerInv = playerInv;
+		this.tileEntity = tileEntity;
+
+	}
 
 }

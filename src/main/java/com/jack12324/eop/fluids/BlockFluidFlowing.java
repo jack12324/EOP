@@ -14,20 +14,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockFluidFlowing extends BlockFluidClassic {
 
-	private final String name;
-
-	public BlockFluidFlowing(Fluid fluid, Material material, String unlocalizedName) {
-		super(fluid, material);
-		this.name = unlocalizedName;
-		this.displacements.put(this, false);
-
-		this.register();
-	}
-
-	private void register() {
-		registerBlock(this, this.getItemBlock(), this.getBaseName(), this.shouldAddCreative());
-	}
-
 	public static void registerBlock(Block block, ModItemBlock itemBlock, String name, boolean addTab) {
 		block.setUnlocalizedName(ExtremeOreProcessing.modID + "." + name);
 
@@ -40,16 +26,14 @@ public class BlockFluidFlowing extends BlockFluidClassic {
 		block.setCreativeTab(ExtremeOreProcessing.creativeTab);
 	}
 
-	protected String getBaseName() {
-		return this.name;
-	}
+	private final String name;
 
-	protected ModItemBlock getItemBlock() {
-		return new ModItemBlock(this);
-	}
+	public BlockFluidFlowing(Fluid fluid, Material material, String unlocalizedName) {
+		super(fluid, material);
+		this.name = unlocalizedName;
+		this.displacements.put(this, false);
 
-	public boolean shouldAddCreative() {
-		return false;
+		this.register();
 	}
 
 	@Override
@@ -60,6 +44,22 @@ public class BlockFluidFlowing extends BlockFluidClassic {
 	@Override
 	public boolean displaceIfPossible(World world, BlockPos pos) {
 		return !world.getBlockState(pos).getMaterial().isLiquid() && super.displaceIfPossible(world, pos);
+	}
+
+	protected String getBaseName() {
+		return this.name;
+	}
+
+	protected ModItemBlock getItemBlock() {
+		return new ModItemBlock(this);
+	}
+
+	private void register() {
+		registerBlock(this, this.getItemBlock(), this.getBaseName(), this.shouldAddCreative());
+	}
+
+	public boolean shouldAddCreative() {
+		return false;
 	}
 
 }

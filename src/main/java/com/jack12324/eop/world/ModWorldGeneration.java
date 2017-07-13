@@ -17,18 +17,6 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class ModWorldGeneration implements IWorldGenerator {
 
-	private void generateOre(IBlockState ore, World world, Random random, int x, int z, int minY, int maxY, int size,
-			int chances, Block genBlock) {
-		int deltaY = maxY - minY;
-
-		for (int i = 0; i < chances; i++) {
-			BlockPos pos = new BlockPos(x + random.nextInt(16), minY + random.nextInt(deltaY), z + random.nextInt(16));
-
-			WorldGenMinable generator = new WorldGenMinable(ore, size, BlockMatcher.forBlock(genBlock));
-			generator.generate(world, random, pos);
-		}
-	}
-
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
@@ -57,6 +45,18 @@ public class ModWorldGeneration implements IWorldGenerator {
 			break;
 		}
 
+	}
+
+	private void generateOre(IBlockState ore, World world, Random random, int x, int z, int minY, int maxY, int size,
+			int chances, Block genBlock) {
+		int deltaY = maxY - minY;
+
+		for (int i = 0; i < chances; i++) {
+			BlockPos pos = new BlockPos(x + random.nextInt(16), minY + random.nextInt(deltaY), z + random.nextInt(16));
+
+			WorldGenMinable generator = new WorldGenMinable(ore, size, BlockMatcher.forBlock(genBlock));
+			generator.generate(world, random, pos);
+		}
 	}
 
 }

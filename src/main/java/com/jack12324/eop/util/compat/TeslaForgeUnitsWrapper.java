@@ -14,8 +14,8 @@ public class TeslaForgeUnitsWrapper implements ITeslaProducer, ITeslaHolder, ITe
 	}
 
 	@Override
-	public long givePower(long power, boolean simulated) {
-		return this.storage.receiveEnergy((int) power, simulated);
+	public long getCapacity() {
+		return this.storage.getMaxEnergyStored();
 	}
 
 	@Override
@@ -24,8 +24,8 @@ public class TeslaForgeUnitsWrapper implements ITeslaProducer, ITeslaHolder, ITe
 	}
 
 	@Override
-	public long getCapacity() {
-		return this.storage.getMaxEnergyStored();
+	public long givePower(long power, boolean simulated) {
+		return this.storage.receiveEnergy((int) power, simulated);
 	}
 
 	@Override

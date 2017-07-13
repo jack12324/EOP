@@ -15,13 +15,13 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
 public class FluidBar extends Gui {
+	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
+			"textures/gui/fluid_bar.png");
 	private int x;
 	private int y;
 	private FluidTank tank;
 	private final int HEIGHT = 49;
 	private final int WIDTH = 18;
-	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
-			"textures/gui/fluid_bar.png");
 
 	public FluidBar(FluidTank tank, int x, int y) {
 		this.x = x;

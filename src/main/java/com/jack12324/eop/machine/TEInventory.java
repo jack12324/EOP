@@ -13,41 +13,18 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 public abstract class TEInventory extends TETickingMachine {
 
-	public final EOPItemStackHandler slots;
-	public final InventorySlotHelper slotHelper;
-
-	public TEInventory(InventorySlotHelper slots, String name) {
-		super(name);
-		this.slotHelper = slots;
-		this.slots = new EOPItemStackHandler(slotHelper.getTotalSize()) {
-
-			@Override
-			public boolean canInsert(ItemStack stack, int slot) {
-				System.out.println("can Insert TEI");
-				return TEInventory.this.isItemValidForSlot(slot, stack);
-			}
-
-			@Override
-			public boolean canExtract(ItemStack stack, int slot) {
-				System.out.println("canExtract TEI");
-				return TEInventory.this.canExtractItem(slot, stack);
-			}
-
-			@Override
-			public int getSlotLimit(int slot) {
-				return TEInventory.this.getMaxStackSizePerSlot(slot);
-			}
-
-			@Override
-			protected void onContentsChanged(int slot) {
-				super.onContentsChanged(slot);
-				TEInventory.this.markDirty();
-			}
-		};
-	}
-
 	public static boolean isValid(ItemStack stack) {
 		return stack != null && !stack.isEmpty();
+	}
+	public static void loadSlots(IItemHandlerModifiable slots, NBTTagCompound compound) {
+		if (slots != null && slots.getSlots() > 0) {
+			NBTTagList tagList = compound.getTagList("Items", 10);
+			for (int i = 0; i < slots.getSlots(); i++) {
+				NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
+				slots.setStackInSlot(i,
+						tagCompound != null && tagCompound.hasKey("id") ? new ItemStack(tagCompound) : ItemStack.EMPTY);
+			}
+		}
 	}
 
 	public static void saveSlots(IItemHandler slots, NBTTagCompound compound) {
@@ -65,33 +42,38 @@ public abstract class TEInventory extends TETickingMachine {
 		}
 	}
 
-	public static void loadSlots(IItemHandlerModifiable slots, NBTTagCompound compound) {
-		if (slots != null && slots.getSlots() > 0) {
-			NBTTagList tagList = compound.getTagList("Items", 10);
-			for (int i = 0; i < slots.getSlots(); i++) {
-				NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
-				slots.setStackInSlot(i,
-						tagCompound != null && tagCompound.hasKey("id") ? new ItemStack(tagCompound) : ItemStack.EMPTY);
+	public final EOPItemStackHandler slots;
+
+	public final InventorySlotHelper slotHelper;
+
+	public TEInventory(InventorySlotHelper slots, String name) {
+		super(name);
+		this.slotHelper = slots;
+		this.slots = new EOPItemStackHandler(slotHelper.getTotalSize()) {
+
+			@Override
+			public boolean canExtract(ItemStack stack, int slot) {
+				System.out.println("canExtract TEI");
+				return TEInventory.this.canExtractItem(slot, stack);
 			}
-		}
-	}
 
-	@Override
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		super.writeSyncableNBT(compound, type);
-		if (type == NBTType.SAVE_TILE || (type == NBTType.SYNC && this.shouldSyncSlots())) {
-			saveSlots(this.slots, compound);
-		}
-	}
+			@Override
+			public boolean canInsert(ItemStack stack, int slot) {
+				System.out.println("can Insert TEI");
+				return TEInventory.this.isItemValidForSlot(slot, stack);
+			}
 
-	@Override
-	public IItemHandler getItemHandler(EnumFacing facing) {
-		return this.slots;
-	}
+			@Override
+			public int getSlotLimit(int slot) {
+				return TEInventory.this.getMaxStackSizePerSlot(slot);
+			}
 
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		System.out.println("isItemValidForSlot TEInventory");
-		return true;
+			@Override
+			protected void onContentsChanged(int slot) {
+				super.onContentsChanged(slot);
+				TEInventory.this.markDirty();
+			}
+		};
 	}
 
 	public boolean canExtractItem(int slot, ItemStack stack) {
@@ -103,12 +85,23 @@ public abstract class TEInventory extends TETickingMachine {
 		return false;
 	}
 
+	@Override
+	public int getComparatorStrength() {
+		return ItemHandlerHelper.calcRedstoneFromInventory(this.slots);
+	}
+
+	@Override
+	public IItemHandler getItemHandler(EnumFacing facing) {
+		return this.slots;
+	}
+
 	public int getMaxStackSizePerSlot(int slot) {
 		return 64;
 	}
 
-	public boolean shouldSyncSlots() {
-		return false;
+	public boolean isItemValidForSlot(int slot, ItemStack stack) {
+		System.out.println("isItemValidForSlot TEInventory");
+		return true;
 	}
 
 	@Override
@@ -121,15 +114,22 @@ public abstract class TEInventory extends TETickingMachine {
 	}
 
 	@Override
-	public int getComparatorStrength() {
-		return ItemHandlerHelper.calcRedstoneFromInventory(this.slots);
-	}
-
-	@Override
 	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
 		super.readSyncableNBT(compound, type);
 		if (type == NBTType.SAVE_TILE || (type == NBTType.SYNC && this.shouldSyncSlots())) {
 			loadSlots(this.slots, compound);
+		}
+	}
+
+	public boolean shouldSyncSlots() {
+		return false;
+	}
+
+	@Override
+	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
+		super.writeSyncableNBT(compound, type);
+		if (type == NBTType.SAVE_TILE || (type == NBTType.SYNC && this.shouldSyncSlots())) {
+			saveSlots(this.slots, compound);
 		}
 	}
 }

@@ -44,12 +44,32 @@ public abstract class TEFluidUser extends TEPowered {
 	}
 
 	@Override
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		NBTTagCompound tag = new NBTTagCompound();
-		this.inTank.writeToNBT(tag);
-		compound.setTag("inTank", tag);
-		super.writeSyncableNBT(compound, type);
-		System.out.println("TEFU write");
+	public boolean canUse() {
+		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), this.getBase(),
+				this.inTank.getFluid());
+
+		if (result == null || result.isEmpty()) {
+			return false;
+		} else {
+			return getOutSlot(result) == -1 ? false : true;
+		}
+	}
+
+	@Override
+	public IFluidHandler getFluidHandler(EnumFacing facing) {
+		return this.inTank;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public int getTankScaled(int i) {
+		return (int) (this.inTank.getFluidAmount() * i / (double) this.inTank.getCapacity());
+	}
+
+	protected void oldInFluidCheck() {
+		if (this.oldInFluidAmount != this.inTank.getFluidAmount() && this.sendUpdateWithInterval()) {
+			System.out.println("influid");
+			this.oldInFluidAmount = this.inTank.getFluidAmount();
+		}
 	}
 
 	@Override
@@ -68,30 +88,6 @@ public abstract class TEFluidUser extends TEPowered {
 		}
 	}
 
-	protected void oldInFluidCheck() {
-		if (this.oldInFluidAmount != this.inTank.getFluidAmount() && this.sendUpdateWithInterval()) {
-			System.out.println("influid");
-			this.oldInFluidAmount = this.inTank.getFluidAmount();
-		}
-	}
-
-	@Override
-	public boolean canUse() {
-		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), this.getBase(),
-				this.inTank.getFluid());
-
-		if (result == null || result.isEmpty()) {
-			return false;
-		} else {
-			return getOutSlot(result) == -1 ? false : true;
-		}
-	}
-
-	@Override
-	public IFluidHandler getFluidHandler(EnumFacing facing) {
-		return this.inTank;
-	}
-
 	@Override
 	public void useFluid(ItemStack[] input) {
 		inTank.drainInternal(
@@ -105,9 +101,13 @@ public abstract class TEFluidUser extends TEPowered {
 
 	}
 
-	@SideOnly(Side.CLIENT)
-	public int getTankScaled(int i) {
-		return (int) (this.inTank.getFluidAmount() * i / (double) this.inTank.getCapacity());
+	@Override
+	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
+		NBTTagCompound tag = new NBTTagCompound();
+		this.inTank.writeToNBT(tag);
+		compound.setTag("inTank", tag);
+		super.writeSyncableNBT(compound, type);
+		System.out.println("TEFU write");
 	}
 
 }

@@ -19,11 +19,6 @@ public class BlockDisablingPress extends BlockTE<TileEntityDisablingPress> {
 
 	}
 
-	@Override
-	protected int getGui() {
-		return ModGuiHandler.DISABLINGPRESS;
-	}
-
 	// drop items in block as well as block
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
@@ -34,15 +29,20 @@ public class BlockDisablingPress extends BlockTE<TileEntityDisablingPress> {
 		super.breakBlock(world, pos, state);
 	}
 
-	@Override
-	public Class<TileEntityDisablingPress> getTileEntityClass() {
-		return TileEntityDisablingPress.class;
-	}
-
 	@Nullable
 	@Override
 	public TileEntityDisablingPress createTileEntity(World world, IBlockState state) {
 		return new TileEntityDisablingPress();
+	}
+
+	@Override
+	protected int getGui() {
+		return ModGuiHandler.DISABLINGPRESS;
+	}
+
+	@Override
+	public Class<TileEntityDisablingPress> getTileEntityClass() {
+		return TileEntityDisablingPress.class;
 	}
 
 }

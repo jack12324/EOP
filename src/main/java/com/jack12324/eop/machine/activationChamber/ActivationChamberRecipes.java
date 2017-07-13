@@ -19,17 +19,6 @@ public class ActivationChamberRecipes extends EOPRecipes {
 
 	}
 
-	/**
-	 * Adds a activation recipe, where the input item is an instance of Block.
-	 */
-	public void addActivationRecipeForBlock(Block[] input, ItemStack stack, int[] number) {
-		Item[] itemInputs = new Item[input.length];
-		for (int i = 0; i < itemInputs.length; i++) {
-			itemInputs[i] = Item.getItemFromBlock(input[i]);
-		}
-		this.addActivation(itemInputs, stack, number);
-	}
-
 	/** Adds a activation recipe using an Item as the input item. */
 	public void addActivation(Item[] input, ItemStack stack, int[] number) {
 		ItemStack[] input2 = new ItemStack[input.length];
@@ -51,16 +40,15 @@ public class ActivationChamberRecipes extends EOPRecipes {
 		this.activationList.put(input, stack);
 	}
 
-	/** Returns the activation result of an item. */
-	@Override
-	public ItemStack getResult(ItemStack[] stack) {
-		for (Entry<ItemStack[], ItemStack> entry : this.activationList.entrySet()) {
-			if (this.compareItemStacks(stack, entry.getKey())) {
-				return entry.getValue();
-			}
+	/**
+	 * Adds a activation recipe, where the input item is an instance of Block.
+	 */
+	public void addActivationRecipeForBlock(Block[] input, ItemStack stack, int[] number) {
+		Item[] itemInputs = new Item[input.length];
+		for (int i = 0; i < itemInputs.length; i++) {
+			itemInputs[i] = Item.getItemFromBlock(input[i]);
 		}
-
-		return ItemStack.EMPTY;
+		this.addActivation(itemInputs, stack, number);
 	}
 
 	/**
@@ -88,6 +76,18 @@ public class ActivationChamberRecipes extends EOPRecipes {
 
 	public Map<ItemStack[], ItemStack> getActivationList() {
 		return this.activationList;
+	}
+
+	/** Returns the activation result of an item. */
+	@Override
+	public ItemStack getResult(ItemStack[] stack) {
+		for (Entry<ItemStack[], ItemStack> entry : this.activationList.entrySet()) {
+			if (this.compareItemStacks(stack, entry.getKey())) {
+				return entry.getValue();
+			}
+		}
+
+		return ItemStack.EMPTY;
 	}
 
 }

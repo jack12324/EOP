@@ -12,7 +12,23 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketClientToServer implements IMessage {
 
+	public static class Handler implements IMessageHandler<PacketClientToServer, IMessage> {
+
+		@Override
+		public IMessage onMessage(final PacketClientToServer message, final MessageContext ctx) {
+			FMLCommonHandler.instance().getMinecraftServerInstance().addScheduledTask(new Runnable() {
+				@Override
+				public void run() {
+					if (message.data != null && message.handler != null) {
+						message.handler.handleData(message.data, ctx);
+					}
+				}
+			});
+			return null;
+		}
+	}
 	private NBTTagCompound data;
+
 	private IDataHandler handler;
 
 	public PacketClientToServer() {
@@ -45,21 +61,5 @@ public class PacketClientToServer implements IMessage {
 
 		buffer.writeCompoundTag(this.data);
 		buffer.writeInt(PacketHandler.DATA_HANDLERS.indexOf(this.handler));
-	}
-
-	public static class Handler implements IMessageHandler<PacketClientToServer, IMessage> {
-
-		@Override
-		public IMessage onMessage(final PacketClientToServer message, final MessageContext ctx) {
-			FMLCommonHandler.instance().getMinecraftServerInstance().addScheduledTask(new Runnable() {
-				@Override
-				public void run() {
-					if (message.data != null && message.handler != null) {
-						message.handler.handleData(message.data, ctx);
-					}
-				}
-			});
-			return null;
-		}
 	}
 }

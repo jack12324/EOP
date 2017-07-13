@@ -13,13 +13,13 @@ public class ModItemBlock extends ItemBlock {
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return this.getUnlocalizedName();
+	public int getMetadata(int damage) {
+		return damage;
 	}
 
 	@Override
-	public int getMetadata(int damage) {
-		return damage;
+	public String getUnlocalizedName(ItemStack stack) {
+		return this.getUnlocalizedName();
 	}
 
 }

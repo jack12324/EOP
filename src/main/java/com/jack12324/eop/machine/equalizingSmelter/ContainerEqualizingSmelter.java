@@ -84,6 +84,11 @@ public class ContainerEqualizingSmelter extends Container {
 	}
 
 	@Override
+	public boolean canInteractWith(EntityPlayer playerIn) {
+		return equalizingSmelter.isUsableByPlayer(playerIn);
+	}
+
+	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
@@ -116,11 +121,6 @@ public class ContainerEqualizingSmelter extends Container {
 		}
 
 		return itemstack;
-	}
-
-	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
-		return equalizingSmelter.isUsableByPlayer(playerIn);
 	}
 
 }

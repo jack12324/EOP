@@ -25,9 +25,26 @@ public class BlockPedestal extends BlockTE<TileEntityPedestal> {
 	}
 
 	@Override
-	@Deprecated
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		TileEntityPedestal tile = getTileEntity(world, pos);
+		IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
+		ItemStack stack = itemHandler.getStackInSlot(0);
+		if (!stack.isEmpty()) {
+			EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+			world.spawnEntity(item);
+		}
+		super.breakBlock(world, pos, state);
+	}
+
+	@Nullable
+	@Override
+	public TileEntityPedestal createTileEntity(World world, IBlockState state) {
+		return new TileEntityPedestal();
+	}
+
+	@Override
+	public Class<TileEntityPedestal> getTileEntityClass() {
+		return TileEntityPedestal.class;
 	}
 
 	@Override
@@ -37,14 +54,9 @@ public class BlockPedestal extends BlockTE<TileEntityPedestal> {
 	}
 
 	@Override
-	public Class<TileEntityPedestal> getTileEntityClass() {
-		return TileEntityPedestal.class;
-	}
-
-	@Nullable
-	@Override
-	public TileEntityPedestal createTileEntity(World world, IBlockState state) {
-		return new TileEntityPedestal();
+	@Deprecated
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
 	}
 
 	@Override
@@ -62,18 +74,6 @@ public class BlockPedestal extends BlockTE<TileEntityPedestal> {
 			return true;
 		}
 		return true;
-	}
-
-	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state) {
-		TileEntityPedestal tile = getTileEntity(world, pos);
-		IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
-		ItemStack stack = itemHandler.getStackInSlot(0);
-		if (!stack.isEmpty()) {
-			EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
-			world.spawnEntity(item);
-		}
-		super.breakBlock(world, pos, state);
 	}
 
 }
