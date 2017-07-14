@@ -22,7 +22,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityPedestal extends TEInventory {
 
-	private Fluid dragonSoul = InitFluids.fluidDragonSoul;
 
 	private ArrayList<Fluid> outFluid;
 	private int oldFluidAmount;

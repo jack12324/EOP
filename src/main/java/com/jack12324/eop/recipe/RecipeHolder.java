@@ -33,8 +33,8 @@ public class RecipeHolder {
 		CATALYSTINFUSERRECIPES.add(new InfuserRecipe(items, inFluid, outFluid));
 	}
 
-	public static void addDisablingPressRecipe(ItemStack input, ItemStack output) {
-		DISABLINGPRESSRECIPES.add(new BasicRecipe(input, output));
+	public static void addDisablingPressRecipe(ItemStack input, ItemStack base, ItemStack output) {
+		DISABLINGPRESSRECIPES.add(new DPRecipe(input, base, output));
 	}
 
 	public static void addDualCatalystInfuserRecipe(ItemStack item1, ItemStack item2, FluidStack inFluid,
@@ -66,9 +66,13 @@ public class RecipeHolder {
 		STARHARDENERRECIPES.add(new AdvancedRecipe(items, base, inFluid, itemOutput));
 	}
 	
-	public static void addTEqualizingSmelterRecipe(ItemStack item1, ItemStack item2, ItemStack item3, ItemStack item4, ItemStack output) {
+	public static void addEqualizingSmelterRecipe(ItemStack item1, ItemStack item2, ItemStack item3, ItemStack item4, ItemStack output) {
 		ItemStack[] items = { item1, item2, item3,item4 };
 		EQUALIZINGSMELTERRECIPES.add(new EQSRecipe(items, output));
+	}
+	
+	public static void addPedestalRecipe(ItemStack input, FluidStack outFluid, int pedestalSpeed){
+		PEDESTALRECIPES.add(new PedestalRecipe(input,outFluid,pedestalSpeed));
 	}
 
 }

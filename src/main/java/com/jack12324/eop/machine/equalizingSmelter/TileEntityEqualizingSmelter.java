@@ -6,6 +6,8 @@ import java.util.List;
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.IButtonUse;
 import com.jack12324.eop.machine.TEPowered;
+import com.jack12324.eop.recipe.RecipeHolder;
+import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.item.ItemStack;
@@ -272,24 +274,6 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 		return active;
 	}
 
-	/*
-	 * @Override public int getField(int id) { if (id == 2) { if (furnaceMode)
-	 * return 1; else return 0; } else if (id == 1) return dustProgress; else if
-	 * (id == 0) { if (spreadMode) return 1; else return 0; }
-	 * 
-	 * else return super.getField(id - 3); }
-	 * 
-	 * @Override public void setField(int id, int value) { if (id == 2) { if
-	 * (value == 1) this.furnaceMode = true; else this.furnaceMode = false; }
-	 * else if (id == 1) this.dustProgress = value; else if (id == 0) { if
-	 * (value == 1) this.spreadMode = true; else this.spreadMode = false; } else
-	 * super.setField(id - 3, value);
-	 * 
-	 * }
-	 * 
-	 * @Override public int getFieldCount() { return super.getFieldCount() + 3;
-	 * }
-	 */
 	@Override
 	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
 		if (type != NBTType.SAVE_BLOCK) {
@@ -299,5 +283,10 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 		}
 		super.writeSyncableNBT(compound, type);
 
+	}
+	
+	@Override
+	public ArrayList<EOPRecipe> getRecipeList() {
+		return RecipeHolder.EQUALIZINGSMELTERRECIPES;
 	}
 }

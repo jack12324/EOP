@@ -45,8 +45,9 @@ public abstract class TEFluidProducer extends TEFluidUser {
 
 	@Override
 	public boolean canUse() {
-		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), getInputSlotItemStacks(), this.getBase(),
-				this.inTank.getFluid());
+		if(this.inTank.getFluid()==null)
+			return false;
+		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), getInputSlotItemStacks(), this.inTank.getFluid());
 
 		if (result == null || (this.outTank.getFluidAmount() > 0 && !result.isFluidEqual(this.outTank.getFluid()))
 				|| this.outTank.getFluidAmount() + result.amount > this.outTank.getCapacity()) {

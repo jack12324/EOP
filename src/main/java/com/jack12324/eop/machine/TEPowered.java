@@ -2,6 +2,7 @@ package com.jack12324.eop.machine;
 
 import java.util.ArrayList;
 
+import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
@@ -264,7 +265,8 @@ public abstract class TEPowered extends TEInventory {
 	}
 
 	public ArrayList<EOPRecipe> getRecipeList() {
-		return null;
+		ExtremeOreProcessing.LOGGER.warn("EOP Warning: Sending empty recipe list");
+		return new ArrayList<EOPRecipe>();
 	}
 
 	public double getTicksNeeded() {

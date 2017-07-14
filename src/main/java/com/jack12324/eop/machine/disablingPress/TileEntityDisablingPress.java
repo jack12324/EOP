@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.jack12324.eop.machine.TEPowered;
+import com.jack12324.eop.recipe.RecipeHolder;
+import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.init.Blocks;
@@ -34,6 +36,11 @@ public class TileEntityDisablingPress extends TEPowered {
 	@Override
 	public int getFuelTime(int i) {
 		return fuelTime.get(i);
+	}
+	
+	@Override
+	public ArrayList<EOPRecipe> getRecipeList() {
+		return RecipeHolder.DISABLINGPRESSRECIPES;
 	}
 
 }
