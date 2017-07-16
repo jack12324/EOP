@@ -109,21 +109,31 @@ public abstract class TEPowered extends TEInventory {
 	 */
 
 	protected boolean canUse() {
+		if(this.getRecipeList().isEmpty()||this.getRecipeList()==null){
+			System.out.println("1");
+			return false;
+		}
 
 		if (!this.hasBase) {
+			if(getBase()==null || getBase().isEmpty())
+				return false;
 			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
 
 			if (result == null || result.isEmpty()) {
+				System.out.println("2");
 				return false;
 			} else {
+				System.out.println("3");
 				return getOutSlot(result) == -1 ? false : true;
 			}
 		} else {
 			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), getBase());
 
 			if (result == null || result.isEmpty()) {
+				System.out.println("4");
 				return false;
 			} else {
+				System.out.println("5");
 				return getOutSlot(result) == -1 ? false : true;
 			}
 		}

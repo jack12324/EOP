@@ -4,7 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.jack12324.eop.jei.activationChamber.activationChamberRecipeCategory;
+import com.jack12324.eop.jei.disablingPress.disablingPressRecipeCategory;
 import com.jack12324.eop.recipe.BasicRecipe;
+import com.jack12324.eop.recipe.DPRecipe;
 import com.jack12324.eop.recipe.RecipeHolder;
 
 import mezz.jei.api.IGuiHelper;
@@ -40,7 +42,7 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 			modRegistry.handleRecipes(cat.getRecipeClass(), cat, cat.getRecipeCategoryUid());
 		}
 		modRegistry.addRecipes(RecipeHolder.ACTIVATIONCHAMBERRECIPES, "eop.activation_chamber");
-
+		modRegistry.addRecipes(RecipeHolder.DISABLINGPRESSRECIPES, "eop.disabling_press");
 	}
 
 	@Override
@@ -49,6 +51,7 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
 		categories.put(BasicRecipe.class, new activationChamberRecipeCategory(guiHelper));
+		categories.put(DPRecipe.class, new disablingPressRecipeCategory(guiHelper)	);
 
 		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
 

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.jack12324.eop.ExtremeOreProcessing;
+import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.gui.IDrawable;
@@ -94,4 +95,5 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 	public boolean isRecipeValid(T recipe) {
 		return true;
 	}
+
 }
