@@ -284,7 +284,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 		super.writeSyncableNBT(compound, type);
 
 	}
-	
+
 	@Override
 	public ArrayList<EOPRecipe> getRecipeList() {
 		return RecipeHolder.EQUALIZINGSMELTERRECIPES;

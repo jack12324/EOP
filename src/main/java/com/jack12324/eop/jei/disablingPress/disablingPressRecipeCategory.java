@@ -3,9 +3,7 @@ package com.jack12324.eop.jei.disablingPress;
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.jei.EOPRecipeCategory;
-import com.jack12324.eop.recipe.BasicRecipe;
 import com.jack12324.eop.recipe.DPRecipe;
-import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -33,25 +31,28 @@ public class disablingPressRecipeCategory extends EOPRecipeCategory<DPRecipe, di
 
 		progress = helper.createAnimatedDrawable(helper.createDrawable(background, 3, 169, 86, 34), 200,
 				StartDirection.LEFT, false);
-		power = helper.createAnimatedDrawable(helper.createDrawable(new ResourceLocation(ExtremeOreProcessing.modID,"textures/gui/fluid_bar.png"), 0, 109, 8, 45), 200,
-				StartDirection.TOP, true);
-		fuel = helper.createAnimatedDrawable(helper.createDrawable(background, 179, 3, 12, 12), 200,
-				StartDirection.TOP, true);
+		power = helper.createAnimatedDrawable(
+				helper.createDrawable(new ResourceLocation(ExtremeOreProcessing.modID, "textures/gui/fluid_bar.png"), 0,
+						109, 8, 45),
+				200, StartDirection.TOP, true);
+		fuel = helper.createAnimatedDrawable(helper.createDrawable(background, 179, 3, 12, 12), 200, StartDirection.TOP,
+				true);
 	}
 
 	@Override
 	protected void drawProgress(Minecraft minecraft) {
 		progress.draw(minecraft, 42, 10);
 	}
+
 	@Override
-	protected void drawPowerBar(Minecraft minecraft){
-		power.draw(minecraft,5,6);
+	protected void drawPowerBar(Minecraft minecraft) {
+		power.draw(minecraft, 5, 6);
 	}
+
 	@Override
-	protected void drawOther(Minecraft minecraft){
-		fuel.draw(minecraft,79,22);
+	protected void drawOther(Minecraft minecraft) {
+		fuel.draw(minecraft, 79, 22);
 	}
-	
 
 	@Override
 	public IRecipeWrapper getRecipeWrapper(DPRecipe recipe) {
@@ -65,7 +66,7 @@ public class disablingPressRecipeCategory extends EOPRecipeCategory<DPRecipe, di
 		guiItemStacks.init(0, true, 22, 6);
 		guiItemStacks.init(2, true, 76, 42);
 		guiItemStacks.init(3, true, 22, 33);
-		
+
 		guiItemStacks.init(1, false, 130, 18);
 
 		guiItemStacks.set(0, ingredients.getInputs(ItemStack.class).get(0).get(0));

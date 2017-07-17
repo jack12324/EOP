@@ -30,6 +30,7 @@ public class PacketServerToClient implements IMessage {
 			return null;
 		}
 	}
+
 	private NBTTagCompound data;
 
 	private IDataHandler handler;

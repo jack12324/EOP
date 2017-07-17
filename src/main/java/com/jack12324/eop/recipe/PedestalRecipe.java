@@ -7,18 +7,18 @@ import com.jack12324.eop.recipe.recipeInterfaces.IOneInputRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class PedestalRecipe implements EOPRecipe, IFluidOutRecipe, IOneInputRecipe{
+public class PedestalRecipe implements EOPRecipe, IFluidOutRecipe, IOneInputRecipe {
 
 	ItemStack input;
 	FluidStack outFluid;
 	int speed;
-	
-	public PedestalRecipe(ItemStack input, FluidStack outFluid, int speed){
-		this.input=input;
-		this.outFluid=outFluid;
-		this.speed=speed;
+
+	public PedestalRecipe(ItemStack input, FluidStack outFluid, int speed) {
+		this.input = input;
+		this.outFluid = outFluid;
+		this.speed = speed;
 	}
-	
+
 	@Override
 	public ItemStack getInputStack() {
 		return input;
@@ -28,8 +28,8 @@ public class PedestalRecipe implements EOPRecipe, IFluidOutRecipe, IOneInputReci
 	public FluidStack getOutFluidStack() {
 		return outFluid;
 	}
-	
-	public int getPedestalSpeed(){
+
+	public int getPedestalSpeed() {
 		return speed;
 	}
 

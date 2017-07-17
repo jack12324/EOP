@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jack12324.eop.machine.disablingPress.TileEntityDisablingPress;
-import com.jack12324.eop.recipe.BasicRecipe;
 import com.jack12324.eop.recipe.DPRecipe;
 
 import mezz.jei.api.ingredients.IIngredients;
@@ -22,7 +21,7 @@ public class disablingPressRecipeWrapper extends BlankRecipeWrapper {
 	public disablingPressRecipeWrapper(DPRecipe recipe) {
 		this.input = recipe.getInputStack();
 		this.output = recipe.getOutputStack();
-		this.base=recipe.getBaseStack();
+		this.base = recipe.getBaseStack();
 
 	}
 
@@ -39,16 +38,15 @@ public class disablingPressRecipeWrapper extends BlankRecipeWrapper {
 		List<ItemStack> list2 = new ArrayList<ItemStack>();
 		list2.add(base);
 		List<ItemStack> fuel = new ArrayList<ItemStack>();
-		for(Item item : TileEntityDisablingPress.fuel){
+		for (Item item : TileEntityDisablingPress.fuel) {
 			fuel.add(new ItemStack(item));
 		}
-		
+
 		List<List<ItemStack>> finalList = new ArrayList<List<ItemStack>>();
 		finalList.add(list);
 		finalList.add(list2);
 		finalList.add(fuel);
-		
-		
+
 		ingredients.setInputLists(ItemStack.class, finalList);
 		ingredients.setOutput(ItemStack.class, output);
 

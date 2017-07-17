@@ -38,8 +38,8 @@ public class RecipeHandler {
 		ExtremeOreProcessing.LOGGER.warn(fluid.getLocalizedName());
 		ExtremeOreProcessing.LOGGER.warn(recipeList.get(0));
 		ExtremeOreProcessing.LOGGER.warn(input);
-		EOPRecipe recipe=null;
-		if(!(fluid==null))
+		EOPRecipe recipe = null;
+		if (!(fluid == null))
 			recipe = getRecipeFromMultipleInputsAndFluidIgnoreAmount(recipeList, input, fluid.getFluid());
 		return recipe == null ? null : ((IFluidOutRecipe) recipe).getOutFluidStack();
 	}
@@ -133,8 +133,8 @@ public class RecipeHandler {
 	 */
 	public static ItemStack getItemOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] input, ItemStack base) {
 		EOPRecipe recipe;
-		if(input.length==1)
-			recipe= getRecipeFromInputBase(recipeList,input[0],base);
+		if (input.length == 1)
+			recipe = getRecipeFromInputBase(recipeList, input[0], base);
 		else
 			recipe = getRecipeFromMultipleInputsBase(recipeList, input, base);
 		return recipe == null ? null : ((IOneOutput) recipe).getOutputStack();

@@ -39,7 +39,7 @@ public abstract class TEFluidUser extends TEPowered {
 
 	@Override
 	public boolean canUse() {
-		if(this.inTank.getFluid()==null)
+		if (this.inTank.getFluid() == null)
 			return false;
 		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), this.getBase(),
 				this.inTank.getFluid());

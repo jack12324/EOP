@@ -16,6 +16,7 @@ public abstract class TEInventory extends TETickingMachine {
 	public static boolean isValid(ItemStack stack) {
 		return stack != null && !stack.isEmpty();
 	}
+
 	public static void loadSlots(IItemHandlerModifiable slots, NBTTagCompound compound) {
 		if (slots != null && slots.getSlots() > 0) {
 			NBTTagList tagList = compound.getTagList("Items", 10);

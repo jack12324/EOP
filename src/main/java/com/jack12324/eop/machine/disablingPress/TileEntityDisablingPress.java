@@ -14,7 +14,6 @@ import net.minecraft.item.Item;
 
 public class TileEntityDisablingPress extends TEPowered {
 
-
 	public static List<Item> fuel = new ArrayList<Item>(
 			Arrays.asList(Item.getItemFromBlock(Blocks.BROWN_MUSHROOM), Item.getItemFromBlock(Blocks.RED_MUSHROOM)));
 	static List<Integer> fuelTime = new ArrayList<Integer>(Arrays.asList(800, 800));
@@ -37,7 +36,7 @@ public class TileEntityDisablingPress extends TEPowered {
 	public int getFuelTime(int i) {
 		return fuelTime.get(i);
 	}
-	
+
 	@Override
 	public ArrayList<EOPRecipe> getRecipeList() {
 		return RecipeHolder.DISABLINGPRESSRECIPES;

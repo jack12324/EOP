@@ -41,8 +41,7 @@ public abstract class TEPowered extends TEInventory {
 		this(name, slots, 100000, 100000, 0);
 	}
 
-	public TEPowered(String name, InventorySlotHelper slots, int capacity, int recieve,
-			int extract) {
+	public TEPowered(String name, InventorySlotHelper slots, int capacity, int recieve, int extract) {
 
 		super(new InventorySlotHelper(slots, 2), name);
 		inProgressTime = new int[slots.getInSlotSize()];
@@ -109,7 +108,7 @@ public abstract class TEPowered extends TEInventory {
 	 */
 
 	protected boolean canUse() {
-		if(this.getInputSlotItemStacks().length==0||this.getInputSlotItemStacks()==null){
+		if (this.getInputSlotItemStacks().length == 0 || this.getInputSlotItemStacks() == null) {
 			System.out.println("1");
 			return false;
 		}
@@ -125,9 +124,10 @@ public abstract class TEPowered extends TEInventory {
 				return getOutSlot(result) == -1 ? false : true;
 			}
 		} else {
-			if(getBase()==null || getBase().isEmpty()){
+			if (getBase() == null || getBase().isEmpty()) {
 				System.out.println(6);
-				return false;}
+				return false;
+			}
 			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), getBase());
 
 			if (result == null || result.isEmpty()) {
@@ -411,7 +411,6 @@ public abstract class TEPowered extends TEInventory {
 	public void setInventory(int i, ItemStack itemStack) {
 		this.slots.setStackInSlot(i, itemStack);
 	}
-
 
 	public void superUpdate() {
 		super.updateEntity();

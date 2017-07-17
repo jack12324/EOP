@@ -44,7 +44,7 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 		}
 		modRegistry.addRecipes(RecipeHolder.ACTIVATIONCHAMBERRECIPES, "eop.activation_chamber");
 		modRegistry.addRecipes(RecipeHolder.DISABLINGPRESSRECIPES, "eop.disabling_press");
-		
+
 		modRegistry.addRecipeClickArea(GuiActivationChamber.class, 49, 30, 77, 15, "eop.activation_chamber");
 	}
 
@@ -54,7 +54,7 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
 		categories.put(BasicRecipe.class, new activationChamberRecipeCategory(guiHelper));
-		categories.put(DPRecipe.class, new disablingPressRecipeCategory(guiHelper)	);
+		categories.put(DPRecipe.class, new disablingPressRecipeCategory(guiHelper));
 
 		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
 

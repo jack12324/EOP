@@ -29,6 +29,7 @@ public class GuiTriCatalystInfuser extends GuiBase {
 	final int FLUID_XPOS2 = 151;
 
 	final int FLUID_YPOS2 = 18;
+
 	public GuiTriCatalystInfuser(Container inventorySlotsIn, InventoryPlayer playerInv,
 			TileEntityTriCatalystInfuser tileEntity) {
 		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);

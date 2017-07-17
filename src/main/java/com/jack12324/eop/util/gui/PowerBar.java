@@ -25,6 +25,7 @@ public class PowerBar extends Gui {
 	final int POWER_ICON_V = 109;
 	final int POWER_WIDTH = 8;
 	final int POWER_HEIGHT = 45;
+
 	public PowerBar(TEPowered tileEntity, int guiLeft, int guiTop) {
 		this.tileEntity = tileEntity;
 		this.guiLeft = guiLeft;

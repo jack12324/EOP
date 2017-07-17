@@ -28,6 +28,7 @@ public class GuiDualCatalystInfuser extends GuiBase {
 
 	final int FLUID_XPOS2 = 151;
 	final int FLUID_YPOS2 = 18;
+
 	public GuiDualCatalystInfuser(Container inventorySlotsIn, InventoryPlayer playerInv,
 			TileEntityDualCatalystInfuser tileEntity) {
 		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);

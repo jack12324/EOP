@@ -28,6 +28,7 @@ public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>
 			EnumFacing.Plane.HORIZONTAL);
 
 	public static final PropertyBool PROPERTYACTIVE = PropertyBool.create("on");
+
 	public BlockTE(Material material, String name) {
 		super(material, name);
 	}

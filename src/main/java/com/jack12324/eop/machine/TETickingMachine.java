@@ -36,6 +36,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 	public enum NBTType {
 		SAVE_TILE, SYNC, SAVE_BLOCK
 	}
+
 	public static void doEnergyInteraction(TileEntity tileFrom, TileEntity tileTo, EnumFacing sideTo, int maxTransfer) {
 		if (maxTransfer > 0) {
 			EnumFacing opp = sideTo == null ? null : sideTo.getOpposite();
@@ -71,6 +72,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 			}
 		}
 	}
+
 	public static void doFluidInteraction(TileEntity tileFrom, TileEntity tileTo, EnumFacing sideTo, int maxTransfer) {
 		if (maxTransfer > 0) {
 			if (tileFrom.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, sideTo)
@@ -87,6 +89,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 			}
 		}
 	}
+
 	private final String name;
 	public boolean isRedstonePowered;
 	public boolean isPulseMode;

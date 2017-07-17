@@ -40,6 +40,7 @@ public class Coord4D {
 	public static Coord4D get(TileEntity tileEntity) {
 		return new Coord4D(tileEntity.getPos(), tileEntity.getWorld());
 	}
+
 	/**
 	 * Returns a new Coord4D from a ByteBuf.
 	 * 
@@ -50,6 +51,7 @@ public class Coord4D {
 	public static Coord4D read(ByteBuf dataStream) {
 		return new Coord4D(dataStream.readInt(), dataStream.readInt(), dataStream.readInt(), dataStream.readInt());
 	}
+
 	/**
 	 * Returns a new Coord4D from a tag compound.
 	 * 

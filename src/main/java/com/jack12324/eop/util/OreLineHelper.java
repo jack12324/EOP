@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 
 public class OreLineHelper {
 	public static OreLineHelper INSTANCE = new OreLineHelper();
+
 	public static Item get(String key) {
 		return INSTANCE.list.get(key);
 	}

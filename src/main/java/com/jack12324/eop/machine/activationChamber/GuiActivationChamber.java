@@ -28,6 +28,7 @@ public class GuiActivationChamber extends GuiBase {
 	private TileEntityActivationChamber tileEntity;
 
 	private InventoryPlayer playerInv;
+
 	public GuiActivationChamber(Container inventorySlotsIn, InventoryPlayer playerInv,
 			TileEntityActivationChamber tileEntity) {
 		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals, fuelVals);

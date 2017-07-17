@@ -2,7 +2,6 @@ package com.jack12324.eop.recipe;
 
 import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.fluids.InitFluids;
-import com.jack12324.eop.fluids.ModFluid;
 import com.jack12324.eop.item.ItemBase;
 import com.jack12324.eop.item.ModArmor;
 import com.jack12324.eop.item.ModItems;
@@ -34,17 +33,23 @@ public class ModRecipes {
 		Item slivers = OreLineHelper.get("astral" + name + "Slivers");
 		Item essence = OreLineHelper.get("pure" + name + "Essence");
 
-		RecipeHolder.addActivationChamberRecipe( ore, new ItemStack(dust, 2));
+		RecipeHolder.addActivationChamberRecipe(ore, new ItemStack(dust, 2));
 		RecipeHolder.addDisablingPressRecipe(ore, new ItemStack(Blocks.SAND), new ItemStack(powder, 3));
-		RecipeHolder.addParticleExciterRecipe(ore, new ItemStack(Blocks.NETHERRACK), new FluidStack(InitFluids.fluidScreamingLava,100) ,new ItemStack(scraps, 4));
-		RecipeHolder.addStarHardenerRecipe(ore, new ItemStack(Blocks.OBSIDIAN), new FluidStack(InitFluids.fluidStarWater,100), new ItemStack(slivers, 5));
-		RecipeHolder.addEndericPurifierRecipe(ore, new ItemStack(Blocks.END_STONE),new FluidStack(InitFluids.fluidLiquidEnd,100), new ItemStack(essence, 6));
+		RecipeHolder.addParticleExciterRecipe(ore, new ItemStack(Blocks.NETHERRACK),
+				new FluidStack(InitFluids.fluidScreamingLava, 100), new ItemStack(scraps, 4));
+		RecipeHolder.addStarHardenerRecipe(ore, new ItemStack(Blocks.OBSIDIAN),
+				new FluidStack(InitFluids.fluidStarWater, 100), new ItemStack(slivers, 5));
+		RecipeHolder.addEndericPurifierRecipe(ore, new ItemStack(Blocks.END_STONE),
+				new FluidStack(InitFluids.fluidLiquidEnd, 100), new ItemStack(essence, 6));
 
-		RecipeHolder.addStarHardenerRecipe(new ItemStack(essence), new ItemStack(Blocks.OBSIDIAN),new FluidStack(InitFluids.fluidStarWater,100), new ItemStack(slivers));
-		RecipeHolder.addParticleExciterRecipe(new ItemStack( slivers), new ItemStack(Blocks.NETHERRACK), new FluidStack(InitFluids.fluidScreamingLava,100) ,new ItemStack(scraps));
-		RecipeHolder.addDisablingPressRecipe(new ItemStack( scraps),new ItemStack(Blocks.SAND), new ItemStack(powder));
+		RecipeHolder.addStarHardenerRecipe(new ItemStack(essence), new ItemStack(Blocks.OBSIDIAN),
+				new FluidStack(InitFluids.fluidStarWater, 100), new ItemStack(slivers));
+		RecipeHolder.addParticleExciterRecipe(new ItemStack(slivers), new ItemStack(Blocks.NETHERRACK),
+				new FluidStack(InitFluids.fluidScreamingLava, 100), new ItemStack(scraps));
+		RecipeHolder.addDisablingPressRecipe(new ItemStack(scraps), new ItemStack(Blocks.SAND), new ItemStack(powder));
 		RecipeHolder.addActivationChamberRecipe(new ItemStack(powder), new ItemStack(dust));
-		RecipeHolder.addEqualizingSmelterRecipe( new ItemStack(dust), new ItemStack(dust), new ItemStack(dust), new ItemStack(dust) , new ItemStack(ingot, 4));
+		RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(dust), new ItemStack(dust), new ItemStack(dust),
+				new ItemStack(dust), new ItemStack(ingot, 4));
 	}
 
 	private static void armorToolRecipes(ModArmor helmet, ModArmor chestplate, ModArmor leggings, ModArmor boots,
@@ -127,7 +132,6 @@ public class ModRecipes {
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.particleExciter), "aba", "cdc", "efe", 'a',
 				ModItems.ingotNickelTungstenAlloy, 'b', Items.DIAMOND, 'c', ModItems.componentAdvancedComponent, 'd',
 				Blocks.GOLD_BLOCK, 'e', ModItems.ingotCobaltTungstenAlloy, 'f', ModBlocks.blockAdvancedMachineFrame);
-		
 
 		// armor and tools
 		armorToolRecipes(ModItems.tungstenHelmet, ModItems.tungstenChestplate, ModItems.tungstenLeggings,
@@ -144,13 +148,17 @@ public class ModRecipes {
 		addOreLine("Tungsten");
 		addOreLine("Cobalt");
 		addOreLine("Nickel");
-		
-		
-		RecipeHolder.addPedestalRecipe(new ItemStack(Blocks.DRAGON_EGG), new FluidStack(InitFluids.fluidDragonSoul,1), 4);
-		RecipeHolder.addCatalystInfuserRecipe(new ItemStack(Items.GHAST_TEAR), new FluidStack(FluidRegistry.LAVA,100), new FluidStack(InitFluids.fluidScreamingLava,100));
-		RecipeHolder.addDualCatalystInfuserRecipe(new ItemStack(Items.NETHER_STAR), new ItemStack(Items.QUARTZ,10), new FluidStack(FluidRegistry.WATER,100), new FluidStack(InitFluids.fluidStarWater,100));
-		RecipeHolder.addTriCatalystInfuserRecipe(new ItemStack(Items.CHORUS_FRUIT_POPPED,3), new ItemStack(Items.ENDER_EYE,2), new ItemStack(Items.SHULKER_SHELL), new FluidStack(InitFluids.fluidDragonSoul,100), new FluidStack(InitFluids.fluidLiquidEnd,100));
-		
+
+		RecipeHolder.addPedestalRecipe(new ItemStack(Blocks.DRAGON_EGG), new FluidStack(InitFluids.fluidDragonSoul, 1),
+				4);
+		RecipeHolder.addCatalystInfuserRecipe(new ItemStack(Items.GHAST_TEAR), new FluidStack(FluidRegistry.LAVA, 100),
+				new FluidStack(InitFluids.fluidScreamingLava, 100));
+		RecipeHolder.addDualCatalystInfuserRecipe(new ItemStack(Items.NETHER_STAR), new ItemStack(Items.QUARTZ, 10),
+				new FluidStack(FluidRegistry.WATER, 100), new FluidStack(InitFluids.fluidStarWater, 100));
+		RecipeHolder.addTriCatalystInfuserRecipe(new ItemStack(Items.CHORUS_FRUIT_POPPED, 3),
+				new ItemStack(Items.ENDER_EYE, 2), new ItemStack(Items.SHULKER_SHELL),
+				new FluidStack(InitFluids.fluidDragonSoul, 100), new FluidStack(InitFluids.fluidLiquidEnd, 100));
+
 		// God tier cactus spines
 		GameRegistry.addRecipe(new ShapedOreRecipe((ModItems.cactusSpine), "ab ", "   ", "   ", 'a', Items.IRON_SWORD,
 				'b', Blocks.CACTUS));

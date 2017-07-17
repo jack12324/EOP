@@ -27,6 +27,7 @@ public class PacketClientToServer implements IMessage {
 			return null;
 		}
 	}
+
 	private NBTTagCompound data;
 
 	private IDataHandler handler;

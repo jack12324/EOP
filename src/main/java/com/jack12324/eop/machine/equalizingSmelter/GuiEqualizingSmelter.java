@@ -21,9 +21,11 @@ public class GuiEqualizingSmelter extends GuiContainer {
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/equalizing_smelter.png");
 	private static final int SMELT_MODE_BUTTON_ID = 53;
+
 	public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
 		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
 	}
+
 	private TileEntityEqualizingSmelter tileEntity;
 
 	private InventoryPlayer playerInv;

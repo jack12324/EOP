@@ -28,6 +28,7 @@ public class GuiDisablingPress extends GuiBase {
 	private TileEntityDisablingPress tileEntity;
 
 	private InventoryPlayer playerInv;
+
 	public GuiDisablingPress(Container inventorySlotsIn, InventoryPlayer playerInv,
 			TileEntityDisablingPress tileEntity) {
 		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals, fuelVals);

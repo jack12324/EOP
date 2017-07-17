@@ -6,13 +6,9 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.jack12324.eop.ExtremeOreProcessing;
-import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 
-import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
@@ -36,7 +32,7 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 		this.background = background;
 		this.recipeClass = recipeClass;
 		this.displayStacks = displayStacks;
-		
+
 	}
 
 	public void addCatalysts(IModRegistry registry) {
@@ -55,8 +51,9 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 	protected void drawProgress(Minecraft minecraft) {
 
 	}
-	protected void drawPowerBar(Minecraft minecraft){
-		
+
+	protected void drawPowerBar(Minecraft minecraft) {
+
 	}
 
 	@Override
@@ -106,7 +103,7 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 	}
 
 	protected void drawOther(Minecraft minecraft) {
-		
+
 	}
 
 }
