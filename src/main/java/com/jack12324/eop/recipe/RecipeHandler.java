@@ -142,6 +142,7 @@ public class RecipeHandler {
 
 	private static EOPRecipe getRecipeFromInputBase(ArrayList<EOPRecipe> recipeList, ItemStack itemStack,
 			ItemStack base) {
+		System.out.println(base);
 		for (EOPRecipe recipe : recipeList) {
 			if (itemStack.isItemEqual(((IOneInputRecipe) recipe).getInputStack())
 					&& base.isItemEqual(((IBaseRecipe) recipe).getBaseStack()))

@@ -1,10 +1,16 @@
 package com.jack12324.eop.jei.activationChamber;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.jack12324.eop.machine.activationChamber.TileEntityActivationChamber;
+import com.jack12324.eop.machine.disablingPress.TileEntityDisablingPress;
 import com.jack12324.eop.recipe.BasicRecipe;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class activationChamberRecipeWrapper extends BlankRecipeWrapper {
@@ -26,7 +32,19 @@ public class activationChamberRecipeWrapper extends BlankRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInput(ItemStack.class, input);
+		List<ItemStack> list = new ArrayList<ItemStack>();
+		list.add(input);
+		List<ItemStack> fuel = new ArrayList<ItemStack>();
+		for(Item item : TileEntityActivationChamber.fuel){
+			fuel.add(new ItemStack(item));
+		}
+		
+		List<List<ItemStack>> finalList = new ArrayList<List<ItemStack>>();
+		finalList.add(list);
+		finalList.add(fuel);
+		
+		
+		ingredients.setInputLists(ItemStack.class, finalList);
 		ingredients.setOutput(ItemStack.class, output);
 
 	}

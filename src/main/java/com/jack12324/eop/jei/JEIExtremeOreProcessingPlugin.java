@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.jack12324.eop.jei.activationChamber.activationChamberRecipeCategory;
 import com.jack12324.eop.jei.disablingPress.disablingPressRecipeCategory;
+import com.jack12324.eop.machine.activationChamber.GuiActivationChamber;
 import com.jack12324.eop.recipe.BasicRecipe;
 import com.jack12324.eop.recipe.DPRecipe;
 import com.jack12324.eop.recipe.RecipeHolder;
@@ -43,6 +44,8 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 		}
 		modRegistry.addRecipes(RecipeHolder.ACTIVATIONCHAMBERRECIPES, "eop.activation_chamber");
 		modRegistry.addRecipes(RecipeHolder.DISABLINGPRESSRECIPES, "eop.disabling_press");
+		
+		modRegistry.addRecipeClickArea(GuiActivationChamber.class, 49, 30, 77, 15, "eop.activation_chamber");
 	}
 
 	@Override

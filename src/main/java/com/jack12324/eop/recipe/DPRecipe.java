@@ -14,6 +14,7 @@ public class DPRecipe extends BasicRecipe implements IBaseRecipe{
 	
 	public DPRecipe(ItemStack input, ItemStack base, ItemStack output){
 		super(input, output);
+		this.base=base;
 	}
 	
 

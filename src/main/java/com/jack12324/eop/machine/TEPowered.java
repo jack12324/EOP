@@ -109,14 +109,12 @@ public abstract class TEPowered extends TEInventory {
 	 */
 
 	protected boolean canUse() {
-		if(this.getRecipeList().isEmpty()||this.getRecipeList()==null){
+		if(this.getInputSlotItemStacks().length==0||this.getInputSlotItemStacks()==null){
 			System.out.println("1");
 			return false;
 		}
 
 		if (!this.hasBase) {
-			if(getBase()==null || getBase().isEmpty())
-				return false;
 			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
 
 			if (result == null || result.isEmpty()) {
@@ -127,6 +125,9 @@ public abstract class TEPowered extends TEInventory {
 				return getOutSlot(result) == -1 ? false : true;
 			}
 		} else {
+			if(getBase()==null || getBase().isEmpty()){
+				System.out.println(6);
+				return false;}
 			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), getBase());
 
 			if (result == null || result.isEmpty()) {

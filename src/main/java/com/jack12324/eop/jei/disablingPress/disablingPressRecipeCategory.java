@@ -24,6 +24,8 @@ public class disablingPressRecipeCategory extends EOPRecipeCategory<DPRecipe, di
 			"textures/gui/disabling_press.png");
 
 	IDrawableAnimated progress;
+	IDrawableAnimated power;
+	IDrawableAnimated fuel;
 
 	public disablingPressRecipeCategory(IGuiHelper helper) {
 		super("disabling_press", "tile.disabling_press.name", helper.createDrawable(background, 3, 14, 153, 65),
@@ -31,12 +33,25 @@ public class disablingPressRecipeCategory extends EOPRecipeCategory<DPRecipe, di
 
 		progress = helper.createAnimatedDrawable(helper.createDrawable(background, 3, 169, 86, 34), 200,
 				StartDirection.LEFT, false);
+		power = helper.createAnimatedDrawable(helper.createDrawable(new ResourceLocation(ExtremeOreProcessing.modID,"textures/gui/fluid_bar.png"), 0, 109, 8, 45), 200,
+				StartDirection.TOP, true);
+		fuel = helper.createAnimatedDrawable(helper.createDrawable(background, 179, 3, 12, 12), 200,
+				StartDirection.TOP, true);
 	}
 
 	@Override
 	protected void drawProgress(Minecraft minecraft) {
 		progress.draw(minecraft, 42, 10);
 	}
+	@Override
+	protected void drawPowerBar(Minecraft minecraft){
+		power.draw(minecraft,5,6);
+	}
+	@Override
+	protected void drawOther(Minecraft minecraft){
+		fuel.draw(minecraft,79,22);
+	}
+	
 
 	@Override
 	public IRecipeWrapper getRecipeWrapper(DPRecipe recipe) {
@@ -47,11 +62,11 @@ public class disablingPressRecipeCategory extends EOPRecipeCategory<DPRecipe, di
 	public void setRecipe(IRecipeLayout recipeLayout, disablingPressRecipeWrapper recipeWrapper,
 			IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(0, true, 23, 7);
-		guiItemStacks.init(2, true, 77, 43);
-		guiItemStacks.init(3, true, 13, 34);
+		guiItemStacks.init(0, true, 22, 6);
+		guiItemStacks.init(2, true, 76, 42);
+		guiItemStacks.init(3, true, 22, 33);
 		
-		guiItemStacks.init(1, false, 131, 19);
+		guiItemStacks.init(1, false, 130, 18);
 
 		guiItemStacks.set(0, ingredients.getInputs(ItemStack.class).get(0).get(0));
 		guiItemStacks.set(3, ingredients.getInputs(ItemStack.class).get(1).get(0));
