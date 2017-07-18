@@ -9,20 +9,20 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class RecipeHolder {
 
-	public static final ArrayList<EOPRecipe> ACTIVATIONCHAMBERRECIPES = new ArrayList<EOPRecipe>();
-	public static final ArrayList<EOPRecipe> DISABLINGPRESSRECIPES = new ArrayList<EOPRecipe>();
+	public static final ArrayList<EOPRecipe> ACTIVATIONCHAMBERRECIPES = new ArrayList<>();
+	public static final ArrayList<EOPRecipe> DISABLINGPRESSRECIPES = new ArrayList<>();
 
-	public static final ArrayList<EOPRecipe> CATALYSTINFUSERRECIPES = new ArrayList<EOPRecipe>();
-	public static final ArrayList<EOPRecipe> DUALCATALYSTINFUSERRECIPES = new ArrayList<EOPRecipe>();
-	public static final ArrayList<EOPRecipe> TRICATALYSTINFUSERRECIPES = new ArrayList<EOPRecipe>();
+	public static final ArrayList<EOPRecipe> CATALYSTINFUSERRECIPES = new ArrayList<>();
+	public static final ArrayList<EOPRecipe> DUALCATALYSTINFUSERRECIPES = new ArrayList<>();
+	public static final ArrayList<EOPRecipe> TRICATALYSTINFUSERRECIPES = new ArrayList<>();
 
-	public static final ArrayList<EOPRecipe> ENDERICPURIFIERRECIPES = new ArrayList<EOPRecipe>();
-	public static final ArrayList<EOPRecipe> PARTICLEEXCITERRECIPES = new ArrayList<EOPRecipe>();
-	public static final ArrayList<EOPRecipe> STARHARDENERRECIPES = new ArrayList<EOPRecipe>();
+	public static final ArrayList<EOPRecipe> ENDERICPURIFIERRECIPES = new ArrayList<>();
+	public static final ArrayList<EOPRecipe> PARTICLEEXCITERRECIPES = new ArrayList<>();
+	public static final ArrayList<EOPRecipe> STARHARDENERRECIPES = new ArrayList<>();
 
-	public static final ArrayList<EOPRecipe> EQUALIZINGSMELTERRECIPES = new ArrayList<EOPRecipe>();
+	public static final ArrayList<EOPRecipe> EQUALIZINGSMELTERRECIPES = new ArrayList<>();
 
-	public static final ArrayList<EOPRecipe> PEDESTALRECIPES = new ArrayList<EOPRecipe>();
+	public static final ArrayList<EOPRecipe> PEDESTALRECIPES = new ArrayList<>();
 
 	public static void addActivationChamberRecipe(ItemStack input, ItemStack output) {
 		ACTIVATIONCHAMBERRECIPES.add(new BasicRecipe(input, output));

@@ -26,13 +26,13 @@ public abstract class TEFluidUser extends TEPowered {
 
 		@Override
 		public boolean canFillFluidType(FluidStack fluid) {
-			return inFluid.contains(fluid);
+			return inFluid.contains(fluid.getFluid());
 		}
 	};
 
 	public TEFluidUser(String name, InventorySlotHelper slots, int tankSize) {
 		super(name, slots);
-		this.inFluid = new ArrayList<Fluid>(RecipeHandler.getInFluids(this.getRecipeList()));
+		this.inFluid = new ArrayList<>(RecipeHandler.getInFluids(this.getRecipeList()));
 		this.inTank.setCapacity(tankSize);
 
 	}
@@ -44,11 +44,7 @@ public abstract class TEFluidUser extends TEPowered {
 		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), this.getBase(),
 				this.inTank.getFluid());
 
-		if (result == null || result.isEmpty()) {
-			return false;
-		} else {
-			return getOutSlot(result) == -1 ? false : true;
-		}
+		return result != null && !result.isEmpty() && getOutSlot(result) != -1;
 	}
 
 	@Override

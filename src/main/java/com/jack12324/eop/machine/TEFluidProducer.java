@@ -26,13 +26,13 @@ public abstract class TEFluidProducer extends TEFluidUser {
 
 		@Override
 		public boolean canFillFluidType(FluidStack fluid) {
-			return outFluid.contains(fluid);
+			return outFluid.contains(fluid.getFluid());
 		}
 	};
 
 	public TEFluidProducer(String name, InventorySlotHelper slots, int inTankSize, int outTankSize) {
 		super(name, slots, inTankSize);
-		this.outFluid = new ArrayList<Fluid>(RecipeHandler.getOutFluids(this.getRecipeList()));
+		this.outFluid = new ArrayList<>(RecipeHandler.getOutFluids(this.getRecipeList()));
 		this.outTank.setCapacity(outTankSize);
 		this.handlerMap = new FluidHandlerFluidMap();
 
@@ -50,11 +50,8 @@ public abstract class TEFluidProducer extends TEFluidUser {
 		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), getInputSlotItemStacks(),
 				this.inTank.getFluid());
 
-		if (result == null || (this.outTank.getFluidAmount() > 0 && !result.isFluidEqual(this.outTank.getFluid()))
-				|| this.outTank.getFluidAmount() + result.amount > this.outTank.getCapacity()) {
-			return false;
-		} else
-			return true;
+		return result != null && (this.outTank.getFluidAmount() <= 0 || result.isFluidEqual(this.outTank.getFluid()))
+				&& this.outTank.getFluidAmount() + result.amount <= this.outTank.getCapacity();
 	}
 
 	@Override

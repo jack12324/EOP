@@ -30,14 +30,14 @@ public class TileEntityPedestal extends TEInventory {
 
 		@Override
 		public boolean canFillFluidType(FluidStack fluid) {
-			return outFluid.contains(fluid);
+			return outFluid.contains(fluid.getFluid());
 		}
 	};
 	private int fillTick = 1;
 
 	public TileEntityPedestal() {
 		super(new InventorySlotHelper(1, 0, 0, 0, 0), "pedestal");
-		this.outFluid = new ArrayList<Fluid>(RecipeHandler.getOutFluids(this.getRecipeList()));
+		this.outFluid = new ArrayList<>(RecipeHandler.getOutFluids(this.getRecipeList()));
 	}
 
 	private ArrayList<EOPRecipe> getRecipeList() {
@@ -47,11 +47,8 @@ public class TileEntityPedestal extends TEInventory {
 	protected boolean canUse() {
 		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), this.slots.getStackInSlot(0));
 
-		if (result == null || (this.tank.getFluidAmount() > 0 && !result.isFluidEqual(this.tank.getFluid()))
-				|| this.tank.getFluidAmount() + result.amount > this.tank.getCapacity()) {
-			return false;
-		} else
-			return true;
+        return result != null && (this.tank.getFluidAmount() <= 0 || result.isFluidEqual(this.tank.getFluid()))
+                && this.tank.getFluidAmount() + result.amount <= this.tank.getCapacity();
 	}
 
 	@SideOnly(Side.CLIENT)

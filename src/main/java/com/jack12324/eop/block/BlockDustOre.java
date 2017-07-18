@@ -10,7 +10,6 @@ import net.minecraft.item.Item;
 public class BlockDustOre extends BlockModOre {
 
 	private Item drop;
-	private int meta = 0;
 	private int least_quantity;
 	private int most_quantity;
 
@@ -25,7 +24,8 @@ public class BlockDustOre extends BlockModOre {
 
 	@Override
 	public int damageDropped(IBlockState blockstate) {
-		return this.meta;
+		int meta = 0;
+		return meta;
 	}
 
 	@Override

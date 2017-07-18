@@ -17,7 +17,7 @@ public class OreLineHelper {
 		return INSTANCE.list.get(key);
 	}
 
-	private final Map<String, Item> list = Maps.<String, Item>newHashMap();
+	private final Map<String, Item> list = Maps.newHashMap();
 
 	public OreLineHelper() {
 

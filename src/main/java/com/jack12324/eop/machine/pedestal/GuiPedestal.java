@@ -1,6 +1,5 @@
 package com.jack12324.eop.machine.pedestal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.jack12324.eop.ExtremeOreProcessing;
@@ -47,7 +46,7 @@ public class GuiPedestal extends GuiContainer {
 		fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
 		fontRendererObj.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
 
-		List<String> hoveringText = new ArrayList<String>();
+		List<String> hoveringText;
 		hoveringText = fb.drawText(mouseX, mouseY);
 
 		// If hoveringText is not empty draw the hovering text

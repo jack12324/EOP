@@ -45,12 +45,10 @@ public abstract class TEPowered extends TEInventory {
 
 		super(new InventorySlotHelper(slots, 2), name);
 		inProgressTime = new int[slots.getInSlotSize()];
-		this.hasBase = slots.getBaseSlotSize() > 0 ? true : false;
-		this.usesFuel = slots.getFuelSlotSize() > 0 ? true : false;
+		this.hasBase = slots.getBaseSlotSize() > 0;
+		this.usesFuel = slots.getFuelSlotSize() > 0;
 		storage = new EOPEnergyStorage(capacity, recieve, extract);
 		oldValues = new int[2 + inProgressTime.length];
-		for (int val : oldValues)
-			val = 0;
 	}
 
 	/** handles fuel usage, also returns true if fuel is currently being used */
@@ -121,7 +119,7 @@ public abstract class TEPowered extends TEInventory {
 				return false;
 			} else {
 				System.out.println("3");
-				return getOutSlot(result) == -1 ? false : true;
+				return getOutSlot(result) != -1;
 			}
 		} else {
 			if (getBase() == null || getBase().isEmpty()) {
@@ -135,7 +133,7 @@ public abstract class TEPowered extends TEInventory {
 				return false;
 			} else {
 				System.out.println("5");
-				return getOutSlot(result) == -1 ? false : true;
+				return getOutSlot(result) != -1;
 			}
 		}
 
@@ -256,7 +254,7 @@ public abstract class TEPowered extends TEInventory {
 	 */
 	public int getOutSlot(ItemStack itemstack) {
 		ItemStack outSlot;
-		boolean slotUsable = false;
+		boolean slotUsable;
 		for (int i = 0; i < this.slotHelper.getOutSlotSize(); i++) {
 			outSlot = this.slots.getStackInSlot(this.slotHelper.getOutSlotIndex(i));
 			if (outSlot.isEmpty()) {
@@ -277,7 +275,7 @@ public abstract class TEPowered extends TEInventory {
 
 	public ArrayList<EOPRecipe> getRecipeList() {
 		ExtremeOreProcessing.LOGGER.warn("EOP Warning: Sending empty recipe list");
-		return new ArrayList<EOPRecipe>();
+		return new ArrayList<>();
 	}
 
 	public double getTicksNeeded() {
@@ -321,17 +319,11 @@ public abstract class TEPowered extends TEInventory {
 	}
 
 	/**
-	 * Returns true if the machine can activate an item, i.e. has a source item,
-	 * destination stack isn't full, etc.
-	 */
-
-	/**
 	 * Don't rename this method to canInteractWith due to conflicts with
 	 * Container
 	 */
 	public boolean isUsableByPlayer(EntityPlayer player) {
-		return this.world.getTileEntity(this.pos) != this ? false
-				: player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
+		return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
 	}
 
 	protected void oldActiveCheck(boolean active) {
@@ -461,7 +453,7 @@ public abstract class TEPowered extends TEInventory {
 		else
 			result = RecipeHandler.getItemOutput(this.getRecipeList(), input);
 		int outIndex = this.getOutSlot(result);
-		ItemStack output = null;// TODO risky
+		ItemStack output;// TODO risky
 		if (outIndex != -1) {
 			output = this.slots.getStackInSlot(outIndex);
 			if (output.isEmpty()) {
@@ -483,7 +475,7 @@ public abstract class TEPowered extends TEInventory {
 	protected boolean useLogic() {
 		boolean burning;
 		boolean powered;
-		boolean active = false;
+		boolean active;
 		burning = true;
 		powered = usePower();
 		active = false;

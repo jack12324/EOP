@@ -11,10 +11,10 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 
 public class VanillaFurnaceRecipes {
 	// the list of smelting results
-	private final Map<ItemStack, ItemStack> smeltingList = Maps.<ItemStack, ItemStack>newHashMap();
+	private final Map<ItemStack, ItemStack> smeltingList = Maps.newHashMap();
 	// A list which contains how many experience points each recipe output will
 	// give. */
-	private final Map<ItemStack, Float> experienceList = Maps.<ItemStack, Float>newHashMap();
+	private final Map<ItemStack, Float> experienceList = Maps.newHashMap();
 
 	public VanillaFurnaceRecipes() {
 		Map<ItemStack, ItemStack> metaList = FurnaceRecipes.instance().getSmeltingList();
@@ -42,7 +42,7 @@ public class VanillaFurnaceRecipes {
 		}
 		stack.setCount(number);
 		this.smeltingList.put(input, stack);
-		this.experienceList.put(stack, Float.valueOf(experience));
+		this.experienceList.put(stack, experience);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class VanillaFurnaceRecipes {
 
 		for (Entry<ItemStack, Float> entry : this.experienceList.entrySet()) {
 			if (this.compareItemStacks(stack, entry.getKey())) {
-				return entry.getValue().floatValue();
+				return entry.getValue();
 			}
 		}
 

@@ -154,11 +154,11 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 
 	private void spread() {
 		for (int i = 0; i < 4; i++) {
-			List<Integer> indexList = new ArrayList<Integer>();
+			List<Integer> indexList = new ArrayList<>();
 			ItemStack workingStack = this.slots.getStackInSlot(i);
-			int temp = 0;
+			int temp;
 			int itemCount = 0;
-			int remainder = 0;
+			int remainder;
 			for (int index : this.slotHelper.getIn()) {
 				if ((this.slots.getStackInSlot(index).isEmpty()
 						|| this.slots.getStackInSlot(index).isItemEqual(workingStack))

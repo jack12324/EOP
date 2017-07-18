@@ -62,8 +62,7 @@ public class GuiBase extends GuiContainer {
 			ResourceLocation resourceLocation, int baseHeight, int baseWidth, int[] progressVals, int[] fuelVals) {
 		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, baseHeight, baseWidth, progressVals);
 		this.fuelBar = new int[fuelVals.length];
-		for (int i = 0; i < fuelBar.length; i++)
-			this.fuelBar[i] = fuelVals[i];
+		System.arraycopy(fuelVals, 0, this.fuelBar, 0, fuelBar.length);
 		fuel = true;
 
 	}
@@ -75,8 +74,7 @@ public class GuiBase extends GuiContainer {
 		this.playerInv = playerInv;
 		this.tileEntity = tileEntity;
 		this.progressBar = new int[progressVals.length];
-		for (int i = 0; i < progressBar.length; i++)
-			this.progressBar[i] = progressVals[i];
+		System.arraycopy(progressVals, 0, this.progressBar, 0, progressBar.length);
 		if (tileEntity instanceof TEFluidUser)
 			fluid = true;
 
@@ -86,8 +84,7 @@ public class GuiBase extends GuiContainer {
 			ResourceLocation resourceLocation, int[] progressVals, int[] fuelVals) {
 		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, progressVals);
 		this.fuelBar = new int[fuelVals.length];
-		for (int i = 0; i < fuelBar.length; i++)
-			this.fuelBar[i] = fuelVals[i];
+		System.arraycopy(fuelVals, 0, this.fuelBar, 0, fuelBar.length);
 		fuel = true;
 
 	}
@@ -144,7 +141,7 @@ public class GuiBase extends GuiContainer {
 		fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 0x404040);
 		fontRenderer.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
 
-		List<String> hoveringText = new ArrayList<String>();
+		List<String> hoveringText = new ArrayList<>();
 
 		// If the mouse is over the progress bar add the progress bar hovering
 		// text

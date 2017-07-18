@@ -45,7 +45,7 @@ public class GuiTriCatalystInfuser extends GuiBase {
 
 	@Override
 	protected ArrayList<String> fluidText(int mouseX, int mouseY) {
-		List<String> temp = new ArrayList<String>();
+		List<String> temp;
 		temp = fb2.drawText(mouseX, mouseY);
 		if (temp != null && !temp.isEmpty())
 			return (ArrayList<String>) temp;

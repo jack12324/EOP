@@ -3,12 +3,11 @@ package com.jack12324.eop.util;
 public enum Upgrade {
 	SPEED("speed", 10), ENERGY("energy", 10);
 
-	private String name;
 	private int maxStack;
-
-	private Upgrade(String name, int maxStack) {
-		this.name = name;
+	private String name;
+	Upgrade(String name, int maxStack) {
 		this.maxStack = maxStack;
+		this.name=name;
 	}
 
 	public int getMax() {

@@ -78,7 +78,7 @@ public class RecipeHandler {
 	 * @return List of Fluids which are used as inputs in the recipes
 	 */
 	public static ArrayList<Fluid> getInFluids(ArrayList<EOPRecipe> recipes) {
-		ArrayList<Fluid> fluids = new ArrayList<Fluid>();
+		ArrayList<Fluid> fluids = new ArrayList<>();
 		for (EOPRecipe recipe : recipes) {
 			Fluid fluid = ((IFluidInRecipe) recipe).getInFluidStack().getFluid();
 			if (!fluids.contains(fluid))
@@ -310,7 +310,7 @@ public class RecipeHandler {
 	}
 
 	public static Collection<? extends Fluid> getOutFluids(ArrayList<EOPRecipe> recipeList) {
-		ArrayList<Fluid> fluids = new ArrayList<Fluid>();
+		ArrayList<Fluid> fluids = new ArrayList<>();
 		for (EOPRecipe recipe : recipeList) {
 			Fluid fluid = ((IFluidOutRecipe) recipe).getOutFluidStack().getFluid();
 			if (!fluids.contains(fluid))

@@ -24,7 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PacketHandler {
-	public static final List<IDataHandler> DATA_HANDLERS = new ArrayList<IDataHandler>();
+	public static final List<IDataHandler> DATA_HANDLERS = new ArrayList<>();
 	public static SimpleNetworkWrapper NETWORK;
 	public static ModGuiHandler modGuiHandler = new ModGuiHandler();
 	public static final IDataHandler TILE_ENTITY_HANDLER = new IDataHandler() {
@@ -43,20 +43,17 @@ public class PacketHandler {
 		}
 	};
 
-	public static final IDataHandler GUI_TOGGLE_BUTTON = new IDataHandler() {
-		@Override
-		// @SideOnly(Side.SERVER)
-		public void handleData(NBTTagCompound compound, MessageContext context) {
-			World world = Minecraft.getMinecraft().world;
-			if (world != null) {
-				TileEntity tile = world.getTileEntity(
-						new BlockPos(compound.getInteger("X"), compound.getInteger("Y"), compound.getInteger("Z")));
-				if (tile != null && tile instanceof IButtonUse) {
-					((IButtonUse) tile).onButtonPress(compound.getInteger("buttonID"));
-				}
-			}
-		}
-	};
+	// @SideOnly(Side.SERVER)
+	public static final IDataHandler GUI_TOGGLE_BUTTON = (compound, context) -> {
+        World world = Minecraft.getMinecraft().world;
+        if (world != null) {
+            TileEntity tile = world.getTileEntity(
+                    new BlockPos(compound.getInteger("X"), compound.getInteger("Y"), compound.getInteger("Z")));
+            if (tile != null && tile instanceof IButtonUse) {
+                ((IButtonUse) tile).onButtonPress(compound.getInteger("buttonID"));
+            }
+        }
+    };
 
 	public static final IDataHandler GUI_UPGRADE_BUTTON = new IDataHandler() {
 		@Override

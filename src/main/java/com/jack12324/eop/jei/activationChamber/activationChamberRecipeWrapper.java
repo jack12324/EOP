@@ -31,14 +31,14 @@ public class activationChamberRecipeWrapper extends BlankRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		List<ItemStack> list = new ArrayList<ItemStack>();
+		List<ItemStack> list = new ArrayList<>();
 		list.add(input);
-		List<ItemStack> fuel = new ArrayList<ItemStack>();
+		List<ItemStack> fuel = new ArrayList<>();
 		for (Item item : TileEntityActivationChamber.fuel) {
 			fuel.add(new ItemStack(item));
 		}
 
-		List<List<ItemStack>> finalList = new ArrayList<List<ItemStack>>();
+		List<List<ItemStack>> finalList = new ArrayList<>();
 		finalList.add(list);
 		finalList.add(fuel);
 

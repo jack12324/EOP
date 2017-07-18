@@ -132,7 +132,7 @@ public class GuiEqualizingSmelter extends GuiContainer {
 		fontRenderer.drawString(" Smelter ", xSize / 8 - fontRenderer.getStringWidth(" Smelter ") / 8, 15, 0x404040);
 		fontRenderer.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 75, 0x404040);
 
-		List<String> hoveringText = new ArrayList<String>();
+		List<String> hoveringText = new ArrayList<>();
 
 		// If the mouse is over the progress bar add the progress bar hovering
 		// text

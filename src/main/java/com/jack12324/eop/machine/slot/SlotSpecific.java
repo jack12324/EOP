@@ -14,21 +14,21 @@ public class SlotSpecific extends SlotItemHandlerEOP {
 
 	public SlotSpecific(EOPItemStackHandler inventory, int index, int x, int y, Block item) {
 		super(inventory, index, x, y);
-		this.items = new ArrayList<Item>();
+		this.items = new ArrayList<>();
 		items.add(Item.getItemFromBlock(item));
 
 	}
 
 	public SlotSpecific(EOPItemStackHandler inventory, int index, int x, int y, Item item) {
 		super(inventory, index, x, y);
-		this.items = new ArrayList<Item>();
+		this.items = new ArrayList<>();
 		items.add(item);
 
 	}
 
 	public SlotSpecific(EOPItemStackHandler inventory, int index, int x, int y, List<Item> items) {
 		super(inventory, index, x, y);
-		this.items = new ArrayList<Item>(items);
+		this.items = new ArrayList<>(items);
 	}
 
 	@Override

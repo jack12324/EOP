@@ -17,14 +17,12 @@ public class GuiStarHardener extends GuiBase {
 			62, // width
 			31// height
 	};
-	private TileEntityStarHardener tileEntity;
 
 	private InventoryPlayer playerInv;
 
 	public GuiStarHardener(Container inventorySlotsIn, InventoryPlayer playerInv, TileEntityStarHardener tileEntity) {
 		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);
 		this.playerInv = playerInv;
-		this.tileEntity = tileEntity;
 
 	}
 

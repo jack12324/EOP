@@ -158,8 +158,8 @@ public class Coord4D {
 	 * @return the chunk of this Coord4D
 	 */
 	public boolean exists(World world) {
-		return world.getChunkProvider() == null
-				|| world.getChunkProvider().getLoadedChunk(xCoord >> 4, zCoord >> 4) != null;
+		return world.getChunkProvider() != null
+				&& world.getChunkProvider().getLoadedChunk(xCoord >> 4, zCoord >> 4) == null;
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class Coord4D {
 	 * @return the Block value of this Coord4D's block
 	 */
 	public Block getBlock(IBlockAccess world) {
-		if (world instanceof World && !exists((World) world)) {
+		if (world instanceof World && exists((World) world)) {
 			return null;
 		}
 
@@ -248,7 +248,7 @@ public class Coord4D {
 	 * @return the TileEntity of this Coord4D's block
 	 */
 	public TileEntity getTileEntity(IBlockAccess world) {
-		if (world instanceof World && !exists((World) world)) {
+		if (world instanceof World && exists((World) world)) {
 			return null;
 		}
 

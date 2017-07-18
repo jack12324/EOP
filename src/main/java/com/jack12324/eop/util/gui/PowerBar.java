@@ -44,7 +44,7 @@ public class PowerBar extends Gui {
 	}
 
 	public ArrayList<String> drawText(int mouseX, int mouseY) {
-		List<String> hoveringText = new ArrayList<String>();
+		List<String> hoveringText = new ArrayList<>();
 		if (isInRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS, POWER_WIDTH, POWER_HEIGHT, mouseX, mouseY)) {
 			hoveringText.add("Energy Stored:");
 			int powerPercentage = (int) (tileEntity.fractionOfPowerRemaining() * 100);
