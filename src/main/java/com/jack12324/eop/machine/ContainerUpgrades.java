@@ -6,6 +6,8 @@ import com.jack12324.eop.machine.slot.SlotSpecific;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 
+import javax.annotation.Nonnull;
+
 public class ContainerUpgrades extends MachineContainer {
 	public ContainerUpgrades(InventoryPlayer playerInv, final TEInventory te) {
 		this.addUpgradeSlots(te);
@@ -14,7 +16,6 @@ public class ContainerUpgrades extends MachineContainer {
 
 	@Override
 	protected void addUpgradeSlots(TEInventory te) {
-		System.out.println(te == null);
 		addSlotToContainer(
 				new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(0), 20, 20, ModItems.speedUpgrade) {
 					@Override
@@ -32,7 +33,7 @@ public class ContainerUpgrades extends MachineContainer {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
+	public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
 		return true;
 	}
 }

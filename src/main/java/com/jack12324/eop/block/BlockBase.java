@@ -8,8 +8,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
+import javax.annotation.Nonnull;
+
 public class BlockBase extends Block implements ItemModelProvider {
-	protected String name;
+	private final String name;
 
 	public BlockBase(Material material, String name) {
 		super(material);
@@ -28,8 +30,9 @@ public class BlockBase extends Block implements ItemModelProvider {
 		ExtremeOreProcessing.proxy.registerItemRenderer(itemBlock, 0, name);
 	}
 
-	@Override
-	public BlockBase setCreativeTab(CreativeTabs tab) {
+	@Nonnull
+    @Override
+	public BlockBase setCreativeTab(@Nonnull CreativeTabs tab) {
 		super.setCreativeTab(tab);
 		return this;
 	}

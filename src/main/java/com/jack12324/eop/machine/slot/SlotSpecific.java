@@ -9,8 +9,10 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class SlotSpecific extends SlotItemHandlerEOP {
-	List<Item> items;
+	private final List<Item> items;
 
 	public SlotSpecific(EOPItemStackHandler inventory, int index, int x, int y, Block item) {
 		super(inventory, index, x, y);
@@ -32,7 +34,7 @@ public class SlotSpecific extends SlotItemHandlerEOP {
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemstack) {
+	public boolean isItemValid(@Nonnull ItemStack itemstack) {
 		return items.contains(itemstack.getItem());
 	}
 }

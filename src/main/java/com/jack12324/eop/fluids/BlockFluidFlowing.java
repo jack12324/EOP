@@ -12,9 +12,9 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockFluidFlowing extends BlockFluidClassic {
+class BlockFluidFlowing extends BlockFluidClassic {
 
-	public static void registerBlock(Block block, ModItemBlock itemBlock, String name, boolean addTab) {
+	private static void registerBlock(Block block, ModItemBlock itemBlock, String name, boolean addTab) {
 		block.setUnlocalizedName(ExtremeOreProcessing.modID + "." + name);
 
 		block.setRegistryName(ExtremeOreProcessing.modID, name);
@@ -46,11 +46,11 @@ public class BlockFluidFlowing extends BlockFluidClassic {
 		return !world.getBlockState(pos).getMaterial().isLiquid() && super.displaceIfPossible(world, pos);
 	}
 
-	protected String getBaseName() {
+	private String getBaseName() {
 		return this.name;
 	}
 
-	protected ModItemBlock getItemBlock() {
+	private ModItemBlock getItemBlock() {
 		return new ModItemBlock(this);
 	}
 
@@ -58,7 +58,7 @@ public class BlockFluidFlowing extends BlockFluidClassic {
 		registerBlock(this, this.getItemBlock(), this.getBaseName(), this.shouldAddCreative());
 	}
 
-	public boolean shouldAddCreative() {
+	private boolean shouldAddCreative() {
 		return false;
 	}
 

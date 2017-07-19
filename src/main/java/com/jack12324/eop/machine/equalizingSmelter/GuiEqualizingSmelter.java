@@ -22,35 +22,35 @@ public class GuiEqualizingSmelter extends GuiContainer {
 			"textures/gui/equalizing_smelter.png");
 	private static final int SMELT_MODE_BUTTON_ID = 53;
 
-	public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
+	private static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
 		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
 	}
 
-	private TileEntityEqualizingSmelter tileEntity;
+	private final TileEntityEqualizingSmelter tileEntity;
 
-	private InventoryPlayer playerInv;
+	private final InventoryPlayer playerInv;
 
 	// some [x,y] coordinates of graphical elements
-	final int[] COOK_BAR_XPOS = { 44, 107, 44, 107 };
-	final int[] COOK_BAR_YPOS = { 34, 34, 58, 58 };
-	final int COOK_BAR_ICON_U = 180; // texture position of white arrow icon
-	final int[] COOK_BAR_ICON_V = { 88, 33, 52, 70 };
-	final int COOK_BAR_WIDTH = 25;
-	final int COOK_BAR_HEIGHT = 16;
+	private final int[] COOK_BAR_XPOS = { 44, 107, 44, 107 };
+	private final int[] COOK_BAR_YPOS = { 34, 34, 58, 58 };
+	private final int COOK_BAR_ICON_U = 180; // texture position of white arrow icon
+	private final int[] COOK_BAR_ICON_V = { 88, 33, 52, 70 };
+	private final int COOK_BAR_WIDTH = 25;
+	private final int COOK_BAR_HEIGHT = 16;
 
-	final int DUST_XPOS = 82;
-	final int DUST_YPOS = 24;
-	final int DUST_ICON_U = 180; // texture position of flame icon
-	final int DUST_ICON_V = 20;
-	final int DUST_WIDTH = 12;
-	final int DUST_HEIGHT = 11;
+	private final int DUST_XPOS = 82;
+	private final int DUST_YPOS = 24;
+	private final int DUST_ICON_U = 180; // texture position of flame icon
+	private final int DUST_ICON_V = 20;
+	private final int DUST_WIDTH = 12;
+	private final int DUST_HEIGHT = 11;
 
-	final int POWER_XPOS = 9;
-	final int POWER_YPOS = 21;
-	final int POWER_ICON_U = 247; // texture position of POWER icon
-	final int POWER_ICON_V = 147;
-	final int POWER_WIDTH = 8;
-	final int POWER_HEIGHT = 45;
+	private final int POWER_XPOS = 9;
+	private final int POWER_YPOS = 21;
+	private final int POWER_ICON_U = 247; // texture position of POWER icon
+	private final int POWER_ICON_V = 147;
+	private final int POWER_WIDTH = 8;
+	private final int POWER_HEIGHT = 45;
 
 	public GuiEqualizingSmelter(Container inventorySlotsIn, InventoryPlayer playerInv,
 			TileEntityEqualizingSmelter tileEntity) {

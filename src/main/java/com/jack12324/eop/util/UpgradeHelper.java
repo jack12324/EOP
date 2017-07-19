@@ -4,7 +4,7 @@ import com.jack12324.eop.machine.TEPowered;
 
 public class UpgradeHelper {
 
-	public static float fractionUpgrades(TEPowered te, Upgrade type) {
+	private static float fractionUpgrades(TEPowered te, Upgrade type) {
 		return (float) te.getUpgrade(type) / (float) type.getMax();
 	}
 

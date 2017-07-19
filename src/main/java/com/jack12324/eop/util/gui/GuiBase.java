@@ -23,27 +23,27 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiBase extends GuiContainer {
-	public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
+	private static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
 		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
 	}
 
-	private InventoryPlayer playerInv;
-	private TEPowered tileEntity;
-	private ResourceLocation BG_TEXTURE;
+	private final InventoryPlayer playerInv;
+	private final TEPowered tileEntity;
+	private final ResourceLocation BG_TEXTURE;
 	private int baseWidth = 175;
 	private int baseHeight = 165;
 	private PowerBar powerBar;
 	private FluidBar fluidBar;
-	private int progressBar[];
+	private final int[] progressBar;
 	private int fuelBar[];
 	private int tankX = 25;
 	private int tankY = 18;
-	boolean fluid = false;
+	private boolean fluid = false;
 
-	boolean fuel = false;
+	private boolean fuel = false;
 
-	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
-			ResourceLocation resourceLocation, int baseWidth, int baseHeight, int[] progressVals) {
+	private GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+					ResourceLocation resourceLocation, int baseWidth, int baseHeight, int[] progressVals) {
 		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, progressVals);
 		this.baseHeight = baseHeight;
 		this.baseWidth = baseWidth;
@@ -52,7 +52,7 @@ public class GuiBase extends GuiContainer {
 	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
 			ResourceLocation resourceLocation, int baseHeight, int baseWidth, int[] progressVals, int tankX,
 			int tankY) {
-		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, baseHeight, baseWidth, progressVals);
+		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, baseWidth, baseHeight, progressVals);
 		this.tankX = tankX;
 		this.tankY = tankY;
 
@@ -60,15 +60,15 @@ public class GuiBase extends GuiContainer {
 
 	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
 			ResourceLocation resourceLocation, int baseHeight, int baseWidth, int[] progressVals, int[] fuelVals) {
-		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, baseHeight, baseWidth, progressVals);
+		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, baseWidth, baseHeight, progressVals);
 		this.fuelBar = new int[fuelVals.length];
 		System.arraycopy(fuelVals, 0, this.fuelBar, 0, fuelBar.length);
 		fuel = true;
 
 	}
 
-	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
-			ResourceLocation resourceLocation, int[] progressVals) {
+	protected GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+					  ResourceLocation resourceLocation, int[] progressVals) {
 		super(inventorySlotsIn);
 		BG_TEXTURE = resourceLocation;
 		this.playerInv = playerInv;
@@ -80,8 +80,8 @@ public class GuiBase extends GuiContainer {
 
 	}
 
-	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
-			ResourceLocation resourceLocation, int[] progressVals, int[] fuelVals) {
+	protected GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+					  ResourceLocation resourceLocation, int[] progressVals, int[] fuelVals) {
 		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, progressVals);
 		this.fuelBar = new int[fuelVals.length];
 		System.arraycopy(fuelVals, 0, this.fuelBar, 0, fuelBar.length);
@@ -111,7 +111,7 @@ public class GuiBase extends GuiContainer {
 		fluidBar.draw();
 	}
 
-	protected void drawFuelBar() {
+	private void drawFuelBar() {
 		double burnRemaining = tileEntity.fractionOfFuelRemaining();
 		int yOffset = (int) ((1.0 - burnRemaining) * this.fuelBar[5]);
 		drawTexturedModalRect(guiLeft + this.fuelBar[0], guiTop + this.fuelBar[1] + yOffset, this.fuelBar[2],
@@ -151,27 +151,25 @@ public class GuiBase extends GuiContainer {
 			int cookPercentage = (int) (tileEntity.fractionOfProgressTimeComplete(0) * 100);
 			hoveringText.add(cookPercentage + "%");
 		}
-		if (fuel && isInRect(guiLeft + this.fuelBar[0], guiTop + this.fuelBar[1], this.fuelBar[4], this.fuelBar[5],
+		else if (fuel && isInRect(guiLeft + this.fuelBar[0], guiTop + this.fuelBar[1], this.fuelBar[4], this.fuelBar[5],
 				mouseX, mouseY)) {
 			hoveringText.add("Fuel Time:");
 			hoveringText.add(tileEntity.secondsOfFuelRemaining() + "s");
 		}
 
-		if (hoveringText == null || hoveringText.isEmpty())
+		else if (hoveringText.isEmpty())
 			hoveringText = powerBar.drawText(mouseX, mouseY);
 
-		if (fluid && (hoveringText == null || hoveringText.isEmpty()))
-			hoveringText = fluidText(mouseX, mouseY);
-
-		this.drawText(hoveringText, mouseX, mouseY);
+		if(hoveringText!=null && !hoveringText.isEmpty())
+			this.drawText(hoveringText, mouseX, mouseY);
 
 	}
 
-	protected void drawPowerBar() {
+	private void drawPowerBar() {
 		powerBar.draw();
 	}
 
-	protected void drawProgressBar() {
+	private void drawProgressBar() {
 		// get cook progress as a double between 0 and 1
 		double cookProgress = tileEntity.fractionOfProgressTimeComplete(0);
 		// draw the cook progress bar
@@ -179,7 +177,7 @@ public class GuiBase extends GuiContainer {
 				this.progressBar[3], (int) (cookProgress * this.progressBar[4]), this.progressBar[5]);
 	}
 
-	public void drawText(List<String> hoveringText, int mouseX, int mouseY) {
+	private void drawText(List<String> hoveringText, int mouseX, int mouseY) {
 		// If hoveringText is not empty draw the hovering text
 		if (hoveringText != null && !hoveringText.isEmpty()) {
 			drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);

@@ -1,5 +1,6 @@
 package com.jack12324.eop.machine.pedestal;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.jack12324.eop.ExtremeOreProcessing;
@@ -25,10 +26,10 @@ public class BlockPedestal extends BlockTE<TileEntityPedestal> {
 	}
 
 	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileEntityPedestal tile = getTileEntity(world, pos);
 		IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = itemHandler != null ? itemHandler.getStackInSlot(0) : null;
 		if (!stack.isEmpty()) {
 			EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
 			world.spawnEntity(item);
@@ -38,7 +39,7 @@ public class BlockPedestal extends BlockTE<TileEntityPedestal> {
 
 	@Nullable
 	@Override
-	public TileEntityPedestal createTileEntity(World world, IBlockState state) {
+	public TileEntityPedestal createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileEntityPedestal();
 	}
 
@@ -47,15 +48,13 @@ public class BlockPedestal extends BlockTE<TileEntityPedestal> {
 		return TileEntityPedestal.class;
 	}
 
-	@Override
-	@Deprecated
-	public boolean isFullCube(IBlockState state) {
+	public boolean isOpaqueCube(IBlockState state)
+	{
 		return false;
 	}
 
-	@Override
-	@Deprecated
-	public boolean isOpaqueCube(IBlockState state) {
+	public boolean isFullCube(IBlockState state)
+	{
 		return false;
 	}
 
@@ -65,7 +64,7 @@ public class BlockPedestal extends BlockTE<TileEntityPedestal> {
 		if (!world.isRemote) {
 			TileEntityPedestal te = (TileEntityPedestal) world.getTileEntity(pos);
 			if (te != null) {
-				if (true) {// !this.tryUseItemOnTank(player, hand, te.tank)){
+				if (true) {// !this.tryUseItemOnTank(player, hand, te.tank)){//TODO
 					System.out.println("tap");
 					player.openGui(ExtremeOreProcessing.instance, ModGuiHandler.PEDESTAL, world, pos.getX(), pos.getY(),
 							pos.getZ());

@@ -17,9 +17,9 @@ import net.minecraftforge.fluids.FluidTank;
 public class FluidBar extends Gui {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/fluid_bar.png");
-	private int x;
-	private int y;
-	private FluidTank tank;
+	private final int x;
+	private final int y;
+	private final FluidTank tank;
 	private final int HEIGHT = 49;
 	private final int WIDTH = 18;
 
@@ -43,7 +43,8 @@ public class FluidBar extends Gui {
 			int fluidHeight = (int) ((HEIGHT - 2) * (this.tank.getFluidAmount() / (double) this.tank.getCapacity()));
 			System.out.println(fluidHeight);
 
-			drawTexturedModalRect(this.x, this.y + ((HEIGHT - 1) - fluidHeight), fluidTexture, WIDTH, fluidHeight);
+			if(fluidTexture!=null)
+				drawTexturedModalRect(this.x, this.y + ((HEIGHT - 1) - fluidHeight), fluidTexture, WIDTH, fluidHeight);
 
 			// Draw lines over fluid
 
@@ -63,7 +64,7 @@ public class FluidBar extends Gui {
 		return null;
 	}
 
-	public boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
+	private boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
 		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
 	}
 }

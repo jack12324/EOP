@@ -1,5 +1,6 @@
 package com.jack12324.eop.machine.triCatalystInfuser;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.jack12324.eop.ModGuiHandler;
@@ -21,7 +22,7 @@ public class BlockTriCatalystInfuser extends BlockTE<TileEntityTriCatalystInfuse
 
 	// drop items in block as well as block
 	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileEntityTriCatalystInfuser tile = getTileEntity(world, pos);
 		if (tile instanceof IInventory) {
 			InventoryHelper.dropInventoryItems(world, pos, (IInventory) tile);
@@ -31,7 +32,7 @@ public class BlockTriCatalystInfuser extends BlockTE<TileEntityTriCatalystInfuse
 
 	@Nullable
 	@Override
-	public TileEntityTriCatalystInfuser createTileEntity(World world, IBlockState state) {
+	public TileEntityTriCatalystInfuser createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileEntityTriCatalystInfuser();
 	}
 

@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 
 public class ModArmor extends net.minecraft.item.ItemArmor implements ItemModelProvider {
 
-	private String name;
+	private final String name;
 
 	public ModArmor(ArmorMaterial material, EntityEquipmentSlot slot, String name) {
 		super(material, 0, slot);

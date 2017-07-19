@@ -43,10 +43,10 @@ public class ModBlocks {
 	public static BlockParticleExciter particleExciter;
 	public static BlockPedestal pedestal;
 	public static BlockCatalystInfuser catalystInfuser;
-	public static BlockDualCatalystInfuser dualCatalystInfuser;
-	public static BlockEndericPurifier endericPurifier;
-	public static BlockStarHardener starHardener;
-	public static BlockTriCatalystInfuser triCatalystInfuser;
+	private static BlockDualCatalystInfuser dualCatalystInfuser;
+	private static BlockEndericPurifier endericPurifier;
+	private static BlockStarHardener starHardener;
+	private static BlockTriCatalystInfuser triCatalystInfuser;
 
 	public static void init() {
 
@@ -95,7 +95,7 @@ public class ModBlocks {
 
 	}
 
-	public static <T extends Block> T register(T block) {
+	private static <T extends Block> T register(T block) {
 		ItemBlock itemBlock = new ItemBlock(block);
 		itemBlock.setRegistryName(block.getRegistryName());
 		return register(block, itemBlock);

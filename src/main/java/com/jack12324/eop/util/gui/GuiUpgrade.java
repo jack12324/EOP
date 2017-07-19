@@ -13,7 +13,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -21,11 +20,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiUpgrade extends GuiContainer {
 
-	private ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
+	private final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/upgradeScreenGui.png");
-	TileEntity tileEntity;
+	private final TileEntity tileEntity;
 
-	public GuiUpgrade(Container serverGuiElement, InventoryPlayer inventory, TileEntity tileEntity) {
+	public GuiUpgrade(Container serverGuiElement, TileEntity tileEntity) {
 		super(serverGuiElement);
 		this.tileEntity = tileEntity;
 	}

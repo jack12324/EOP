@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 
 public class BasicRecipe implements EOPRecipe, IOneInputRecipe, IOneOutput {
 
-	public ItemStack inputStack;
-	public ItemStack outputStack;
+	private final ItemStack inputStack;
+	private final ItemStack outputStack;
 
 	public BasicRecipe(ItemStack inputStack, ItemStack outputStack) {
 		this.inputStack = inputStack;

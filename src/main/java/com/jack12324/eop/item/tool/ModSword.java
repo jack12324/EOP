@@ -8,7 +8,7 @@ import net.minecraft.item.ItemSword;
 
 public class ModSword extends ItemSword implements ItemModelProvider {
 
-	private String name;
+	private final String name;
 
 	public ModSword(ToolMaterial material, String name) {
 		super(material);

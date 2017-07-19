@@ -1,5 +1,6 @@
 package com.jack12324.eop.machine.activationChamber;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.jack12324.eop.ModGuiHandler;
@@ -20,7 +21,7 @@ public class BlockActivationChamber extends BlockTE<TileEntityActivationChamber>
 
 	// drop items in block as well as block
 	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileEntityActivationChamber tile = getTileEntity(world, pos);
 		if (tile instanceof IInventory) {
 			InventoryHelper.dropInventoryItems(world, pos, (IInventory) tile);
@@ -30,7 +31,7 @@ public class BlockActivationChamber extends BlockTE<TileEntityActivationChamber>
 
 	@Nullable
 	@Override
-	public TileEntityActivationChamber createTileEntity(World world, IBlockState state) {
+	public TileEntityActivationChamber createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileEntityActivationChamber();
 	}
 

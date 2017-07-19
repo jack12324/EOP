@@ -1,5 +1,6 @@
 package com.jack12324.eop.block;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.material.Material;
@@ -11,15 +12,15 @@ import net.minecraft.world.World;
 
 public abstract class BlockTileEntity<TE extends TileEntity> extends BlockBase {
 
-	public BlockTileEntity(Material material, String name) {
+	protected BlockTileEntity(Material material, String name) {
 		super(material, name);
 	}
 
 	@Nullable
 	@Override
-	public abstract TE createTileEntity(World world, IBlockState state);
+	public abstract TE createTileEntity(@Nonnull World world, @Nonnull IBlockState state);
 
-	public TE getTileEntity(IBlockAccess world, BlockPos pos) {
+	protected TE getTileEntity(IBlockAccess world, BlockPos pos) {
 		return (TE) world.getTileEntity(pos);
 	}
 

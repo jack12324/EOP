@@ -22,24 +22,28 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 
+import javax.annotation.Nonnull;
+
 public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE> {
 
-	public static final PropertyDirection PROPERTYFACING = PropertyDirection.create("facing",
+	private static final PropertyDirection PROPERTYFACING = PropertyDirection.create("facing",
 			EnumFacing.Plane.HORIZONTAL);
 
 	public static final PropertyBool PROPERTYACTIVE = PropertyBool.create("on");
 
-	public BlockTE(Material material, String name) {
+	protected BlockTE(Material material, String name) {
 		super(material, name);
 	}
 
+	@Nonnull
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, PROPERTYFACING, PROPERTYACTIVE);
 	}
 
+	@Nonnull
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		return state;
 	}
 
@@ -53,6 +57,7 @@ public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>
 		return state.getValue(PROPERTYACTIVE) ? meta + 4 : meta;
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		boolean active = meta >= 4;
@@ -84,19 +89,21 @@ public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>
 		super.onBlockPlacedBy(world, pos, state, player, stack);
 	}
 
-	protected boolean tryUseItemOnTank(EntityPlayer player, EnumHand hand, World world, BlockPos pos, EnumFacing side) {
+	boolean tryUseItemOnTank(EntityPlayer player, EnumHand hand, World world, BlockPos pos, EnumFacing side) {
 		System.out.println("tryUseItemOnTank");
 		return FluidUtil.interactWithFluidHandler(player, hand, world, pos, null);
 
 	}
 
+	@Nonnull
 	@Override
-	public IBlockState withMirror(IBlockState state, Mirror mirror) {
+	public IBlockState withMirror(@Nonnull IBlockState state, Mirror mirror) {
 		return this.withRotation(state, mirror.toRotation(state.getValue(BlockHorizontal.FACING)));
 	}
 
+	@Nonnull
 	@Override
-	public IBlockState withRotation(IBlockState state, Rotation rot) {
+	public IBlockState withRotation(@Nonnull IBlockState state, Rotation rot) {
 		return state.withProperty(BlockHorizontal.FACING, rot.rotate(state.getValue(BlockHorizontal.FACING)));
 	}
 

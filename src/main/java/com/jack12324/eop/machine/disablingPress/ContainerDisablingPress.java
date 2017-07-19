@@ -11,9 +11,11 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class ContainerDisablingPress extends Container {
 	private int[] cachedFields;
-	private TileEntityDisablingPress disablingPress;
+	private final TileEntityDisablingPress disablingPress;
 
 	public ContainerDisablingPress(InventoryPlayer playerInv, final TileEntityDisablingPress disablingPress) {
 		this.disablingPress = disablingPress;
@@ -56,10 +58,11 @@ public class ContainerDisablingPress extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
+	public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
 		return disablingPress.isUsableByPlayer(playerIn);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;

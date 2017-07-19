@@ -16,7 +16,7 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerFluidMap;
 
 public abstract class TEFluidProducer extends TEFluidUser {
 	private final FluidHandlerFluidMap handlerMap;
-	private ArrayList<Fluid> outFluid;
+	private final ArrayList<Fluid> outFluid;
 	private int oldOutFluidAmount;
 	public final FluidTank outTank = new FluidTank(2000) {
 		@Override
@@ -30,7 +30,7 @@ public abstract class TEFluidProducer extends TEFluidUser {
 		}
 	};
 
-	public TEFluidProducer(String name, InventorySlotHelper slots, int inTankSize, int outTankSize) {
+	protected TEFluidProducer(String name, InventorySlotHelper slots, int inTankSize, int outTankSize) {
 		super(name, slots, inTankSize);
 		this.outFluid = new ArrayList<>(RecipeHandler.getOutFluids(this.getRecipeList()));
 		this.outTank.setCapacity(outTankSize);
@@ -59,7 +59,7 @@ public abstract class TEFluidProducer extends TEFluidUser {
 		return this.handlerMap;
 	}
 
-	protected void oldOutFluidCheck() {
+	private void oldOutFluidCheck() {
 		if (this.oldOutFluidAmount != this.outTank.getFluidAmount() && this.sendUpdateWithInterval()) {
 			System.out.println("outfluid");
 			this.oldOutFluidAmount = this.outTank.getFluidAmount();

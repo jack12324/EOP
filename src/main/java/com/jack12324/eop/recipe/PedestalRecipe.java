@@ -9,9 +9,9 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class PedestalRecipe implements EOPRecipe, IFluidOutRecipe, IOneInputRecipe {
 
-	ItemStack input;
-	FluidStack outFluid;
-	int speed;
+	private final ItemStack input;
+	private final FluidStack outFluid;
+	private final int speed;
 
 	public PedestalRecipe(ItemStack input, FluidStack outFluid, int speed) {
 		this.input = input;

@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 
 public class ModPickaxe extends net.minecraft.item.ItemPickaxe implements ItemModelProvider {
 
-	private String name;
+	private final String name;
 
 	public ModPickaxe(ToolMaterial material, String name) {
 		super(material);

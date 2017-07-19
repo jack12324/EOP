@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockOreDict extends BlockBase implements ItemOreDictionary {
-	private String oreName;
+	private final String oreName;
 
 	public BlockOreDict(String name, String oreName) {
 		super(Material.ROCK, name);

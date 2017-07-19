@@ -15,9 +15,9 @@ import net.minecraft.item.Item;
 
 public class TileEntityActivationChamber extends TEPowered {
 
-	public static List<Item> fuel = new ArrayList<>(
+	public static final List<Item> fuel = new ArrayList<>(
             Arrays.asList(ModItems.dustFirestone, Item.getItemFromBlock(ModBlocks.blockFirestone)));
-	List<Integer> fuelTime = new ArrayList<>(Arrays.asList(400, 4000));
+	private final List<Integer> fuelTime = new ArrayList<>(Arrays.asList(400, 4000));
 
 	public TileEntityActivationChamber() {
 		super("activation_chamber", new InventorySlotHelper(1, 1, 1, 0, 0));

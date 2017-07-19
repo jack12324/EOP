@@ -62,7 +62,7 @@ public class EOPEnergyStorage extends EnergyStorage {
 		return toReturn;
 	}
 
-	public void setEnergyStored(int energy) {
+	private void setEnergyStored(int energy) {
 		this.energy = energy;
 	}
 

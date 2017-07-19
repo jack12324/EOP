@@ -4,11 +4,13 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
+import javax.annotation.Nonnull;
+
 public class BlockModOre extends BlockBase {
 
 	// full control constructor
-	public BlockModOre(Material material, String name, String harvestTool, int harvestLevel, float hardness,
-			float resistance, SoundType sound) {
+    BlockModOre(Material material, String name, String harvestTool, int harvestLevel, float hardness,
+                float resistance, SoundType sound) {
 		super(material, name);
 
 		setSoundType(sound);
@@ -26,8 +28,9 @@ public class BlockModOre extends BlockBase {
 		setResistance(15f);
 	}
 
-	@Override
-	public BlockModOre setCreativeTab(CreativeTabs tab) {
+	@Nonnull
+    @Override
+	public BlockModOre setCreativeTab(@Nonnull CreativeTabs tab) {
 		super.setCreativeTab(tab);
 		return this;
 	}

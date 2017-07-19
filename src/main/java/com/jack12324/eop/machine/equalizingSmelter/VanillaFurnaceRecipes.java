@@ -5,11 +5,12 @@ import java.util.Map.Entry;
 
 import com.google.common.collect.Maps;
 
+import com.jack12324.eop.ExtremeOreProcessing;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 
-public class VanillaFurnaceRecipes {
+class VanillaFurnaceRecipes {
 	// the list of smelting results
 	private final Map<ItemStack, ItemStack> smeltingList = Maps.newHashMap();
 	// A list which contains how many experience points each recipe output will
@@ -34,10 +35,9 @@ public class VanillaFurnaceRecipes {
 	/**
 	 * Adds a smelting recipe using an ItemStack as the input for the recipe.
 	 */
-	public void addSmeltingRecipe(ItemStack input, ItemStack stack, int number, float experience) {
+	private void addSmeltingRecipe(ItemStack input, ItemStack stack, int number, float experience) {
 		if (getResult(input) != ItemStack.EMPTY) {
-			net.minecraftforge.fml.common.FMLLog
-					.info("Ignored smelting recipe with conflicting input: " + input + " = " + stack);
+			ExtremeOreProcessing.LOGGER.info("Ignored smelting recipe with conflicting input: " + input + " = " + stack);
 			return;
 		}
 		stack.setCount(number);

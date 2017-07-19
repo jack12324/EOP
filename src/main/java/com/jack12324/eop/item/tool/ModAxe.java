@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 
 public class ModAxe extends net.minecraft.item.ItemAxe implements ItemModelProvider {
 
-	private String name;
+	private final String name;
 
 	public ModAxe(ToolMaterial material, String name) {
 		super(material, 8f, -3.1f);

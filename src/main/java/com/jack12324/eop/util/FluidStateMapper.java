@@ -12,14 +12,16 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 /**
  * (Excerpted from Tinkers' Construct)
  */
 @SideOnly(Side.CLIENT)
 public class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition {
 
-	public final Fluid fluid;
-	public final ModelResourceLocation location;
+	private final Fluid fluid;
+	private final ModelResourceLocation location;
 
 	public FluidStateMapper(Fluid fluid) {
 		this.fluid = fluid;
@@ -28,13 +30,15 @@ public class FluidStateMapper extends StateMapperBase implements ItemMeshDefinit
 				fluid.getName());
 	}
 
+	@Nonnull
 	@Override
-	public ModelResourceLocation getModelLocation(ItemStack stack) {
+	public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
 		return this.location;
 	}
 
+	@Nonnull
 	@Override
-	protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+	protected ModelResourceLocation getModelResourceLocation(@Nonnull IBlockState state) {
 		return this.location;
 	}
 }

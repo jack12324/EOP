@@ -33,7 +33,7 @@ public class ExtremeOreProcessing {
 	public static final String modID = "eop";
 	public static final String name = "Extreme Ore Processing";
 	public static final String version = "0.2.0";
-	public static EOPTab creativeTab = new EOPTab();
+	public static final EOPTab creativeTab = new EOPTab();
 
 	public static final Logger LOGGER = LogManager.getLogger("Extreme Ore Processing");
 

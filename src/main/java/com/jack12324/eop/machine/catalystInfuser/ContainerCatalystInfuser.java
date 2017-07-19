@@ -8,9 +8,11 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class ContainerCatalystInfuser extends Container {
 	private int[] cachedFields;
-	private TileEntityCatalystInfuser tileEntity;
+	private final TileEntityCatalystInfuser tileEntity;
 
 	public ContainerCatalystInfuser(InventoryPlayer playerInv, final TileEntityCatalystInfuser tileEntity) {
 		this.tileEntity = tileEntity;
@@ -34,10 +36,11 @@ public class ContainerCatalystInfuser extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
+	public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
 		return tileEntity.isUsableByPlayer(playerIn);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;

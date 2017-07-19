@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
 
 public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse {
-	private static VanillaFurnaceRecipes vanillaRecipes = new VanillaFurnaceRecipes();
+	private static final VanillaFurnaceRecipes vanillaRecipes = new VanillaFurnaceRecipes();
 	private boolean furnaceMode = true;
 	private boolean spreadMode = true;
 	private boolean oldFurnaceMode = true;
@@ -37,7 +37,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	 * a place to put it afterwards. ie an open output slot
 	 */
 
-	protected boolean canUseF(int indexIn, int indexOut) {
+    private boolean canUseF(int indexIn, int indexOut) {
 
 		if (this.slots.getStackInSlot(indexIn).isEmpty()) {
 
@@ -70,7 +70,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 		return MathHelper.clamp(fraction, 0.0, 1.0);
 	}
 
-	public void furnaceUpdate() {
+	private void furnaceUpdate() {
 		super.superUpdate();
 		boolean active = false;
 		if (!this.world.isRemote) {
@@ -104,7 +104,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 		return spreadMode;
 	}
 
-	protected void oldModeCheck() {
+	private void oldModeCheck() {
 		if (this.oldFurnaceMode != this.furnaceMode && this.sendUpdateWithInterval())
 			this.oldFurnaceMode = this.furnaceMode;
 		if (this.oldSpreadMode != this.spreadMode && this.sendUpdateWithInterval())
@@ -138,7 +138,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 		super.readSyncableNBT(compound, type);
 	}
 
-	protected void resetTimeF(int i) {// TODO removed empty check
+	private void resetTimeF(int i) {// TODO removed empty check
 		setInProgressTime(i, 0);
 	}
 
@@ -228,7 +228,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	 * Turn one item from the inventory input stack into the appropriate output
 	 * item in the result stack
 	 */
-	public void useItemF(int indexIn, int indexOut) {
+    private void useItemF(int indexIn, int indexOut) {
 		ItemStack input = this.slots.getStackInSlot(indexIn);
 		ItemStack result = vanillaRecipes.getResult(input);
 		ItemStack output = this.slots.getStackInSlot(indexOut);
@@ -248,7 +248,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	 * destination stack isn't full, etc.
 	 */
 
-	protected boolean useLogicF(int i) {
+    private boolean useLogicF(int i) {
 		boolean active = false;
 		boolean powered = this.usePower();
 

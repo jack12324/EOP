@@ -31,6 +31,8 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
+import javax.annotation.Nonnull;
+
 public abstract class TETickingMachine extends TileEntity implements ITickable {
 
 	public enum NBTType {
@@ -81,9 +83,9 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 						sideTo);
 				IFluidHandler handlerTo = tileTo.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
 						sideTo.getOpposite());
-				FluidStack drain = handlerFrom.drain(maxTransfer, false);
+				FluidStack drain = handlerFrom !=null ? handlerFrom.drain(maxTransfer, false):null;
 				if (drain != null) {
-					int filled = handlerTo.fill(drain.copy(), true);
+					int filled = handlerTo != null ? handlerTo.fill(drain.copy(), true) : 0;
 					handlerFrom.drain(filled, true);
 				}
 			}
@@ -91,19 +93,19 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 	}
 
 	private final String name;
-	public boolean isRedstonePowered;
-	public boolean isPulseMode;
-	public boolean stopFromDropping;
+	private boolean isRedstonePowered;
+	private boolean isPulseMode;
+	private boolean stopFromDropping;
 
-	protected int ticksElapsed;
+	private int ticksElapsed;
 
-	protected TileEntity[] tilesAround = new TileEntity[6];
+	private final TileEntity[] tilesAround = new TileEntity[6];
 
-	protected boolean hasSavedDataOnChangeOrWorldStart;
+	private boolean hasSavedDataOnChangeOrWorldStart;
 
 	private Object teslaWrapper;
 
-	public TETickingMachine(String name) {
+	TETickingMachine(String name) {
 		this.name = name;
 	}
 
@@ -117,7 +119,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 	}
 
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+	public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			IItemHandler handler = this.getItemHandler(facing);
 			if (handler != null) {
@@ -161,15 +163,15 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		return new TextComponentString(this.getDisplayedName());
 	}
 
-	public IEnergyStorage getEnergyStorage(EnumFacing facing) {
+	IEnergyStorage getEnergyStorage(EnumFacing facing) {
 		return null;
 	}
 
-	public IFluidHandler getFluidHandler(EnumFacing facing) {
+	IFluidHandler getFluidHandler(EnumFacing facing) {
 		return null;
 	}
 
-	public IItemHandler getItemHandler(EnumFacing facing) {
+	IItemHandler getItemHandler(EnumFacing facing) {
 		return null;
 	}
 
@@ -180,6 +182,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		return new SPacketUpdateTileEntity(this.pos, -1, compound);
 	}
 
+	@Nonnull
 	@Override
 	public final NBTTagCompound getUpdateTag() {
 		NBTTagCompound compound = new NBTTagCompound();
@@ -188,16 +191,16 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 	}
 
 	@Override
-	public final void handleUpdateTag(NBTTagCompound compound) {
+	public final void handleUpdateTag(@Nonnull NBTTagCompound compound) {
 		this.readSyncableNBT(compound, NBTType.SYNC);
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+	public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {
 		return this.getCapability(capability, facing) != null;
 	}
 
-	public boolean isRedstoneToggle() {
+	boolean isRedstoneToggle() {
 		return false;
 	}
 
@@ -230,7 +233,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		return this.isRedstoneToggle() && this.isPulseMode;
 	}
 
-	public void saveDataOnChangeOrWorldStart() {
+	private void saveDataOnChangeOrWorldStart() {
 		for (EnumFacing side : EnumFacing.values()) {
 			BlockPos pos = this.pos.offset(side);
 			if (this.world.isBlockLoaded(pos)) {
@@ -239,7 +242,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		}
 	}
 
-	public final void sendUpdate() {
+	final void sendUpdate() {
 		if (this.world != null && !this.world.isRemote) {
 			NBTTagCompound compound = new NBTTagCompound();
 			this.writeSyncableNBT(compound, NBTType.SYNC);
@@ -270,11 +273,11 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 	}
 
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
 		return !oldState.getBlock().isAssociatedBlock(newState.getBlock());
 	}
 
-	public boolean shouldSaveDataOnChangeOrWorldStart() {
+	private boolean shouldSaveDataOnChangeOrWorldStart() {
 		return true;
 	}
 
@@ -298,7 +301,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		}
 	}
 
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
+	void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
 		if (type != NBTType.SAVE_BLOCK) {
 			super.writeToNBT(compound);
 		}
@@ -313,6 +316,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		}
 	}
 
+	@Nonnull
 	@Override
 	public final NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		this.writeSyncableNBT(compound, NBTType.SAVE_TILE);

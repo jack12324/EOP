@@ -11,7 +11,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 public class OreLineHelper {
-	public static OreLineHelper INSTANCE = new OreLineHelper();
+	private static final OreLineHelper INSTANCE = new OreLineHelper();
 
 	public static Item get(String key) {
 		return INSTANCE.list.get(key);
@@ -19,7 +19,7 @@ public class OreLineHelper {
 
 	private final Map<String, Item> list = Maps.newHashMap();
 
-	public OreLineHelper() {
+	private OreLineHelper() {
 
 		list.put("oreIron", Item.getItemFromBlock(Blocks.IRON_ORE));
 		list.put("ingotIron", Items.IRON_INGOT);

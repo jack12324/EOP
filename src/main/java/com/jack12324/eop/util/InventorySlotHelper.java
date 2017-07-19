@@ -5,8 +5,8 @@ public class InventorySlotHelper {
 	private int[] out;
 	private int[] fuel;
 	private int[] base;
-	int[] other;
-	int[] upgrade;
+	private final int[] other;
+	private int[] upgrade;
 
 	public InventorySlotHelper(int in, int out, int fuel, int base, int other) {
 		int totalSlots = 0;
@@ -49,7 +49,7 @@ public class InventorySlotHelper {
 		}
 	}
 
-	public int[] getBase() {
+	private int[] getBase() {
 		return base;
 	}
 
@@ -61,7 +61,7 @@ public class InventorySlotHelper {
 		return getBase().length;
 	}
 
-	public int[] getFuel() {
+	private int[] getFuel() {
 		return fuel;
 	}
 
@@ -89,7 +89,7 @@ public class InventorySlotHelper {
 		return other[i];
 	}
 
-	public int getOtherSlotSize() {
+	private int getOtherSlotSize() {
 		return other.length;
 	}
 
@@ -114,23 +114,23 @@ public class InventorySlotHelper {
 		return upgrade[i];
 	}
 
-	public int getUpgradeSlotSize() {
+	private int getUpgradeSlotSize() {
 		return upgrade.length;
 	}
 
-	public void setBase(int[] base) {
+	private void setBase(int[] base) {
 		this.base = base;
 	}
 
-	public void setFuel(int[] fuel) {
+	private void setFuel(int[] fuel) {
 		this.fuel = fuel;
 	}
 
-	public void setIn(int[] in) {
+	private void setIn(int[] in) {
 		this.in = in;
 	}
 
-	public void setOut(int[] out) {
+	private void setOut(int[] out) {
 		this.out = out;
 	}
 

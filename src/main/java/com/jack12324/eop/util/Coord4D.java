@@ -63,13 +63,13 @@ public class Coord4D {
 		return new Coord4D(tag.getInteger("x"), tag.getInteger("y"), tag.getInteger("z"), tag.getInteger("id"));
 	}
 
-	public int xCoord;
+	private final int xCoord;
 
-	public int yCoord;
+	private final int yCoord;
 
-	public int zCoord;
+	private final int zCoord;
 
-	public int dimensionId;
+	public final int dimensionId;
 
 	public Coord4D(BlockPos pos, World world) {
 		this(pos.getX(), pos.getY(), pos.getZ(), world.provider.getDimension());
@@ -87,7 +87,7 @@ public class Coord4D {
 	 * @param dimension
 	 *            - dimension ID
 	 */
-	public Coord4D(double x, double y, double z, int dimension) {
+	private Coord4D(double x, double y, double z, int dimension) {
 		xCoord = MathHelper.floor(x);
 		yCoord = MathHelper.floor(y);
 		zCoord = MathHelper.floor(z);
@@ -126,7 +126,7 @@ public class Coord4D {
 	 *            - the Coord4D to subtract from this
 	 * @return a Coord4D representing the distance between the defined Coord4D
 	 */
-	public Coord4D difference(Coord4D other) {
+	private Coord4D difference(Coord4D other) {
 		return new Coord4D(xCoord - other.xCoord, yCoord - other.yCoord, zCoord - other.zCoord, dimensionId);
 	}
 
@@ -157,9 +157,8 @@ public class Coord4D {
 	 *            - world this Coord4D is in
 	 * @return the chunk of this Coord4D
 	 */
-	public boolean exists(World world) {
-		return world.getChunkProvider() != null
-				&& world.getChunkProvider().getLoadedChunk(xCoord >> 4, zCoord >> 4) == null;
+	private boolean exists(World world) {
+		return world.getChunkProvider().getLoadedChunk(xCoord >> 4, zCoord >> 4) == null;
 	}
 
 	/**
@@ -169,7 +168,7 @@ public class Coord4D {
 	 *            - world this Coord4D is in
 	 * @return the Block value of this Coord4D's block
 	 */
-	public Block getBlock(IBlockAccess world) {
+	private Block getBlock(IBlockAccess world) {
 		if (world instanceof World && exists((World) world)) {
 			return null;
 		}
@@ -179,7 +178,7 @@ public class Coord4D {
 
 	public int getBlockMeta(IBlockAccess world) {
 		IBlockState state = getBlockState(world);
-		return state == null ? 0 : state.getBlock().getMetaFromState(state);
+		return state.getBlock().getMetaFromState(state);
 	}
 
 	/**
@@ -189,7 +188,7 @@ public class Coord4D {
 	 *            - world this Coord4D is in
 	 * @return the state of this Coord4D's block
 	 */
-	public IBlockState getBlockState(IBlockAccess world) {
+	private IBlockState getBlockState(IBlockAccess world) {
 		return world.getBlockState(getPos());
 	}
 
@@ -221,7 +220,7 @@ public class Coord4D {
 	public ItemStack getStack(IBlockAccess world) {
 		IBlockState state = getBlockState(world);
 
-		if (state == null || state == Blocks.AIR) {
+		if (state == Blocks.AIR) {
 			return ItemStack.EMPTY;
 		}
 
@@ -309,7 +308,7 @@ public class Coord4D {
 	 *            - how far to translate this Coord4D
 	 * @return translated Coord4D
 	 */
-	public Coord4D offset(EnumFacing side, int amount) {
+	private Coord4D offset(EnumFacing side, int amount) {
 		if (side == null || amount == 0) {
 			return this;
 		}
@@ -361,7 +360,7 @@ public class Coord4D {
 	 *            - side to step towards
 	 * @return this Coord4D
 	 */
-	public Coord4D step(EnumFacing side) {
+	private Coord4D step(EnumFacing side) {
 		return translate(side.getFrontOffsetX(), side.getFrontOffsetY(), side.getFrontOffsetZ());
 	}
 
@@ -393,7 +392,7 @@ public class Coord4D {
 	 *            - z value to translate
 	 * @return translated Coord4D
 	 */
-	public Coord4D translate(int x, int y, int z) {
+	private Coord4D translate(int x, int y, int z) {
 		return new Coord4D(xCoord + x, yCoord + y, zCoord + z, dimensionId);
 	}
 
@@ -403,7 +402,7 @@ public class Coord4D {
 	 * @param data
 	 *            - the ArrayList to add the data to
 	 */
-	public void write(ArrayList data) {
+	public void write(ArrayList<Integer> data) {
 		data.add(xCoord);
 		data.add(yCoord);
 		data.add(zCoord);

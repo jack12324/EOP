@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IBaseRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IFluidInRecipe;
@@ -35,9 +34,6 @@ public class RecipeHandler {
 	}
 
 	public static FluidStack getFluidOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] input, FluidStack fluid) {
-		ExtremeOreProcessing.LOGGER.warn(fluid.getLocalizedName());
-		ExtremeOreProcessing.LOGGER.warn(recipeList.get(0));
-		ExtremeOreProcessing.LOGGER.warn(input);
 		EOPRecipe recipe = null;
 		if (!(fluid == null))
 			recipe = getRecipeFromMultipleInputsAndFluidIgnoreAmount(recipeList, input, fluid.getFluid());
@@ -176,7 +172,7 @@ public class RecipeHandler {
 	 *            The input to test for a viable recipe
 	 * @return If it exists, the recipe using given input, null if not
 	 */
-	public static EOPRecipe getRecipeFromInput(ArrayList<EOPRecipe> recipeList, ItemStack input) {
+	private static EOPRecipe getRecipeFromInput(ArrayList<EOPRecipe> recipeList, ItemStack input) {
 		for (EOPRecipe recipe : recipeList) {
 			if (((IOneInputRecipe) recipe).getInputStack().equals(input))
 				return recipe;
@@ -193,7 +189,7 @@ public class RecipeHandler {
 	 *            The inputs to test for a viable recipe
 	 * @return If it exists, the recipe using given inputs, null if not
 	 */
-	public static EOPRecipe getRecipeFromMultipleInputs(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs) {
+	private static EOPRecipe getRecipeFromMultipleInputs(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs) {
 		for (EOPRecipe recipe : recipeList) {
 			if (compareItemStacks(((IMultipleInputRecipe) recipe).getInputStacks(), inputs))
 				return recipe;

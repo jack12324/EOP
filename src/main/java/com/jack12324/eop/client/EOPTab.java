@@ -6,6 +6,8 @@ import com.jack12324.eop.item.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class EOPTab extends CreativeTabs {
 
 	public EOPTab() {
@@ -13,7 +15,8 @@ public class EOPTab extends CreativeTabs {
 		setBackgroundImageName("item_search.png");
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack getTabIconItem() {
 		return new ItemStack(ModItems.ingotTungsten);
 	}

@@ -16,14 +16,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 public class disablingPressRecipeCategory extends EOPRecipeCategory<DPRecipe, disablingPressRecipeWrapper> {
 
 	private final static ResourceLocation background = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/disabling_press.png");
 
-	IDrawableAnimated progress;
-	IDrawableAnimated power;
-	IDrawableAnimated fuel;
+	private final IDrawableAnimated progress;
+	private final IDrawableAnimated power;
+	private final IDrawableAnimated fuel;
 
 	public disablingPressRecipeCategory(IGuiHelper helper) {
 		super("disabling_press", "tile.disabling_press.name", helper.createDrawable(background, 3, 14, 153, 65),
@@ -54,14 +56,15 @@ public class disablingPressRecipeCategory extends EOPRecipeCategory<DPRecipe, di
 		fuel.draw(minecraft, 79, 22);
 	}
 
-	@Override
-	public IRecipeWrapper getRecipeWrapper(DPRecipe recipe) {
+	@Nonnull
+    @Override
+	public IRecipeWrapper getRecipeWrapper(@Nonnull DPRecipe recipe) {
 		return new disablingPressRecipeWrapper(recipe);
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, disablingPressRecipeWrapper recipeWrapper,
-			IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull disablingPressRecipeWrapper recipeWrapper,
+						  @Nonnull IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(0, true, 22, 6);
 		guiItemStacks.init(2, true, 76, 42);

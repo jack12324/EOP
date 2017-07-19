@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketClientState implements IMessage, IMessageHandler<PacketClientState, IMessage> {
+class PacketClientState implements IMessage, IMessageHandler<PacketClientState, IMessage> {
 
 	private long pos;
 
@@ -32,7 +32,7 @@ public class PacketClientState implements IMessage, IMessageHandler<PacketClient
 		spreadMode = buf.readBoolean();
 	}
 
-	public BlockPos getPos() {
+	private BlockPos getPos() {
 		return BlockPos.fromLong(pos);
 	}
 

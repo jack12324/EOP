@@ -3,6 +3,7 @@ package com.jack12324.eop.jei;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.jack12324.eop.ExtremeOreProcessing;
@@ -19,14 +20,14 @@ import net.minecraft.item.ItemStack;
 //Copied partially from the Immersive engineering mod, credit to BluSunrize
 public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 		implements IRecipeCategory<W>, IRecipeWrapperFactory<T> {
-	public String uniqueName;
-	public String localizedName;
+	private final String uniqueName;
+	private final String localizedName;
 	private final IDrawable background;
 	private final Class<T> recipeClass;
 	private final ItemStack[] displayStacks;
 
-	public EOPRecipeCategory(String uniqueName, String localKey, IDrawable background, Class<T> recipeClass,
-			ItemStack... displayStacks) {
+	protected EOPRecipeCategory(String uniqueName, String localKey, IDrawable background, Class<T> recipeClass,
+                                ItemStack... displayStacks) {
 		this.uniqueName = uniqueName;
 		this.localizedName = I18n.format(localKey);
 		this.background = background;
@@ -41,7 +42,7 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 	}
 
 	@Override
-	public void drawExtras(Minecraft minecraft) {
+	public void drawExtras(@Nonnull Minecraft minecraft) {
 		System.out.println("yeet");
 		this.drawProgress(minecraft);
 		this.drawPowerBar(minecraft);
@@ -56,6 +57,7 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 
 	}
 
+	@Nonnull
 	@Override
 	public IDrawable getBackground() {
 		return background;
@@ -67,6 +69,7 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 		return null;
 	}
 
+	@Nonnull
 	@Override
 	public String getModName() {
 		return ExtremeOreProcessing.name;
@@ -82,16 +85,19 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 		return this.recipeClass;
 	}
 
+	@Nonnull
 	@Override
 	public String getTitle() {
 		return localizedName;
 	}
 
+	@Nonnull
 	@Override
 	public List<String> getTooltipStrings(int mouseX, int mouseY) {
 		return Collections.emptyList();
 	}
 
+	@Nonnull
 	@Override
 	public String getUid() {
 		return "eop." + uniqueName;

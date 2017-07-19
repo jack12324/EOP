@@ -9,10 +9,12 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class ContainerEqualizingSmelter extends Container {
 
 	private int[] cachedFields;
-	private TileEntityEqualizingSmelter equalizingSmelter;
+	private final TileEntityEqualizingSmelter equalizingSmelter;
 
 	public ContainerEqualizingSmelter(InventoryPlayer playerInv, final TileEntityEqualizingSmelter equalizingSmelter) {
 		this.equalizingSmelter = equalizingSmelter;
@@ -84,10 +86,11 @@ public class ContainerEqualizingSmelter extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
+	public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
 		return equalizingSmelter.isUsableByPlayer(playerIn);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;

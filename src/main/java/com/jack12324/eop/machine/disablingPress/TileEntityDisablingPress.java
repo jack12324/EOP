@@ -14,9 +14,9 @@ import net.minecraft.item.Item;
 
 public class TileEntityDisablingPress extends TEPowered {
 
-	public static List<Item> fuel = new ArrayList<>(
+	public static final List<Item> fuel = new ArrayList<>(
 			Arrays.asList(Item.getItemFromBlock(Blocks.BROWN_MUSHROOM), Item.getItemFromBlock(Blocks.RED_MUSHROOM)));
-	static List<Integer> fuelTime = new ArrayList<>(Arrays.asList(800, 800));
+	private static final List<Integer> fuelTime = new ArrayList<>(Arrays.asList(800, 800));
 
 	public TileEntityDisablingPress() {
 		super("disabling_press", new InventorySlotHelper(1, 1, 1, 1, 0));

@@ -9,6 +9,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public abstract class MachineContainer extends Container {
 	protected void addInventorySlots(InventoryPlayer playerInv) {
 		for (int i = 0; i < 3; i++) {
@@ -39,7 +41,8 @@ public abstract class MachineContainer extends Container {
 				});
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);

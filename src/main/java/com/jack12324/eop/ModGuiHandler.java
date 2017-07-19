@@ -121,8 +121,8 @@ public class ModGuiHandler implements IGuiHandler {
 			return new GuiTriCatalystInfuser(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
 					(TileEntityTriCatalystInfuser) world.getTileEntity(xyz));
 		case UPGRADES:
-			return new GuiUpgrade(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					world.getTileEntity(xyz));
+			return new GuiUpgrade(getServerGuiElement(ID, player, world, x, y, z),
+                    world.getTileEntity(xyz));
 		default:
 			return null;
 		}

@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 
 public class ModHoe extends net.minecraft.item.ItemHoe implements ItemModelProvider {
 
-	private String name;
+	private final String name;
 
 	public ModHoe(ToolMaterial material, String name) {
 		super(material);

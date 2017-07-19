@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class DPRecipe extends BasicRecipe implements IBaseRecipe {
 
-	private ItemStack base;
+	private final ItemStack base;
 
 	public DPRecipe(ItemStack input, ItemStack base, ItemStack output) {
 		super(input, output);

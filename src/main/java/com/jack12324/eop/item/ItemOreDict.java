@@ -4,7 +4,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemOreDict extends ItemBase implements ItemOreDictionary {
 
-	private String oreName;
+	private final String oreName;
 
 	public ItemOreDict(String name, String oreName) {
 		super(name);

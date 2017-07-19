@@ -5,8 +5,10 @@ import com.jack12324.eop.ExtremeOreProcessing;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
+import javax.annotation.Nonnull;
+
 public class ItemBase extends Item implements ItemModelProvider {
-	protected String name;
+	private final String name;
 
 	public ItemBase(String name) {
 		this.name = name;
@@ -25,8 +27,9 @@ public class ItemBase extends Item implements ItemModelProvider {
 		ExtremeOreProcessing.proxy.registerItemRenderer(item, 0, name);
 	}
 
+	@Nonnull
 	@Override
-	public ItemBase setCreativeTab(CreativeTabs tab) {
+	public ItemBase setCreativeTab(@Nonnull CreativeTabs tab) {
 		super.setCreativeTab(tab);
 		return this;
 	}

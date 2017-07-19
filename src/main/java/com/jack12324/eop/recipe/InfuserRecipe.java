@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class InfuserRecipe implements EOPRecipe, IMultipleInputRecipe, IFluidInRecipe, IFluidOutRecipe {
-	public ItemStack[] inputStacks;
-	public FluidStack inFluid;
-	public FluidStack outFluid;
+	private final ItemStack[] inputStacks;
+	private final FluidStack inFluid;
+	private final FluidStack outFluid;
 
 	public InfuserRecipe(ItemStack[] itemInput, FluidStack inFluid, FluidStack outFluid) {
 		this.inputStacks = itemInput;

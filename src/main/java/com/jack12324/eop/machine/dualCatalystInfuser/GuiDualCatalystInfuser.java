@@ -14,25 +14,23 @@ import net.minecraft.util.ResourceLocation;
 public class GuiDualCatalystInfuser extends GuiBase {
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/dual_catalyst_infuser.png");
-	static int[] progressBarVals = { 63, // X to start draw
+	private static final int[] progressBarVals = { 63, // X to start draw
 			24, // y to start draw
 			3, // x of texture location
 			170, // y of texture location
 			86, // width
 			35// height
 	};
-	private TileEntityDualCatalystInfuser tileEntity;
-	private InventoryPlayer playerInv;
+	private final TileEntityDualCatalystInfuser tileEntity;
 
 	private FluidBar fb2;
 
-	final int FLUID_XPOS2 = 151;
-	final int FLUID_YPOS2 = 18;
+	private final int FLUID_XPOS2 = 151;
+	private final int FLUID_YPOS2 = 18;
 
 	public GuiDualCatalystInfuser(Container inventorySlotsIn, InventoryPlayer playerInv,
 			TileEntityDualCatalystInfuser tileEntity) {
 		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);
-		this.playerInv = playerInv;
 		this.tileEntity = tileEntity;
 	}
 

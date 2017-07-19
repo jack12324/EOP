@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class TEFluidUser extends TEPowered {
-	protected ArrayList<Fluid> inFluid;
+	final ArrayList<Fluid> inFluid;
 	private int oldInFluidAmount;
 	public final FluidTank inTank = new FluidTank(2000) {
 		@Override
@@ -30,7 +30,7 @@ public abstract class TEFluidUser extends TEPowered {
 		}
 	};
 
-	public TEFluidUser(String name, InventorySlotHelper slots, int tankSize) {
+	protected TEFluidUser(String name, InventorySlotHelper slots, int tankSize) {
 		super(name, slots);
 		this.inFluid = new ArrayList<>(RecipeHandler.getInFluids(this.getRecipeList()));
 		this.inTank.setCapacity(tankSize);
@@ -57,7 +57,7 @@ public abstract class TEFluidUser extends TEPowered {
 		return (int) (this.inTank.getFluidAmount() * i / (double) this.inTank.getCapacity());
 	}
 
-	protected void oldInFluidCheck() {
+	private void oldInFluidCheck() {
 		if (this.oldInFluidAmount != this.inTank.getFluidAmount() && this.sendUpdateWithInterval()) {
 			System.out.println("influid");
 			this.oldInFluidAmount = this.inTank.getFluidAmount();

@@ -14,10 +14,10 @@ public final class InitFluids {
 	public static Fluid fluidLiquidEnd;
 	public static Fluid fluidDragonSoul;
 
-	public static Block blockScreamingLava;
-	public static Block blockStarWater;
-	public static Block blockLiquidEnd;
-	public static Block blockDragonSoul;
+	private static Block blockScreamingLava;
+	private static Block blockStarWater;
+	private static Block blockLiquidEnd;
+	private static Block blockDragonSoul;
 
 	public static void init() {
 		fluidScreamingLava = registerFluid("screaminglava", "block_screaming_lava").setLuminosity(10)

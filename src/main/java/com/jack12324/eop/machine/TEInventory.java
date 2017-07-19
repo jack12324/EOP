@@ -13,22 +13,22 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 public abstract class TEInventory extends TETickingMachine {
 
-	public static boolean isValid(ItemStack stack) {
+	private static boolean isValid(ItemStack stack) {
 		return stack != null && !stack.isEmpty();
 	}
 
-	public static void loadSlots(IItemHandlerModifiable slots, NBTTagCompound compound) {
+	private static void loadSlots(IItemHandlerModifiable slots, NBTTagCompound compound) {
 		if (slots != null && slots.getSlots() > 0) {
 			NBTTagList tagList = compound.getTagList("Items", 10);
 			for (int i = 0; i < slots.getSlots(); i++) {
 				NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
 				slots.setStackInSlot(i,
-						tagCompound != null && tagCompound.hasKey("id") ? new ItemStack(tagCompound) : ItemStack.EMPTY);
+						tagCompound.hasKey("id") ? new ItemStack(tagCompound) : ItemStack.EMPTY);
 			}
 		}
 	}
 
-	public static void saveSlots(IItemHandler slots, NBTTagCompound compound) {
+	private static void saveSlots(IItemHandler slots, NBTTagCompound compound) {
 		if (slots != null && slots.getSlots() > 0) {
 			NBTTagList tagList = new NBTTagList();
 			for (int i = 0; i < slots.getSlots(); i++) {
@@ -47,7 +47,7 @@ public abstract class TEInventory extends TETickingMachine {
 
 	public final InventorySlotHelper slotHelper;
 
-	public TEInventory(InventorySlotHelper slots, String name) {
+	protected TEInventory(InventorySlotHelper slots, String name) {
 		super(name);
 		this.slotHelper = slots;
 		this.slots = new EOPItemStackHandler(slotHelper.getTotalSize()) {
@@ -77,7 +77,7 @@ public abstract class TEInventory extends TETickingMachine {
 		};
 	}
 
-	public boolean canExtractItem(int slot, ItemStack stack) {
+	private boolean canExtractItem(int slot, ItemStack stack) {
 		System.out.println("canExtractItem TEInventory");
 		for (int index : this.slotHelper.getOut()) {
 			if (index == slot)
@@ -96,11 +96,11 @@ public abstract class TEInventory extends TETickingMachine {
 		return this.slots;
 	}
 
-	public int getMaxStackSizePerSlot(int slot) {
+	private int getMaxStackSizePerSlot(int slot) {
 		return 64;
 	}
 
-	public boolean isItemValidForSlot(int slot, ItemStack stack) {
+	boolean isItemValidForSlot(int slot, ItemStack stack) {
 		System.out.println("isItemValidForSlot TEInventory");
 		return true;
 	}
@@ -122,7 +122,7 @@ public abstract class TEInventory extends TETickingMachine {
 		}
 	}
 
-	public boolean shouldSyncSlots() {
+	private boolean shouldSyncSlots() {
 		return false;
 	}
 

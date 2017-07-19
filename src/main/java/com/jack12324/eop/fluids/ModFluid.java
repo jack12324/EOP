@@ -5,7 +5,7 @@ import com.jack12324.eop.ExtremeOreProcessing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 
-public class ModFluid extends Fluid {
+class ModFluid extends Fluid {
 
 	public ModFluid(String fluidName, String textureName) {
 		super(fluidName, new ResourceLocation(ExtremeOreProcessing.modID, "blocks/" + textureName + "_still"),

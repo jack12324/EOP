@@ -10,22 +10,17 @@ import net.minecraft.util.ResourceLocation;
 public class GuiParticleExciter extends GuiBase {
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/particle_exciter.png");
-	static int[] progressBarVals = { 43, // X to start draw
+	private static final int[] progressBarVals = { 43, // X to start draw
 			18, // y to start draw
 			2, // x of texture location
 			169, // y of texture location
 			89, // width
 			49// height
 	};
-	private TileEntityParticleExciter tileEntity;
-
-	private InventoryPlayer playerInv;
 
 	public GuiParticleExciter(Container inventorySlotsIn, InventoryPlayer playerInv,
 			TileEntityParticleExciter tileEntity) {
 		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);
-		this.playerInv = playerInv;
-		this.tileEntity = tileEntity;
 
 	}
 

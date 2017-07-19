@@ -6,6 +6,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
+
 public class SlotItemHandlerEOP extends SlotItemHandler {
 
 	private final EOPItemStackHandler handler;
@@ -20,13 +22,14 @@ public class SlotItemHandlerEOP extends SlotItemHandler {
 		return !this.handler.extractItemIgnoreCondition(this.getSlotIndex(), 1, true).isEmpty();
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack decrStackSize(int amount) {
 		return this.handler.extractItemIgnoreCondition(this.getSlotIndex(), amount, false);
 	}
 
 	@Override
-	public int getItemStackLimit(ItemStack stack) {
+	public int getItemStackLimit(@Nonnull ItemStack stack) {
 		ItemStack maxAdd = stack.copy();
 		maxAdd.setCount(stack.getMaxStackSize());
 		ItemStack currentStack = this.handler.getStackInSlot(this.getSlotIndex());
@@ -41,7 +44,7 @@ public class SlotItemHandlerEOP extends SlotItemHandler {
 	 * using insertItemPlayer()
 	 */
 	@Override
-	public boolean isItemValid(ItemStack stack) {
+	public boolean isItemValid(@Nonnull ItemStack stack) {
 		if (stack != null && !stack.isEmpty()) {
 			ItemStack currentStack = this.handler.getStackInSlot(this.getSlotIndex());
 			this.handler.setStackInSlot(this.getSlotIndex(), ItemStack.EMPTY);

@@ -12,7 +12,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class disablingPressRecipeWrapper extends BlankRecipeWrapper {
+import javax.annotation.Nonnull;
+
+class disablingPressRecipeWrapper extends BlankRecipeWrapper {
 
 	private final ItemStack input;
 	private final ItemStack output;
@@ -26,13 +28,13 @@ public class disablingPressRecipeWrapper extends BlankRecipeWrapper {
 	}
 
 	@Override
-	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 
 	}
 
 	@Override
-	public void getIngredients(IIngredients ingredients) {
+	public void getIngredients(@Nonnull IIngredients ingredients) {
 		List<ItemStack> list = new ArrayList<>();
 		list.add(input);
 		List<ItemStack> list2 = new ArrayList<>();

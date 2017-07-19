@@ -26,22 +26,22 @@ public abstract class TEPowered extends TEInventory {
 	private int burnTimeInitialValue;
 	private int burnTimeRemaining;
 	private int[] inProgressTime;
-	private int[] oldValues;
+	private final int[] oldValues;
 	private int baseSpeed = 1;
 	private int fuelMultiplier = 1;
 	private boolean hasBase;
-	private boolean usesFuel;
+	private final boolean usesFuel;
 	private int oldEnergy;
 
-	public EOPEnergyStorage storage;
+	public final EOPEnergyStorage storage;
 
 	private boolean lastActive = false;
 
-	public TEPowered(String name, InventorySlotHelper slots) {
+	protected TEPowered(String name, InventorySlotHelper slots) {
 		this(name, slots, 100000, 100000, 0);
 	}
 
-	public TEPowered(String name, InventorySlotHelper slots, int capacity, int recieve, int extract) {
+	private TEPowered(String name, InventorySlotHelper slots, int capacity, int recieve, int extract) {
 
 		super(new InventorySlotHelper(slots, 2), name);
 		inProgressTime = new int[slots.getInSlotSize()];
@@ -52,7 +52,7 @@ public abstract class TEPowered extends TEInventory {
 	}
 
 	/** handles fuel usage, also returns true if fuel is currently being used */
-	protected boolean burnFuel() {
+	private boolean burnFuel() {
 		boolean inventoryChanged = false;
 		boolean burning = false;
 		int fuelSlotNumber = this.slotHelper.getFuelSlotIndex(0);
@@ -163,7 +163,7 @@ public abstract class TEPowered extends TEInventory {
 		return MathHelper.clamp(fraction, 0.0, 1.0);
 	}
 
-	public ItemStack getBase() {
+	ItemStack getBase() {
 		return this.slots.getStackInSlot(this.slotHelper.getBaseSlotIndex(0));
 	}
 
@@ -198,11 +198,11 @@ public abstract class TEPowered extends TEInventory {
 	 * Returns the number of ticks that the supplied fuel item will keep the
 	 * activationChamber burning, or 0 if the item isn't fuel
 	 */
-	public Item getFuel(int i) {
+	protected Item getFuel(int i) {
 		return null;
 	}
 
-	public int getFuelBurnTime(ItemStack stack) {
+	private int getFuelBurnTime(ItemStack stack) {
 		if (stack.isEmpty()) {
 			return 0;
 		} else {
@@ -220,11 +220,11 @@ public abstract class TEPowered extends TEInventory {
 		return this.fuelMultiplier;
 	}
 
-	public int getFuelSize() {
+	protected int getFuelSize() {
 		return 0;
 	}
 
-	public int getFuelTime(int i) {
+	protected int getFuelTime(int i) {
 		return 0;
 	}
 
@@ -235,7 +235,7 @@ public abstract class TEPowered extends TEInventory {
 	/**
 	 * @return array of ItemStacks corresponding to input slots
 	 */
-	public ItemStack[] getInputSlotItemStacks() {
+	ItemStack[] getInputSlotItemStacks() {
 		ItemStack[] stack = new ItemStack[this.slotHelper.getInSlotSize()];
 		for (int i = 0; i < stack.length; i++) {
 			stack[i] = this.slots.getStackInSlot(this.slotHelper.getInSlotIndex(i));
@@ -252,7 +252,7 @@ public abstract class TEPowered extends TEInventory {
 	 *            ItemStack which is the result stack
 	 * @return index of available output slot or -1 if none are available
 	 */
-	public int getOutSlot(ItemStack itemstack) {
+	int getOutSlot(ItemStack itemstack) {
 		ItemStack outSlot;
 		boolean slotUsable;
 		for (int i = 0; i < this.slotHelper.getOutSlotSize(); i++) {
@@ -273,7 +273,7 @@ public abstract class TEPowered extends TEInventory {
 		return -1;
 	}
 
-	public ArrayList<EOPRecipe> getRecipeList() {
+	protected ArrayList<EOPRecipe> getRecipeList() {
 		ExtremeOreProcessing.LOGGER.warn("EOP Warning: Sending empty recipe list");
 		return new ArrayList<>();
 	}
@@ -371,7 +371,7 @@ public abstract class TEPowered extends TEInventory {
 		super.readSyncableNBT(compound, type);
 	}
 
-	protected void resetTime() {
+	private void resetTime() {
 		for (int i = 0; i < inProgressTime.length; i++)
 			inProgressTime[i] = 0;// TODO fix
 	}
@@ -396,7 +396,7 @@ public abstract class TEPowered extends TEInventory {
 		this.fuelMultiplier = fuelMultiplier;
 	}
 
-	public void setInProgressTime(int index, int value) {
+	protected void setInProgressTime(int index, int value) {
 		inProgressTime[index] = value;
 	}
 
@@ -431,11 +431,11 @@ public abstract class TEPowered extends TEInventory {
 
 	}
 
-	public void useFluid(ItemStack[] input) {
+	void useFluid(ItemStack[] input) {
 
 	}
 
-	public void useFluid(ItemStack[] input, ItemStack base) {
+	void useFluid(ItemStack[] input, ItemStack base) {
 
 	}
 
@@ -454,7 +454,7 @@ public abstract class TEPowered extends TEInventory {
 			result = RecipeHandler.getItemOutput(this.getRecipeList(), input);
 		int outIndex = this.getOutSlot(result);
 		ItemStack output;// TODO risky
-		if (outIndex != -1) {
+		if (outIndex != -1&&result!=null&&!result.isEmpty()) {
 			output = this.slots.getStackInSlot(outIndex);
 			if (output.isEmpty()) {
 				this.slots.setStackInSlot(outIndex, result.copy());
@@ -472,7 +472,7 @@ public abstract class TEPowered extends TEInventory {
 			this.useFluid(input);
 	}
 
-	protected boolean useLogic() {
+	private boolean useLogic() {
 		boolean burning;
 		boolean powered;
 		boolean active;

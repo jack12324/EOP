@@ -21,23 +21,22 @@ import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
 
+import javax.annotation.Nonnull;
+
 @JEIPlugin
 public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 
-	public static IJeiHelpers jeiHelpers;
-	public static IModRegistry modRegistry;
-
-	Map<Class, EOPRecipeCategory> categories = new LinkedHashMap<>();
+	private final Map<Class, EOPRecipeCategory> categories = new LinkedHashMap<>();
 
 	@Override
-	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+	public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void register(IModRegistry registryIn) {
-		modRegistry = registryIn;
+	public void register(@Nonnull IModRegistry registryIn) {
+		IModRegistry modRegistry = registryIn;
 		for (EOPRecipeCategory<Object, IRecipeWrapper> cat : categories.values()) {
 			cat.addCatalysts(registryIn);
 			modRegistry.handleRecipes(cat.getRecipeClass(), cat, cat.getRecipeCategoryUid());
@@ -49,8 +48,8 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 	}
 
 	@Override
-	public void registerCategories(IRecipeCategoryRegistration registry) {
-		jeiHelpers = registry.getJeiHelpers();
+	public void registerCategories(@Nonnull IRecipeCategoryRegistration registry) {
+		IJeiHelpers jeiHelpers = registry.getJeiHelpers();
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
 		categories.put(BasicRecipe.class, new activationChamberRecipeCategory(guiHelper));
@@ -61,13 +60,13 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 	}
 
 	@Override
-	public void registerIngredients(IModIngredientRegistration registry) {
+	public void registerIngredients(@Nonnull IModIngredientRegistration registry) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
+	public void registerItemSubtypes(@Nonnull ISubtypeRegistry subtypeRegistry) {
 		// TODO Auto-generated method stub
 
 	}

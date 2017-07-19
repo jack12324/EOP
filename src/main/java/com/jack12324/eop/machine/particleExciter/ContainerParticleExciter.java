@@ -11,9 +11,11 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class ContainerParticleExciter extends Container {
 	private int[] cachedFields;
-	private TileEntityParticleExciter tileEntity;
+	private final TileEntityParticleExciter tileEntity;
 
 	public ContainerParticleExciter(InventoryPlayer playerInv, final TileEntityParticleExciter tileEntity) {
 		this.tileEntity = tileEntity;
@@ -49,10 +51,11 @@ public class ContainerParticleExciter extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
+	public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
 		return tileEntity.isUsableByPlayer(playerIn);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;

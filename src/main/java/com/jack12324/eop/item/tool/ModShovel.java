@@ -8,7 +8,7 @@ import net.minecraft.item.ItemSpade;
 
 public class ModShovel extends ItemSpade implements ItemModelProvider {
 
-	private String name;
+	private final String name;
 
 	public ModShovel(ToolMaterial material, String name) {
 		super(material);

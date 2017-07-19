@@ -38,13 +38,11 @@ public class ModItems {
 	public static ModShovel tungstenShovel;
 	public static ModAxe tungstenAxe;
 	public static ModHoe tungstenHoe;
-	public static ModSword swordPrickly;
 
 	public static ModArmor tungstenHelmet;
 	public static ModArmor tungstenChestplate;
 	public static ModArmor tungstenLeggings;
 	public static ModArmor tungstenBoots;
-	public static ModArmor cobaltHelmet;
 
 	public static ItemPeaSeed peaSeed;
 	public static ItemBase pea;
@@ -82,7 +80,7 @@ public class ModItems {
 	public static ItemBase speedUpgrade;
 	public static ItemBase energyUpgrade;
 
-	public static ItemBase dragonScale;
+	private static ItemBase dragonScale;
 
 	public static ItemBase cactusSpine;
 
@@ -131,7 +129,6 @@ public class ModItems {
 		tungstenAxe = register(new ModAxe(ExtremeOreProcessing.tungstenToolMaterial, "axe_tungsten"));
 		tungstenShovel = register(new ModShovel(ExtremeOreProcessing.tungstenToolMaterial, "shovel_tungsten"));
 		tungstenHoe = register(new ModHoe(ExtremeOreProcessing.tungstenToolMaterial, "hoe_tungsten"));
-		swordPrickly = register(new ModSword(ExtremeOreProcessing.cactusToolMaterial, "prickly_sword"));
 
 		// God Tier Crops
 		pea = register(new ItemBase("pea").setCreativeTab(CreativeTabs.FOOD));

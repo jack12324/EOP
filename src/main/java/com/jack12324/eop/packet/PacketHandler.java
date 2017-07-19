@@ -26,7 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class PacketHandler {
 	public static final List<IDataHandler> DATA_HANDLERS = new ArrayList<>();
 	public static SimpleNetworkWrapper NETWORK;
-	public static ModGuiHandler modGuiHandler = new ModGuiHandler();
+	private static final ModGuiHandler modGuiHandler = new ModGuiHandler();
 	public static final IDataHandler TILE_ENTITY_HANDLER = new IDataHandler() {
 		@Override
 		@SideOnly(Side.CLIENT)
@@ -67,9 +67,7 @@ public class PacketHandler {
 				EntityPlayerMP playerMP = (EntityPlayerMP) player;
 				World worldServer = FMLCommonHandler.instance().getMinecraftServerInstance()
 						.worldServerForDimension(coord4D.dimensionId);
-				System.out.println((worldServer == null) + " worldServer null Check");
-				if (worldServer != null && coord4D.getTileEntity(worldServer) instanceof TETickingMachine) {
-					System.out.println("worldServer notnull");
+				if (coord4D.getTileEntity(worldServer) instanceof TETickingMachine) {
 					playerMP.closeContainer();
 					playerMP.getNextWindowId();
 
@@ -94,7 +92,7 @@ public class PacketHandler {
 
 	};
 
-	public static final void init() {
+	public static void init() {
 		NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(ExtremeOreProcessing.modID);
 		NETWORK.registerMessage(PacketServerToClient.Handler.class, PacketServerToClient.class, 0, Side.CLIENT);
 		NETWORK.registerMessage(PacketClientToServer.Handler.class, PacketClientToServer.class, 1, Side.SERVER);

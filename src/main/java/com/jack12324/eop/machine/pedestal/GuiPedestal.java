@@ -16,12 +16,12 @@ import net.minecraft.util.ResourceLocation;
 public class GuiPedestal extends GuiContainer {
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/pedestal.png");
-	private InventoryPlayer playerInv;
+	private final InventoryPlayer playerInv;
 	private FluidBar fb;
-	private TileEntityPedestal tileEntity;
-	final int FLUID_XPOS = 79;
+	private final TileEntityPedestal tileEntity;
+	private final int FLUID_XPOS = 79;
 
-	final int FLUID_YPOS = 21;
+	private final int FLUID_YPOS = 21;
 
 	public GuiPedestal(Container container, InventoryPlayer playerInv, TileEntityPedestal tileEntity) {
 		super(container);

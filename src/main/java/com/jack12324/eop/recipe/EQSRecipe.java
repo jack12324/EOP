@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 
 public class EQSRecipe implements EOPRecipe, IMultipleInputRecipe, IOneOutput {
 
-	ItemStack[] inputs;
-	ItemStack output;
+	private final ItemStack[] inputs;
+	private final ItemStack output;
 
 	EQSRecipe(ItemStack[] inputs, ItemStack output) {
 		this.inputs = inputs;

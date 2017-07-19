@@ -40,6 +40,7 @@ public class EOPItemStackHandler extends ItemStackHandler {
 		return itemStackRemoved;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate) {
 		if (amount <= 0) {
@@ -83,10 +84,7 @@ public class EOPItemStackHandler extends ItemStackHandler {
 		return result;
 	}
 
-	public void grow(int index, int amount) {
-		getStackInSlot(index).grow(amount);
-	}
-
+    @Nonnull
 	@Override
 	public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 		if (stack.isEmpty()) {
@@ -133,7 +131,7 @@ public class EOPItemStackHandler extends ItemStackHandler {
 		return result;
 	}
 
-	public void setInventorySlotContents(int slotIndex, ItemStack itemstack) {
+	private void setInventorySlotContents(int slotIndex, ItemStack itemstack) {
 		setStackInSlot(slotIndex, itemstack);
 		if (itemstack.isEmpty() && itemstack.getCount() > getSlotLimit(slotIndex)) {
 			itemstack.setCount(getSlotLimit(slotIndex));

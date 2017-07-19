@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class ModItemBlock extends ItemBlock {
 
 	public ModItemBlock(Block block) {
@@ -17,7 +19,8 @@ public class ModItemBlock extends ItemBlock {
 		return damage;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public String getUnlocalizedName(ItemStack stack) {
 		return this.getUnlocalizedName();
 	}

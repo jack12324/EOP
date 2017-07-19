@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityPedestal extends TEInventory {
 
-	private ArrayList<Fluid> outFluid;
+	private final ArrayList<Fluid> outFluid;
 	private int oldFluidAmount;
 	private boolean lastActive = false;
 	public final FluidTank tank = new FluidTank(1000) {
@@ -44,7 +44,7 @@ public class TileEntityPedestal extends TEInventory {
 		return RecipeHolder.PEDESTALRECIPES;
 	}
 
-	protected boolean canUse() {
+	private boolean canUse() {
 		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), this.slots.getStackInSlot(0));
 
         return result != null && (this.tank.getFluidAmount() <= 0 || result.isFluidEqual(this.tank.getFluid()))
@@ -56,7 +56,7 @@ public class TileEntityPedestal extends TEInventory {
 		return (int) (this.tank.getFluidAmount() * i / (double) this.tank.getCapacity());
 	}
 
-	protected void oldFluidCheck() {
+	private void oldFluidCheck() {
 		if (this.oldFluidAmount != this.tank.getFluidAmount() && this.sendUpdateWithInterval()) {
 			this.oldFluidAmount = this.tank.getFluidAmount();
 		}
@@ -89,7 +89,7 @@ public class TileEntityPedestal extends TEInventory {
 		}
 	}
 
-	protected boolean useLogic(boolean canUse) {
+	private boolean useLogic(boolean canUse) {
 		boolean active = false;
 
 		if (canUse) {

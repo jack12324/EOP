@@ -8,10 +8,12 @@ import com.jack12324.eop.machine.slot.SlotSpecific;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 
+import javax.annotation.Nonnull;
+
 public class ContainerActivationChamber extends MachineContainer {
 
 	private int[] cachedFields;
-	private TileEntityActivationChamber activationChamber;
+	private final TileEntityActivationChamber activationChamber;
 
 	public ContainerActivationChamber(InventoryPlayer playerInv, final TileEntityActivationChamber activationChamber) {
 		this.activationChamber = activationChamber;
@@ -22,7 +24,7 @@ public class ContainerActivationChamber extends MachineContainer {
 				activationChamber.markDirty();
 			}
 		});
-		addSlotToContainer(new SlotSpecific(activationChamber.slots, 2, 80, 48, activationChamber.fuel) {
+		addSlotToContainer(new SlotSpecific(activationChamber.slots, 2, 80, 48, TileEntityActivationChamber.fuel) {
 			@Override
 			public void onSlotChanged() {
 				activationChamber.markDirty();
@@ -40,7 +42,7 @@ public class ContainerActivationChamber extends MachineContainer {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
+	public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
 		return activationChamber.isUsableByPlayer(playerIn);
 	}
 
