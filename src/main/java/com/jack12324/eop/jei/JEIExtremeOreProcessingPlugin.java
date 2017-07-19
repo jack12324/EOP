@@ -4,10 +4,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.jack12324.eop.jei.activationChamber.activationChamberRecipeCategory;
+import com.jack12324.eop.jei.catalystInfuser.CatalystInfuserRecipeCategory;
 import com.jack12324.eop.jei.disablingPress.disablingPressRecipeCategory;
 import com.jack12324.eop.machine.activationChamber.GuiActivationChamber;
 import com.jack12324.eop.recipe.BasicRecipe;
 import com.jack12324.eop.recipe.DPRecipe;
+import com.jack12324.eop.recipe.InfuserRecipe;
 import com.jack12324.eop.recipe.RecipeHolder;
 
 import mezz.jei.api.IGuiHelper;
@@ -43,6 +45,7 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 		}
 		modRegistry.addRecipes(RecipeHolder.ACTIVATIONCHAMBERRECIPES, "eop.activation_chamber");
 		modRegistry.addRecipes(RecipeHolder.DISABLINGPRESSRECIPES, "eop.disabling_press");
+		modRegistry.addRecipes(RecipeHolder.CATALYSTINFUSERRECIPES, "eop.catalyst_infuser");
 
 		modRegistry.addRecipeClickArea(GuiActivationChamber.class, 49, 30, 77, 15, "eop.activation_chamber");
 	}
@@ -54,6 +57,7 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 
 		categories.put(BasicRecipe.class, new activationChamberRecipeCategory(guiHelper));
 		categories.put(DPRecipe.class, new disablingPressRecipeCategory(guiHelper));
+		categories.put(InfuserRecipe.class, new CatalystInfuserRecipeCategory(guiHelper));
 
 		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
 
