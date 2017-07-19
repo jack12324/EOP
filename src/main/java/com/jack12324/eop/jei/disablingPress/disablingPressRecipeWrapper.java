@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jack12324.eop.machine.disablingPress.TileEntityDisablingPress;
-import com.jack12324.eop.recipe.DPRecipe;
+import com.jack12324.eop.recipe.recipes.DPRecipe;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;

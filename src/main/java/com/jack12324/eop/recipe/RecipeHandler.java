@@ -12,6 +12,7 @@ import com.jack12324.eop.recipe.recipeInterfaces.IMultipleInputRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IOneInputRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IOneOutput;
 
+import com.jack12324.eop.recipe.recipes.PedestalRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;

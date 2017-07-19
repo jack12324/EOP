@@ -1,4 +1,4 @@
-package com.jack12324.eop.recipe;
+package com.jack12324.eop.recipe.recipes;
 
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IMultipleInputRecipe;
@@ -11,7 +11,7 @@ public class EQSRecipe implements EOPRecipe, IMultipleInputRecipe, IOneOutput {
 	private final ItemStack[] inputs;
 	private final ItemStack output;
 
-	EQSRecipe(ItemStack[] inputs, ItemStack output) {
+	public EQSRecipe(ItemStack[] inputs, ItemStack output) {
 		this.inputs = inputs;
 		this.output = output;
 	}

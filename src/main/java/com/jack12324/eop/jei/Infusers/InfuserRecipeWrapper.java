@@ -1,12 +1,9 @@
-package com.jack12324.eop.jei.catalystInfuser;
+package com.jack12324.eop.jei.Infusers;
 
-import com.jack12324.eop.machine.catalystInfuser.TileEntityCatalystInfuser;
-import com.jack12324.eop.recipe.BasicRecipe;
-import com.jack12324.eop.recipe.InfuserRecipe;
+import com.jack12324.eop.recipe.recipes.InfuserRecipe;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -15,13 +12,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class CatalystInfuserRecipeWrapper extends BlankRecipeWrapper {
+class InfuserRecipeWrapper extends BlankRecipeWrapper {
 
 	private final List<ItemStack> inputs;
 	private final FluidStack inFluid;
 	private final FluidStack outFluid;
 
-	public CatalystInfuserRecipeWrapper(InfuserRecipe recipe) {
+	public InfuserRecipeWrapper(InfuserRecipe recipe) {
 		this.inputs = new ArrayList<>(Arrays.asList(recipe.getInputStacks()));
 		this.inFluid=recipe.getInFluidStack();
 		this.outFluid = recipe.getOutFluidStack();

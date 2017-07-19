@@ -43,10 +43,10 @@ public class ModBlocks {
 	public static BlockParticleExciter particleExciter;
 	public static BlockPedestal pedestal;
 	public static BlockCatalystInfuser catalystInfuser;
-	private static BlockDualCatalystInfuser dualCatalystInfuser;
-	private static BlockEndericPurifier endericPurifier;
-	private static BlockStarHardener starHardener;
-	private static BlockTriCatalystInfuser triCatalystInfuser;
+	public static BlockDualCatalystInfuser dualCatalystInfuser;
+	public static BlockEndericPurifier endericPurifier;
+	public static BlockStarHardener starHardener;
+	public static BlockTriCatalystInfuser triCatalystInfuser;
 
 	public static void init() {
 

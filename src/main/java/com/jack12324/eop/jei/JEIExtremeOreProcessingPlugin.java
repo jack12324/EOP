@@ -1,15 +1,17 @@
 package com.jack12324.eop.jei;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
+import com.jack12324.eop.jei.Infusers.CatalystInfuserRecipeCategory;
+import com.jack12324.eop.jei.Infusers.DualCatalystInfuserRecipeCategory;
+import com.jack12324.eop.jei.Infusers.TriCatalystInfuserRecipeCategory;
+import com.jack12324.eop.jei.Pedestal.PedestalRecipeCategory;
 import com.jack12324.eop.jei.activationChamber.activationChamberRecipeCategory;
-import com.jack12324.eop.jei.catalystInfuser.CatalystInfuserRecipeCategory;
+import com.jack12324.eop.jei.advancedMachines.EndericPurifierRecipeCategory;
+import com.jack12324.eop.jei.advancedMachines.ParticleExciterRecipeCategory;
+import com.jack12324.eop.jei.advancedMachines.StarHardenerRecipeCategory;
 import com.jack12324.eop.jei.disablingPress.disablingPressRecipeCategory;
 import com.jack12324.eop.machine.activationChamber.GuiActivationChamber;
-import com.jack12324.eop.recipe.BasicRecipe;
-import com.jack12324.eop.recipe.DPRecipe;
-import com.jack12324.eop.recipe.InfuserRecipe;
 import com.jack12324.eop.recipe.RecipeHolder;
 
 import mezz.jei.api.IGuiHelper;
@@ -28,7 +30,7 @@ import javax.annotation.Nonnull;
 @JEIPlugin
 public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 
-	private final Map<Class, EOPRecipeCategory> categories = new LinkedHashMap<>();
+	private final ArrayList<EOPRecipeCategory> categories = new ArrayList<>();
 
 	@Override
 	public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {
@@ -38,16 +40,22 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 
 	@Override
 	public void register(@Nonnull IModRegistry registryIn) {
-		IModRegistry modRegistry = registryIn;
-		for (EOPRecipeCategory<Object, IRecipeWrapper> cat : categories.values()) {
+		for (EOPRecipeCategory<Object, IRecipeWrapper> cat : categories) {
 			cat.addCatalysts(registryIn);
-			modRegistry.handleRecipes(cat.getRecipeClass(), cat, cat.getRecipeCategoryUid());
+			registryIn.handleRecipes(cat.getRecipeClass(), cat, cat.getRecipeCategoryUid());
 		}
-		modRegistry.addRecipes(RecipeHolder.ACTIVATIONCHAMBERRECIPES, "eop.activation_chamber");
-		modRegistry.addRecipes(RecipeHolder.DISABLINGPRESSRECIPES, "eop.disabling_press");
-		modRegistry.addRecipes(RecipeHolder.CATALYSTINFUSERRECIPES, "eop.catalyst_infuser");
+		registryIn.addRecipes(RecipeHolder.ACTIVATIONCHAMBERRECIPES, "eop.activation_chamber");
+		registryIn.addRecipes(RecipeHolder.DISABLINGPRESSRECIPES, "eop.disabling_press");
+		registryIn.addRecipes(RecipeHolder.CATALYSTINFUSERRECIPES, "eop.catalyst_infuser");
+		registryIn.addRecipes(RecipeHolder.DUALCATALYSTINFUSERRECIPES, "eop.dual_catalyst_infuser");
+		registryIn.addRecipes(RecipeHolder.TRICATALYSTINFUSERRECIPES, "eop.tri_catalyst_infuser");
+		registryIn.addRecipes(RecipeHolder.ENDERICPURIFIERRECIPES, "eop.enderic_purifier");
+		registryIn.addRecipes(RecipeHolder.PARTICLEEXCITERRECIPES, "eop.particle_exciter");
+		registryIn.addRecipes(RecipeHolder.STARHARDENERRECIPES, "eop.star_hardener");
+		registryIn.addRecipes(RecipeHolder.PEDESTALRECIPES, "eop.pedestal");
 
-		modRegistry.addRecipeClickArea(GuiActivationChamber.class, 49, 30, 77, 15, "eop.activation_chamber");
+
+		registryIn.addRecipeClickArea(GuiActivationChamber.class, 49, 30, 77, 15, "eop.activation_chamber");
 	}
 
 	@Override
@@ -55,11 +63,17 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
 		IJeiHelpers jeiHelpers = registry.getJeiHelpers();
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
-		categories.put(BasicRecipe.class, new activationChamberRecipeCategory(guiHelper));
-		categories.put(DPRecipe.class, new disablingPressRecipeCategory(guiHelper));
-		categories.put(InfuserRecipe.class, new CatalystInfuserRecipeCategory(guiHelper));
+		categories.add(new activationChamberRecipeCategory(guiHelper));
+		categories.add(new DualCatalystInfuserRecipeCategory(guiHelper));
+		categories.add(new CatalystInfuserRecipeCategory(guiHelper));
+		categories.add(new disablingPressRecipeCategory(guiHelper));
+		categories.add(new TriCatalystInfuserRecipeCategory(guiHelper));
+		categories.add(new StarHardenerRecipeCategory(guiHelper));
+		categories.add(new EndericPurifierRecipeCategory(guiHelper));
+		categories.add(new ParticleExciterRecipeCategory(guiHelper));
+		categories.add(new PedestalRecipeCategory(guiHelper));
 
-		registry.addRecipeCategories(categories.values().toArray(new EOPRecipeCategory[categories.size()]));
+		registry.addRecipeCategories(categories.toArray(new EOPRecipeCategory[categories.size()]));
 
 	}
 

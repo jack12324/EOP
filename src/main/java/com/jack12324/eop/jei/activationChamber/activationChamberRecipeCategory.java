@@ -3,7 +3,7 @@ package com.jack12324.eop.jei.activationChamber;
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.jei.EOPRecipeCategory;
-import com.jack12324.eop.recipe.BasicRecipe;
+import com.jack12324.eop.recipe.recipes.BasicRecipe;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawableAnimated;

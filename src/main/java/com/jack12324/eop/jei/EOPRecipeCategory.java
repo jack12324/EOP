@@ -43,7 +43,6 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 
 	@Override
 	public void drawExtras(@Nonnull Minecraft minecraft) {
-		System.out.println("yeet");
 		this.drawProgress(minecraft);
 		this.drawPowerBar(minecraft);
 		this.drawOther(minecraft);

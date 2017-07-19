@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jack12324.eop.machine.activationChamber.TileEntityActivationChamber;
-import com.jack12324.eop.recipe.BasicRecipe;
+import com.jack12324.eop.recipe.recipes.BasicRecipe;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;

@@ -151,7 +151,7 @@ public class ModRecipes {
 
 		RecipeHolder.addPedestalRecipe(new ItemStack(Blocks.DRAGON_EGG), new FluidStack(InitFluids.fluidDragonSoul, 1),
 				4);
-		RecipeHolder.addCatalystInfuserRecipe(new ItemStack(Items.GHAST_TEAR), new FluidStack(FluidRegistry.LAVA, 100),
+		RecipeHolder.addCatalystInfuserRecipe(new ItemStack(Items.GHAST_TEAR), new FluidStack(FluidRegistry.LAVA, 200),
 				new FluidStack(InitFluids.fluidScreamingLava, 100));
 		RecipeHolder.addDualCatalystInfuserRecipe(new ItemStack(Items.NETHER_STAR), new ItemStack(Items.QUARTZ, 10),
 				new FluidStack(FluidRegistry.WATER, 100), new FluidStack(InitFluids.fluidStarWater, 100));

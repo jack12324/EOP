@@ -1,4 +1,4 @@
-package com.jack12324.eop.recipe;
+package com.jack12324.eop.recipe.recipes;
 
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IOneInputRecipe;

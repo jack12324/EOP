@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 
+import com.jack12324.eop.recipe.recipes.*;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
