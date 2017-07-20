@@ -53,7 +53,6 @@ public class InfuserRecipeCategory extends EOPRecipeCategory<InfuserRecipe, Infu
 	@Override
 	protected void drawOther(Minecraft minecraft) {
 		tankBack.draw(minecraft,25-xOffset, 18-yOffset);
-		tankBack.draw(minecraft,133-xOffset, 18-yOffset);
 	}
 
 	@Nonnull

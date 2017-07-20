@@ -53,10 +53,10 @@ public class PedestalRecipeCategory extends EOPRecipeCategory<PedestalRecipe, Pe
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
-		guiItemStacks.init(0, true, 43 - xOffset - 1, 46 - yOffset - 1);
+		guiItemStacks.init(0, true, 43 - xOffset, 46 - yOffset);
 		guiItemStacks.set(0, ingredients.getInputs(ItemStack.class).get(0));
 
-		guiFluidStacks.init(0, false, 79 - xOffset, 21 - yOffset, 18, 49, 5, false, tankOverlay);
+		guiFluidStacks.init(0, false, 79 - xOffset, 21 - yOffset, 18, 49, 8, false, tankOverlay);
 
 		if (ingredients.getOutputs(FluidStack.class).size() > 0) {
 			guiFluidStacks.set(0, ingredients.getOutputs(FluidStack.class).get(0));

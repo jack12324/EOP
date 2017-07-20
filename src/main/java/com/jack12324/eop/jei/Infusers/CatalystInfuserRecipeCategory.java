@@ -31,6 +31,12 @@ public class CatalystInfuserRecipeCategory extends InfuserRecipeCategory {
 	}
 
 	@Override
+	protected void drawOther(Minecraft minecraft) {
+		super.drawOther(minecraft);
+		tankBack.draw(minecraft,133-xOffset, 18-yOffset);
+	}
+
+	@Override
 	protected void drawProgress(Minecraft minecraft) {
 		progress.draw(minecraft, 63 - xOffset, 35 - yOffset);
 	}
@@ -44,8 +50,8 @@ public class CatalystInfuserRecipeCategory extends InfuserRecipeCategory {
 		guiItemStacks.init(0, true, 44 - xOffset - 1, 34 - yOffset - 1);
 		guiItemStacks.set(0, ingredients.getInputs(ItemStack.class).get(0));
 
-		guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,500,false, tankOverlay);
-		guiFluidStacks.init(1,false,133-xOffset,18-yOffset	,18,49,500,false,tankOverlay);
+		guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,400,false, tankOverlay);
+		guiFluidStacks.init(1,false,133-xOffset,18-yOffset	,18,49,400,false,tankOverlay);
 		guiFluidStacks.set(0, ingredients.getInputs(FluidStack.class).get(0));
 
 		if (ingredients.getOutputs(FluidStack.class).size() > 0){

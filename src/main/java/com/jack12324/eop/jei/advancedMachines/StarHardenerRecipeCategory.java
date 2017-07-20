@@ -49,10 +49,10 @@ public class StarHardenerRecipeCategory extends AdvancedMachineRecipeCategory {
         guiItemStacks.set(0, ingredients.getInputs(ItemStack.class).get(0));
         guiItemStacks.set(1, ingredients.getInputs(ItemStack.class).get(1));
 
-        guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,500,false, tankOverlay);
+        guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,400,false, tankOverlay);
         guiFluidStacks.set(0, ingredients.getInputs(FluidStack.class).get(0));
 
-        if (ingredients.getOutputs(FluidStack.class).size() > 0){
+        if (ingredients.getOutputs(ItemStack.class).size() > 0){
             guiItemStacks.set(2, ingredients.getOutputs(ItemStack.class).get(0));
 
     }

@@ -26,13 +26,13 @@ public class TriCatalystInfuserRecipeCategory extends InfuserRecipeCategory {
     public TriCatalystInfuserRecipeCategory(IGuiHelper helper) {
         super(helper,background,"tri_catalyst_infuser","tile.tri_catalyst_infuser.name", ModBlocks.triCatalystInfuser,xOffset,yOffset  );
 
-        progress = helper.createAnimatedDrawable(helper.createDrawable(background, 2, 169, 88, 49), 200,
+        progress = helper.createAnimatedDrawable(helper.createDrawable(background, 3, 170, 86, 35), 200,
                 IDrawableAnimated.StartDirection.LEFT, false);
     }
 
     @Override
     protected void drawProgress(Minecraft minecraft) {
-        progress.draw(minecraft, 43 - xOffset, 18 - yOffset);
+        progress.draw(minecraft, 63 - xOffset, 24 - yOffset);
     }
 
     @Override
@@ -55,8 +55,8 @@ public class TriCatalystInfuserRecipeCategory extends InfuserRecipeCategory {
         guiItemStacks.set(1, ingredients.getInputs(ItemStack.class).get(1));
         guiItemStacks.set(2, ingredients.getInputs(ItemStack.class).get(2));
 
-        guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,500,false, super.tankOverlay);
-        guiFluidStacks.init(1,false,151-xOffset,18-yOffset	,18,49,500,false,super.tankOverlay);
+        guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,400,false, super.tankOverlay);
+        guiFluidStacks.init(1,false,151-xOffset,18-yOffset	,18,49,400,false,super.tankOverlay);
 
         guiFluidStacks.set(0, ingredients.getInputs(FluidStack.class).get(0));
         if (ingredients.getOutputs(FluidStack.class).size() > 0){

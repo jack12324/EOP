@@ -23,6 +23,7 @@ class AdvancedMachineRecipeWrapper extends BlankRecipeWrapper {
 		this.inputs = new ArrayList<>(Arrays.asList(recipe.getInputStacks()));
 		this.inFluid=recipe.getInFluidStack();
 		this.output=recipe.getOutputStack();
+		this.inputs.add(recipe.getBaseStack());
 
 	}
 

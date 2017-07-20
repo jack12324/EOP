@@ -14,12 +14,12 @@ import net.minecraft.util.ResourceLocation;
 public class GuiTriCatalystInfuser extends GuiBase {
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/tri_catalyst_infuser.png");
-	private static final int[] progressBarVals = { 43, // X to start draw
-			18, // y to start draw
-			2, // x of texture location
-			169, // y of texture location
-			88, // width
-			49// height
+	private static final int[] progressBarVals = { 63, // X to start draw
+			24, // y to start draw
+			3, // x of texture location
+			170, // y of texture location
+			86, // width
+			35// height
 	};
 	private final TileEntityTriCatalystInfuser tileEntity;
 

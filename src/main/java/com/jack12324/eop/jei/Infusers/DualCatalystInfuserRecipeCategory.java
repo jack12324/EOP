@@ -49,8 +49,8 @@ public class DualCatalystInfuserRecipeCategory extends InfuserRecipeCategory{
         guiItemStacks.init(1, true, 44 - xOffset - 1, 52 - yOffset - 1);
         guiItemStacks.set(1, ingredients.getInputs(ItemStack.class).get(1));
 
-        guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,500,false, super.tankOverlay);
-        guiFluidStacks.init(1,false,151-xOffset,18-yOffset	,18,49,500,false,super.tankOverlay);
+        guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,400,false, super.tankOverlay);
+        guiFluidStacks.init(1,false,151-xOffset,18-yOffset	,18,49,400,false,super.tankOverlay);
         guiFluidStacks.set(0, ingredients.getInputs(FluidStack.class).get(0));
 
         if (ingredients.getOutputs(FluidStack.class).size() > 0){
