@@ -40,4 +40,9 @@ public class InfuserRecipe implements EOPRecipe, IMultipleInputRecipe, IFluidInR
 		return outFluid;
 	}
 
+	@Override
+	public int getType(){
+		return 4;
+	}
+
 }

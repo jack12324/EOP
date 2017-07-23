@@ -38,10 +38,10 @@ public abstract class TEFluidUser extends TEPowered {
 	}
 
 	@Override
-	public boolean canUse() {
+	public boolean canUse(int IOSet) {
 		if (this.inTank.getFluid() == null)
 			return false;
-		ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), this.getBase(),
+		ItemStack result = RecipeHandler.getItemStackOutput(this.getRecipeList(), getInputSlotItemStacks(IOSet), this.getBase(),
 				this.inTank.getFluid());
 
 		return result != null && !result.isEmpty() && getOutSlot(result) != -1;
@@ -61,6 +61,7 @@ public abstract class TEFluidUser extends TEPowered {
 		if (this.oldInFluidAmount != this.inTank.getFluidAmount() && this.sendUpdateWithInterval()) {
 			System.out.println("influid");
 			this.oldInFluidAmount = this.inTank.getFluidAmount();
+			markDirty();
 		}
 	}
 
@@ -81,12 +82,6 @@ public abstract class TEFluidUser extends TEPowered {
 	}
 
 	@Override
-	public void useFluid(ItemStack[] input) {
-		inTank.drainInternal(
-				RecipeHandler.getInFluidAmountUsed(this.getRecipeList(), input, inTank.getFluid().getFluid()), true);
-	}
-
-	@Override
 	public void useFluid(ItemStack[] input, ItemStack base) {
 		inTank.drainInternal(
 				RecipeHandler.getInFluidAmountUsed(this.getRecipeList(), input, base, inTank.getFluid().getFluid()),
@@ -101,6 +96,10 @@ public abstract class TEFluidUser extends TEPowered {
 		compound.setTag("inTank", tag);
 		super.writeSyncableNBT(compound, type);
 		System.out.println("TEFU write");
+	}
+
+	ItemStack getResult(ItemStack[]input){
+		return RecipeHandler.getItemStackOutput(this.getRecipeList(), input, getBase(),inTank.getFluid());
 	}
 
 }

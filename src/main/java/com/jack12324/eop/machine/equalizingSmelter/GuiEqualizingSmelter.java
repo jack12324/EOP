@@ -8,6 +8,7 @@ import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.packet.PacketClientToServer;
 import com.jack12324.eop.packet.PacketHandler;
 
+import com.jack12324.eop.util.Coord4D;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -67,25 +68,13 @@ public class GuiEqualizingSmelter extends GuiContainer {
 
 	private void actionPerformed(GuiButton button, int mbutton) throws IOException {
 		if (button.id == 53 || button.id == 57) {
-			System.out.println("53 or 57");
 			NBTTagCompound compound = new NBTTagCompound();
-			compound.setInteger("X", tileEntity.getPos().getX());
-			compound.setInteger("Y", tileEntity.getPos().getY());
-			compound.setInteger("Z", tileEntity.getPos().getZ());
+			Coord4D pos = new Coord4D(tileEntity.getPos(), tileEntity.getWorld());
+			compound = pos.write(compound);
 			compound.setInteger("buttonID", button.id);
 			PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_TOGGLE_BUTTON));
 		}
-		/*
-		 * if (button.id == 53) {
-		 * 
-		 * tileEntity.setMode(mbutton == 0 ? !tileEntity.getMode() :
-		 * !tileEntity.getMode()); PacketHandler.NETWORK.sendToServer(new
-		 * PacketClientState(tileEntity)); } else if (button.id == 57) {
-		 * 
-		 * tileEntity.setSpreadMode(mbutton == 0 ? !tileEntity.getSpreadMode() :
-		 * !tileEntity.getSpreadMode()); PacketHandler.NETWORK.sendToServer(new
-		 * PacketClientState(tileEntity)); }
-		 */else {
+		 else {
 			super.actionPerformed(button);
 		}
 	}
@@ -128,7 +117,7 @@ public class GuiEqualizingSmelter extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		FontRenderer fontRenderer = this.fontRendererObj;
-		fontRenderer.drawString("Energized", xSize / 8 - fontRenderer.getStringWidth("Energized") / 8, 6, 0x404040);
+		fontRenderer.drawString("Equalizing", xSize / 8 - fontRenderer.getStringWidth("Equalizing") / 8, 6, 0x404040);//TODO this wouldn't work localized
 		fontRenderer.drawString(" Smelter ", xSize / 8 - fontRenderer.getStringWidth(" Smelter ") / 8, 15, 0x404040);
 		fontRenderer.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 75, 0x404040);
 

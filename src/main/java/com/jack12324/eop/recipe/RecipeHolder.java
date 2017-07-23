@@ -25,6 +25,12 @@ public class RecipeHolder {
 
 	public static final ArrayList<EOPRecipe> PEDESTALRECIPES = new ArrayList<>();
 
+	public static final ArrayList<EOPRecipe> VANILLAFURNACERECIPES = new ArrayList<>();
+
+	public static void addVanillaFurnaceRecipe(ItemStack input, ItemStack output) {
+		VANILLAFURNACERECIPES.add(new BasicRecipe(input, output));
+	}
+
 	public static void addActivationChamberRecipe(ItemStack input, ItemStack output) {
 		ACTIVATIONCHAMBERRECIPES.add(new BasicRecipe(input, output));
 	}
@@ -46,8 +52,7 @@ public class RecipeHolder {
 
 	public static void addEndericPurifierRecipe(ItemStack itemInput, ItemStack base, FluidStack inFluid,
 			ItemStack itemOutput) {
-		ItemStack[] items = { itemInput };
-		ENDERICPURIFIERRECIPES.add(new AdvancedRecipe(items, base, inFluid, itemOutput));
+		ENDERICPURIFIERRECIPES.add(new AdvancedRecipe(itemInput, base, inFluid, itemOutput));
 	}
 
 	public static void addTriCatalystInfuserRecipe(ItemStack item1, ItemStack item2, ItemStack item3,
@@ -58,14 +63,12 @@ public class RecipeHolder {
 
 	public static void addParticleExciterRecipe(ItemStack itemInput, ItemStack base, FluidStack inFluid,
 			ItemStack itemOutput) {
-		ItemStack[] items = { itemInput };
-		PARTICLEEXCITERRECIPES.add(new AdvancedRecipe(items, base, inFluid, itemOutput));
+		PARTICLEEXCITERRECIPES.add(new AdvancedRecipe(itemInput, base, inFluid, itemOutput));
 	}
 
 	public static void addStarHardenerRecipe(ItemStack itemInput, ItemStack base, FluidStack inFluid,
 			ItemStack itemOutput) {
-		ItemStack[] items = { itemInput };
-		STARHARDENERRECIPES.add(new AdvancedRecipe(items, base, inFluid, itemOutput));
+		STARHARDENERRECIPES.add(new AdvancedRecipe(itemInput, base, inFluid, itemOutput));
 	}
 
 	public static void addEqualizingSmelterRecipe(ItemStack item1, ItemStack item2, ItemStack item3, ItemStack item4,

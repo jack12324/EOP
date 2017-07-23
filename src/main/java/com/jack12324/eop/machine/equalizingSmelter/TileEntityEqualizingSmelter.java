@@ -5,17 +5,18 @@ import java.util.List;
 
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.IButtonUse;
+import com.jack12324.eop.machine.IOPairs;
 import com.jack12324.eop.machine.TEPowered;
 import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
 
-public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse {
-	private static final VanillaFurnaceRecipes vanillaRecipes = new VanillaFurnaceRecipes();
+public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse, IOPairs {
 	private boolean furnaceMode = true;
 	private boolean spreadMode = true;
 	private boolean oldFurnaceMode = true;
@@ -28,38 +29,8 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	}
 
 	@Override
-	public boolean canUse() {
-		return (super.canUse() && this.getInventory(this.slotHelper.getOtherSlotIndex(0)).getCount() < 64);
-	}
-
-	/**
-	 * determines if the item in the input slot can be activated and if there is
-	 * a place to put it afterwards. ie an open output slot
-	 */
-
-    private boolean canUseF(int indexIn, int indexOut) {
-
-		if (this.slots.getStackInSlot(indexIn).isEmpty()) {
-
-			return false;
-		} else {
-
-			ItemStack itemstack = vanillaRecipes.getResult(this.slots.getStackInSlot(indexIn));
-
-			if (itemstack.isEmpty()) {
-				return false;
-			} else {
-				ItemStack itemstack1 = this.slots.getStackInSlot(indexOut);
-				if (itemstack1.isEmpty()) {
-					return true;
-				}
-				if (!itemstack1.isItemEqual(itemstack)) {
-					return false;
-				}
-				int result = itemstack1.getCount() + itemstack.getCount();
-				return result <= this.slots.getSlotLimit(indexOut) && result <= itemstack1.getMaxStackSize();
-			}
-		}
+	public boolean canUse(int slot) {
+		return (super.canUse(slot) && this.getInventory(this.slotHelper.getOtherSlotIndex(0)).getCount() < 64);
 	}
 
 	/** returns the progress of earning an extra dust */
@@ -68,32 +39,6 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 			return 0;
 		double fraction = dustProgress / (double) 4;
 		return MathHelper.clamp(fraction, 0.0, 1.0);
-	}
-
-	private void furnaceUpdate() {
-		super.superUpdate();
-		boolean active = false;
-		if (!this.world.isRemote) {
-			for (int i = 0; i < 4; i++) {
-				if (this.canUseF(this.slotHelper.getInSlotIndex(i), this.slotHelper.getOutSlotIndex(i))) {
-					{
-						if (!active)
-							active = this.useLogicF(i);
-						else
-							this.useLogicF(i);
-					}
-				}
-
-				else {
-					this.resetTimeF(i);
-				}
-				this.resetUpgradeStats();
-				this.oldActiveCheck(active);
-				this.oldEnergyCheck();
-				this.oldProgressTimeCheck();
-			}
-
-		}
 	}
 
 	public boolean getMode() {
@@ -105,6 +50,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	}
 
 	private void oldModeCheck() {
+		System.out.println(this.furnaceMode+"   "+this.oldFurnaceMode);
 		if (this.oldFurnaceMode != this.furnaceMode && this.sendUpdateWithInterval())
 			this.oldFurnaceMode = this.furnaceMode;
 		if (this.oldSpreadMode != this.spreadMode && this.sendUpdateWithInterval())
@@ -120,12 +66,17 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 
 	@Override
 	public void onButtonPress(int buttonId) {
+		if(!world.isRemote)
+			System.out.print("Server");
+		else
+			System.out.print("Client");
 		if (buttonId == 53)
 			furnaceMode = !furnaceMode;
 		else if (buttonId == 57)
 			spreadMode = !spreadMode;
 		else
 			System.out.println(buttonId + " is not a valid button id for " + this.getDisplayedName());
+		this.oldModeCheck();
 	}
 
 	@Override
@@ -153,125 +104,78 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	}
 
 	private void spread() {
-		for (int i = 0; i < 4; i++) {
-			List<Integer> indexList = new ArrayList<>();
-			ItemStack workingStack = this.slots.getStackInSlot(i);
-			int temp;
-			int itemCount = 0;
-			int remainder;
-			for (int index : this.slotHelper.getIn()) {
-				if ((this.slots.getStackInSlot(index).isEmpty()
-						|| this.slots.getStackInSlot(index).isItemEqual(workingStack))
-						&& (Math.abs((double) (this.slots.getStackInSlot(index).getCount()
-								- workingStack.getCount())) > 1)) {
-					indexList.add(index);
-					if (!this.slots.getStackInSlot(index).isEmpty())
-						itemCount += this.slots.getStackInSlot(index).getCount();
-				}
+		int size = this.slotHelper.getInSlotSize();
+		for(int i=0; i<size;i++){
+			for(int j=0; j<size; j++){
+				balanceTwoSlots(this.slotHelper.getInSlotIndex(i), this.slotHelper.getInSlotIndex(j));
 			}
-			if (indexList.size() > 0) {
-				remainder = itemCount % indexList.size();
-				itemCount = itemCount / indexList.size();
-				temp = itemCount;
-				for (int index : indexList) {
-					ItemStack output = workingStack.copy();
+		}
+	}
+	private void balanceTwoSlots(int index1, int index2){
 
-					if (remainder > 0) {
-						temp = itemCount + 1;
-						remainder--;
-					}
-					output.setCount(temp);
-					this.setInventory(index, output);
+		ItemStack stack1 = this.slots.getStackInSlot(index1);
+		ItemStack stack2 = this.slots.getStackInSlot(index2);
+		if(stack1.isItemEqual(stack2)||stack2.isEmpty()) {
+			int dif = Math.abs(stack1.getCount() - stack2.getCount());
+			if (dif > 1) {
+				dif /= 2;
+				if (stack1.getCount() > stack2.getCount()) {
+					this.slots.getStackInSlot(index1).shrink(dif);
+					if (stack2.isEmpty())
+						this.slots.setStackInSlot(index2, new ItemStack(stack1.getItem(), dif));
+					else
+						this.slots.getStackInSlot(index2).grow(dif);
+				} else {
+					this.slots.getStackInSlot(index2).shrink(dif);
+					if (stack1.isEmpty())
+						this.slots.setStackInSlot(index1, new ItemStack(stack1.getItem(), dif));
+					else
+						this.slots.getStackInSlot(index1).grow(dif);
+
 				}
+				markDirty();
 			}
 		}
 	}
 
 	@Override
 	public void updateEntity() {
-
+		super.updateEntity();
 		if (!this.world.isRemote) {
 			if (spreadMode)
 				spread();
-			int speed = 1;
-			if (furnaceMode) {
-				furnaceUpdate();
-			}
-
-			else {
-
-				super.updateEntity();
-			}
 			this.oldModeCheck();
 		}
 	}
 
 	@Override
-	public void useItem() {
-		super.useItem();
-		dustProgress++;
-		if (dustProgress >= 4) {
-			ItemStack result = new ItemStack(ModItems.dustFirestone);
-			ItemStack output = this.getInventory(this.slotHelper.getOtherSlotIndex(0));
+	public void useItem(int IOSet) {
+		super.useItem(IOSet);
+		if(!furnaceMode) {
+			dustProgress++;
+			if (dustProgress >= 4) {
+				ItemStack result = new ItemStack(ModItems.dustFirestone);
+				ItemStack output = this.getInventory(this.slotHelper.getOtherSlotIndex(0));
 
-			if (output.isEmpty()) {
-				this.setInventory(this.slotHelper.getOtherSlotIndex(0), result.copy());
-			} else if (output.getItem() == result.getItem()) {
-				result.setCount(output.getCount() + 1);
-				this.setInventory(this.slotHelper.getOtherSlotIndex(0), result);
+				if (output.isEmpty()) {
+					this.setInventory(this.slotHelper.getOtherSlotIndex(0), result.copy());
+				} else if (output.getItem() == result.getItem()) {
+					result.setCount(output.getCount() + 1);
+					this.setInventory(this.slotHelper.getOtherSlotIndex(0), result);
+				}
+				dustProgress = 0;
 			}
-			dustProgress = 0;
 		}
 	}
-
-	/**
-	 * Turn one item from the inventory input stack into the appropriate output
-	 * item in the result stack
-	 */
-    private void useItemF(int indexIn, int indexOut) {
-		ItemStack input = this.slots.getStackInSlot(indexIn);
-		ItemStack result = vanillaRecipes.getResult(input);
-		ItemStack output = this.slots.getStackInSlot(indexOut);
-
-		if (output.isEmpty()) {
-			this.slots.setStackInSlot(indexOut, result.copy());
-		} else if (output.getItem() == result.getItem()) {
-			output.grow(result.getCount());
+	@Override
+	protected boolean useLogic(int IOSet){
+		boolean result = super.useLogic(IOSet);
+		if(!furnaceMode){
+			int prog = this.getInProgressTime(0);
+			for(int i=0; i<4; i++)
+				this.setInProgressTime(i,prog);
 		}
-
-		input.shrink(1);
-
-	}
-
-	/**
-	 * Returns true if the machine can activate an item, i.e. has a source item,
-	 * destination stack isn't full, etc.
-	 */
-
-    private boolean useLogicF(int i) {
-		boolean active = false;
-		boolean powered = this.usePower();
-
-		// If fuel is available, keep cooking the item, otherwise start
-		// "uncooking" it at double speed
-		if (powered) {
-			setInProgressTime(i, this.getInProgressTime(i) + 1);
-			active = true;
-		} else {
-			setInProgressTime(i, this.getInProgressTime(i) - 2);
-		}
-
-		if (this.getInProgressTime(i) < 0)
-			setInProgressTime(i, 0);
-
-		// If cookTime has reached maxCookTime smelt the item and reset
-		// cookTime
-		if (this.getInProgressTime(i) >= this.getTicksNeeded()) {
-			useItemF(this.slotHelper.getInSlotIndex(i), this.slotHelper.getOutSlotIndex(i));
-			setInProgressTime(i, 0);
-
-		}
-		return active;
+		return result;
 	}
 
 	@Override
@@ -286,7 +190,29 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	}
 
 	@Override
-	public ArrayList<EOPRecipe> getRecipeList() {
-		return RecipeHolder.EQUALIZINGSMELTERRECIPES;
+	protected void resetTime(int progressBar) {
+		if(furnaceMode)
+			super.resetTime(progressBar);
+		else
+			for(int i=0; i<4;i++)
+				this.setInProgressTime(i,0);
 	}
+
+	@Override
+	public ArrayList<EOPRecipe> getRecipeList() {
+		return furnaceMode?RecipeHolder.VANILLAFURNACERECIPES : RecipeHolder.EQUALIZINGSMELTERRECIPES;
+	}
+
+	@Override
+	public ItemStack[] getCurrentInputStacks(int slot) {
+		return new ItemStack[]{this.slots.getStackInSlot(this.slotHelper.getInSlotIndex(slot))};
+	}
+	@Override
+	public int getIONumber(){
+    	return 4;
+	}
+
+	@Override
+	public boolean EQSOverride(){return !furnaceMode;};
 }
+

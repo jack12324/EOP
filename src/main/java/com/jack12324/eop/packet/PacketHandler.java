@@ -43,16 +43,32 @@ public class PacketHandler {
 		}
 	};
 
-	// @SideOnly(Side.SERVER)
-	public static final IDataHandler GUI_TOGGLE_BUTTON = (compound, context) -> {
-        World world = Minecraft.getMinecraft().world;
-        if (world != null) {
-            TileEntity tile = world.getTileEntity(
-                    new BlockPos(compound.getInteger("X"), compound.getInteger("Y"), compound.getInteger("Z")));
-            if (tile != null && tile instanceof IButtonUse) {
-                ((IButtonUse) tile).onButtonPress(compound.getInteger("buttonID"));
-            }
-        }
+
+	public static final IDataHandler GUI_TOGGLE_BUTTON = new IDataHandler() {
+
+		@Override
+		public void handleData(NBTTagCompound compound, MessageContext context) {
+			Coord4D coord4D = Coord4D.read(compound);
+			World worldServer = FMLCommonHandler.instance().getMinecraftServerInstance()
+					.worldServerForDimension(coord4D.dimensionId);
+			TileEntity tile = coord4D.getTileEntity(worldServer);
+			if (tile !=null && tile instanceof IButtonUse) {
+				((IButtonUse) tile).onButtonPress(compound.getInteger("buttonID"));
+			}
+
+
+
+
+
+			/*World world = Minecraft.getMinecraft().world;
+			if (world != null) {
+				TileEntity tile = world.getTileEntity(
+						new BlockPos(compound.getInteger("X"), compound.getInteger("Y"), compound.getInteger("Z")));
+				if (tile != null && tile instanceof IButtonUse) {
+					((IButtonUse) tile).onButtonPress(compound.getInteger("buttonID"));
+				}
+			}*/
+		}
     };
 
 	public static final IDataHandler GUI_UPGRADE_BUTTON = new IDataHandler() {

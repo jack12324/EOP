@@ -1,5 +1,6 @@
 package com.jack12324.eop.recipe;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,7 +13,8 @@ import com.jack12324.eop.recipe.recipeInterfaces.IMultipleInputRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IOneInputRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IOneOutput;
 
-import com.jack12324.eop.recipe.recipes.PedestalRecipe;
+import com.jack12324.eop.recipe.recipes.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -22,48 +24,56 @@ public class RecipeHandler {
 	 * compares two Itemstack arrays to determine if they are the same
 	 * regardless of order
 	 * 
-	 * @param stack
-	 * @param stack2
+	 * @param recipeStacks Array of Itemstacks from the recipe to test
+	 * @param compareStacks Input Stacks to compare with recipe stacks
 	 * @return true if stacks contain same elements false if not
 	 */
-	private static boolean compareItemStacks(ItemStack[] stack, ItemStack[] stack2) {
-		if (stack.length != stack2.length)
+	/*private static boolean compareItemStacks(ItemStack[] recipeStacks, ItemStack[] compareStacks) {
+
+		if (recipeStacks.length != compareStacks.length)
 			return false;
-		Arrays.sort(stack);
-		Arrays.sort(stack2);
-		return Arrays.equals(stack, stack2);
-	}
+		boolean match=true;TODO remove
+		for(int i=0; i<recipeStacks.length;i++){
+			if (!match)
+				return false;
+			match = false;
+			for(int j=0; j<recipeStacks.length; j++){
+				if(!match&&recipeStacks[i].isItemEqual(compareStacks[j])&&recipeStacks[i].getCount()<=compareStacks[j].getCount())
+					match = true;
+			}
+		}
+		return match;*/
 
-	public static FluidStack getFluidOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] input, FluidStack fluid) {
-		EOPRecipe recipe = null;
-		if (!(fluid == null))
-			recipe = getRecipeFromMultipleInputsAndFluidIgnoreAmount(recipeList, input, fluid.getFluid());
-		return recipe == null ? null : ((IFluidOutRecipe) recipe).getOutFluidStack();
-	}
+	//}
 
-	public static FluidStack getFluidOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] input, ItemStack base,
-			FluidStack fluid) {
-		EOPRecipe recipe;
-		recipe = getRecipeFromMultipleInputsAndFluidIgnoreAmount(recipeList, input, base, fluid.getFluid());
-		return recipe == null ? null : ((IFluidOutRecipe) recipe).getOutFluidStack();
-	}
+	private static boolean compareItemStacks(ItemStack[] recipeStacks, ItemStack[] compareStacks) {
+		if (recipeStacks.length != compareStacks.length)
+			return false;
+		ArrayList<ItemStack> rStacks = new ArrayList<>(Arrays.asList(recipeStacks));
+		ArrayList<ItemStack> cStacks = new ArrayList<>(Arrays.asList(compareStacks));
+		boolean match=true;
+		int found=-1;
+		for(ItemStack recipeStack:rStacks){
+			if (!match)
+				return false;
+			match = false;
+			for(ItemStack compareStack:cStacks){
+				if(!match&&recipeStack.isItemEqual(compareStack)&&recipeStack.getCount()<=compareStack.getCount()) {
+					match = true;
+					found = cStacks.indexOf(compareStack);
+				}
+			}
+			if(match)
+				cStacks.remove(found);
+		}
+		return match;
 
-	/**
-	 * Gets the fluid amount used from recipe ItemInputs and fluid input
-	 * 
-	 * @param recipeList
-	 * @param inputs
-	 * @return
-	 */
-	public static int getInFluidAmountUsed(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs, Fluid fluid) {
-		EOPRecipe recipe = getRecipeFromMultipleInputsAndFluidIgnoreAmount(recipeList, inputs, fluid);
-		return recipe == null ? null : ((IFluidInRecipe) recipe).getInFluidUseAmount();
 
 	}
 
 	public static int getInFluidAmountUsed(ArrayList<EOPRecipe> recipeList, ItemStack[] input, ItemStack base,
 			Fluid fluid) {
-		EOPRecipe recipe = getRecipeFromMultipleInputsAndFluidIgnoreAmount(recipeList, input, base, fluid);
+		EOPRecipe recipe = getRecipe(recipeList, input, base, new FluidStack(fluid,1),true);
 		return recipe == null ? null : ((IFluidInRecipe) recipe).getInFluidUseAmount();
 	}
 
@@ -84,228 +94,6 @@ public class RecipeHandler {
 		return fluids;
 	}
 
-	/**
-	 * 
-	 * @param recipeList
-	 *            The collection of Recipes on which to operate
-	 * @param inputs
-	 *            The inputs to test for a viable output
-	 * @return If it exists, the output for the given inputs, null if not
-	 */
-	public static ItemStack getItemOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs) {
-		EOPRecipe recipe;
-		if (inputs.length == 1)
-			recipe = getRecipeFromInput(recipeList, inputs[0]);
-		else
-			recipe = getRecipeFromMultipleInputs(recipeList, inputs);
-		return recipe == null ? null : ((IOneOutput) recipe).getOutputStack();
-	}
-
-	/**
-	 * Get output from fluid and items, only works if fluidStack is more than
-	 * useAmount
-	 * 
-	 * @param recipeList
-	 *            Recipe list on which to operate
-	 * @param inputs
-	 *            Itemstack inputs
-	 * @param fluid
-	 *            FluidStack input
-	 * @return ItemStack output if inputs and fluids have an output and fluid
-	 *         stack is large enough, null if not
-	 */
-	public static ItemStack getItemOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs, FluidStack fluid) {
-		EOPRecipe recipe;
-		recipe = getRecipeFromMultipleInputsAndFluid(recipeList, inputs, fluid);
-		return recipe == null ? null : ((IOneOutput) recipe).getOutputStack();
-	}
-
-	/**
-	 * GetItemOutput variation with input and base
-	 * 
-	 * @param recipeList
-	 * @param input
-	 * @param base
-	 * @return
-	 */
-	public static ItemStack getItemOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] input, ItemStack base) {
-		EOPRecipe recipe;
-		if (input.length == 1)
-			recipe = getRecipeFromInputBase(recipeList, input[0], base);
-		else
-			recipe = getRecipeFromMultipleInputsBase(recipeList, input, base);
-		return recipe == null ? null : ((IOneOutput) recipe).getOutputStack();
-	}
-
-	private static EOPRecipe getRecipeFromInputBase(ArrayList<EOPRecipe> recipeList, ItemStack itemStack,
-			ItemStack base) {
-		System.out.println(base);
-		for (EOPRecipe recipe : recipeList) {
-			if (itemStack.isItemEqual(((IOneInputRecipe) recipe).getInputStack())
-					&& base.isItemEqual(((IBaseRecipe) recipe).getBaseStack()))
-				return recipe;
-		}
-		return null;
-	}
-
-	/**
-	 * getItemOutput variation with base ItemStack
-	 * 
-	 * @param recipeList
-	 * @param inputSlotItemStacks
-	 * @param baseSlotItemStacks
-	 * @param fluid
-	 * @return
-	 */
-	public static ItemStack getItemOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] inputSlotItemStacks,
-			ItemStack baseSlotItemStacks, FluidStack fluid) {
-		EOPRecipe recipe;
-		recipe = getRecipeFromMultipleInputsBaseAndFluid(recipeList, inputSlotItemStacks, baseSlotItemStacks, fluid);
-		return recipe == null ? null : ((IOneOutput) recipe).getOutputStack();
-	}
-
-	/**
-	 * Gets recipe if there is a single input and output
-	 * 
-	 * @param recipeList
-	 *            The collection of Recipes on which to operate
-	 * @param input
-	 *            The input to test for a viable recipe
-	 * @return If it exists, the recipe using given input, null if not
-	 */
-	private static EOPRecipe getRecipeFromInput(ArrayList<EOPRecipe> recipeList, ItemStack input) {
-		for (EOPRecipe recipe : recipeList) {
-			if (((IOneInputRecipe) recipe).getInputStack().equals(input))
-				return recipe;
-		}
-		return null;
-	}
-
-	/**
-	 * Gets recipe if there are multiple inputs for a single output
-	 * 
-	 * @param recipeList
-	 *            The collection of Recipes on which to operate
-	 * @param inputs
-	 *            The inputs to test for a viable recipe
-	 * @return If it exists, the recipe using given inputs, null if not
-	 */
-	private static EOPRecipe getRecipeFromMultipleInputs(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs) {
-		for (EOPRecipe recipe : recipeList) {
-			if (compareItemStacks(((IMultipleInputRecipe) recipe).getInputStacks(), inputs))
-				return recipe;
-		}
-		return null;
-	}
-
-	/**
-	 * Get recipe from fluid and items, only works if fluidStack is more than
-	 * useAmount
-	 * 
-	 * @param recipeList
-	 *            Recipe list on which to operate
-	 * @param inputs
-	 *            Itemstack inputs
-	 * @param fluid
-	 *            FluidStack input
-	 * @return recipe if inputs and fluids have an output and fluid stack is
-	 *         large enough, null if not
-	 */
-	private static EOPRecipe getRecipeFromMultipleInputsAndFluid(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs,
-			FluidStack fluid) {
-		for (EOPRecipe recipe : recipeList) {
-			if (compareItemStacks(((IMultipleInputRecipe) recipe).getInputStacks(), inputs)
-					&& fluid.isFluidEqual(((IFluidInRecipe) recipe).getInFluidStack())
-					&& fluid.amount >= ((IFluidInRecipe) recipe).getInFluidUseAmount())
-				return recipe;
-		}
-		return null;
-	}
-
-	/**
-	 * Get recipe from fluid and items, ignores amount
-	 * 
-	 * @param recipeList
-	 *            Recipe list on which to operate
-	 * @param inputs
-	 *            Itemstack inputs
-	 * @param fluid
-	 *            Fluid input
-	 * @return recipe if inputs and fluids have an output, null if not
-	 */
-	private static EOPRecipe getRecipeFromMultipleInputsAndFluidIgnoreAmount(ArrayList<EOPRecipe> recipeList,
-			ItemStack[] inputs, Fluid fluid) {
-		for (EOPRecipe recipe : recipeList) {
-			if (compareItemStacks(((IMultipleInputRecipe) recipe).getInputStacks(), inputs)
-					&& fluid.equals(((IFluidInRecipe) recipe).getInFluidStack().getFluid()))
-				return recipe;
-		}
-		return null;
-	}
-
-	/**
-	 * getRecipe variation with base and input and fluid, ignores amount
-	 * 
-	 * @param recipeList
-	 * @param input
-	 * @param base
-	 * @return
-	 */
-	private static EOPRecipe getRecipeFromMultipleInputsAndFluidIgnoreAmount(ArrayList<EOPRecipe> recipeList,
-			ItemStack[] input, ItemStack base, Fluid fluid) {
-		for (EOPRecipe recipe : recipeList) {
-			if (compareItemStacks(((IMultipleInputRecipe) recipe).getInputStacks(), input)
-					&& base.isItemEqual(((IBaseRecipe) recipe).getBaseStack())
-					&& fluid.equals(((IFluidInRecipe) recipe).getInFluidStack().getFluid()))
-				return recipe;
-		}
-		return null;
-	}
-
-	/**
-	 * getRecipe variation with base and input
-	 * 
-	 * @param recipeList
-	 * @param input
-	 * @param base
-	 * @return
-	 */
-	private static EOPRecipe getRecipeFromMultipleInputsBase(ArrayList<EOPRecipe> recipeList, ItemStack[] input,
-			ItemStack base) {
-		for (EOPRecipe recipe : recipeList) {
-			if (compareItemStacks(((IMultipleInputRecipe) recipe).getInputStacks(), input)
-					&& base.isItemEqual(((IBaseRecipe) recipe).getBaseStack()))
-				return recipe;
-		}
-		return null;
-	}
-
-	/**
-	 * Get recipe from fluid and items and base, only works if fluidStack is
-	 * more than useAmount
-	 * 
-	 * @param recipeList
-	 *            Recipe list on which to operate
-	 * @param inputs
-	 *            Itemstack inputs
-	 * @Param base Itemstack base inputs
-	 * @param fluid
-	 *            FluidStack input
-	 * @return recipe if inputs and fluids have an output and fluid stack is
-	 *         large enough, null if not
-	 */
-	private static EOPRecipe getRecipeFromMultipleInputsBaseAndFluid(ArrayList<EOPRecipe> recipeList,
-			ItemStack[] inputs, ItemStack base, FluidStack fluid) {
-		for (EOPRecipe recipe : recipeList) {
-			if (compareItemStacks(((IMultipleInputRecipe) recipe).getInputStacks(), inputs)
-					&& base.isItemEqual(((IBaseRecipe) recipe).getBaseStack())
-					&& fluid.isFluidEqual(((IFluidInRecipe) recipe).getInFluidStack())
-					&& fluid.amount >= ((IFluidInRecipe) recipe).getInFluidUseAmount())
-				return recipe;
-		}
-		return null;
-	}
-
 	public static Collection<? extends Fluid> getOutFluids(ArrayList<EOPRecipe> recipeList) {
 		ArrayList<Fluid> fluids = new ArrayList<>();
 		for (EOPRecipe recipe : recipeList) {
@@ -316,16 +104,99 @@ public class RecipeHandler {
 		return fluids;
 	}
 
-	public static FluidStack getFluidOutput(ArrayList<EOPRecipe> recipeList, ItemStack input) {
-		EOPRecipe recipe;
-		recipe = getRecipeFromInput(recipeList, input);
-		return recipe == null ? null : ((IFluidOutRecipe) recipe).getOutFluidStack();
-	}
-
 	public static int getPedestalSpeed(ItemStack input) {
 		EOPRecipe recipe;
-		recipe = getRecipeFromInput(RecipeHolder.PEDESTALRECIPES, input);
+		recipe = getRecipe(RecipeHolder.PEDESTALRECIPES, new ItemStack[]{input},null,null,false);
 		return recipe == null ? -1 : ((PedestalRecipe) recipe).getPedestalSpeed();
+	}
+	public static FluidStack getFluidStackOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs, ItemStack base, FluidStack inFluid){
+		EOPRecipe recipe;
+		recipe = getRecipe(recipeList, inputs, base, inFluid, false);
+		return recipe == null ? null : ((IFluidOutRecipe) recipe).getOutFluidStack();
+	}
+	public static ItemStack getItemStackOutput(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs, ItemStack base, FluidStack inFluid){
+		EOPRecipe recipe;
+		recipe = getRecipe(recipeList, inputs, base, inFluid, false);
+		return recipe == null ? null : ((IOneOutput) recipe).getOutputStack();
+	}
+
+	private static EOPRecipe getRecipe(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs, ItemStack base, FluidStack inFluid, boolean ignoreFluidAmounts) {
+		switch (recipeList.get(0).getType()){
+			case 0: return getAdvancedRecipe(recipeList,inputs[0], base, inFluid,ignoreFluidAmounts);
+			case 1: return getBasiceRecipe(recipeList,inputs[0]);
+			case 2: return getDPRecipe(recipeList,inputs[0],base);
+			case 3: return getEQSRecipe(recipeList, inputs);
+			case 4: return getInfuserRecipe(recipeList, inputs, inFluid,ignoreFluidAmounts);
+			case 5: return getPedestalRecipe(recipeList, inputs[0]);
+			default: return null;
+		}
+	}
+
+
+	private static EOPRecipe getAdvancedRecipe(ArrayList<EOPRecipe> recipeList, ItemStack input, ItemStack base, FluidStack inFluid, boolean ignoreFluidAmounts) {
+		for (EOPRecipe recipe : recipeList) {
+
+			if (((AdvancedRecipe) recipe).getInputStack().isItemEqual(input)
+					&& base.isItemEqual(((AdvancedRecipe) recipe).getBaseStack())
+					&& inFluid.isFluidEqual((((AdvancedRecipe) recipe)).getInFluidStack())) {
+				if (ignoreFluidAmounts)
+					return recipe;
+				else if (inFluid.amount >= (((AdvancedRecipe) recipe).getInFluidUseAmount()))
+					return recipe;
+			}
+		}
+		return null;
+	}
+	private static EOPRecipe getBasiceRecipe(ArrayList<EOPRecipe> recipeList, ItemStack input) {
+		for (EOPRecipe recipe : recipeList) {
+			boolean equal = (((BasicRecipe) recipe).getInputStack()).getItem() == input.getItem();
+			boolean size = ((BasicRecipe) recipe).getInputStack().getCount()<=input.getCount();
+			if (equal && size)
+				return recipe;
+		}
+		return null;
+	}
+
+	private static EOPRecipe getDPRecipe(ArrayList<EOPRecipe> recipeList, ItemStack itemStack,
+										 ItemStack base) {
+		System.out.println(base);
+		for ( EOPRecipe recipe : recipeList) {
+			if (itemStack.isItemEqual(((DPRecipe)recipe).getInputStack())
+					&& base.isItemEqual(((DPRecipe)recipe).getBaseStack()))
+				return recipe;
+		}
+		return null;
+	}
+	private static EOPRecipe getEQSRecipe(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs) {
+		for (EOPRecipe recipe : recipeList) {
+			if (compareItemStacks(((EQSRecipe) recipe).getInputStacks(), inputs))
+				return recipe;
+		}
+		return null;
+	}
+
+	private static EOPRecipe getInfuserRecipe(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs, FluidStack inFluid, boolean ignoreFluidAmounts) {
+		for (EOPRecipe recipe : recipeList) {
+			if (compareItemStacks(((InfuserRecipe) recipe).getInputStacks(), inputs)
+					&& inFluid.isFluidEqual(((InfuserRecipe) recipe).getInFluidStack()))
+				{
+					if (ignoreFluidAmounts)
+						return recipe;
+					else if (inFluid.amount >= (((InfuserRecipe) recipe).getInFluidUseAmount()))
+						return recipe;
+				}
+
+		}
+		return null;
+	}
+
+	private static EOPRecipe getPedestalRecipe(ArrayList<EOPRecipe> recipeList, ItemStack input) {
+		for (EOPRecipe recipe : recipeList) {
+			if (((PedestalRecipe) recipe).getInputStack().isItemEqual(input)&&((PedestalRecipe) recipe).getInputStack().getCount()<=input.getCount())
+				return recipe;
+		}
+		return null;
 	}
 
 }
+

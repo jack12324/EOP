@@ -19,4 +19,9 @@ public class DPRecipe extends BasicRecipe implements IBaseRecipe {
 		return base;
 	}
 
+	@Override
+	public int getType(){
+		return 2;
+	}
+
 }

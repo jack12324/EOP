@@ -105,38 +105,17 @@ public abstract class TEPowered extends TEInventory {
 	 * a place to put it afterwards. ie an open output slot
 	 */
 
-	protected boolean canUse() {
-		if (this.getInputSlotItemStacks().length == 0 || this.getInputSlotItemStacks() == null) {
-			System.out.println("1");
+	protected boolean canUse(int IOSlot) {
+		if (this.getInputSlotItemStacks(IOSlot).length == 0 || this.getInputSlotItemStacks(IOSlot) == null) {
 			return false;
 		}
-
-		if (!this.hasBase) {
-			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks());
+			ItemStack result = RecipeHandler.getItemStackOutput(this.getRecipeList(), getInputSlotItemStacks(IOSlot),getBase(),null);
 
 			if (result == null || result.isEmpty()) {
-				System.out.println("2");
 				return false;
 			} else {
-				System.out.println("3");
 				return getOutSlot(result) != -1;
 			}
-		} else {
-			if (getBase() == null || getBase().isEmpty()) {
-				System.out.println(6);
-				return false;
-			}
-			ItemStack result = RecipeHandler.getItemOutput(this.getRecipeList(), getInputSlotItemStacks(), getBase());
-
-			if (result == null || result.isEmpty()) {
-				System.out.println("4");
-				return false;
-			} else {
-				System.out.println("5");
-				return getOutSlot(result) != -1;
-			}
-		}
-
 	}
 
 	/** returns the amount of fuel remaining on the currently burning item */
@@ -164,7 +143,7 @@ public abstract class TEPowered extends TEInventory {
 	}
 
 	ItemStack getBase() {
-		return this.slots.getStackInSlot(this.slotHelper.getBaseSlotIndex(0));
+		return this.hasBase ? this.slots.getStackInSlot(this.slotHelper.getBaseSlotIndex(0)) : null;
 	}
 
 	/**
@@ -235,12 +214,17 @@ public abstract class TEPowered extends TEInventory {
 	/**
 	 * @return array of ItemStacks corresponding to input slots
 	 */
-	ItemStack[] getInputSlotItemStacks() {
-		ItemStack[] stack = new ItemStack[this.slotHelper.getInSlotSize()];
-		for (int i = 0; i < stack.length; i++) {
-			stack[i] = this.slots.getStackInSlot(this.slotHelper.getInSlotIndex(i));
+	ItemStack[] getInputSlotItemStacks(int slotPair) {
+		if(this instanceof IOPairs && !this.EQSOverride()){
+			return ((IOPairs)this).getCurrentInputStacks(slotPair);
 		}
-		return stack;
+		else {
+			ItemStack[] stack = new ItemStack[this.slotHelper.getInSlotSize()];
+			for (int i = 0; i < stack.length; i++) {
+				stack[i] = this.slots.getStackInSlot(this.slotHelper.getInSlotIndex(i));
+			}
+			return stack;
+		}
 	}
 
 	public ItemStack getInventory(int i) {
@@ -334,25 +318,35 @@ public abstract class TEPowered extends TEInventory {
 			}
 
 			this.lastActive = active;
+			markDirty();
 		}
 	}
 
 	protected void oldEnergyCheck() {
 		if (this.oldEnergy != this.storage.getEnergyStored() && this.sendUpdateWithInterval()) {
 			this.oldEnergy = this.storage.getEnergyStored();
+			markDirty();
 
 		}
 	}
 
 	protected void oldProgressTimeCheck() {
+		boolean somethingChanged =false;
 		for (int i = 0; i < oldValues.length; i++) {
-			if (i == 0 && this.burnTimeInitialValue != this.oldValues[i] && this.sendUpdateWithInterval())
+			if (i == 0 && this.burnTimeInitialValue != this.oldValues[i] && this.sendUpdateWithInterval()) {
 				this.oldValues[i] = this.burnTimeInitialValue;
-			else if (i == 1 && this.burnTimeRemaining != this.oldValues[i] && this.sendUpdateWithInterval())
+				somethingChanged=true;
+			}
+			else if (i == 1 && this.burnTimeRemaining != this.oldValues[i] && this.sendUpdateWithInterval()) {
 				this.oldValues[i] = this.burnTimeRemaining;
-			else if (i > 1 && this.inProgressTime[i - 2] != this.oldValues[i] && this.sendUpdateWithInterval())
+				somethingChanged=true;
+			}
+			else if (i > 1 && this.inProgressTime[i - 2] != this.oldValues[i] && this.sendUpdateWithInterval()) {
 				this.oldValues[i] = this.inProgressTime[i - 2];
+				somethingChanged=true;
+			}
 		}
+		markDirty();
 	}
 
 	@Override
@@ -371,9 +365,8 @@ public abstract class TEPowered extends TEInventory {
 		super.readSyncableNBT(compound, type);
 	}
 
-	private void resetTime() {
-		for (int i = 0; i < inProgressTime.length; i++)
-			inProgressTime[i] = 0;// TODO fix
+	protected void resetTime(int progressBar) {
+			inProgressTime[progressBar] = 0;
 	}
 
 	protected void resetUpgradeStats() {
@@ -404,9 +397,6 @@ public abstract class TEPowered extends TEInventory {
 		this.slots.setStackInSlot(i, itemStack);
 	}
 
-	public void superUpdate() {
-		super.updateEntity();
-	}
 
 	@Override
 	public void updateEntity() {
@@ -415,24 +405,40 @@ public abstract class TEPowered extends TEInventory {
 		// cookTime and return
 		boolean active = false;
 		if (!this.world.isRemote) {
-			if (canUse()) {
-				active = this.useLogic();
+			if(!(this instanceof IOPairs)||this.EQSOverride()) {
+				if (canUse(-1)) {
+					active = this.useLogic(0);
+				} else {
+					this.resetTime(0);
+				}
+				this.resetUpgradeStats();
+				oldEnergyCheck();
+				oldActiveCheck(active);
+				oldProgressTimeCheck();
 			}
-
-			else {
-				resetTime();
+			else{
+				for (int i = 0; i < ((IOPairs)this).getIONumber(); i++) {
+					if (canUse(i)) {
+						{
+							if (!active)
+								active = this.useLogic(i);
+							else
+								this.useLogic(i);
+						}
+					} else {
+						this.resetTime(i);
+					}
+					this.resetUpgradeStats();
+					this.oldActiveCheck(active);
+					this.oldEnergyCheck();
+					this.oldProgressTimeCheck();
+				}
 			}
-			this.resetUpgradeStats();
-			oldEnergyCheck();
-			oldActiveCheck(active);// TODO moved this inside isRemote structure
-									// not sure if right?
-			oldProgressTimeCheck();
 		}
 
 	}
-
-	void useFluid(ItemStack[] input) {
-
+	public boolean EQSOverride(){
+		return false;
 	}
 
 	void useFluid(ItemStack[] input, ItemStack base) {
@@ -443,15 +449,10 @@ public abstract class TEPowered extends TEInventory {
 	 * Turn one item from the inventory input stack into the appropriate output
 	 * item in the result stack
 	 */
-	public void useItem() {
+	public void useItem(int IOSet) {
 
-		ItemStack[] input = getInputSlotItemStacks();
-		ItemStack base = getBase();
-		ItemStack result;
-		if (hasBase)
-			result = RecipeHandler.getItemOutput(this.getRecipeList(), input, base);
-		else
-			result = RecipeHandler.getItemOutput(this.getRecipeList(), input);
+		ItemStack[] input = getInputSlotItemStacks(IOSet);
+		ItemStack result = this.getResult(input);
 		int outIndex = this.getOutSlot(result);
 		ItemStack output;// TODO risky
 		if (outIndex != -1&&result!=null&&!result.isEmpty()) {
@@ -466,13 +467,14 @@ public abstract class TEPowered extends TEInventory {
 				stack.shrink(1);
 			}
 		}
-		if (hasBase)
-			this.useFluid(input, base);
-		else
-			this.useFluid(input);
+			this.useFluid(input, getBase());
 	}
 
-	private boolean useLogic() {
+	ItemStack getResult(ItemStack[]input){
+		return RecipeHandler.getItemStackOutput(this.getRecipeList(), input, getBase(),null);
+	}
+
+	protected boolean useLogic(int IOSet) {
 		boolean burning;
 		boolean powered;
 		boolean active;
@@ -486,24 +488,22 @@ public abstract class TEPowered extends TEInventory {
 		// If fuel is available, keep cooking the item, otherwise start
 		// "uncooking" it at double speed
 		if (burning && powered) {
-			inProgressTime[0] += 1;
+			inProgressTime[IOSet] += 1;
 			active = true;
 		} else {
-			inProgressTime[0] -= 2;
+			inProgressTime[IOSet] -= 2;
 		}
 
-		if (inProgressTime[0] < 0)
-			inProgressTime[0] = 0;
+		if (inProgressTime[IOSet] < 0)
+			inProgressTime[IOSet] = 0;
 
 		// If cookTime has reached maxCookTime smelt the item and reset
 		// cookTime
-		if (inProgressTime[0] >= getTicksNeeded()) {
-			useItem();
-			inProgressTime[0] = 0;
+		if (inProgressTime[IOSet] >= getTicksNeeded()) {
+			useItem(IOSet);
+			inProgressTime[IOSet] = 0;
+			markDirty();
 
-		}
-		for (int i = 0; i < inProgressTime.length; i++) {
-			inProgressTime[i] = inProgressTime[0];
 		}
 		return active;
 	}

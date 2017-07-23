@@ -10,6 +10,7 @@ import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -45,7 +46,7 @@ public class TileEntityPedestal extends TEInventory {
 	}
 
 	private boolean canUse() {
-		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), this.slots.getStackInSlot(0));
+		FluidStack result = RecipeHandler.getFluidStackOutput(this.getRecipeList(), new ItemStack[]{this.slots.getStackInSlot(0)},null,null);
 
         return result != null && (this.tank.getFluidAmount() <= 0 || result.isFluidEqual(this.tank.getFluid()))
                 && this.tank.getFluidAmount() + result.amount <= this.tank.getCapacity();
@@ -95,7 +96,7 @@ public class TileEntityPedestal extends TEInventory {
 		if (canUse) {
 			active = true;
 			if (fillTick == RecipeHandler.getPedestalSpeed(this.slots.getStackInSlot(0))) {
-				FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), this.slots.getStackInSlot(0));
+				FluidStack result = RecipeHandler.getFluidStackOutput(this.getRecipeList(), new ItemStack[]{this.slots.getStackInSlot(0)},null,null);
 				tank.fillInternal(result, true);
 				fillTick = 1;
 			} else

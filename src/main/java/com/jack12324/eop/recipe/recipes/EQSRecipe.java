@@ -26,4 +26,9 @@ public class EQSRecipe implements EOPRecipe, IMultipleInputRecipe, IOneOutput {
 		return inputs;
 	}
 
+	@Override
+	public int getType(){
+		return 3;
+	}
+
 }

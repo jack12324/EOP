@@ -44,10 +44,10 @@ public abstract class TEFluidProducer extends TEFluidUser {
 	}
 
 	@Override
-	public boolean canUse() {
+	public boolean canUse(int IOSet) {
 		if (this.inTank.getFluid() == null)
 			return false;
-		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), getInputSlotItemStacks(),
+		FluidStack result = RecipeHandler.getFluidStackOutput(this.getRecipeList(), getInputSlotItemStacks(IOSet), this.getBase(),
 				this.inTank.getFluid());
 
 		return result != null && (this.outTank.getFluidAmount() <= 0 || result.isFluidEqual(this.outTank.getFluid()))
@@ -63,6 +63,7 @@ public abstract class TEFluidProducer extends TEFluidUser {
 		if (this.oldOutFluidAmount != this.outTank.getFluidAmount() && this.sendUpdateWithInterval()) {
 			System.out.println("outfluid");
 			this.oldOutFluidAmount = this.outTank.getFluidAmount();
+			markDirty();
 		}
 	}
 
@@ -85,16 +86,9 @@ public abstract class TEFluidProducer extends TEFluidUser {
 	}
 
 	@Override
-	public void useFluid(ItemStack[] input) {
-		super.useFluid(input);
-		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), input, this.inTank.getFluid());
-		outTank.fillInternal(result, true);
-	}
-
-	@Override
 	public void useFluid(ItemStack[] input, ItemStack base) {
+		FluidStack result = RecipeHandler.getFluidStackOutput(this.getRecipeList(), input, base, this.inTank.getFluid());
 		super.useFluid(input, base);
-		FluidStack result = RecipeHandler.getFluidOutput(this.getRecipeList(), input, base, this.inTank.getFluid());
 		outTank.fillInternal(result, true);
 	}
 
@@ -105,6 +99,9 @@ public abstract class TEFluidProducer extends TEFluidUser {
 		compound.setTag("outTank", tag);
 		super.writeSyncableNBT(compound, type);
 		System.out.println("TEFP write");
+	}
+	ItemStack getResult(ItemStack[]input){
+		return null;
 	}
 
 }

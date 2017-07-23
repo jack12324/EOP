@@ -26,4 +26,9 @@ public class BasicRecipe implements EOPRecipe, IOneInputRecipe, IOneOutput {
 		return outputStack;
 	}
 
+	@Override
+	public int getType(){
+		return 1;
+	}
+
 }

@@ -33,4 +33,9 @@ public class PedestalRecipe implements EOPRecipe, IFluidOutRecipe, IOneInputReci
 		return speed;
 	}
 
+	@Override
+	public int getType(){
+		return 5;
+	}
+
 }

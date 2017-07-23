@@ -16,11 +16,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import java.util.Map;
 
 public class ModRecipes {
 
@@ -52,6 +55,13 @@ public class ModRecipes {
 				new ItemStack(dust), new ItemStack(ingot, 4));
 	}
 
+	private static void createFurnaceList(){
+		Map<ItemStack, ItemStack> metaList = FurnaceRecipes.instance().getSmeltingList();
+		for (Map.Entry<ItemStack, ItemStack> entry : metaList.entrySet()) {
+			RecipeHolder.addVanillaFurnaceRecipe(entry.getKey(), entry.getValue());
+		}
+	}
+
 	private static void armorToolRecipes(ModArmor helmet, ModArmor chestplate, ModArmor leggings, ModArmor boots,
 			ModSword sword, ModPickaxe pickaxe, ModAxe axe, ModShovel shovel, ModHoe hoe, ItemBase material) {
 		GameRegistry.addShapedRecipe(new ItemStack(helmet), "aaa", "a a", 'a', material);
@@ -68,6 +78,7 @@ public class ModRecipes {
 	}
 
 	public static void init() {
+		createFurnaceList();
 		// block to ingots
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.ingotTungsten, 9), ModBlocks.blockTungsten);
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.ingotCobalt, 9), ModBlocks.blockCobalt));
@@ -168,6 +179,8 @@ public class ModRecipes {
 		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.ARROW, 2), new ItemStack(Items.GLOWSTONE_DUST));
 		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.EGG), new ItemStack(Items.LEATHER, 9));
 		RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.APPLE, 2), new ItemStack(Items.POTATO, 4));
+
+		RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten),new ItemStack(ModItems.ingotTungsten),new ItemStack(ModItems.ingotCobalt),new ItemStack(ModItems.ingotCobalt), new ItemStack(ModItems.ingotCobaltTungstenAlloy,4));
 
 	}
 
