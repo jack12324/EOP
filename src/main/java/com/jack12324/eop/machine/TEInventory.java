@@ -78,17 +78,11 @@ public abstract class TEInventory extends TETickingMachine {
 	}
 
 	private boolean canExtractItem(int slot, ItemStack stack) {
-		System.out.println("canExtractItem TEInventory");
 		for (int index : this.slotHelper.getOut()) {
 			if (index == slot)
 				return true;
 		}
 		return false;
-	}
-
-	@Override
-	public int getComparatorStrength() {
-		return ItemHandlerHelper.calcRedstoneFromInventory(this.slots);
 	}
 
 	@Override
@@ -101,7 +95,6 @@ public abstract class TEInventory extends TETickingMachine {
 	}
 
 	boolean isItemValidForSlot(int slot, ItemStack stack) {
-		System.out.println("isItemValidForSlot TEInventory");
 		return true;
 	}
 

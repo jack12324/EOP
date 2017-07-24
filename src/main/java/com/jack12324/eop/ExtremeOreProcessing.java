@@ -76,7 +76,6 @@ public class ExtremeOreProcessing {
 
 		ModItems.init();
 		ModBlocks.init();
-		ModItems.initSeeds();
 		InitFluids.init();
 		GameRegistry.registerWorldGenerator(new ModWorldGeneration(), 3);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGuiHandler());

@@ -27,7 +27,7 @@ public class ModBlocks {
 	public static BlockOreDict oreCobalt;
 	public static BlockModOre oreFirestone;
 	public static BlockBase oreRedsoul;
-	public static BlockBase blockTungsten;// TODO oredict
+	public static BlockBase blockTungsten;
 	public static BlockBase blockNickel;
 	public static BlockBase blockCobalt;
 	public static BlockBase blockFirestone;
@@ -36,7 +36,6 @@ public class ModBlocks {
 	public static BlockBase blockBasicMachineFrame;
 	public static BlockBase blockAdvancedMachineFrame;
 	public static BlockBase blockEliteMachineFrame;
-	public static BlockCropPea cropPea;
 	public static BlockActivationChamber activationChamber;
 	public static BlockEqualizingSmelter equalizingSmelter;
 	public static BlockDisablingPress disablingPress;
@@ -75,9 +74,6 @@ public class ModBlocks {
 		blockBasicMachineFrame = register(new BlockBase(Material.IRON, "block_basic_machine_frame"));
 		blockAdvancedMachineFrame = register(new BlockBase(Material.IRON, "block_advanced_machine_frame"));
 		blockEliteMachineFrame = register(new BlockBase(Material.IRON, "block_elite_machine_frame"));
-
-		// God Tier Crops
-		cropPea = register(new BlockCropPea(), null);
 
 		// tile entities
 		activationChamber = register(new BlockActivationChamber());

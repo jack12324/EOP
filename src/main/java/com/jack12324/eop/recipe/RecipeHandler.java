@@ -1,9 +1,7 @@
 package com.jack12324.eop.recipe;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.recipe.recipeInterfaces.IBaseRecipe;
@@ -19,32 +17,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.swing.*;
+
 public class RecipeHandler {
-	/**
-	 * compares two Itemstack arrays to determine if they are the same
-	 * regardless of order
-	 * 
-	 * @param recipeStacks Array of Itemstacks from the recipe to test
-	 * @param compareStacks Input Stacks to compare with recipe stacks
-	 * @return true if stacks contain same elements false if not
-	 */
-	/*private static boolean compareItemStacks(ItemStack[] recipeStacks, ItemStack[] compareStacks) {
-
-		if (recipeStacks.length != compareStacks.length)
-			return false;
-		boolean match=true;TODO remove
-		for(int i=0; i<recipeStacks.length;i++){
-			if (!match)
-				return false;
-			match = false;
-			for(int j=0; j<recipeStacks.length; j++){
-				if(!match&&recipeStacks[i].isItemEqual(compareStacks[j])&&recipeStacks[i].getCount()<=compareStacks[j].getCount())
-					match = true;
-			}
-		}
-		return match;*/
-
-	//}
 
 	private static boolean compareItemStacks(ItemStack[] recipeStacks, ItemStack[] compareStacks) {
 		if (recipeStacks.length != compareStacks.length)
@@ -102,6 +77,34 @@ public class RecipeHandler {
 				fluids.add(fluid);
 		}
 		return fluids;
+	}
+
+	public static Map<Item,Integer> getRecipeItemInputs(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs, ItemStack base, FluidStack inFluid){
+		Map<Item,Integer> test = new HashMap<Item, Integer>();
+		EOPRecipe recipe =getRecipe(recipeList,inputs,base,inFluid,true);
+		ItemStack[] stacks;
+		ItemStack[] stacksFin;
+		if (recipe instanceof IMultipleInputRecipe)
+			stacks = ((IMultipleInputRecipe)recipe).getInputStacks();
+		else if(recipe instanceof IOneInputRecipe)
+			stacks = new ItemStack[]{((IOneInputRecipe)recipe).getInputStack()};
+		else
+			return null;
+
+		if(recipe instanceof IBaseRecipe) {
+			stacksFin= new ItemStack[stacks.length+1];
+			System.arraycopy(stacks, 0, stacksFin, 0, stacks.length);
+			stacksFin[stacksFin.length-1]=((IBaseRecipe)recipe).getBaseStack();
+		}
+		else
+			stacksFin=stacks;
+
+		for(ItemStack stack: stacksFin)
+			test.put(stack.getItem(), stack.getCount());
+
+
+		return test;
+
 	}
 
 	public static int getPedestalSpeed(ItemStack input) {

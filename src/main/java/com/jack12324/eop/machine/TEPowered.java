@@ -1,6 +1,7 @@
 package com.jack12324.eop.machine;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.recipe.RecipeHandler;
@@ -17,6 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.FluidStack;
 
 public abstract class TEPowered extends TEInventory {
 	private final double BASE_TICKS_NEEDED = 200;
@@ -156,12 +158,6 @@ public abstract class TEPowered extends TEInventory {
 			stack[i] = this.slots.getStackInSlot(this.slotHelper.getBaseSlotIndex(i));
 		}
 		return stack;
-	}
-
-	@Override
-	public int getComparatorStrength() {
-		float calc = ((float) this.storage.getEnergyStored() / (float) this.storage.getMaxEnergyStored()) * 15F;
-		return (int) calc;
 	}
 
 	public double getEnergyPerTick() {
@@ -356,7 +352,7 @@ public abstract class TEPowered extends TEInventory {
 			this.burnTimeInitialValue = usesFuel
 					? getFuelBurnTime(this.slots.getStackInSlot(this.slotHelper.getFuelSlotIndex(0))) : 0;
 			this.burnTimeRemaining = compound.getInteger("BurnTime");
-			this.hasBase = compound.getBoolean("hasBase");
+			this.hasBase = compound.getBoolean("hasBase");//todo probably dont need
 			this.inProgressTime = compound.getIntArray("ProgressTime").clone();
 			this.energyPerTick = compound.getDouble("energyPerTick");
 			this.ticksNeeded = compound.getDouble("ticksNeeded");
@@ -452,26 +448,47 @@ public abstract class TEPowered extends TEInventory {
 	public void useItem(int IOSet) {
 
 		ItemStack[] input = getInputSlotItemStacks(IOSet);
+		ItemStack base = this.getBase();
 		ItemStack result = this.getResult(input);
 		int outIndex = this.getOutSlot(result);
-		ItemStack output;// TODO risky
+		Map<Item,Integer> inputs;
+		ItemStack output;
 		if (outIndex != -1&&result!=null&&!result.isEmpty()) {
+			inputs = RecipeHandler.getRecipeItemInputs(this.getRecipeList(), input,base,this.getInFluid());
 			output = this.slots.getStackInSlot(outIndex);
 			if (output.isEmpty()) {
 				this.slots.setStackInSlot(outIndex, result.copy());
 			} else if (output.getItem() == result.getItem()) {
 				output.grow(result.getCount());
 			}
-
-			for (ItemStack stack : input) {
-				stack.shrink(1);
-			}
-		}
 			this.useFluid(input, getBase());
+			for (ItemStack stack : input) {
+				if(inputs.containsKey(stack.getItem())) {
+					stack.shrink(inputs.get(stack.getItem()));
+				}
+			}
+			if(base!=null && !base.isEmpty())
+				base.shrink(inputs.get(base.getItem()));
+		}
+		else if(this instanceof TEFluidProducer){
+			inputs = RecipeHandler.getRecipeItemInputs(this.getRecipeList(), input,base,this.getInFluid());
+			this.useFluid(input, getBase());
+			for (ItemStack stack : input) {
+				if(inputs.containsKey(stack.getItem())) {
+					stack.shrink(inputs.get(stack.getItem()));
+				}
+				if(base!=null && !base.isEmpty())
+					base.shrink(inputs.get(base.getItem()));
+		}
+	}
 	}
 
 	ItemStack getResult(ItemStack[]input){
-		return RecipeHandler.getItemStackOutput(this.getRecipeList(), input, getBase(),null);
+		return RecipeHandler.getItemStackOutput(this.getRecipeList(), input, getBase(),this.getInFluid());
+	}
+
+	protected FluidStack getInFluid(){
+		return null;
 	}
 
 	protected boolean useLogic(int IOSet) {

@@ -36,6 +36,13 @@ public abstract class TEFluidUser extends TEPowered {
 		this.inTank.setCapacity(tankSize);
 
 	}
+@Override
+protected FluidStack getInFluid(){
+	return this.inTank.getFluid();
+}
+
+
+
 
 	@Override
 	public boolean canUse(int IOSet) {

@@ -3,6 +3,7 @@ package com.jack12324.eop.machine;
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.packet.PacketHandler;
 import com.jack12324.eop.packet.PacketServerToClient;
+import com.jack12324.eop.util.Coord4D;
 import com.jack12324.eop.util.compat.TeslaForgeUnitsWrapper;
 import com.jack12324.eop.util.compat.TeslaUtil;
 
@@ -39,63 +40,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		SAVE_TILE, SYNC, SAVE_BLOCK
 	}
 
-	public static void doEnergyInteraction(TileEntity tileFrom, TileEntity tileTo, EnumFacing sideTo, int maxTransfer) {
-		if (maxTransfer > 0) {
-			EnumFacing opp = sideTo == null ? null : sideTo.getOpposite();
-			if (tileFrom.hasCapability(CapabilityEnergy.ENERGY, sideTo)
-					&& tileTo.hasCapability(CapabilityEnergy.ENERGY, opp)) {
-				IEnergyStorage handlerFrom = tileFrom.getCapability(CapabilityEnergy.ENERGY, sideTo);
-				IEnergyStorage handlerTo = tileTo.getCapability(CapabilityEnergy.ENERGY, opp);
-
-				if (handlerFrom != null && handlerTo != null) {
-					int drain = handlerFrom.extractEnergy(maxTransfer, true);
-					if (drain > 0) {
-						int filled = handlerTo.receiveEnergy(drain, false);
-						handlerFrom.extractEnergy(filled, false);
-						return;
-					}
-				}
-			}
-
-			if (ExtremeOreProcessing.teslaLoaded) {
-				if (tileTo.hasCapability(TeslaUtil.teslaConsumer, opp)
-						&& tileFrom.hasCapability(TeslaUtil.teslaProducer, sideTo)) {
-					ITeslaConsumer handlerTo = tileTo.getCapability(TeslaUtil.teslaConsumer, opp);
-					ITeslaProducer handlerFrom = tileFrom.getCapability(TeslaUtil.teslaProducer, sideTo);
-
-					if (handlerTo != null && handlerFrom != null) {
-						long drain = handlerFrom.takePower(maxTransfer, true);
-						if (drain > 0) {
-							long filled = handlerTo.givePower(drain, false);
-							handlerFrom.takePower(filled, false);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public static void doFluidInteraction(TileEntity tileFrom, TileEntity tileTo, EnumFacing sideTo, int maxTransfer) {
-		if (maxTransfer > 0) {
-			if (tileFrom.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, sideTo)
-					&& tileTo.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, sideTo.getOpposite())) {
-				IFluidHandler handlerFrom = tileFrom.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
-						sideTo);
-				IFluidHandler handlerTo = tileTo.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
-						sideTo.getOpposite());
-				FluidStack drain = handlerFrom !=null ? handlerFrom.drain(maxTransfer, false):null;
-				if (drain != null) {
-					int filled = handlerTo != null ? handlerTo.fill(drain.copy(), true) : 0;
-					handlerFrom.drain(filled, true);
-				}
-			}
-		}
-	}
-
 	private final String name;
-	private boolean isRedstonePowered;
-	private boolean isPulseMode;
-	private boolean stopFromDropping;
 
 	private int ticksElapsed;
 
@@ -107,10 +52,6 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 
 	TETickingMachine(String name) {
 		this.name = name;
-	}
-
-	public void activateOnPulse() {
-
 	}
 
 	public boolean canPlayerUse(EntityPlayer player) {
@@ -135,7 +76,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 			if (storage != null) {
 				return (T) storage;
 			}
-		} else if (ExtremeOreProcessing.teslaLoaded) {
+		} else if (ExtremeOreProcessing.teslaLoaded) {//TODO might not need?
 			if (capability == TeslaUtil.teslaConsumer || capability == TeslaUtil.teslaProducer
 					|| capability == TeslaUtil.teslaHolder) {
 				IEnergyStorage storage = this.getEnergyStorage(facing);
@@ -150,9 +91,6 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		return super.getCapability(capability, facing);
 	}
 
-	public int getComparatorStrength() {
-		return 0;
-	}
 
 	public String getDisplayedName() {
 		return I18n.format("tile." + name + ".name");
@@ -220,17 +158,8 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		}
 
 		if (type == NBTType.SAVE_TILE) {
-			this.isRedstonePowered = compound.getBoolean("Redstone");
 			this.ticksElapsed = compound.getInteger("TicksElapsed");
-			this.stopFromDropping = compound.getBoolean("StopDrop");
 		}
-		if (this.isRedstoneToggle()) {
-			this.isPulseMode = compound.getBoolean("IsPulseMode");
-		}
-	}
-
-	public boolean respondsToPulses() {
-		return this.isRedstoneToggle() && this.isPulseMode;
 	}
 
 	private void saveDataOnChangeOrWorldStart() {
@@ -249,9 +178,8 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 
 			NBTTagCompound data = new NBTTagCompound();
 			data.setTag("Data", compound);
-			data.setInteger("X", this.pos.getX());
-			data.setInteger("Y", this.pos.getY());
-			data.setInteger("Z", this.pos.getZ());
+			Coord4D coord4D = new Coord4D(this.getPos(),this.getWorld());
+			data = coord4D.write(data);
 			PacketHandler.NETWORK.sendToAllAround(new PacketServerToClient(data, PacketHandler.TILE_ENTITY_HANDLER),
 					new NetworkRegistry.TargetPoint(this.world.provider.getDimension(), this.getPos().getX(),
 							this.getPos().getY(), this.getPos().getZ(), 64));
@@ -259,17 +187,12 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 	}
 
 	protected boolean sendUpdateWithInterval() {
-		if (this.ticksElapsed % 2 == 0) {
+		if (this.ticksElapsed % 5 == 0) {
 			this.sendUpdate();
 			return true;
 		} else {
 			return false;
 		}
-	}
-
-	public void setRedstonePowered(boolean powered) {
-		this.isRedstonePowered = powered;
-		this.markDirty();
 	}
 
 	@Override
@@ -307,12 +230,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		}
 
 		if (type == NBTType.SAVE_TILE) {
-			compound.setBoolean("Redstone", this.isRedstonePowered);
 			compound.setInteger("TicksElapsed", this.ticksElapsed);
-			compound.setBoolean("StopDrop", this.stopFromDropping);
-		}
-		if (this.isRedstoneToggle() && (type != NBTType.SAVE_BLOCK || this.isPulseMode)) {
-			compound.setBoolean("IsPulseMode", this.isPulseMode);
 		}
 	}
 

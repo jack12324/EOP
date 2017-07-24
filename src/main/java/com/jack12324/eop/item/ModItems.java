@@ -44,9 +44,6 @@ public class ModItems {
 	public static ModArmor tungstenLeggings;
 	public static ModArmor tungstenBoots;
 
-	public static ItemPeaSeed peaSeed;
-	public static ItemBase pea;
-
 	public static ItemBase activatedGoldDust;
 	public static ItemBase activatedIronDust;
 	public static ItemBase activatedNickelDust;
@@ -130,8 +127,6 @@ public class ModItems {
 		tungstenShovel = register(new ModShovel(ExtremeOreProcessing.tungstenToolMaterial, "shovel_tungsten"));
 		tungstenHoe = register(new ModHoe(ExtremeOreProcessing.tungstenToolMaterial, "hoe_tungsten"));
 
-		// God Tier Crops
-		pea = register(new ItemBase("pea").setCreativeTab(CreativeTabs.FOOD));
 
 		// Activated Dusts
 		activatedGoldDust = register(new ItemBase("activated_gold_dust"));
@@ -180,9 +175,6 @@ public class ModItems {
 
 	}
 
-	public static void initSeeds() {
-		peaSeed = register(new ItemPeaSeed());
-	}
 
 	private static <T extends Item> T register(T item) {
 		GameRegistry.register(item);

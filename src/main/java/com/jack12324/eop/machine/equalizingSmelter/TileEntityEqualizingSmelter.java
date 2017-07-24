@@ -89,7 +89,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 		super.readSyncableNBT(compound, type);
 	}
 
-	private void resetTimeF(int i) {// TODO removed empty check
+	private void resetTimeF(int i) {
 		setInProgressTime(i, 0);
 	}
 

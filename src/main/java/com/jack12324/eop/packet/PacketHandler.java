@@ -32,9 +32,9 @@ public class PacketHandler {
 		@SideOnly(Side.CLIENT)
 		public void handleData(NBTTagCompound compound, MessageContext context) {
 			World world = Minecraft.getMinecraft().world;
+			Coord4D coord4D = Coord4D.read(compound);
 			if (world != null) {
-				TileEntity tile = world.getTileEntity(
-						new BlockPos(compound.getInteger("X"), compound.getInteger("Y"), compound.getInteger("Z")));
+				TileEntity tile = coord4D.getTileEntity(world);
 				if (tile instanceof TETickingMachine) {
 					((TETickingMachine) tile).readSyncableNBT(compound.getCompoundTag("Data"),
 							TETickingMachine.NBTType.SYNC);
@@ -55,19 +55,6 @@ public class PacketHandler {
 			if (tile !=null && tile instanceof IButtonUse) {
 				((IButtonUse) tile).onButtonPress(compound.getInteger("buttonID"));
 			}
-
-
-
-
-
-			/*World world = Minecraft.getMinecraft().world;
-			if (world != null) {
-				TileEntity tile = world.getTileEntity(
-						new BlockPos(compound.getInteger("X"), compound.getInteger("Y"), compound.getInteger("Z")));
-				if (tile != null && tile instanceof IButtonUse) {
-					((IButtonUse) tile).onButtonPress(compound.getInteger("buttonID"));
-				}
-			}*/
 		}
     };
 
