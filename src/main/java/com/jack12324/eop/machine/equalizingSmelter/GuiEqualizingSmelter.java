@@ -41,8 +41,8 @@ public class GuiEqualizingSmelter extends GuiContainer {
     private final int DUST_WIDTH = 12;
     private final int DUST_HEIGHT = 11;
 
-    private final int POWER_XPOS = 9;
-    private final int POWER_YPOS = 21;
+    private final int POWER_XPOS = 8;
+    private final int POWER_YPOS = 20;
     private final int POWER_WIDTH = 8;
     private final int POWER_HEIGHT = 45;
 

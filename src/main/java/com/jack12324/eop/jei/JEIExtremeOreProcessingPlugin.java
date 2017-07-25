@@ -1,5 +1,6 @@
 package com.jack12324.eop.jei;
 
+import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.jei.Infusers.CatalystInfuserRecipeCategory;
 import com.jack12324.eop.jei.Infusers.DualCatalystInfuserRecipeCategory;
 import com.jack12324.eop.jei.Infusers.TriCatalystInfuserRecipeCategory;
@@ -9,12 +10,15 @@ import com.jack12324.eop.jei.advancedMachines.EndericPurifierRecipeCategory;
 import com.jack12324.eop.jei.advancedMachines.ParticleExciterRecipeCategory;
 import com.jack12324.eop.jei.advancedMachines.StarHardenerRecipeCategory;
 import com.jack12324.eop.jei.disablingPress.disablingPressRecipeCategory;
+import com.jack12324.eop.jei.equalizingSmelter.EqualizingSmelterRecipeCategory;
 import com.jack12324.eop.machine.activationChamber.GuiActivationChamber;
 import com.jack12324.eop.recipe.RecipeHolder;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -45,6 +49,9 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
         registryIn.addRecipes(RecipeHolder.PARTICLEEXCITERRECIPES, "eop.particle_exciter");
         registryIn.addRecipes(RecipeHolder.STARHARDENERRECIPES, "eop.star_hardener");
         registryIn.addRecipes(RecipeHolder.PEDESTALRECIPES, "eop.pedestal");
+        registryIn.addRecipes(RecipeHolder.EQUALIZINGSMELTERRECIPES, "eop.equalizing_smelter");
+
+        registryIn.addRecipeCatalyst(new ItemStack(ModBlocks.equalizingSmelter), VanillaRecipeCategoryUid.SMELTING);
 
 
         registryIn.addRecipeClickArea(GuiActivationChamber.class, 49, 30, 77, 15, "eop.activation_chamber");
@@ -64,6 +71,8 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
         categories.add(new EndericPurifierRecipeCategory(guiHelper));
         categories.add(new ParticleExciterRecipeCategory(guiHelper));
         categories.add(new PedestalRecipeCategory(guiHelper));
+        categories.add(new EqualizingSmelterRecipeCategory(guiHelper));
+
 
         registry.addRecipeCategories(categories.toArray(new EOPRecipeCategory[categories.size()]));
 
