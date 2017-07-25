@@ -1,7 +1,6 @@
 package com.jack12324.eop.packet;
 
 import com.jack12324.eop.ExtremeOreProcessing;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,53 +13,53 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PacketServerToClient implements IMessage {
 
-	public static class Handler implements IMessageHandler<PacketServerToClient, IMessage> {
+    public static class Handler implements IMessageHandler<PacketServerToClient, IMessage> {
 
-		@Override
-		@SideOnly(Side.CLIENT)
-		public IMessage onMessage(final PacketServerToClient message, final MessageContext ctx) {
-			Minecraft.getMinecraft().addScheduledTask(() -> {
+        @Override
+        @SideOnly(Side.CLIENT)
+        public IMessage onMessage(final PacketServerToClient message, final MessageContext ctx) {
+            Minecraft.getMinecraft().addScheduledTask(() -> {
                 if (message.data != null && message.handler != null) {
                     message.handler.handleData(message.data, ctx);
                 }
             });
-			return null;
-		}
-	}
+            return null;
+        }
+    }
 
-	private NBTTagCompound data;
+    private NBTTagCompound data;
 
-	private IDataHandler handler;
+    private IDataHandler handler;
 
-	public PacketServerToClient() {
+    public PacketServerToClient() {
 
-	}
+    }
 
-	public PacketServerToClient(NBTTagCompound data, IDataHandler handler) {
-		this.data = data;
-		this.handler = handler;
-	}
+    public PacketServerToClient(NBTTagCompound data, IDataHandler handler) {
+        this.data = data;
+        this.handler = handler;
+    }
 
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		PacketBuffer buffer = new PacketBuffer(buf);
-		try {
-			this.data = buffer.readCompoundTag();
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        PacketBuffer buffer = new PacketBuffer(buf);
+        try {
+            this.data = buffer.readCompoundTag();
 
-			int handlerId = buffer.readInt();
-			if (handlerId >= 0 && handlerId < PacketHandler.DATA_HANDLERS.size()) {
-				this.handler = PacketHandler.DATA_HANDLERS.get(handlerId);
-			}
-		} catch (Exception e) {
-			ExtremeOreProcessing.LOGGER.error("Something went wrong trying to receive a client packet!", e);
-		}
-	}
+            int handlerId = buffer.readInt();
+            if (handlerId >= 0 && handlerId < PacketHandler.DATA_HANDLERS.size()) {
+                this.handler = PacketHandler.DATA_HANDLERS.get(handlerId);
+            }
+        } catch (Exception e) {
+            ExtremeOreProcessing.LOGGER.error("Something went wrong trying to receive a client packet!", e);
+        }
+    }
 
-	@Override
-	public void toBytes(ByteBuf buf) {
-		PacketBuffer buffer = new PacketBuffer(buf);
+    @Override
+    public void toBytes(ByteBuf buf) {
+        PacketBuffer buffer = new PacketBuffer(buf);
 
-		buffer.writeCompoundTag(this.data);
-		buffer.writeInt(PacketHandler.DATA_HANDLERS.indexOf(this.handler));
-	}
+        buffer.writeCompoundTag(this.data);
+        buffer.writeInt(PacketHandler.DATA_HANDLERS.indexOf(this.handler));
+    }
 }

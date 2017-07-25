@@ -1,62 +1,61 @@
 package com.jack12324.eop.util.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.machine.TEPowered;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class PowerBar extends Gui {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
-			"textures/gui/fluid_bar.png");
-	private final TEPowered tileEntity;
-	private final int guiLeft;
-	private final int guiTop;
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
+            "textures/gui/fluid_bar.png");
+    private final TEPowered tileEntity;
+    private final int guiLeft;
+    private final int guiTop;
 
-	private final int POWER_XPOS = 8;
+    private final int POWER_XPOS = 8;
 
-	private final int POWER_YPOS = 20;
+    private final int POWER_YPOS = 20;
     private final int POWER_WIDTH = 8;
-	private final int POWER_HEIGHT = 45;
+    private final int POWER_HEIGHT = 45;
 
-	public PowerBar(TEPowered tileEntity, int guiLeft, int guiTop) {
-		this.tileEntity = tileEntity;
-		this.guiLeft = guiLeft;
-		this.guiTop = guiTop;
-	}
+    public PowerBar(TEPowered tileEntity, int guiLeft, int guiTop) {
+        this.tileEntity = tileEntity;
+        this.guiLeft = guiLeft;
+        this.guiTop = guiTop;
+    }
 
-	public void draw() {
-		Minecraft mc = Minecraft.getMinecraft();
-		mc.getTextureManager().bindTexture(TEXTURE);
-		// draw the fuel remaining bar for the power bar
-		double powerRemaining = tileEntity.fractionOfPowerRemaining();
-		int yOffset = (int) ((1.0 - powerRemaining) * POWER_HEIGHT);
+    public void draw() {
+        Minecraft mc = Minecraft.getMinecraft();
+        mc.getTextureManager().bindTexture(TEXTURE);
+        // draw the fuel remaining bar for the power bar
+        double powerRemaining = tileEntity.fractionOfPowerRemaining();
+        int yOffset = (int) ((1.0 - powerRemaining) * POWER_HEIGHT);
 
         int POWER_ICON_V = 109;
         int POWER_ICON_U = 0;
         drawTexturedModalRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS + yOffset, POWER_ICON_U, POWER_ICON_V + yOffset,
-				POWER_WIDTH, POWER_HEIGHT - yOffset);
-	}
+                POWER_WIDTH, POWER_HEIGHT - yOffset);
+    }
 
-	public ArrayList<String> drawText(int mouseX, int mouseY) {
-		List<String> hoveringText = new ArrayList<>();
-		if (isInRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS, POWER_WIDTH, POWER_HEIGHT, mouseX, mouseY)) {
-			hoveringText.add("Energy Stored:");
-			int powerPercentage = (int) (tileEntity.fractionOfPowerRemaining() * 100);
-			hoveringText.add(powerPercentage + "%");
-			hoveringText.add(tileEntity.storage.getEnergyStored() + "/" + tileEntity.storage.getMaxEnergyStored());
-			hoveringText.add((int) tileEntity.getEnergyPerTick() + "rf/t");
-			return (ArrayList<String>) hoveringText;
-		}
-		return null;
-	}
+    public ArrayList<String> drawText(int mouseX, int mouseY) {
+        List<String> hoveringText = new ArrayList<>();
+        if (isInRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS, POWER_WIDTH, POWER_HEIGHT, mouseX, mouseY)) {
+            hoveringText.add("Energy Stored:");
+            int powerPercentage = (int) (tileEntity.fractionOfPowerRemaining() * 100);
+            hoveringText.add(powerPercentage + "%");
+            hoveringText.add(tileEntity.storage.getEnergyStored() + "/" + tileEntity.storage.getMaxEnergyStored());
+            hoveringText.add((int) tileEntity.getEnergyPerTick() + "rf/t");
+            return (ArrayList<String>) hoveringText;
+        }
+        return null;
+    }
 
-	private boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
-		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
-	}
+    private boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
+        return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
+    }
 }

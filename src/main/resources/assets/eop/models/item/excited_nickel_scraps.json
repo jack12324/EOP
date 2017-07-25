@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "eop:items/excited_nickel_scraps"
-        }
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "eop:items/excited_nickel_scraps"
+  }
 }

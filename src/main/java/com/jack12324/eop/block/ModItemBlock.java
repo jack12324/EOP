@@ -8,21 +8,21 @@ import javax.annotation.Nonnull;
 
 public class ModItemBlock extends ItemBlock {
 
-	public ModItemBlock(Block block) {
-		super(block);
-		this.setHasSubtypes(false);
-		this.setMaxDamage(0);
-	}
+    public ModItemBlock(Block block) {
+        super(block);
+        this.setHasSubtypes(false);
+        this.setMaxDamage(0);
+    }
 
-	@Override
-	public int getMetadata(int damage) {
-		return damage;
-	}
-
-	@Nonnull
     @Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return this.getUnlocalizedName();
-	}
+    public int getMetadata(int damage) {
+        return damage;
+    }
+
+    @Nonnull
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return this.getUnlocalizedName();
+    }
 
 }

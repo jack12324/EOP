@@ -24,7 +24,7 @@ public class TriCatalystInfuserRecipeCategory extends InfuserRecipeCategory {
     private static final int yOffset = 15;
 
     public TriCatalystInfuserRecipeCategory(IGuiHelper helper) {
-        super(helper,background,"tri_catalyst_infuser","tile.tri_catalyst_infuser.name", ModBlocks.triCatalystInfuser,xOffset,yOffset  );
+        super(helper, background, "tri_catalyst_infuser", "tile.tri_catalyst_infuser.name", ModBlocks.triCatalystInfuser, xOffset, yOffset);
 
         progress = helper.createAnimatedDrawable(helper.createDrawable(background, 3, 170, 86, 35), 200,
                 IDrawableAnimated.StartDirection.LEFT, false);
@@ -38,7 +38,7 @@ public class TriCatalystInfuserRecipeCategory extends InfuserRecipeCategory {
     @Override
     protected void drawOther(Minecraft minecraft) {
         super.drawOther(minecraft);
-        tankBack.draw(minecraft,151-xOffset, 18-yOffset);
+        tankBack.draw(minecraft, 151 - xOffset, 18 - yOffset);
     }
 
     @Override
@@ -55,12 +55,13 @@ public class TriCatalystInfuserRecipeCategory extends InfuserRecipeCategory {
         guiItemStacks.set(1, ingredients.getInputs(ItemStack.class).get(1));
         guiItemStacks.set(2, ingredients.getInputs(ItemStack.class).get(2));
 
-        guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,400,false, super.tankOverlay);
-        guiFluidStacks.init(1,false,151-xOffset,18-yOffset	,18,49,400,false,super.tankOverlay);
+        guiFluidStacks.init(0, true, 25 - xOffset, 18 - yOffset, 18, 49, 400, false, super.tankOverlay);
+        guiFluidStacks.init(1, false, 151 - xOffset, 18 - yOffset, 18, 49, 400, false, super.tankOverlay);
 
         guiFluidStacks.set(0, ingredients.getInputs(FluidStack.class).get(0));
-        if (ingredients.getOutputs(FluidStack.class).size() > 0){
-            guiFluidStacks.set(1, ingredients.getOutputs(FluidStack.class).get(0));}
+        if (ingredients.getOutputs(FluidStack.class).size() > 0) {
+            guiFluidStacks.set(1, ingredients.getOutputs(FluidStack.class).get(0));
+        }
 
     }
 }

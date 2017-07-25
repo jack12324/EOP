@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "eop:items/astral_cobalt_slivers"
-        }
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "eop:items/astral_cobalt_slivers"
+  }
 }

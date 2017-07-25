@@ -14,29 +14,29 @@ import java.util.List;
 
 class InfuserRecipeWrapper extends BlankRecipeWrapper {
 
-	private final List<ItemStack> inputs;
-	private final FluidStack inFluid;
-	private final FluidStack outFluid;
+    private final List<ItemStack> inputs;
+    private final FluidStack inFluid;
+    private final FluidStack outFluid;
 
-	public InfuserRecipeWrapper(InfuserRecipe recipe) {
-		this.inputs = new ArrayList<>(Arrays.asList(recipe.getInputStacks()));
-		this.inFluid=recipe.getInFluidStack();
-		this.outFluid = recipe.getOutFluidStack();
+    public InfuserRecipeWrapper(InfuserRecipe recipe) {
+        this.inputs = new ArrayList<>(Arrays.asList(recipe.getInputStacks()));
+        this.inFluid = recipe.getInFluidStack();
+        this.outFluid = recipe.getOutFluidStack();
 
-	}
+    }
 
-	@Override
-	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
+    @Override
+    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+        super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 
-	}
+    }
 
-	@Override
-	public void getIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInputs(ItemStack.class, inputs);
-		ingredients.setInput(FluidStack.class, inFluid);
-		ingredients.setOutput(FluidStack.class, outFluid);
+    @Override
+    public void getIngredients(@Nonnull IIngredients ingredients) {
+        ingredients.setInputs(ItemStack.class, inputs);
+        ingredients.setInput(FluidStack.class, inFluid);
+        ingredients.setOutput(FluidStack.class, outFluid);
 
-	}
+    }
 
 }

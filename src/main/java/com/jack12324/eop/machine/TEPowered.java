@@ -113,11 +113,7 @@ public abstract class TEPowered extends TEInventory {
         }
         ItemStack result = RecipeHandler.getItemStackOutput(this.getRecipeList(), getInputSlotItemStacks(IOSlot), getBase(), null);
 
-        if (result == null || result.isEmpty()) {
-            return false;
-        } else {
-            return getOutSlot(result) != -1;
-        }
+        return result != null && !result.isEmpty() && getOutSlot(result) != -1;
     }
 
     /**
@@ -325,8 +321,8 @@ public abstract class TEPowered extends TEInventory {
                 somethingChanged = true;
             }
         }
-        if(somethingChanged)
-         markDirty();
+        if (somethingChanged)
+            markDirty();
     }
 
     @Override
@@ -432,29 +428,34 @@ public abstract class TEPowered extends TEInventory {
         ItemStack output;
         if (outIndex != -1 && result != null && !result.isEmpty()) {
             inputs = RecipeHandler.getRecipeItemInputs(this.getRecipeList(), input, base, this.getInFluid());
-            output = this.slots.getStackInSlot(outIndex);
-            if (output.isEmpty()) {
-                this.slots.setStackInSlot(outIndex, result.copy());
-            } else if (output.getItem() == result.getItem()) {
-                output.grow(result.getCount());
-            }
-            this.useFluid(input, getBase());
-            for (ItemStack stack : input) {
-                if (inputs.containsKey(stack.getItem())) {
-                    stack.shrink(inputs.get(stack.getItem()));
+            if (inputs != null) {
+                output = this.slots.getStackInSlot(outIndex);
+                if (output.isEmpty()) {
+                    this.slots.setStackInSlot(outIndex, result.copy());
+                } else if (output.getItem() == result.getItem()) {
+                    output.grow(result.getCount());
                 }
-            }
-            if (base != null && !base.isEmpty())
-                base.shrink(inputs.get(base.getItem()));
-        } else if (this instanceof TEFluidProducer) {
-            inputs = RecipeHandler.getRecipeItemInputs(this.getRecipeList(), input, base, this.getInFluid());
-            this.useFluid(input, getBase());
-            for (ItemStack stack : input) {
-                if (inputs.containsKey(stack.getItem())) {
-                    stack.shrink(inputs.get(stack.getItem()));
+                this.useFluid(input, getBase());
+                for (ItemStack stack : input) {
+                    if (inputs.containsKey(stack.getItem())) {
+                        stack.shrink(inputs.get(stack.getItem()));
+                    }
                 }
                 if (base != null && !base.isEmpty())
                     base.shrink(inputs.get(base.getItem()));
+            }
+
+        } else if (this instanceof TEFluidProducer) {
+            inputs = RecipeHandler.getRecipeItemInputs(this.getRecipeList(), input, base, this.getInFluid());
+            if (inputs != null) {
+                this.useFluid(input, getBase());
+                for (ItemStack stack : input) {
+                    if (inputs.containsKey(stack.getItem())) {
+                        stack.shrink(inputs.get(stack.getItem()));
+                    }
+                    if (base != null && !base.isEmpty())
+                        base.shrink(inputs.get(base.getItem()));
+                }
             }
         }
     }

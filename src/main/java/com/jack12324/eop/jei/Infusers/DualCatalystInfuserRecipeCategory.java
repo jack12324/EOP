@@ -3,7 +3,10 @@ package com.jack12324.eop.jei.Infusers;
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.block.ModBlocks;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.*;
+import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IGuiFluidStackGroup;
+import mezz.jei.api.gui.IGuiItemStackGroup;
+import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -12,7 +15,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 
-public class DualCatalystInfuserRecipeCategory extends InfuserRecipeCategory{
+public class DualCatalystInfuserRecipeCategory extends InfuserRecipeCategory {
     private final static ResourceLocation background = new ResourceLocation(ExtremeOreProcessing.modID,
             "textures/gui/dual_catalyst_infuser.png");
 
@@ -21,7 +24,7 @@ public class DualCatalystInfuserRecipeCategory extends InfuserRecipeCategory{
     private static final int yOffset = 15;
 
     public DualCatalystInfuserRecipeCategory(IGuiHelper helper) {
-        super(helper,background,"dual_catalyst_infuser","tile.dual_catalyst_infuser.name",ModBlocks.dualCatalystInfuser,xOffset,yOffset  );
+        super(helper, background, "dual_catalyst_infuser", "tile.dual_catalyst_infuser.name", ModBlocks.dualCatalystInfuser, xOffset, yOffset);
 
         progress = helper.createAnimatedDrawable(helper.createDrawable(background, 3, 170, 86, 35), 200,
                 IDrawableAnimated.StartDirection.LEFT, false);
@@ -35,7 +38,7 @@ public class DualCatalystInfuserRecipeCategory extends InfuserRecipeCategory{
     @Override
     protected void drawOther(Minecraft minecraft) {
         super.drawOther(minecraft);
-        tankBack.draw(minecraft,151-xOffset, 18-yOffset);
+        tankBack.draw(minecraft, 151 - xOffset, 18 - yOffset);
     }
 
     @Override
@@ -49,12 +52,13 @@ public class DualCatalystInfuserRecipeCategory extends InfuserRecipeCategory{
         guiItemStacks.init(1, true, 44 - xOffset - 1, 52 - yOffset - 1);
         guiItemStacks.set(1, ingredients.getInputs(ItemStack.class).get(1));
 
-        guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,400,false, super.tankOverlay);
-        guiFluidStacks.init(1,false,151-xOffset,18-yOffset	,18,49,400,false,super.tankOverlay);
+        guiFluidStacks.init(0, true, 25 - xOffset, 18 - yOffset, 18, 49, 400, false, super.tankOverlay);
+        guiFluidStacks.init(1, false, 151 - xOffset, 18 - yOffset, 18, 49, 400, false, super.tankOverlay);
         guiFluidStacks.set(0, ingredients.getInputs(FluidStack.class).get(0));
 
-        if (ingredients.getOutputs(FluidStack.class).size() > 0){
-            guiFluidStacks.set(1, ingredients.getOutputs(FluidStack.class).get(0));}
+        if (ingredients.getOutputs(FluidStack.class).size() > 0) {
+            guiFluidStacks.set(1, ingredients.getOutputs(FluidStack.class).get(0));
+        }
 
     }
 }

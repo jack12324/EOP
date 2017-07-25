@@ -12,26 +12,26 @@ import javax.annotation.Nonnull;
 
 class PedestalRecipeWrapper extends BlankRecipeWrapper {
 
-	private final ItemStack input;
-	private final FluidStack outFluid;
+    private final ItemStack input;
+    private final FluidStack outFluid;
 
-	PedestalRecipeWrapper(PedestalRecipe recipe) {
-		this.input = recipe.getInputStack();
-		this.outFluid = recipe.getOutFluidStack();
+    PedestalRecipeWrapper(PedestalRecipe recipe) {
+        this.input = recipe.getInputStack();
+        this.outFluid = recipe.getOutFluidStack();
 
-	}
+    }
 
-	@Override
-	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
+    @Override
+    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+        super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 
-	}
+    }
 
-	@Override
-	public void getIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInput(ItemStack.class, input);
-		ingredients.setOutput(FluidStack.class, outFluid);
+    @Override
+    public void getIngredients(@Nonnull IIngredients ingredients) {
+        ingredients.setInput(ItemStack.class, input);
+        ingredients.setOutput(FluidStack.class, outFluid);
 
-	}
+    }
 
 }

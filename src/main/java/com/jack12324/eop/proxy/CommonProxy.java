@@ -7,18 +7,18 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class CommonProxy {
 
-	public EntityPlayer getPlayer(MessageContext context) {
-		return context.getServerHandler().playerEntity;
-	}
+    public EntityPlayer getPlayer(MessageContext context) {
+        return context.getServerHandler().playerEntity;
+    }
 
 
-	public void preInit(FMLPreInitializationEvent event) {
-		// TODO Auto-generated method stub
+    public void preInit(FMLPreInitializationEvent event) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	public void registerItemRenderer(Item itemBase, int meta, String name) {
-		// TODO Auto-generated method stud
-	}
+    public void registerItemRenderer(Item itemBase, int meta, String name) {
+        // TODO Auto-generated method stud
+    }
 
 }

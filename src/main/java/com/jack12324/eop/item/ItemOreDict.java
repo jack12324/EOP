@@ -4,17 +4,17 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemOreDict extends ItemBase implements ItemOreDictionary {
 
-	private final String oreName;
+    private final String oreName;
 
-	public ItemOreDict(String name, String oreName) {
-		super(name);
+    public ItemOreDict(String name, String oreName) {
+        super(name);
 
-		this.oreName = oreName;
-	}
+        this.oreName = oreName;
+    }
 
-	@Override
-	public void initOreDict() {
-		OreDictionary.registerOre(oreName, this);
-	}
+    @Override
+    public void initOreDict() {
+        OreDictionary.registerOre(oreName, this);
+    }
 
 }

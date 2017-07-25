@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "eop:items/ingot_iron_tungsten_alloy"
-        }
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "eop:items/ingot_iron_tungsten_alloy"
+  }
 }

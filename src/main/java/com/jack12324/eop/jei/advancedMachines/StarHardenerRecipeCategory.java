@@ -25,7 +25,7 @@ public class StarHardenerRecipeCategory extends AdvancedMachineRecipeCategory {
     private static final int yOffset = 15;
 
     public StarHardenerRecipeCategory(IGuiHelper helper) {
-        super(helper, background,"star_hardener","tile.star_hardener.name", ModBlocks.starHardener,xOffset,yOffset);
+        super(helper, background, "star_hardener", "tile.star_hardener.name", ModBlocks.starHardener, xOffset, yOffset);
 
         progress = helper.createAnimatedDrawable(helper.createDrawable(background, 4, 171, 62, 31), 200,
                 IDrawableAnimated.StartDirection.LEFT, false);
@@ -45,15 +45,16 @@ public class StarHardenerRecipeCategory extends AdvancedMachineRecipeCategory {
         guiItemStacks.init(0, true, 44 - xOffset - 1, 19 - yOffset - 1);
         guiItemStacks.init(1, true, 44 - xOffset - 1, 50 - yOffset - 1);
         guiItemStacks.init(2, false, 134 - xOffset - 1, 34 - yOffset - 1);
-        
+
         guiItemStacks.set(0, ingredients.getInputs(ItemStack.class).get(0));
         guiItemStacks.set(1, ingredients.getInputs(ItemStack.class).get(1));
 
-        guiFluidStacks.init(0,true,25-xOffset, 18-yOffset,18,49,400,false, tankOverlay);
+        guiFluidStacks.init(0, true, 25 - xOffset, 18 - yOffset, 18, 49, 400, false, tankOverlay);
         guiFluidStacks.set(0, ingredients.getInputs(FluidStack.class).get(0));
 
-        if (ingredients.getOutputs(ItemStack.class).size() > 0){
+        if (ingredients.getOutputs(ItemStack.class).size() > 0) {
             guiItemStacks.set(2, ingredients.getOutputs(ItemStack.class).get(0));
 
+        }
     }
-}}
+}

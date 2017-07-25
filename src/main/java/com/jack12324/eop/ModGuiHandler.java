@@ -33,7 +33,6 @@ import com.jack12324.eop.machine.triCatalystInfuser.ContainerTriCatalystInfuser;
 import com.jack12324.eop.machine.triCatalystInfuser.GuiTriCatalystInfuser;
 import com.jack12324.eop.machine.triCatalystInfuser.TileEntityTriCatalystInfuser;
 import com.jack12324.eop.util.gui.GuiUpgrade;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
@@ -43,134 +42,134 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class ModGuiHandler implements IGuiHandler {
 
-	public static final int ACTIVATIONCHAMBER = 0;
-	public static final int EQUALIZINGSMELTER = 1;
-	public static final int DISABLINGPRESS = 2;
-	public static final int PARTICLEEXCITER = 3;
-	public static final int PEDESTAL = 4;
-	public static final int CATALYSTINFUSER = 5;
-	public static final int DUALCATALYSTINFUSER = 6;
-	public static final int ENDERICPURIFIER = 7;
-	public static final int STARHARDENER = 8;
-	public static final int TRICATALYSTINFUSER = 9;
-	public static final int UPGRADES = 10;
+    public static final int ACTIVATIONCHAMBER = 0;
+    public static final int EQUALIZINGSMELTER = 1;
+    public static final int DISABLINGPRESS = 2;
+    public static final int PARTICLEEXCITER = 3;
+    public static final int PEDESTAL = 4;
+    public static final int CATALYSTINFUSER = 5;
+    public static final int DUALCATALYSTINFUSER = 6;
+    public static final int ENDERICPURIFIER = 7;
+    public static final int STARHARDENER = 8;
+    public static final int TRICATALYSTINFUSER = 9;
+    public static final int UPGRADES = 10;
 
-	public static int getTileGui(TileEntity te) {
+    public static int getTileGui(TileEntity te) {
 
-		if (te instanceof TileEntityActivationChamber)
-			return ACTIVATIONCHAMBER;
-		else if (te instanceof TileEntityEqualizingSmelter)
-			return EQUALIZINGSMELTER;
-		else if (te instanceof TileEntityDisablingPress)
-			return DISABLINGPRESS;
-		else if (te instanceof TileEntityParticleExciter)
-			return PARTICLEEXCITER;
-		else if (te instanceof TileEntityPedestal)
-			return PEDESTAL;
-		else if (te instanceof TileEntityCatalystInfuser)
-			return CATALYSTINFUSER;
-		else if (te instanceof TileEntityDualCatalystInfuser)
-			return DUALCATALYSTINFUSER;
-		else if (te instanceof TileEntityEndericPurifier)
-			return ENDERICPURIFIER;
-		else if (te instanceof TileEntityStarHardener)
-			return STARHARDENER;
-		else if (te instanceof TileEntityTriCatalystInfuser)
-			return TRICATALYSTINFUSER;
-		else
-			return -1;
+        if (te instanceof TileEntityActivationChamber)
+            return ACTIVATIONCHAMBER;
+        else if (te instanceof TileEntityEqualizingSmelter)
+            return EQUALIZINGSMELTER;
+        else if (te instanceof TileEntityDisablingPress)
+            return DISABLINGPRESS;
+        else if (te instanceof TileEntityParticleExciter)
+            return PARTICLEEXCITER;
+        else if (te instanceof TileEntityPedestal)
+            return PEDESTAL;
+        else if (te instanceof TileEntityCatalystInfuser)
+            return CATALYSTINFUSER;
+        else if (te instanceof TileEntityDualCatalystInfuser)
+            return DUALCATALYSTINFUSER;
+        else if (te instanceof TileEntityEndericPurifier)
+            return ENDERICPURIFIER;
+        else if (te instanceof TileEntityStarHardener)
+            return STARHARDENER;
+        else if (te instanceof TileEntityTriCatalystInfuser)
+            return TRICATALYSTINFUSER;
+        else
+            return -1;
 
-	}
+    }
 
-	public Object getClientGuiElement(int id, EntityPlayer player, World world, BlockPos pos) {
-		return getClientGuiElement(id, player, world, pos.getX(), pos.getY(), pos.getZ());
-	}
+    public Object getClientGuiElement(int id, EntityPlayer player, World world, BlockPos pos) {
+        return getClientGuiElement(id, player, world, pos.getX(), pos.getY(), pos.getZ());
+    }
 
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		BlockPos xyz = new BlockPos(x, y, z);
-		switch (ID) {
-		case ACTIVATIONCHAMBER:
-			return new GuiActivationChamber(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityActivationChamber) world.getTileEntity(xyz));
-		case EQUALIZINGSMELTER:
-			return new GuiEqualizingSmelter(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityEqualizingSmelter) world.getTileEntity(xyz));
-		case DISABLINGPRESS:
-			return new GuiDisablingPress(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityDisablingPress) world.getTileEntity(xyz));
-		case PARTICLEEXCITER:
-			return new GuiParticleExciter(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityParticleExciter) world.getTileEntity(xyz));
-		case PEDESTAL:
-			return new GuiPedestal(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityPedestal) world.getTileEntity(xyz));
-		case CATALYSTINFUSER:
-			return new GuiCatalystInfuser(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityCatalystInfuser) world.getTileEntity(xyz));
-		case DUALCATALYSTINFUSER:
-			return new GuiDualCatalystInfuser(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityDualCatalystInfuser) world.getTileEntity(xyz));
-		case ENDERICPURIFIER:
-			return new GuiEndericPurifier(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityEndericPurifier) world.getTileEntity(xyz));
-		case STARHARDENER:
-			return new GuiStarHardener(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityStarHardener) world.getTileEntity(xyz));
-		case TRICATALYSTINFUSER:
-			return new GuiTriCatalystInfuser(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
-					(TileEntityTriCatalystInfuser) world.getTileEntity(xyz));
-		case UPGRADES:
-			return new GuiUpgrade(getServerGuiElement(ID, player, world, x, y, z),
-                    world.getTileEntity(xyz));
-		default:
-			return null;
-		}
-	}
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        BlockPos xyz = new BlockPos(x, y, z);
+        switch (ID) {
+            case ACTIVATIONCHAMBER:
+                return new GuiActivationChamber(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityActivationChamber) world.getTileEntity(xyz));
+            case EQUALIZINGSMELTER:
+                return new GuiEqualizingSmelter(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityEqualizingSmelter) world.getTileEntity(xyz));
+            case DISABLINGPRESS:
+                return new GuiDisablingPress(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityDisablingPress) world.getTileEntity(xyz));
+            case PARTICLEEXCITER:
+                return new GuiParticleExciter(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityParticleExciter) world.getTileEntity(xyz));
+            case PEDESTAL:
+                return new GuiPedestal(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityPedestal) world.getTileEntity(xyz));
+            case CATALYSTINFUSER:
+                return new GuiCatalystInfuser(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityCatalystInfuser) world.getTileEntity(xyz));
+            case DUALCATALYSTINFUSER:
+                return new GuiDualCatalystInfuser(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityDualCatalystInfuser) world.getTileEntity(xyz));
+            case ENDERICPURIFIER:
+                return new GuiEndericPurifier(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityEndericPurifier) world.getTileEntity(xyz));
+            case STARHARDENER:
+                return new GuiStarHardener(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityStarHardener) world.getTileEntity(xyz));
+            case TRICATALYSTINFUSER:
+                return new GuiTriCatalystInfuser(getServerGuiElement(ID, player, world, x, y, z), player.inventory,
+                        (TileEntityTriCatalystInfuser) world.getTileEntity(xyz));
+            case UPGRADES:
+                return new GuiUpgrade(getServerGuiElement(ID, player, world, x, y, z),
+                        world.getTileEntity(xyz));
+            default:
+                return null;
+        }
+    }
 
-	public Container getServerGuiElement(int id, EntityPlayer player, World world, BlockPos pos) {
-		return getServerGuiElement(id, player, world, pos.getX(), pos.getY(), pos.getZ());
-	}
+    public Container getServerGuiElement(int id, EntityPlayer player, World world, BlockPos pos) {
+        return getServerGuiElement(id, player, world, pos.getX(), pos.getY(), pos.getZ());
+    }
 
-	@Override
-	public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		switch (ID) {
-		case ACTIVATIONCHAMBER:
-			return new ContainerActivationChamber(player.inventory,
-					(TileEntityActivationChamber) world.getTileEntity(new BlockPos(x, y, z)));
-		case EQUALIZINGSMELTER:
-			return new ContainerEqualizingSmelter(player.inventory,
-					(TileEntityEqualizingSmelter) world.getTileEntity(new BlockPos(x, y, z)));
-		case DISABLINGPRESS:
-			return new ContainerDisablingPress(player.inventory,
-					(TileEntityDisablingPress) world.getTileEntity(new BlockPos(x, y, z)));
-		case PARTICLEEXCITER:
-			return new ContainerParticleExciter(player.inventory,
-					(TileEntityParticleExciter) world.getTileEntity(new BlockPos(x, y, z)));
-		case PEDESTAL:
-			return new ContainerPedestal(player.inventory,
-					(TileEntityPedestal) world.getTileEntity(new BlockPos(x, y, z)));
-		case CATALYSTINFUSER:
-			return new ContainerCatalystInfuser(player.inventory,
-					(TileEntityCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
-		case DUALCATALYSTINFUSER:
-			return new ContainerDualCatalystInfuser(player.inventory,
-					(TileEntityDualCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
-		case ENDERICPURIFIER:
-			return new ContainerEndericPurifier(player.inventory,
-					(TileEntityEndericPurifier) world.getTileEntity(new BlockPos(x, y, z)));
-		case STARHARDENER:
-			return new ContainerStarHardener(player.inventory,
-					(TileEntityStarHardener) world.getTileEntity(new BlockPos(x, y, z)));
-		case TRICATALYSTINFUSER:
-			return new ContainerTriCatalystInfuser(player.inventory,
-					(TileEntityTriCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
-		case UPGRADES:
-			return new ContainerUpgrades(player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
-		default:
-			return null;
+    @Override
+    public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        switch (ID) {
+            case ACTIVATIONCHAMBER:
+                return new ContainerActivationChamber(player.inventory,
+                        (TileEntityActivationChamber) world.getTileEntity(new BlockPos(x, y, z)));
+            case EQUALIZINGSMELTER:
+                return new ContainerEqualizingSmelter(player.inventory,
+                        (TileEntityEqualizingSmelter) world.getTileEntity(new BlockPos(x, y, z)));
+            case DISABLINGPRESS:
+                return new ContainerDisablingPress(player.inventory,
+                        (TileEntityDisablingPress) world.getTileEntity(new BlockPos(x, y, z)));
+            case PARTICLEEXCITER:
+                return new ContainerParticleExciter(player.inventory,
+                        (TileEntityParticleExciter) world.getTileEntity(new BlockPos(x, y, z)));
+            case PEDESTAL:
+                return new ContainerPedestal(player.inventory,
+                        (TileEntityPedestal) world.getTileEntity(new BlockPos(x, y, z)));
+            case CATALYSTINFUSER:
+                return new ContainerCatalystInfuser(player.inventory,
+                        (TileEntityCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
+            case DUALCATALYSTINFUSER:
+                return new ContainerDualCatalystInfuser(player.inventory,
+                        (TileEntityDualCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
+            case ENDERICPURIFIER:
+                return new ContainerEndericPurifier(player.inventory,
+                        (TileEntityEndericPurifier) world.getTileEntity(new BlockPos(x, y, z)));
+            case STARHARDENER:
+                return new ContainerStarHardener(player.inventory,
+                        (TileEntityStarHardener) world.getTileEntity(new BlockPos(x, y, z)));
+            case TRICATALYSTINFUSER:
+                return new ContainerTriCatalystInfuser(player.inventory,
+                        (TileEntityTriCatalystInfuser) world.getTileEntity(new BlockPos(x, y, z)));
+            case UPGRADES:
+                return new ContainerUpgrades(player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+            default:
+                return null;
 
-		}
-	}
+        }
+    }
 
 }
