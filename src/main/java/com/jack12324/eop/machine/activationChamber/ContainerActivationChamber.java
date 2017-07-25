@@ -12,8 +12,7 @@ import javax.annotation.Nonnull;
 
 public class ContainerActivationChamber extends MachineContainer {
 
-	private int[] cachedFields;
-	private final TileEntityActivationChamber activationChamber;
+    private final TileEntityActivationChamber activationChamber;
 
 	public ContainerActivationChamber(InventoryPlayer playerInv, final TileEntityActivationChamber activationChamber) {
 		this.activationChamber = activationChamber;
@@ -37,7 +36,6 @@ public class ContainerActivationChamber extends MachineContainer {
 			}
 		});
 
-		// this.addUpgradeSlots(activationChamber);
 		this.addInventorySlots(playerInv);
 	}
 

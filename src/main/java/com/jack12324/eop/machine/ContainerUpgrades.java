@@ -14,7 +14,6 @@ public class ContainerUpgrades extends MachineContainer {
 		this.addInventorySlots(playerInv);
 	}
 
-	@Override
 	protected void addUpgradeSlots(TEInventory te) {
 		addSlotToContainer(
 				new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(0), 20, 20, ModItems.speedUpgrade) {

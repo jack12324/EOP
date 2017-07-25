@@ -28,6 +28,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
  * @author aidancbrady
  *
  */
+@SuppressWarnings("unused")
 public class Coord4D {
 	/**
 	 * Returns a new Coord4D from a defined TileEntity's xCoord, yCoord and

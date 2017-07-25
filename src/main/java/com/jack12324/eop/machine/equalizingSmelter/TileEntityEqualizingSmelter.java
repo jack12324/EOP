@@ -86,20 +86,6 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 		super.readSyncableNBT(compound, shouldSync);
 	}
 
-	private void resetTimeF(int i) {
-		setInProgressTime(i, 0);
-	}
-
-	public void setMode(boolean b) {
-		furnaceMode = b;
-
-	}
-
-	public void setSpreadMode(boolean b) {
-		spreadMode = b;
-
-	}
-
 	private void spread() {
 		int size = this.slotHelper.getInSlotSize();
 		for(int i=0; i<size;i++){
@@ -208,6 +194,6 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	}
 
 	@Override
-	public boolean EQSOverride(){return !furnaceMode;};
+	public boolean EQSOverride(){return !furnaceMode;}
 }
 

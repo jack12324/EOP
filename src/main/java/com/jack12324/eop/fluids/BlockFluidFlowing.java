@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 class BlockFluidFlowing extends BlockFluidClassic {
 
-	private static void registerBlock(Block block, ModItemBlock itemBlock, String name, boolean addTab) {
+	private static void registerBlock(Block block, ModItemBlock itemBlock, String name) {
 		block.setUnlocalizedName(ExtremeOreProcessing.modID + "." + name);
 
 		block.setRegistryName(ExtremeOreProcessing.modID, name);
@@ -55,7 +55,7 @@ class BlockFluidFlowing extends BlockFluidClassic {
 	}
 
 	private void register() {
-		registerBlock(this, this.getItemBlock(), this.getBaseName(), this.shouldAddCreative());
+		registerBlock(this, this.getItemBlock(), this.getBaseName());
 	}
 
 	private boolean shouldAddCreative() {

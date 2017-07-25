@@ -52,12 +52,7 @@ public class TileEntityPedestal extends TEInventory {
                 && this.tank.getFluidAmount() + result.amount <= this.tank.getCapacity();
 	}
 
-	@SideOnly(Side.CLIENT)
-	public int getTankScaled(int i) {
-		return (int) (this.tank.getFluidAmount() * i / (double) this.tank.getCapacity());
-	}
-
-	private void oldFluidCheck() {
+    private void oldFluidCheck() {
 		if (this.oldFluidAmount != this.tank.getFluidAmount() && this.sendUpdateWithInterval()) {
 			this.oldFluidAmount = this.tank.getFluidAmount();
 		}
@@ -67,6 +62,7 @@ public class TileEntityPedestal extends TEInventory {
 	public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 		this.tank.readFromNBT(compound);
 		NBTTagCompound tag = compound.getCompoundTag("tank");
+		this.tank.readFromNBT(tag);
 		super.readSyncableNBT(compound, shouldSync);
 	}
 

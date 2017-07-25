@@ -19,11 +19,8 @@ public class GuiPedestal extends GuiContainer {
 	private final InventoryPlayer playerInv;
 	private FluidBar fb;
 	private final TileEntityPedestal tileEntity;
-	private final int FLUID_XPOS = 79;
 
-	private final int FLUID_YPOS = 21;
-
-	public GuiPedestal(Container container, InventoryPlayer playerInv, TileEntityPedestal tileEntity) {
+    public GuiPedestal(Container container, InventoryPlayer playerInv, TileEntityPedestal tileEntity) {
 		super(container);
 		this.tileEntity = tileEntity;
 		this.playerInv = playerInv;
@@ -58,6 +55,8 @@ public class GuiPedestal extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
-		this.fb = new FluidBar(this.tileEntity.tank, guiLeft + FLUID_XPOS, guiTop + FLUID_YPOS);
+        int FLUID_YPOS = 21;
+        int FLUID_XPOS = 79;
+        this.fb = new FluidBar(this.tileEntity.tank, guiLeft + FLUID_XPOS, guiTop + FLUID_YPOS);
 	}
 }

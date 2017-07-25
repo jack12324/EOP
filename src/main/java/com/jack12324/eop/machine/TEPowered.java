@@ -28,7 +28,6 @@ public abstract class TEPowered extends TEInventory {
     private int burnTimeRemaining;
     private int[] inProgressTime;
     private final int[] oldValues;
-    private int baseSpeed = 1;
     private int fuelMultiplier = 1;
     private boolean hasBase;
     private final boolean usesFuel;
@@ -193,10 +192,6 @@ public abstract class TEPowered extends TEInventory {
         }
     }
 
-    public int getFuelMultiplier() {
-        return this.fuelMultiplier;
-    }
-
     protected int getFuelSize() {
         return 0;
     }
@@ -258,7 +253,7 @@ public abstract class TEPowered extends TEInventory {
         return new ArrayList<>();
     }
 
-    public double getTicksNeeded() {
+    private double getTicksNeeded() {
         return ticksNeeded;
     }
 
@@ -274,29 +269,17 @@ public abstract class TEPowered extends TEInventory {
     }
 
     /**
-     * determines if an item is acceptable fuel for the machine
-     */
-    public boolean isItemFuel(ItemStack stack) {
-        return this.getFuelBurnTime(stack) > 0;
-    }
-
-    /**
      * Returns true if automation is allowed to insert the given stack (ignoring
      * stack size) into the given slot. For guis use Slot.isItemValid
      */
     @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
+    boolean isItemValidForSlot(int index, ItemStack stack) {
         System.out.println("isItemValidForSlot TEPowered");
         // cant insert into output slot
         for (int indexes : this.slotHelper.getOut()) {
             if (index == indexes)
                 return false;
         }
-        return true;
-    }
-
-    @Override
-    public boolean isRedstoneToggle() {
         return true;
     }
 
@@ -308,7 +291,7 @@ public abstract class TEPowered extends TEInventory {
         return this.world.getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
-    protected void oldActiveCheck(boolean active) {
+    private void oldActiveCheck(boolean active) {
         if (active != this.lastActive) {
             IBlockState currState = this.world.getBlockState(this.pos);
             if (currState.getValue(BlockTE.PROPERTYACTIVE) != (active)) {
@@ -320,7 +303,7 @@ public abstract class TEPowered extends TEInventory {
         }
     }
 
-    protected void oldEnergyCheck() {
+    private void oldEnergyCheck() {
         if (this.oldEnergy != this.storage.getEnergyStored() && this.sendUpdateWithInterval()) {
             this.oldEnergy = this.storage.getEnergyStored();
             markDirty();
@@ -342,7 +325,8 @@ public abstract class TEPowered extends TEInventory {
                 somethingChanged = true;
             }
         }
-        markDirty();
+        if(somethingChanged)
+         markDirty();
     }
 
     @Override
@@ -364,7 +348,7 @@ public abstract class TEPowered extends TEInventory {
         inProgressTime[progressBar] = 0;
     }
 
-    protected void resetUpgradeStats() {
+    private void resetUpgradeStats() {
         ticksNeeded = UpgradeHelper.getTicks(this, BASE_TICKS_NEEDED);
         energyPerTick = UpgradeHelper.getEnergyPerTick(this, BASE_ENERGY_PER_TICK);
     }
@@ -376,14 +360,6 @@ public abstract class TEPowered extends TEInventory {
         if (burnTimeRemaining <= 0 || fuelMultiplier <= 0)
             return 0;
         return (int) (burnTimeRemaining / (20 * fuelMultiplier * BASE_TICKS_NEEDED / getTicksNeeded()));
-    }
-
-    public void setBaseSpeed(int speedMultiplier) {
-        this.baseSpeed = speedMultiplier;
-    }
-
-    public void setFuelMultiplier(int fuelMultiplier) {
-        this.fuelMultiplier = fuelMultiplier;
     }
 
     protected void setInProgressTime(int index, int value) {
@@ -434,7 +410,7 @@ public abstract class TEPowered extends TEInventory {
 
     }
 
-    public boolean EQSOverride() {
+    protected boolean EQSOverride() {
         return false;
     }
 
@@ -487,7 +463,7 @@ public abstract class TEPowered extends TEInventory {
         return RecipeHandler.getItemStackOutput(this.getRecipeList(), input, getBase(), this.getInFluid());
     }
 
-    protected FluidStack getInFluid() {
+    FluidStack getInFluid() {
         return null;
     }
 
@@ -525,7 +501,7 @@ public abstract class TEPowered extends TEInventory {
         return active;
     }
 
-    protected boolean usePower() {
+    private boolean usePower() {
         boolean powered = false;
 
         if (this.storage.getEnergyStored() >= getEnergyPerTick()) {

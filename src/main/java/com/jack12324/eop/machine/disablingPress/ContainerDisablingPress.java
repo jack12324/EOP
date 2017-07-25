@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 
 public class ContainerDisablingPress extends Container {
-	private int[] cachedFields;
 	private final TileEntityDisablingPress disablingPress;
 
 	public ContainerDisablingPress(InventoryPlayer playerInv, final TileEntityDisablingPress disablingPress) {

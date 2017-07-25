@@ -72,7 +72,6 @@ public abstract class TEFluidProducer extends TEFluidUser {
 		NBTTagCompound tag = compound.getCompoundTag("outTank");
 		this.outTank.readFromNBT(tag);
 		super.readSyncableNBT(compound, shouldSync);
-		System.out.println("TEFP read");
 	}
 
 	@Override

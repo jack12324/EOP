@@ -42,10 +42,7 @@ public class ExtremeOreProcessing {
 			20);
 	public static final ItemArmor.ArmorMaterial tungstenArmorMaterial = EnumHelper.addArmorMaterial("TUNGSTEN",
 			modID + ":tungsten", 35, new int[] { 4, 9, 7, 4 }, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0f);
-	public static final ItemArmor.ArmorMaterial cobaltArmorMaterial = EnumHelper.addArmorMaterial("COBALT",
-			modID + ":cobalt", 20, new int[] { 5, 10, 8, 5 }, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0f);
-	public static final Item.ToolMaterial cactusToolMaterial = EnumHelper.addToolMaterial("CACTUS", 3, 2000, 10, 4, 20);
-	public static boolean teslaLoaded;
+    public static boolean teslaLoaded;
 
 	@Mod.Instance(modID)
 	public static ExtremeOreProcessing instance;

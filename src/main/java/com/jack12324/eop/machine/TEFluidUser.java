@@ -59,12 +59,7 @@ protected FluidStack getInFluid(){
 		return this.inTank;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public int getTankScaled(int i) {
-		return (int) (this.inTank.getFluidAmount() * i / (double) this.inTank.getCapacity());
-	}
-
-	private void oldInFluidCheck() {
+    private void oldInFluidCheck() {
 		if (this.oldInFluidAmount != this.inTank.getFluidAmount() && this.sendUpdateWithInterval()) {
 			System.out.println("influid");
 			this.oldInFluidAmount = this.inTank.getFluidAmount();
@@ -89,7 +84,7 @@ protected FluidStack getInFluid(){
 	}
 
 	@Override
-	public void useFluid(ItemStack[] input, ItemStack base) {
+	void useFluid(ItemStack[] input, ItemStack base) {
 		inTank.drainInternal(
 				RecipeHandler.getInFluidAmountUsed(this.getRecipeList(), input, base, inTank.getFluid().getFluid()),
 				true);

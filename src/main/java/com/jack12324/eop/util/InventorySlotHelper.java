@@ -73,7 +73,7 @@ public class InventorySlotHelper {
 		return getFuel().length;
 	}
 
-	public int[] getIn() {
+	private int[] getIn() {
 		return in;
 	}
 

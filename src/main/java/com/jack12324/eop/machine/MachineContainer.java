@@ -24,23 +24,6 @@ public abstract class MachineContainer extends Container {
 		}
 	}
 
-	protected void addUpgradeSlots(TEInventory te) {
-		addSlotToContainer(
-				new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(0), 20, 20, ModItems.speedUpgrade) {
-					@Override
-					public void onSlotChanged() {
-						te.markDirty();
-					}
-				});
-		addSlotToContainer(
-				new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(1), 40, 20, ModItems.energyUpgrade) {
-					@Override
-					public void onSlotChanged() {
-						te.markDirty();
-					}
-				});
-	}
-
 	@Nonnull
     @Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {

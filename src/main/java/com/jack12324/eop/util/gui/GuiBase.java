@@ -49,24 +49,6 @@ public class GuiBase extends GuiContainer {
 		this.baseWidth = baseWidth;
 	}
 
-	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
-			ResourceLocation resourceLocation, int baseHeight, int baseWidth, int[] progressVals, int tankX,
-			int tankY) {
-		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, baseWidth, baseHeight, progressVals);
-		this.tankX = tankX;
-		this.tankY = tankY;
-
-	}
-
-	public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
-			ResourceLocation resourceLocation, int baseHeight, int baseWidth, int[] progressVals, int[] fuelVals) {
-		this(inventorySlotsIn, playerInv, tileEntity, resourceLocation, baseWidth, baseHeight, progressVals);
-		this.fuelBar = new int[fuelVals.length];
-		System.arraycopy(fuelVals, 0, this.fuelBar, 0, fuelBar.length);
-		fuel = true;
-
-	}
-
 	protected GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
 					  ResourceLocation resourceLocation, int[] progressVals) {
 		super(inventorySlotsIn);
@@ -159,6 +141,8 @@ public class GuiBase extends GuiContainer {
 
 		else if (hoveringText.isEmpty())
 			hoveringText = powerBar.drawText(mouseX, mouseY);
+		else if (hoveringText.isEmpty())
+			hoveringText = this.fluidText(mouseX,mouseY);
 
 		if(hoveringText!=null && !hoveringText.isEmpty())
 			this.drawText(hoveringText, mouseX, mouseY);

@@ -35,7 +35,6 @@ public class GuiUpgrade extends GuiContainer {
 	}
 
 	private void actionPerformed(GuiButton button, int mbutton) throws IOException {
-		EntityPlayer player = Minecraft.getMinecraft().player;
 		if (button.id == 70) {
 			NBTTagCompound compound = new NBTTagCompound();
 			Coord4D pos = new Coord4D(tileEntity.getPos(), tileEntity.getWorld());

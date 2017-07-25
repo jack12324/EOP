@@ -102,11 +102,6 @@ public abstract class EOPRecipeCategory<T, W extends IRecipeWrapper>
 		return "eop." + uniqueName;
 	}
 
-	// @Override
-	public boolean isRecipeValid(T recipe) {
-		return true;
-	}
-
 	protected void drawOther(Minecraft minecraft) {
 
 	}

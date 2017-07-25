@@ -109,7 +109,7 @@ public abstract class TEInventory extends TETickingMachine {
 	@Override
 	public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 		super.readSyncableNBT(compound, shouldSync);
-		if (shouldSync == false || (shouldSync == true && this.shouldSyncSlots())) {
+		if (!shouldSync || (shouldSync && this.shouldSyncSlots())) {
 			loadSlots(this.slots, compound);
 		}
 	}
@@ -121,7 +121,7 @@ public abstract class TEInventory extends TETickingMachine {
 	@Override
 	public void writeSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 		super.writeSyncableNBT(compound, shouldSync);
-		if (shouldSync == false || (shouldSync == true && this.shouldSyncSlots())) {
+		if (!shouldSync || (shouldSync && this.shouldSyncSlots())) {
 			saveSlots(this.slots, compound);
 		}
 	}

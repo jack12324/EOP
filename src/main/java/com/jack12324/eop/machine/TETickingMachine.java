@@ -48,11 +48,6 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		this.name = name;
 	}
 
-	public boolean canPlayerUse(EntityPlayer player) {
-		return player.getDistanceSq(this.getPos().getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64
-				&& !this.isInvalid() && this.world.getTileEntity(this.pos) == this;
-	}
-
 	@Override
 	public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -132,11 +127,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		return this.getCapability(capability, facing) != null;
 	}
 
-	boolean isRedstoneToggle() {
-		return false;
-	}
-
-	@Override
+    @Override
 	public final void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		this.readSyncableNBT(pkt.getNbtCompound(), true);
 	}
@@ -148,7 +139,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 
 	public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 			super.readFromNBT(compound);
-			if (shouldSync == false) {
+			if (!shouldSync) {
 			this.ticksElapsed = compound.getInteger("TicksElapsed");
 		}
 	}

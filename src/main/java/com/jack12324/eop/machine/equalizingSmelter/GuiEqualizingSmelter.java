@@ -21,7 +21,6 @@ import net.minecraft.util.ResourceLocation;
 public class GuiEqualizingSmelter extends GuiContainer {
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
 			"textures/gui/equalizing_smelter.png");
-	private static final int SMELT_MODE_BUTTON_ID = 53;
 
 	private static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
 		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
@@ -34,23 +33,18 @@ public class GuiEqualizingSmelter extends GuiContainer {
 	// some [x,y] coordinates of graphical elements
 	private final int[] COOK_BAR_XPOS = { 44, 107, 44, 107 };
 	private final int[] COOK_BAR_YPOS = { 34, 34, 58, 58 };
-	private final int COOK_BAR_ICON_U = 180; // texture position of white arrow icon
-	private final int[] COOK_BAR_ICON_V = { 88, 33, 52, 70 };
+    private final int[] COOK_BAR_ICON_V = { 88, 33, 52, 70 };
 	private final int COOK_BAR_WIDTH = 25;
 	private final int COOK_BAR_HEIGHT = 16;
 
 	private final int DUST_XPOS = 82;
 	private final int DUST_YPOS = 24;
-	private final int DUST_ICON_U = 180; // texture position of flame icon
-	private final int DUST_ICON_V = 20;
-	private final int DUST_WIDTH = 12;
+    private final int DUST_WIDTH = 12;
 	private final int DUST_HEIGHT = 11;
 
 	private final int POWER_XPOS = 9;
 	private final int POWER_YPOS = 21;
-	private final int POWER_ICON_U = 247; // texture position of POWER icon
-	private final int POWER_ICON_V = 147;
-	private final int POWER_WIDTH = 8;
+    private final int POWER_WIDTH = 8;
 	private final int POWER_HEIGHT = 45;
 
 	public GuiEqualizingSmelter(Container inventorySlotsIn, InventoryPlayer playerInv,
@@ -91,7 +85,8 @@ public class GuiEqualizingSmelter extends GuiContainer {
 		double[] cookProgress = new double[4];
 		for (int i = 0; i < 4; i++) {
 			cookProgress[i] = tileEntity.fractionOfProgressTimeComplete(i);
-			if (i % 2 != 0) {
+            int COOK_BAR_ICON_U = 180;
+            if (i % 2 != 0) {
 				int xOffset = (int) ((1.0 - cookProgress[i]) * COOK_BAR_WIDTH);
 				drawTexturedModalRect(guiLeft + COOK_BAR_XPOS[i] + xOffset, guiTop + COOK_BAR_YPOS[i],
 						COOK_BAR_ICON_U + xOffset, COOK_BAR_ICON_V[i], COOK_BAR_WIDTH - xOffset, COOK_BAR_HEIGHT);
@@ -103,13 +98,17 @@ public class GuiEqualizingSmelter extends GuiContainer {
 		// extraFirestone slot
 		double dustProgress = tileEntity.fractionOfDustProgress();
 		int yOffset = (int) ((1.0 - dustProgress) * DUST_HEIGHT);
-		drawTexturedModalRect(guiLeft + DUST_XPOS, guiTop + DUST_YPOS + yOffset, DUST_ICON_U, DUST_ICON_V + yOffset,
+        int DUST_ICON_V = 20;
+        int DUST_ICON_U = 180;
+        drawTexturedModalRect(guiLeft + DUST_XPOS, guiTop + DUST_YPOS + yOffset, DUST_ICON_U, DUST_ICON_V + yOffset,
 				DUST_WIDTH, DUST_HEIGHT - yOffset);
 
 		// draw the fuel remaining bar for the power bar
 		double powerRemaining = tileEntity.fractionOfPowerRemaining();
 		yOffset = (int) ((1.0 - powerRemaining) * POWER_HEIGHT);
-		drawTexturedModalRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS + yOffset, POWER_ICON_U, POWER_ICON_V + yOffset,
+        int POWER_ICON_V = 147;
+        int POWER_ICON_U = 247;
+        drawTexturedModalRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS + yOffset, POWER_ICON_U, POWER_ICON_V + yOffset,
 				POWER_WIDTH, POWER_HEIGHT - yOffset);
 
 	}

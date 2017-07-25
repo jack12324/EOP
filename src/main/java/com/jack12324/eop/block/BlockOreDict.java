@@ -8,14 +8,6 @@ import net.minecraftforge.oredict.OreDictionary;
 public class BlockOreDict extends BlockBase implements ItemOreDictionary {
 	private final String oreName;
 
-	public BlockOreDict(String name, String oreName) {
-		super(Material.ROCK, name);
-		this.oreName = oreName;
-		setHardness(5f);
-		setResistance(30f);
-
-	}
-
 	// Ore Dictionary ore
 	public BlockOreDict(String name, String oreName, int harvestLevel) {
 		super(Material.ROCK, name);

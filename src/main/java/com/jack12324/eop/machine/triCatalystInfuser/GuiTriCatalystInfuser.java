@@ -25,11 +25,7 @@ public class GuiTriCatalystInfuser extends GuiBase {
 
 	private FluidBar fb2;
 
-	private final int FLUID_XPOS2 = 151;
-
-	private final int FLUID_YPOS2 = 18;
-
-	public GuiTriCatalystInfuser(Container inventorySlotsIn, InventoryPlayer playerInv,
+    public GuiTriCatalystInfuser(Container inventorySlotsIn, InventoryPlayer playerInv,
 			TileEntityTriCatalystInfuser tileEntity) {
 		super(inventorySlotsIn, playerInv, tileEntity, BG_TEXTURE, progressBarVals);
 		this.tileEntity = tileEntity;
@@ -55,7 +51,9 @@ public class GuiTriCatalystInfuser extends GuiBase {
 	@Override
 	public void initGui() {
 		super.initGui();
-		this.fb2 = new FluidBar(this.tileEntity.outTank, guiLeft + FLUID_XPOS2, guiTop + FLUID_YPOS2);
+        int FLUID_YPOS2 = 18;
+        int FLUID_XPOS2 = 151;
+        this.fb2 = new FluidBar(this.tileEntity.outTank, guiLeft + FLUID_XPOS2, guiTop + FLUID_YPOS2);
 	}
 
 }
