@@ -64,10 +64,10 @@ public class TileEntityPedestal extends TEInventory {
 	}
 
 	@Override
-	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
+	public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 		this.tank.readFromNBT(compound);
 		NBTTagCompound tag = compound.getCompoundTag("tank");
-		super.readSyncableNBT(compound, type);
+		super.readSyncableNBT(compound, shouldSync);
 	}
 
 	@Override
@@ -107,11 +107,11 @@ public class TileEntityPedestal extends TEInventory {
 	}
 
 	@Override
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
+	public void writeSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 		this.tank.writeToNBT(compound);
 		NBTTagCompound tag = new NBTTagCompound();
 		compound.setTag("tank", tag);
-		super.writeSyncableNBT(compound, type);
+		super.writeSyncableNBT(compound, shouldSync);
 	}
 
 }

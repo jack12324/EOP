@@ -73,10 +73,10 @@ protected FluidStack getInFluid(){
 	}
 
 	@Override
-	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
+	public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 		NBTTagCompound tag = compound.getCompoundTag("inTank");
 		this.inTank.readFromNBT(tag);
-		super.readSyncableNBT(compound, type);
+		super.readSyncableNBT(compound, shouldSync);
 		System.out.println("TEFU read");
 	}
 
@@ -97,11 +97,11 @@ protected FluidStack getInFluid(){
 	}
 
 	@Override
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
+	public void writeSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 		NBTTagCompound tag = new NBTTagCompound();
 		this.inTank.writeToNBT(tag);
 		compound.setTag("inTank", tag);
-		super.writeSyncableNBT(compound, type);
+		super.writeSyncableNBT(compound, shouldSync);
 		System.out.println("TEFU write");
 	}
 

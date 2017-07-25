@@ -9,7 +9,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 public abstract class TEInventory extends TETickingMachine {
 
@@ -103,14 +102,14 @@ public abstract class TEInventory extends TETickingMachine {
 		super.markDirty();
 
 		if (this.shouldSyncSlots()) {
-			this.sendUpdate();
+			this.sendTileUpdate();
 		}
 	}
 
 	@Override
-	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
-		super.readSyncableNBT(compound, type);
-		if (type == NBTType.SAVE_TILE || (type == NBTType.SYNC && this.shouldSyncSlots())) {
+	public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
+		super.readSyncableNBT(compound, shouldSync);
+		if (shouldSync == false || (shouldSync == true && this.shouldSyncSlots())) {
 			loadSlots(this.slots, compound);
 		}
 	}
@@ -120,9 +119,9 @@ public abstract class TEInventory extends TETickingMachine {
 	}
 
 	@Override
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		super.writeSyncableNBT(compound, type);
-		if (type == NBTType.SAVE_TILE || (type == NBTType.SYNC && this.shouldSyncSlots())) {
+	public void writeSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
+		super.writeSyncableNBT(compound, shouldSync);
+		if (shouldSync == false || (shouldSync == true && this.shouldSyncSlots())) {
 			saveSlots(this.slots, compound);
 		}
 	}

@@ -1,7 +1,6 @@
 package com.jack12324.eop.machine.equalizingSmelter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.IButtonUse;
@@ -11,7 +10,6 @@ import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
@@ -80,13 +78,12 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	}
 
 	@Override
-	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
-		if (type != NBTType.SAVE_BLOCK) {
+	public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 			this.furnaceMode = compound.getBoolean("mode");
 			this.dustProgress = compound.getInteger("dustProgress");
 			this.spreadMode = compound.getBoolean("spreadMode");
-		}
-		super.readSyncableNBT(compound, type);
+
+		super.readSyncableNBT(compound, shouldSync);
 	}
 
 	private void resetTimeF(int i) {
@@ -179,13 +176,11 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 	}
 
 	@Override
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		if (type != NBTType.SAVE_BLOCK) {
+	public void writeSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 			compound.setBoolean("mode", furnaceMode);
 			compound.setBoolean("spreadMode", spreadMode);
 			compound.setInteger("dustProgress", dustProgress);
-		}
-		super.writeSyncableNBT(compound, type);
+		super.writeSyncableNBT(compound, shouldSync);
 
 	}
 

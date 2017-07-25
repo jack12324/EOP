@@ -36,8 +36,7 @@ public class PacketHandler {
 			if (world != null) {
 				TileEntity tile = coord4D.getTileEntity(world);
 				if (tile instanceof TETickingMachine) {
-					((TETickingMachine) tile).readSyncableNBT(compound.getCompoundTag("Data"),
-							TETickingMachine.NBTType.SYNC);
+					((TETickingMachine) tile).readSyncableNBT(compound.getCompoundTag("Data"),true);
 				}
 			}
 		}

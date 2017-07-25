@@ -7,8 +7,6 @@ import com.jack12324.eop.util.Coord4D;
 import com.jack12324.eop.util.compat.TeslaForgeUnitsWrapper;
 import com.jack12324.eop.util.compat.TeslaUtil;
 
-import net.darkhax.tesla.api.ITeslaConsumer;
-import net.darkhax.tesla.api.ITeslaProducer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +23,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -36,9 +33,6 @@ import javax.annotation.Nonnull;
 
 public abstract class TETickingMachine extends TileEntity implements ITickable {
 
-	public enum NBTType {
-		SAVE_TILE, SYNC, SAVE_BLOCK
-	}
 
 	private final String name;
 
@@ -116,7 +110,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 	@Override
 	public final SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound compound = new NBTTagCompound();
-		this.writeSyncableNBT(compound, NBTType.SYNC);
+		this.writeSyncableNBT(compound, true);
 		return new SPacketUpdateTileEntity(this.pos, -1, compound);
 	}
 
@@ -124,13 +118,13 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 	@Override
 	public final NBTTagCompound getUpdateTag() {
 		NBTTagCompound compound = new NBTTagCompound();
-		this.writeSyncableNBT(compound, NBTType.SYNC);
+		this.writeSyncableNBT(compound, true);
 		return compound;
 	}
 
 	@Override
 	public final void handleUpdateTag(@Nonnull NBTTagCompound compound) {
-		this.readSyncableNBT(compound, NBTType.SYNC);
+		this.readSyncableNBT(compound, true);
 	}
 
 	@Override
@@ -144,20 +138,17 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 
 	@Override
 	public final void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		this.readSyncableNBT(pkt.getNbtCompound(), NBTType.SYNC);
+		this.readSyncableNBT(pkt.getNbtCompound(), true);
 	}
 
 	@Override
 	public final void readFromNBT(NBTTagCompound compound) {
-		this.readSyncableNBT(compound, NBTType.SAVE_TILE);
+		this.readSyncableNBT(compound, false);
 	}
 
-	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
-		if (type != NBTType.SAVE_BLOCK) {
+	public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 			super.readFromNBT(compound);
-		}
-
-		if (type == NBTType.SAVE_TILE) {
+			if (shouldSync == false) {
 			this.ticksElapsed = compound.getInteger("TicksElapsed");
 		}
 	}
@@ -171,10 +162,10 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		}
 	}
 
-	final void sendUpdate() {
+	final void sendTileUpdate() {
 		if (this.world != null && !this.world.isRemote) {
 			NBTTagCompound compound = new NBTTagCompound();
-			this.writeSyncableNBT(compound, NBTType.SYNC);
+			this.writeSyncableNBT(compound, true);
 
 			NBTTagCompound data = new NBTTagCompound();
 			data.setTag("Data", compound);
@@ -188,7 +179,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 
 	protected boolean sendUpdateWithInterval() {
 		if (this.ticksElapsed % 5 == 0) {
-			this.sendUpdate();
+			this.sendTileUpdate();
 			return true;
 		} else {
 			return false;
@@ -224,12 +215,10 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 		}
 	}
 
-	void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
-		if (type != NBTType.SAVE_BLOCK) {
+	void writeSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 			super.writeToNBT(compound);
-		}
 
-		if (type == NBTType.SAVE_TILE) {
+		if (!shouldSync) {
 			compound.setInteger("TicksElapsed", this.ticksElapsed);
 		}
 	}
@@ -237,7 +226,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 	@Nonnull
 	@Override
 	public final NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		this.writeSyncableNBT(compound, NBTType.SAVE_TILE);
+		this.writeSyncableNBT(compound, false);
 		return compound;
 	}
 }

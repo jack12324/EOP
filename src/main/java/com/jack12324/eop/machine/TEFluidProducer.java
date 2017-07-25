@@ -68,10 +68,10 @@ public abstract class TEFluidProducer extends TEFluidUser {
 	}
 
 	@Override
-	public void readSyncableNBT(NBTTagCompound compound, NBTType type) {
+	public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 		NBTTagCompound tag = compound.getCompoundTag("outTank");
 		this.outTank.readFromNBT(tag);
-		super.readSyncableNBT(compound, type);
+		super.readSyncableNBT(compound, shouldSync);
 		System.out.println("TEFP read");
 	}
 
@@ -93,11 +93,11 @@ public abstract class TEFluidProducer extends TEFluidUser {
 	}
 
 	@Override
-	public void writeSyncableNBT(NBTTagCompound compound, NBTType type) {
+	public void writeSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
 		NBTTagCompound tag = new NBTTagCompound();
 		this.outTank.writeToNBT(tag);
 		compound.setTag("outTank", tag);
-		super.writeSyncableNBT(compound, type);
+		super.writeSyncableNBT(compound, shouldSync);
 		System.out.println("TEFP write");
 	}
 	ItemStack getResult(ItemStack[]input){
