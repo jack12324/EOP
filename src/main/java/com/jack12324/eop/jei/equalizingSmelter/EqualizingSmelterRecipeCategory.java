@@ -24,7 +24,7 @@ public class EqualizingSmelterRecipeCategory extends EOPRecipeCategory<EQSRecipe
             "textures/gui/equalizing_smelter.png");
 
     private final IDrawableAnimated[] progress = new IDrawableAnimated[4];
-    private final StartDirection[] dir = {StartDirection.LEFT,StartDirection.RIGHT,StartDirection.LEFT,StartDirection.RIGHT};
+    private final StartDirection[] dir = {StartDirection.LEFT, StartDirection.RIGHT, StartDirection.LEFT, StartDirection.RIGHT};
     private final IDrawableAnimated power;
     private final IDrawableAnimated dust;
     private static final int xOffset = 4;
@@ -34,17 +34,12 @@ public class EqualizingSmelterRecipeCategory extends EOPRecipeCategory<EQSRecipe
     private final int[] COOK_BAR_YPOS = {34, 34, 58, 58};
     private final int[] COOK_BAR_ICON_V = {88, 33, 52, 70};
 
-    private final int DUST_XPOS = 82;
-    private final int DUST_YPOS = 24;
-    private final int DUST_WIDTH = 12;
-    private final int DUST_HEIGHT = 11;
-
     public EqualizingSmelterRecipeCategory(IGuiHelper helper) {
         super("equalizing_smelter", "tile.equalizing_smelter.name",
                 helper.createDrawable(background, xOffset, yOffset, 151, 80), EQSRecipe.class,
                 new ItemStack(ModBlocks.equalizingSmelter, 1));
 
-        for(int i = 0; i< progress.length; i++){
+        for (int i = 0; i < progress.length; i++) {
             progress[i] = helper.createAnimatedDrawable(helper.createDrawable(background, 180, COOK_BAR_ICON_V[i], 25, 16), 200,
                     dir[i], false);
         }
@@ -59,13 +54,13 @@ public class EqualizingSmelterRecipeCategory extends EOPRecipeCategory<EQSRecipe
 
     @Override
     protected void drawProgress(Minecraft minecraft) {
-        for(int i = 0; i< progress.length; i++)
+        for (int i = 0; i < progress.length; i++)
             progress[i].draw(minecraft, COOK_BAR_XPOS[i] - xOffset, COOK_BAR_YPOS[i] - yOffset);
     }
 
     @Override
     protected void drawPowerBar(Minecraft minecraft) {
-        power.draw(minecraft, 8-xOffset, 20-yOffset);
+        power.draw(minecraft, 8 - xOffset, 20 - yOffset);
     }
 
     @Override

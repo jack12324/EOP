@@ -1,9 +1,9 @@
 package com.jack12324.eop.jei.advancedMachines;
 
+import com.jack12324.eop.jei.EOPRecipeWrapper;
 import com.jack12324.eop.recipe.recipes.AdvancedRecipe;
+import com.jack12324.eop.util.GuiValues;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -11,24 +11,25 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-class AdvancedMachineRecipeWrapper extends BlankRecipeWrapper {
+class AdvancedMachineRecipeWrapper extends EOPRecipeWrapper {
 
     private final List<ItemStack> inputs = new ArrayList<>();
     private final FluidStack inFluid;
     private final ItemStack output;
+    private final GuiValues guiValues;
 
-    public AdvancedMachineRecipeWrapper(AdvancedRecipe recipe) {
+    public AdvancedMachineRecipeWrapper(GuiValues guiValues, AdvancedRecipe recipe) {
         this.inputs.add(recipe.getInputStack());
         this.inFluid = recipe.getInFluidStack();
         this.output = recipe.getOutputStack();
         this.inputs.add(recipe.getBaseStack());
+        this.guiValues = guiValues;
 
     }
 
     @Override
-    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-        super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-
+    protected GuiValues getGuiValues() {
+        return this.guiValues;
     }
 
     @Override

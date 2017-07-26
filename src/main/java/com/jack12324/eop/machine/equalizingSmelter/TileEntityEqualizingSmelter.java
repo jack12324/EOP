@@ -20,6 +20,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
     private boolean oldSpreadMode = true;
     private int dustProgress = 0;
     private int oldDustProgress = 0;
+    public static final int DUSTTICK = 4;
 
     public TileEntityEqualizingSmelter() {
         super("equalizing_smelter", new InventorySlotHelper(4, 4, 0, 0, 1));
@@ -138,7 +139,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
         super.useItem(IOSet);
         if (!furnaceMode) {
             dustProgress++;
-            if (dustProgress >= 4) {
+            if (dustProgress >= DUSTTICK) {
                 ItemStack result = new ItemStack(ModItems.dustFirestone);
                 ItemStack output = this.getInventory(this.slotHelper.getOtherSlotIndex(0));
 

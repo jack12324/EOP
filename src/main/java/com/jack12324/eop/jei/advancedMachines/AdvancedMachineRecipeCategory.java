@@ -61,7 +61,7 @@ public class AdvancedMachineRecipeCategory extends EOPRecipeCategory<AdvancedRec
     @Nonnull
     @Override
     public IRecipeWrapper getRecipeWrapper(@Nonnull AdvancedRecipe recipe) {
-        return new AdvancedMachineRecipeWrapper(recipe);
+        return new AdvancedMachineRecipeWrapper(null, recipe);
     }
 
     @Override

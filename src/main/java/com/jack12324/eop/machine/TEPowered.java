@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class TEPowered extends TEInventory {
-    private final double BASE_TICKS_NEEDED = 200;
+    public static final double BASE_TICKS_NEEDED = 200;
     private double ticksNeeded = BASE_TICKS_NEEDED;
-    private final double BASE_ENERGY_PER_TICK = 50;
+    public static final double BASE_ENERGY_PER_TICK = 50;
     private double energyPerTick = BASE_ENERGY_PER_TICK;
     private int burnTimeInitialValue;
     private int burnTimeRemaining;

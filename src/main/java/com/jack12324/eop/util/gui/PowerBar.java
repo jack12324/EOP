@@ -14,19 +14,16 @@ class PowerBar extends Gui {
     private static final ResourceLocation TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
             "textures/gui/fluid_bar.png");
     private final TEPowered tileEntity;
-    private final int guiLeft;
-    private final int guiTop;
+    private final int xPos;
+    private final int yPos;
 
-    private final int POWER_XPOS = 8;
-
-    private final int POWER_YPOS = 20;
     private final int POWER_WIDTH = 8;
     private final int POWER_HEIGHT = 45;
 
-    public PowerBar(TEPowered tileEntity, int guiLeft, int guiTop) {
+    public PowerBar(TEPowered tileEntity, int xPos, int yPos) {
         this.tileEntity = tileEntity;
-        this.guiLeft = guiLeft;
-        this.guiTop = guiTop;
+        this.xPos = xPos;
+        this.yPos = yPos;
     }
 
     public void draw() {
@@ -38,13 +35,13 @@ class PowerBar extends Gui {
 
         int POWER_ICON_V = 109;
         int POWER_ICON_U = 0;
-        drawTexturedModalRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS + yOffset, POWER_ICON_U, POWER_ICON_V + yOffset,
+        drawTexturedModalRect(xPos, yPos + yOffset, POWER_ICON_U, POWER_ICON_V + yOffset,
                 POWER_WIDTH, POWER_HEIGHT - yOffset);
     }
 
     public ArrayList<String> drawText(int mouseX, int mouseY) {
         List<String> hoveringText = new ArrayList<>();
-        if (isInRect(guiLeft + POWER_XPOS, guiTop + POWER_YPOS, POWER_WIDTH, POWER_HEIGHT, mouseX, mouseY)) {
+        if (isInRect(xPos, yPos, POWER_WIDTH, POWER_HEIGHT, mouseX, mouseY)) {
             hoveringText.add("Energy Stored:");
             int powerPercentage = (int) (tileEntity.fractionOfPowerRemaining() * 100);
             hoveringText.add(powerPercentage + "%");

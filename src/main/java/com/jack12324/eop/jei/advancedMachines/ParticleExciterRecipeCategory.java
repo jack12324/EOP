@@ -2,12 +2,15 @@ package com.jack12324.eop.jei.advancedMachines;
 
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.block.ModBlocks;
+import com.jack12324.eop.recipe.recipes.AdvancedRecipe;
+import com.jack12324.eop.util.GuiValues;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -29,6 +32,12 @@ public class ParticleExciterRecipeCategory extends AdvancedMachineRecipeCategory
 
         progress = helper.createAnimatedDrawable(helper.createDrawable(background, 2, 169, 89, 49), 200,
                 IDrawableAnimated.StartDirection.LEFT, false);
+    }
+
+    @Nonnull
+    @Override
+    public IRecipeWrapper getRecipeWrapper(@Nonnull AdvancedRecipe recipe) {
+        return new AdvancedMachineRecipeWrapper(GuiValues.PARTICLEEXCITER, recipe);
     }
 
     @Override

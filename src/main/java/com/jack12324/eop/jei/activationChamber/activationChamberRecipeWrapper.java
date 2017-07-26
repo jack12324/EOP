@@ -1,10 +1,10 @@
 package com.jack12324.eop.jei.activationChamber;
 
+import com.jack12324.eop.jei.EOPRecipeWrapper;
 import com.jack12324.eop.machine.activationChamber.TileEntityActivationChamber;
 import com.jack12324.eop.recipe.recipes.BasicRecipe;
+import com.jack12324.eop.util.GuiValues;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-class activationChamberRecipeWrapper extends BlankRecipeWrapper {
+class activationChamberRecipeWrapper extends EOPRecipeWrapper {
 
     private final ItemStack input;
     private final ItemStack output;
@@ -24,9 +24,8 @@ class activationChamberRecipeWrapper extends BlankRecipeWrapper {
     }
 
     @Override
-    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-        super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-
+    protected GuiValues getGuiValues() {
+        return GuiValues.ACTIVATIONCHAMBER;
     }
 
     @Override
