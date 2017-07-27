@@ -34,6 +34,11 @@ public class EqualizingSmelterRecipeCategory extends EOPRecipeCategory<EQSRecipe
     private final int[] COOK_BAR_YPOS = {34, 34, 58, 58};
     private final int[] COOK_BAR_ICON_V = {88, 33, 52, 70};
 
+    private final int DUST_XPOS = 82;
+    private final int DUST_YPOS = 24;
+    private final int DUST_WIDTH = 12;
+    private final int DUST_HEIGHT = 11;
+
     public EqualizingSmelterRecipeCategory(IGuiHelper helper) {
         super("equalizing_smelter", "tile.equalizing_smelter.name",
                 helper.createDrawable(background, xOffset, yOffset, 151, 80), EQSRecipe.class,

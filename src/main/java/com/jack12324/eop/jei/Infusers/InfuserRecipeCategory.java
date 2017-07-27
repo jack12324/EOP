@@ -61,7 +61,7 @@ public class InfuserRecipeCategory extends EOPRecipeCategory<InfuserRecipe, Infu
     @Nonnull
     @Override
     public IRecipeWrapper getRecipeWrapper(@Nonnull InfuserRecipe recipe) {
-        return new InfuserRecipeWrapper(null, recipe);
+        return new InfuserRecipeWrapper(recipe);
     }
 
     @Override
