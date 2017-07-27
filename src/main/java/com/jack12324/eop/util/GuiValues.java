@@ -2,17 +2,17 @@ package com.jack12324.eop.util;
 
 public enum GuiValues {
 
-    //TODO pedestal eqs ??
+    //TODO pedestal ??
     DEFAULT(175, 165, null, new int[]{8, 20}, null, new int[]{25, 18}, new int[]{0, 0}, null),
     ACTIVATIONCHAMBER(-1, -1, new int[]{49, 30, 3, 169, 77, 15}, null, new int[]{74, 47, 178, 2, 3, 20}, null, null, null),
-    CATALYSTINFUSER(-1, -1, new int[]{63, 35, 6, 172, 68, 12}, null, null, null, new int[]{18, 133}, null),
+    CATALYSTINFUSER(-1, -1, new int[]{63, 35, 6, 172, 68, 12}, null, null, null, new int[]{133, 18}, null),
     DISABLINGPRESS(-1, -1, new int[]{45, 24, 3, 169, 86, 34}, null, new int[]{82, 36, 179, 3, 12, 12}, null, null, null),
-    DUALCATALYSTINFUSER(-1, -1, new int[]{63, 24, 3, 170, 86, 35}, null, null, null, new int[]{18, 151}, null),
+    DUALCATALYSTINFUSER(-1, -1, new int[]{63, 24, 3, 170, 86, 35}, null, null, null, new int[]{151, 18}, null),
     ENDERICPURIFIER(-1, -1, new int[]{42, 36, 6, 172, 89, 13}, null, null, null, null, null),
     EQUALIZINGSMELTER(175, 183, new int[]{44, 34, 180, 88, 25, 16, 107, 34, 180, 33, 25, 16, 44, 58, 180, 52, 25, 16, 107, 58, 180, 70, 25, 16}, null, null, null, null, new int[]{82, 24, 20, 180, 12, 11}),
     PARTICLEEXCITER(-1, -1, new int[]{43, 18, 2, 169, 89, 49}, null, null, null, null, null),
     STARHARDENER(-1, -1, new int[]{64, 27, 4, 171, 62, 31}, null, null, null, null, null),
-    TRICATALYSTINFUSER(-1, -1, new int[]{63, 24, 3, 170, 86, 35}, null, null, null, new int[]{18, 151}, null);
+    TRICATALYSTINFUSER(-1, -1, new int[]{63, 24, 3, 170, 86, 35}, null, null, null, new int[]{151, 18}, null);
 
     // some [x,y] coordinates of graphical elements
     private final int[] COOK_BAR_XPOS = {44, 107, 44, 107};

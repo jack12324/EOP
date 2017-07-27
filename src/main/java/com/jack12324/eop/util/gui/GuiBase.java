@@ -106,8 +106,7 @@ public class GuiBase extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         FontRenderer fontRenderer = this.fontRendererObj;
         String name = tileEntity.getDisplayedName();
-        fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 0x404040);
-        fontRenderer.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
+        drawTitleText(fontRenderer, name, playerInv.getDisplayName().getUnformattedText());
 
         List<String> hoveringText = this.progressText(mouseX, mouseY);
 
@@ -123,6 +122,11 @@ public class GuiBase extends GuiContainer {
             hoveringText = this.otherText(mouseX, mouseY);
         this.drawText(hoveringText, mouseX, mouseY);
 
+    }
+
+    protected void drawTitleText(FontRenderer fontRenderer, String name, String invName) {
+        fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 0x404040);
+        fontRenderer.drawString(invName, 8, ySize - 94, 0x404040);
     }
 
     private void drawPowerBar() {
@@ -157,7 +161,7 @@ public class GuiBase extends GuiContainer {
             if (HelpfulMethods.isInRect(guiLeft + this.guiValues.getProgress()[i], guiTop + this.guiValues.getProgress()[i + 1], this.guiValues.getProgress()[i + 4],
                     this.guiValues.getProgress()[i + 5], mouseX, mouseY)) {
                 temp.add("Progress:");
-                int cookPercentage = (int) (tileEntity.fractionOfProgressTimeComplete(i) * 100);
+                int cookPercentage = (int) (tileEntity.fractionOfProgressTimeComplete(i / 6) * 100);
                 temp.add(cookPercentage + "%");
             }
         }
@@ -176,7 +180,7 @@ public class GuiBase extends GuiContainer {
         if (fluid)
             fluidBar = new FluidBar(((TEFluidUser) tileEntity).inTank, guiLeft + this.guiValues.getInTank()[0], guiTop + this.guiValues.getInTank()[1]);
         if (fluidOut)
-            fluidOutBar = new FluidBar(((TEFluidUser) tileEntity).inTank, guiLeft + this.guiValues.getOutTank()[0], guiTop + this.guiValues.getOutTank()[1]);
+            fluidOutBar = new FluidBar(((TEFluidProducer) tileEntity).outTank, guiLeft + this.guiValues.getOutTank()[0], guiTop + this.guiValues.getOutTank()[1]);
 
     }
 

@@ -5,6 +5,7 @@ import com.jack12324.eop.machine.slot.SlotItemHandlerEOP;
 import com.jack12324.eop.machine.slot.SlotOutput;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
 
 import javax.annotation.Nonnull;
 
@@ -71,6 +72,19 @@ public class ContainerEqualizingSmelter extends MachineContainer {
         });
 
         this.addInventorySlots(playerInv);
+    }
+
+    @Override
+    protected void addInventorySlots(InventoryPlayer playerInv) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 9; j++) {
+                addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 102 + i * 18));
+            }
+        }
+
+        for (int k = 0; k < 9; k++) {
+            addSlotToContainer(new Slot(playerInv, k, 8 + k * 18, 160));
+        }
     }
 
     @Override

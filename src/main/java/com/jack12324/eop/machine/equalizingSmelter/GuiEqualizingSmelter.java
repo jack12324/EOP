@@ -7,6 +7,7 @@ import com.jack12324.eop.util.Coord4D;
 import com.jack12324.eop.util.GuiValues;
 import com.jack12324.eop.util.HelpfulMethods;
 import com.jack12324.eop.util.gui.GuiBase;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -41,6 +42,16 @@ public class GuiEqualizingSmelter extends GuiBase {
         } else {
             super.actionPerformed(button, mbutton);
         }
+    }
+
+    @Override
+    protected void drawTitleText(FontRenderer fontRenderer, String name, String invName) {
+        String[] parts = name.split(" ", 2);
+        name = parts[0];
+        String name2 = parts[1];
+        fontRenderer.drawString(name, xSize / 8 - fontRenderer.getStringWidth(name) / 8, 6, 0x404040);
+        fontRenderer.drawString(name2, xSize / 8 - fontRenderer.getStringWidth(name2) / 8, 16, 0x404040);
+        fontRenderer.drawString(invName, 8, ySize - 76, 0x404040);
     }
 
     @Override
