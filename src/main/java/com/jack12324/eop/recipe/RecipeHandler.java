@@ -58,6 +58,26 @@ public class RecipeHandler {
         return fluids;
     }
 
+    public static ArrayList<Item> getInItems(ArrayList<EOPRecipe> recipes) {
+        ArrayList<Item> items = new ArrayList<>();
+
+        for (EOPRecipe recipe : recipes) {
+            if (recipe instanceof IOneInputRecipe) {
+                Item item = ((IOneInputRecipe) recipe).getInputStack().getItem();
+                if (!items.contains(item))
+                    items.add(item);
+            }
+            if (recipe instanceof IMultipleInputRecipe) {
+                ItemStack[] multItems = ((IMultipleInputRecipe) recipe).getInputStacks();
+                for (ItemStack itemStack : multItems) {
+                    if (!items.contains(itemStack.getItem()))
+                        items.add(itemStack.getItem());
+                }
+            }
+        }
+        return items;
+    }
+
     public static Collection<? extends Fluid> getOutFluids(ArrayList<EOPRecipe> recipeList) {
         ArrayList<Fluid> fluids = new ArrayList<>();
         for (EOPRecipe recipe : recipeList) {

@@ -61,7 +61,7 @@ public class InventorySlotHelper {
         return getBase().length;
     }
 
-    private int[] getFuel() {
+    public int[] getFuel() {
         return fuel;
     }
 
@@ -73,7 +73,7 @@ public class InventorySlotHelper {
         return getFuel().length;
     }
 
-    private int[] getIn() {
+    public int[] getIn() {
         return in;
     }
 
@@ -134,4 +134,7 @@ public class InventorySlotHelper {
         this.out = out;
     }
 
+    public int[] getUpgrade() {
+        return upgrade;
+    }
 }

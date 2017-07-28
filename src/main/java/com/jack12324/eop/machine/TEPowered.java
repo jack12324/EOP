@@ -1,6 +1,7 @@
 package com.jack12324.eop.machine;
 
 import com.jack12324.eop.ExtremeOreProcessing;
+import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
@@ -270,10 +271,22 @@ public abstract class TEPowered extends TEInventory {
      */
     @Override
     boolean isItemValidForSlot(int index, ItemStack stack) {
-        System.out.println("isItemValidForSlot TEPowered");
+        for (int indexes : this.slotHelper.getUpgrade()) {
+            if (index == indexes && (stack.getItem() != ModItems.energyUpgrade || stack.getItem() != ModItems.energyUpgrade))
+                return false;
+        }
         // cant insert into output slot
         for (int indexes : this.slotHelper.getOut()) {
             if (index == indexes)
+                return false;
+        }
+
+        for (int indexes : this.slotHelper.getFuel()) {
+            if (index == indexes && getFuelBurnTime(stack) <= 0)
+                return false;
+        }
+        for (int indexes : this.slotHelper.getIn()) {
+            if (index == indexes && !RecipeHandler.getInItems(this.getRecipeList()).contains(stack.getItem()))
                 return false;
         }
         return true;
