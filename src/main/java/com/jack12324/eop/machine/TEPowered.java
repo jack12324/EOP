@@ -120,7 +120,7 @@ public abstract class TEPowered extends TEInventory {
      * returns the amount of fuel remaining on the currently burning item
      */
     public double fractionOfFuelRemaining() {
-        if (burnTimeInitialValue <= 0) {
+        if (burnTimeRemaining <= 0) {
             return 0;
         }
         double fraction = burnTimeRemaining / (double) burnTimeInitialValue;
@@ -328,8 +328,7 @@ public abstract class TEPowered extends TEInventory {
     @Override
     public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
         slots.deserializeNBT(compound.getCompoundTag("inventory"));
-        this.burnTimeInitialValue = usesFuel
-                ? getFuelBurnTime(this.slots.getStackInSlot(this.slotHelper.getFuelSlotIndex(0))) : 0;
+        this.burnTimeInitialValue = compound.getInteger("burnTimeInitial");
         this.burnTimeRemaining = compound.getInteger("BurnTime");
         this.hasBase = compound.getBoolean("hasBase");//todo probably dont need
         this.inProgressTime = compound.getIntArray("ProgressTime").clone();
@@ -518,7 +517,7 @@ public abstract class TEPowered extends TEInventory {
         compound.setTag("inventory", slots.serializeNBT());
         compound.setInteger("BurnTime", this.burnTimeRemaining);
         compound.setIntArray("ProgressTime", this.inProgressTime);
-        compound.setInteger("burnTimeInitialValue", burnTimeInitialValue);
+        compound.setInteger("burnTimeInitial", burnTimeInitialValue);
         compound.setBoolean("hasBase", this.hasBase);
         compound.setDouble("energyPerTick", energyPerTick);
         compound.setDouble("ticksNeeded", getTicksNeeded());
