@@ -1,5 +1,6 @@
 package com.jack12324.eop.machine.equalizingSmelter;
 
+import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.IButtonUse;
 import com.jack12324.eop.machine.IOPairs;
@@ -50,7 +51,6 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
     }
 
     private void oldModeCheck() {
-        System.out.println(this.furnaceMode + "   " + this.oldFurnaceMode);
         if (this.oldFurnaceMode != this.furnaceMode && this.sendUpdateWithInterval())
             this.oldFurnaceMode = this.furnaceMode;
         if (this.oldSpreadMode != this.spreadMode && this.sendUpdateWithInterval())
@@ -71,7 +71,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
         else if (buttonId == 57)
             spreadMode = !spreadMode;
         else
-            System.out.println(buttonId + " is not a valid button id for " + this.getDisplayedName());
+            ExtremeOreProcessing.LOGGER.warn(buttonId + " is not a valid button id for " + this.getDisplayedName());
         this.oldModeCheck();
     }
 

@@ -40,7 +40,7 @@ public class FluidBar extends Gui {
             TextureAtlasSprite fluidTexture = mc.getTextureMapBlocks().getTextureExtry(fluid.getStill().toString());
             mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             int fluidHeight = (int) ((HEIGHT - 2) * (this.tank.getFluidAmount() / (double) this.tank.getCapacity()));
-            System.out.println(fluidHeight);
+
 
             if (fluidTexture != null)
                 drawTexturedModalRect(this.x, this.y + ((HEIGHT - 1) - fluidHeight), fluidTexture, WIDTH, fluidHeight);
@@ -60,8 +60,6 @@ public class FluidBar extends Gui {
             hoveringText.add(this.tank.getFluidAmount() + "/" + (this.tank.getCapacity() + " mB"));
 
         }
-        if (!hoveringText.isEmpty())
-            System.out.println(hoveringText.get(0));
         return hoveringText;
     }
 

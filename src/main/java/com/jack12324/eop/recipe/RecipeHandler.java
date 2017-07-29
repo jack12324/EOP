@@ -180,7 +180,6 @@ public class RecipeHandler {
 
     private static EOPRecipe getDPRecipe(ArrayList<EOPRecipe> recipeList, ItemStack itemStack,
                                          ItemStack base) {
-        System.out.println(base);
         for (EOPRecipe recipe : recipeList) {
             if (itemStack.isItemEqual(((DPRecipe) recipe).getInputStack())
                     && base.isItemEqual(((DPRecipe) recipe).getBaseStack()))

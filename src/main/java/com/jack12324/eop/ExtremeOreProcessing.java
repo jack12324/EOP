@@ -65,7 +65,7 @@ public class ExtremeOreProcessing {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         // modItems needs to be before ModBlocks or drops won't work properly
-        System.out.println(name + " is loading!");
+        LOGGER.info(name + " is loading!");
 
         teslaLoaded = Loader.isModLoaded("tesla");
 

@@ -61,7 +61,6 @@ public class PacketHandler {
             EntityPlayer player = ExtremeOreProcessing.proxy.getPlayer(context);
 
             Coord4D coord4D = Coord4D.read(compound);
-            System.out.println(coord4D.getPos());
 
             if (!player.world.isRemote) {
                 EntityPlayerMP playerMP = (EntityPlayerMP) player;

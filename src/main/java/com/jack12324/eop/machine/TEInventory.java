@@ -90,7 +90,7 @@ public abstract class TEInventory extends TETickingMachine {
         return 64;
     }
 
-    boolean isItemValidForSlot(int slot, ItemStack stack) {
+    public boolean isItemValidForSlot(int slot, ItemStack stack) {
         return true;
     }
 

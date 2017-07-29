@@ -92,7 +92,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
         return null;
     }
 
-    IFluidHandler getFluidHandler(EnumFacing facing) {
+    public IFluidHandler getFluidHandler(EnumFacing facing) {
         return null;
     }
 
