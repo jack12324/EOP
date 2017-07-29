@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class TEPowered extends TEInventory {
-    public static final double BASE_TICKS_NEEDED = 200;
+    private static final double BASE_TICKS_NEEDED = 200;
     private double ticksNeeded = BASE_TICKS_NEEDED;
-    public static final double BASE_ENERGY_PER_TICK = 50;
+    private static final double BASE_ENERGY_PER_TICK = 50;
     private double energyPerTick = BASE_ENERGY_PER_TICK;
     private int burnTimeInitialValue;
     private int burnTimeRemaining;
@@ -95,7 +95,6 @@ public abstract class TEPowered extends TEInventory {
      * from the given side.
      */
     public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        System.out.println("canInsertItem TEPowered");
         for (int i : this.slotHelper.getOut()) {
             if (i == index)
                 return false;
@@ -197,7 +196,7 @@ public abstract class TEPowered extends TEInventory {
         return 0;
     }
 
-    public int getInProgressTime(int index) {
+    protected int getInProgressTime(int index) {
         return inProgressTime[index];
     }
 
@@ -216,7 +215,7 @@ public abstract class TEPowered extends TEInventory {
         }
     }
 
-    public ItemStack getInventory(int i) {
+    protected ItemStack getInventory(int i) {
         return this.slots.getStackInSlot(i);
     }
 
@@ -374,7 +373,7 @@ public abstract class TEPowered extends TEInventory {
         inProgressTime[index] = value;
     }
 
-    public void setInventory(int i, ItemStack itemStack) {
+    protected void setInventory(int i, ItemStack itemStack) {
         this.slots.setStackInSlot(i, itemStack);
     }
 

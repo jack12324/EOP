@@ -52,15 +52,17 @@ public class FluidBar extends Gui {
         }
     }
 
-    public ArrayList<String> drawText(int mouseX, int mouseY) {
+    public List<String> drawText(int mouseX, int mouseY) {
         List<String> hoveringText = new ArrayList<>();
-        if (isInRect(this.x, this.y, WIDTH, HEIGHT, mouseX, mouseY) && this.tank.getFluid() != null) {
 
+        if (isInRect(this.x, this.y, WIDTH, HEIGHT, mouseX, mouseY) && this.tank.getFluid() != null) {
             hoveringText.add(this.tank.getFluid().getLocalizedName());
             hoveringText.add(this.tank.getFluidAmount() + "/" + (this.tank.getCapacity() + " mB"));
-            return (ArrayList<String>) hoveringText;
+
         }
-        return null;
+        if (!hoveringText.isEmpty())
+            System.out.println(hoveringText.get(0));
+        return hoveringText;
     }
 
     private boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {

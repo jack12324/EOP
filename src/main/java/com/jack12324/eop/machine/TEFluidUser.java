@@ -57,7 +57,6 @@ public abstract class TEFluidUser extends TEPowered {
 
     private void oldInFluidCheck() {
         if (this.oldInFluidAmount != this.inTank.getFluidAmount() && this.sendUpdateWithInterval()) {
-            System.out.println("influid");
             this.oldInFluidAmount = this.inTank.getFluidAmount();
             markDirty();
         }
@@ -68,7 +67,6 @@ public abstract class TEFluidUser extends TEPowered {
         NBTTagCompound tag = compound.getCompoundTag("inTank");
         this.inTank.readFromNBT(tag);
         super.readSyncableNBT(compound, shouldSync);
-        System.out.println("TEFU read");
     }
 
     @Override
@@ -95,7 +93,6 @@ public abstract class TEFluidUser extends TEPowered {
         this.inTank.writeToNBT(tag);
         compound.setTag("inTank", tag);
         super.writeSyncableNBT(compound, shouldSync);
-        System.out.println("TEFU write");
     }
 
     ItemStack getResult(ItemStack[] input) {

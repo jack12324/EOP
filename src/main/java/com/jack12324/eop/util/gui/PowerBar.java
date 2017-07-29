@@ -20,7 +20,7 @@ class PowerBar extends Gui {
     private final int POWER_WIDTH = 8;
     private final int POWER_HEIGHT = 45;
 
-    public PowerBar(TEPowered tileEntity, int xPos, int yPos) {
+    PowerBar(TEPowered tileEntity, int xPos, int yPos) {
         this.tileEntity = tileEntity;
         this.xPos = xPos;
         this.yPos = yPos;
@@ -39,7 +39,7 @@ class PowerBar extends Gui {
                 POWER_WIDTH, POWER_HEIGHT - yOffset);
     }
 
-    public ArrayList<String> drawText(int mouseX, int mouseY) {
+    List<String> drawText(int mouseX, int mouseY) {
         List<String> hoveringText = new ArrayList<>();
         if (isInRect(xPos, yPos, POWER_WIDTH, POWER_HEIGHT, mouseX, mouseY)) {
             hoveringText.add("Energy Stored:");
@@ -47,9 +47,9 @@ class PowerBar extends Gui {
             hoveringText.add(powerPercentage + "%");
             hoveringText.add(tileEntity.storage.getEnergyStored() + "/" + tileEntity.storage.getMaxEnergyStored());
             hoveringText.add((int) tileEntity.getEnergyPerTick() + "rf/t");
-            return (ArrayList<String>) hoveringText;
+            return hoveringText;
         }
-        return null;
+        return hoveringText;
     }
 
     private boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {

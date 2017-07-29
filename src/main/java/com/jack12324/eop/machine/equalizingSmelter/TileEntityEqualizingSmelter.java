@@ -20,7 +20,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
     private boolean oldSpreadMode = true;
     private int dustProgress = 0;
     private int oldDustProgress = 0;
-    public static final int DUSTTICK = 4;
+    private static final int DUSTTICK = 4;
 
     public TileEntityEqualizingSmelter() {
         super("equalizing_smelter", new InventorySlotHelper(4, 4, 0, 0, 1));
@@ -34,7 +34,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
     /**
      * returns the progress of earning an extra dust
      */
-    public double fractionOfDustProgress() {
+    double fractionOfDustProgress() {
         if (dustProgress <= 0)
             return 0;
         double fraction = dustProgress / (double) 4;
@@ -45,7 +45,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
         return furnaceMode;
     }
 
-    public boolean getSpreadMode() {
+    boolean getSpreadMode() {
         return spreadMode;
     }
 
@@ -66,10 +66,6 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
 
     @Override
     public void onButtonPress(int buttonId) {
-        if (!world.isRemote)
-            System.out.print("Server");
-        else
-            System.out.print("Client");
         if (buttonId == 53)
             furnaceMode = !furnaceMode;
         else if (buttonId == 57)

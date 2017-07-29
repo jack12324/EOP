@@ -43,7 +43,7 @@ public abstract class TEInventory extends TETickingMachine {
 
     public final EOPItemStackHandler slots;
 
-    public final InventorySlotHelper slotHelper;
+    protected final InventorySlotHelper slotHelper;
 
     protected TEInventory(InventorySlotHelper slots, String name) {
         super(name);
@@ -52,13 +52,11 @@ public abstract class TEInventory extends TETickingMachine {
 
             @Override
             public boolean canExtract(ItemStack stack, int slot) {
-                System.out.println("canExtract TEI");
                 return TEInventory.this.canExtractItem(slot, stack);
             }
 
             @Override
             public boolean canInsert(ItemStack stack, int slot) {
-                System.out.println("can Insert TEI");
                 return TEInventory.this.isItemValidForSlot(slot, stack);
             }
 

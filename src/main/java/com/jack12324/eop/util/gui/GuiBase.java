@@ -114,12 +114,16 @@ public class GuiBase extends GuiContainer {
                 mouseX, mouseY)) {
             hoveringText.add("Fuel Time:");
             hoveringText.add(tileEntity.secondsOfFuelRemaining() + "s");
-        } else if (hoveringText.isEmpty())
+        }
+        if (hoveringText.isEmpty()) {
             hoveringText = powerBar.drawText(mouseX, mouseY);
-        else if (hoveringText.isEmpty())
-            hoveringText = this.fluidText(mouseX, mouseY);
-        else
-            hoveringText = this.otherText(mouseX, mouseY);
+            if (hoveringText.isEmpty()) {
+                hoveringText = this.fluidText(mouseX, mouseY);
+                if (hoveringText.isEmpty()) {
+                    hoveringText = this.otherText(mouseX, mouseY);
+                }
+            }
+        }
         this.drawText(hoveringText, mouseX, mouseY);
 
     }
@@ -150,12 +154,13 @@ public class GuiBase extends GuiContainer {
         }
     }
 
-    protected ArrayList<String> fluidText(int mouseX, int mouseY) {
+    private List<String> fluidText(int mouseX, int mouseY) {
 
-        return fluidBar.drawText(mouseX, mouseY) == null ? fluidBar.drawText(mouseX, mouseY) : fluidOutBar.drawText(mouseX, mouseY);
+        List<String> hoveringText = new ArrayList<>(fluidBar.drawText(mouseX, mouseY));
+        return hoveringText.isEmpty() ? fluidOutBar.drawText(mouseX, mouseY) : hoveringText;
     }
 
-    protected List<String> progressText(int mouseX, int mouseY) {
+    private List<String> progressText(int mouseX, int mouseY) {
         ArrayList<String> temp = new ArrayList<>();
         for (int i = 0; i < this.guiValues.getProgress().length; i += 6) {
             if (HelpfulMethods.isInRect(guiLeft + this.guiValues.getProgress()[i], guiTop + this.guiValues.getProgress()[i + 1], this.guiValues.getProgress()[i + 4],

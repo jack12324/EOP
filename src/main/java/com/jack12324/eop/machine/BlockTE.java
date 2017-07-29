@@ -88,8 +88,8 @@ public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>
         super.onBlockPlacedBy(world, pos, state, player, stack);
     }
 
-    boolean tryUseItemOnTank(EntityPlayer player, EnumHand hand, World world, BlockPos pos, EnumFacing side) {
-        System.out.println("tryUseItemOnTank");
+    private boolean tryUseItemOnTank(EntityPlayer player, EnumHand hand, World world, BlockPos pos, EnumFacing side) {
+
         return FluidUtil.interactWithFluidHandler(player, hand, world, pos, null);
 
     }

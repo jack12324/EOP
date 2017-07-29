@@ -25,7 +25,8 @@ public abstract class TEFluidProducer extends TEFluidUser {
 
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
-            return outFluid.contains(fluid.getFluid());
+            return false;
+            //outFluid.contains(fluid.getFluid());
         }
     };
 
@@ -60,7 +61,6 @@ public abstract class TEFluidProducer extends TEFluidUser {
 
     private void oldOutFluidCheck() {
         if (this.oldOutFluidAmount != this.outTank.getFluidAmount() && this.sendUpdateWithInterval()) {
-            System.out.println("outfluid");
             this.oldOutFluidAmount = this.outTank.getFluidAmount();
             markDirty();
         }
@@ -96,7 +96,6 @@ public abstract class TEFluidProducer extends TEFluidUser {
         this.outTank.writeToNBT(tag);
         compound.setTag("outTank", tag);
         super.writeSyncableNBT(compound, shouldSync);
-        System.out.println("TEFP write");
     }
 
     ItemStack getResult(ItemStack[] input) {

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PacketHandler {
-    public static final List<IDataHandler> DATA_HANDLERS = new ArrayList<>();
+    static final List<IDataHandler> DATA_HANDLERS = new ArrayList<>();
     public static SimpleNetworkWrapper NETWORK;
     private static final ModGuiHandler modGuiHandler = new ModGuiHandler();
     public static final IDataHandler TILE_ENTITY_HANDLER = new IDataHandler() {
@@ -83,7 +83,6 @@ public class PacketHandler {
                     playerMP.openContainer.addListener(playerMP);
                 }
             } else {
-                System.out.println("cli");
                 FMLCommonHandler.instance().showGuiScreen(modGuiHandler
                         .getClientGuiElement(compound.getInteger("guiID"), player, player.world, coord4D.getPos()));
                 player.openContainer.windowId = compound.getInteger("window");
