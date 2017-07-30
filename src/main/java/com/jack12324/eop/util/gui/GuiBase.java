@@ -104,7 +104,7 @@ public class GuiBase extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        FontRenderer fontRenderer = this.fontRendererObj;
+        FontRenderer fontRenderer = this.fontRenderer;
         String name = tileEntity.getDisplayedName();
         drawTitleText(fontRenderer, name, playerInv.getDisplayName().getUnformattedText());
 
@@ -150,7 +150,7 @@ public class GuiBase extends GuiContainer {
     private void drawText(List<String> hoveringText, int mouseX, int mouseY) {
         // If hoveringText is not empty draw the hovering text
         if (hoveringText != null && !hoveringText.isEmpty()) {
-            drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
+            drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRenderer);
         }
     }
 

@@ -19,7 +19,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public EntityPlayer getPlayer(MessageContext context) {
         if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
-            return context.getServerHandler().playerEntity;
+            return context.getServerHandler().player;
         } else {
             return Minecraft.getMinecraft().player;
         }
@@ -28,12 +28,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         ExtremeOreProcessing.LOGGER.info("PreInitializing ClientProxy...");
-
-        // for(Map.Entry<ItemStack, ModelResourceLocation> entry :
-        // MODEL_LOCATIONS_FOR_REGISTERING.entrySet()){
-        // ModelLoader.setCustomModelResourceLocation(entry.getKey().getItem(),
-        // entry.getKey().getItemDamage(), entry.getValue());
-        // }
 
         this.registerCustomFluidBlockRenderer(InitFluids.fluidStarWater);
         this.registerCustomFluidBlockRenderer(InitFluids.fluidScreamingLava);
@@ -54,9 +48,6 @@ public class ClientProxy extends CommonProxy {
         ModelLoader.setCustomStateMapper(block, mapper);
     }
 
-    // private static final Map<ItemStack, ModelResourceLocation>
-    // MODEL_LOCATIONS_FOR_REGISTERING = new HashMap<ItemStack,
-    // ModelResourceLocation>();
     @Override
     public void registerItemRenderer(Item item, int meta, String id) {
         ModelLoader.setCustomModelResourceLocation(item, meta,

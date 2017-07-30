@@ -8,10 +8,14 @@ import com.jack12324.eop.packet.PacketHandler;
 import com.jack12324.eop.proxy.CommonProxy;
 import com.jack12324.eop.recipe.ModRecipes;
 import com.jack12324.eop.world.ModWorldGeneration;
+import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +23,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
@@ -42,6 +47,9 @@ public class ExtremeOreProcessing {
             modID + ":tungsten", 35, new int[]{4, 9, 7, 4}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0f);
     public static boolean teslaLoaded;
 
+    @SidedProxy(serverSide = "com.jack12324.eop.proxy.CommonProxy", clientSide = "com.jack12324.eop.proxy.ClientProxy")
+    public static CommonProxy proxy;
+
     @Mod.Instance(modID)
     public static ExtremeOreProcessing instance;
 
@@ -49,8 +57,39 @@ public class ExtremeOreProcessing {
         FluidRegistry.enableUniversalBucket(); // Must be called before preInit
     }
 
-    @SidedProxy(serverSide = "com.jack12324.eop.proxy.CommonProxy", clientSide = "com.jack12324.eop.proxy.ClientProxy")
-    public static CommonProxy proxy;
+    @Mod.EventBusSubscriber
+    public static class RegistrationHandler{
+        @SubscribeEvent
+        public static void registerItems(RegistryEvent.Register<Item> event) {
+            ModItems.register(event.getRegistry());
+            ModBlocks.registerItemBlocks(event.getRegistry());
+            InitFluids.registerItemBlocks(event.getRegistry());
+        }
+        @SubscribeEvent
+        public static void registerItems(ModelRegistryEvent event) {
+            ModItems.registerModels();
+            ModBlocks.registerModels();
+            InitFluids.registerModels();
+        }
+        @SubscribeEvent
+        public static void registerBlocks(RegistryEvent.Register<Block> event) {
+            ModBlocks.register(event.getRegistry());
+            InitFluids.register(event.getRegistry());
+        }
+    }
+
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        // modItems needs to be before ModBlocks or drops won't work properly
+        LOGGER.info(name + " is loading!");
+
+        teslaLoaded = Loader.isModLoaded("tesla");
+
+        GameRegistry.registerWorldGenerator(new ModWorldGeneration(), 3);
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGuiHandler());
+        PacketHandler.init();
+        proxy.preInit(event);
+    }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
@@ -62,20 +101,6 @@ public class ExtremeOreProcessing {
 
     }
 
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        // modItems needs to be before ModBlocks or drops won't work properly
-        LOGGER.info(name + " is loading!");
 
-        teslaLoaded = Loader.isModLoaded("tesla");
-
-        ModItems.init();
-        ModBlocks.init();
-        InitFluids.init();
-        GameRegistry.registerWorldGenerator(new ModWorldGeneration(), 3);
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGuiHandler());
-        PacketHandler.init();
-        proxy.preInit(event);
-    }
 
 }

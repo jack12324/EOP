@@ -4,7 +4,7 @@ import com.jack12324.eop.ExtremeOreProcessing;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 
-public class ModArmor extends net.minecraft.item.ItemArmor implements ItemModelProvider {
+public class ModArmor extends net.minecraft.item.ItemArmor{
 
     private final String name;
 
@@ -16,8 +16,7 @@ public class ModArmor extends net.minecraft.item.ItemArmor implements ItemModelP
         setCreativeTab(ExtremeOreProcessing.creativeTab);
     }
 
-    @Override
-    public void registerItemModel(Item item) {
+    public void registerItemModel() {
         ExtremeOreProcessing.proxy.registerItemRenderer(this, 0, name);
 
     }

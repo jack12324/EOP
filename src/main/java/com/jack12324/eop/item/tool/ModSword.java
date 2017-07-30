@@ -1,11 +1,10 @@
 package com.jack12324.eop.item.tool;
 
 import com.jack12324.eop.ExtremeOreProcessing;
-import com.jack12324.eop.item.ItemModelProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSword;
 
-public class ModSword extends ItemSword implements ItemModelProvider {
+public class ModSword extends ItemSword{
 
     private final String name;
 
@@ -17,8 +16,7 @@ public class ModSword extends ItemSword implements ItemModelProvider {
         super.setCreativeTab(ExtremeOreProcessing.creativeTab);
     }
 
-    @Override
-    public void registerItemModel(Item item) {
+    public void registerItemModel() {
         ExtremeOreProcessing.proxy.registerItemRenderer(this, 0, name);
     }
 

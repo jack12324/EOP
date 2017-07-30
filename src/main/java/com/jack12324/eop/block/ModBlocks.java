@@ -1,7 +1,5 @@
 package com.jack12324.eop.block;
 
-import com.jack12324.eop.item.ItemModelProvider;
-import com.jack12324.eop.item.ItemOreDictionary;
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.activationChamber.BlockActivationChamber;
 import com.jack12324.eop.machine.catalystInfuser.BlockCatalystInfuser;
@@ -16,107 +14,136 @@ import com.jack12324.eop.machine.triCatalystInfuser.BlockTriCatalystInfuser;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModBlocks {
 
-    public static BlockModOre oreTungsten;
-    public static BlockOreDict oreNickel;
-    public static BlockOreDict oreCobalt;
-    public static BlockModOre oreFirestone;
-    public static BlockBase oreRedsoul;
-    public static BlockBase blockTungsten;
-    public static BlockBase blockNickel;
-    public static BlockBase blockCobalt;
-    public static BlockBase blockFirestone;
-    public static BlockBase blockRedsoul;
-    public static BlockBase blockCrudeMachineFrame;
-    public static BlockBase blockBasicMachineFrame;
-    public static BlockBase blockAdvancedMachineFrame;
-    public static BlockBase blockEliteMachineFrame;
-    public static BlockActivationChamber activationChamber;
-    public static BlockEqualizingSmelter equalizingSmelter;
-    public static BlockDisablingPress disablingPress;
-    public static BlockParticleExciter particleExciter;
-    public static BlockPedestal pedestal;
-    public static BlockCatalystInfuser catalystInfuser;
-    public static BlockDualCatalystInfuser dualCatalystInfuser;
-    public static BlockEndericPurifier endericPurifier;
-    public static BlockStarHardener starHardener;
-    public static BlockTriCatalystInfuser triCatalystInfuser;
+    public static BlockOreDict oreTungsten = new BlockOreDict("ore_tungsten", "oreTungsten", 3);
+    public static BlockOreDict oreNickel = new BlockOreDict("ore_nickel", "oreNickel", 2);
+    public static BlockOreDict oreCobalt = new BlockOreDict("ore_cobalt", "oreCobalt", 3);
 
-    public static void init() {
+    public static BlockModOre oreFirestone = new BlockDustOre(Material.ROCK, "ore_firestone", "pickaxe", 2, ModItems.dustFirestone,
+            4, 5, 3.0f, 15f, SoundType.STONE);
+    public static BlockBase oreRedsoul = new BlockDustOre(Material.SAND, "ore_redsoul", "shovel", 0, ModItems.dustRedsoul, 4, 5,
+            0.5f, 2.5f, SoundType.SAND);
 
-        // ore with dust drops
-        oreFirestone = register(new BlockDustOre(Material.ROCK, "ore_firestone", "pickaxe", 2, ModItems.dustFirestone,
-                4, 5, 3.0f, 15f, SoundType.STONE));
-        oreRedsoul = register(new BlockDustOre(Material.SAND, "ore_redsoul", "shovel", 0, ModItems.dustRedsoul, 4, 5,
-                0.5f, 2.5f, SoundType.SAND));
+    public static BlockBase blockTungsten = new BlockBase(Material.IRON, "block_tungsten");
+    public static BlockBase blockNickel = new BlockBase(Material.IRON, "block_nickel");
+    public static BlockBase blockCobalt = new BlockBase(Material.IRON, "block_cobalt");
+    public static BlockBase blockFirestone = new BlockBase(Material.IRON, "block_firestone");
+    public static BlockBase blockRedsoul = new BlockBase(Material.IRON, "block_redsoul");
 
-        // ore dictionary ore
-        oreNickel = register(new BlockOreDict("ore_nickel", "oreNickel", 2));
-        oreCobalt = register(new BlockOreDict("ore_cobalt", "oreCobalt", 3));
+    public static BlockBase blockCrudeMachineFrame = new BlockBase(Material.IRON, "block_crude_machine_frame");
+    public static BlockBase blockBasicMachineFrame = new BlockBase(Material.IRON, "block_basic_machine_frame");
+    public static BlockBase blockAdvancedMachineFrame = new BlockBase(Material.IRON, "block_advanced_machine_frame");
+    public static BlockBase blockEliteMachineFrame = new BlockBase(Material.IRON, "block_elite_machine_frame");
 
-        // general ore
-        oreTungsten = register(new BlockModOre("ore_tungsten", 3));
+    public static BlockActivationChamber activationChamber = new BlockActivationChamber();
+    public static BlockEqualizingSmelter equalizingSmelter = new BlockEqualizingSmelter();
+    public static BlockDisablingPress disablingPress = new BlockDisablingPress();
+    public static BlockParticleExciter particleExciter = new BlockParticleExciter();
+    public static BlockPedestal pedestal = new BlockPedestal();
+    public static BlockCatalystInfuser catalystInfuser = new BlockCatalystInfuser();
+    public static BlockDualCatalystInfuser dualCatalystInfuser = new BlockDualCatalystInfuser();
+    public static BlockEndericPurifier endericPurifier = new BlockEndericPurifier();
+    public static BlockStarHardener starHardener = new BlockStarHardener();
+    public static BlockTriCatalystInfuser triCatalystInfuser = new BlockTriCatalystInfuser();
 
-        // ingot blocks
-        blockTungsten = register(new BlockBase(Material.IRON, "block_tungsten"));
-        blockFirestone = register(new BlockBase(Material.IRON, "block_firestone"));
-        blockRedsoul = register(new BlockBase(Material.IRON, "block_redsoul"));
-        blockNickel = register(new BlockBase(Material.IRON, "block_nickel"));
-        blockCobalt = register(new BlockBase(Material.IRON, "block_cobalt"));
-
-        // crafting blocks
-        blockCrudeMachineFrame = register(new BlockBase(Material.IRON, "block_crude_machine_frame"));
-        blockBasicMachineFrame = register(new BlockBase(Material.IRON, "block_basic_machine_frame"));
-        blockAdvancedMachineFrame = register(new BlockBase(Material.IRON, "block_advanced_machine_frame"));
-        blockEliteMachineFrame = register(new BlockBase(Material.IRON, "block_elite_machine_frame"));
-
-        // tile entities
-        activationChamber = register(new BlockActivationChamber());
-        equalizingSmelter = register(new BlockEqualizingSmelter());
-        disablingPress = register(new BlockDisablingPress());
-        particleExciter = register(new BlockParticleExciter());
-        catalystInfuser = register(new BlockCatalystInfuser());
-        dualCatalystInfuser = register(new BlockDualCatalystInfuser());
-        endericPurifier = register(new BlockEndericPurifier());
-        starHardener = register(new BlockStarHardener());
-        triCatalystInfuser = register(new BlockTriCatalystInfuser());
-
-        // God tier tiled entities
-        pedestal = register(new BlockPedestal());
+    public static void register(IForgeRegistry<Block> registry) {
+        registry.registerAll(
+                oreTungsten,
+                oreNickel,
+                oreCobalt,
+                oreFirestone,
+                oreRedsoul,
+                blockTungsten,
+                blockNickel,
+                blockCobalt,
+                blockFirestone,
+                blockRedsoul,
+                blockCrudeMachineFrame,
+                blockBasicMachineFrame,
+                blockAdvancedMachineFrame,
+                blockEliteMachineFrame,
+                activationChamber,
+                equalizingSmelter,
+                disablingPress,
+                particleExciter,
+                pedestal,
+                catalystInfuser,
+                dualCatalystInfuser,
+                endericPurifier,
+                starHardener,
+                triCatalystInfuser
+        );
+        GameRegistry.registerTileEntity(activationChamber.getTileEntityClass(), activationChamber.getRegistryName().toString());
+        GameRegistry.registerTileEntity(equalizingSmelter.getTileEntityClass(), equalizingSmelter.getRegistryName().toString());
+        GameRegistry.registerTileEntity(disablingPress.getTileEntityClass(), disablingPress.getRegistryName().toString());
+        GameRegistry.registerTileEntity(particleExciter.getTileEntityClass(), particleExciter.getRegistryName().toString());
+        GameRegistry.registerTileEntity(pedestal.getTileEntityClass(), pedestal.getRegistryName().toString());
+        GameRegistry.registerTileEntity(catalystInfuser.getTileEntityClass(), catalystInfuser.getRegistryName().toString());
+        GameRegistry.registerTileEntity(dualCatalystInfuser.getTileEntityClass(), dualCatalystInfuser.getRegistryName().toString());
+        GameRegistry.registerTileEntity(endericPurifier.getTileEntityClass(), endericPurifier.getRegistryName().toString());
+        GameRegistry.registerTileEntity(starHardener.getTileEntityClass(), starHardener.getRegistryName().toString());
+        GameRegistry.registerTileEntity(triCatalystInfuser.getTileEntityClass(), triCatalystInfuser.getRegistryName().toString());
 
     }
 
-    private static <T extends Block> T register(T block) {
-        ItemBlock itemBlock = new ItemBlock(block);
-        itemBlock.setRegistryName(block.getRegistryName());
-        return register(block, itemBlock);
+    public static void registerItemBlocks(IForgeRegistry<Item> registry) {
+                oreTungsten.createItemBlock();
+                oreNickel.createItemBlock();
+                oreCobalt.createItemBlock();
+                oreFirestone.createItemBlock();
+                oreRedsoul.createItemBlock();
+                blockTungsten.createItemBlock();
+                blockNickel.createItemBlock();
+                blockCobalt.createItemBlock();
+                blockFirestone.createItemBlock();
+                blockRedsoul.createItemBlock();
+                blockCrudeMachineFrame.createItemBlock();
+                blockBasicMachineFrame.createItemBlock();
+                blockAdvancedMachineFrame.createItemBlock();
+                blockEliteMachineFrame.createItemBlock();
+                activationChamber.createItemBlock();
+                equalizingSmelter.createItemBlock();
+                disablingPress.createItemBlock();
+                particleExciter.createItemBlock();
+                pedestal.createItemBlock();
+                catalystInfuser.createItemBlock();
+                dualCatalystInfuser.createItemBlock();
+                endericPurifier.createItemBlock();
+                starHardener.createItemBlock();
+                triCatalystInfuser.createItemBlock();
+
     }
 
-    private static <T extends Block> T register(T block, ItemBlock itemBlock) {
-        GameRegistry.register(block);
-
-        if (itemBlock != null) {
-            GameRegistry.register(itemBlock);
-
-            if (block instanceof ItemModelProvider) {
-                ((ItemModelProvider) block).registerItemModel(itemBlock);
-            }
-            if (block instanceof ItemOreDictionary) {
-                ((ItemOreDictionary) block).initOreDict();
-            }
-            if (itemBlock instanceof ItemOreDictionary) {
-                ((ItemOreDictionary) itemBlock).initOreDict();
-            }
-            if (block instanceof BlockTileEntity) {
-                GameRegistry.registerTileEntity(((BlockTileEntity<?>) block).getTileEntityClass(),
-                        block.getRegistryName().toString());
-            }
-        }
-        return block;
+    public static void registerModels() {
+            oreTungsten.registerItemModel();
+            oreNickel.registerItemModel();
+            oreCobalt.registerItemModel();
+            oreFirestone.registerItemModel();
+            oreRedsoul.registerItemModel();
+            blockTungsten.registerItemModel();
+            blockNickel.registerItemModel();
+            blockCobalt.registerItemModel();
+            blockFirestone.registerItemModel();
+            blockRedsoul.registerItemModel();
+            blockCrudeMachineFrame.registerItemModel();
+            blockBasicMachineFrame.registerItemModel();
+            blockAdvancedMachineFrame.registerItemModel();
+            blockEliteMachineFrame.registerItemModel();
+            activationChamber.registerItemModel();
+            equalizingSmelter.registerItemModel();
+            disablingPress.registerItemModel();
+            particleExciter.registerItemModel();
+            pedestal.registerItemModel();
+            catalystInfuser.registerItemModel();
+            dualCatalystInfuser.registerItemModel();
+            endericPurifier.registerItemModel();
+            starHardener.registerItemModel();
+            triCatalystInfuser.registerItemModel();
 
     }
 

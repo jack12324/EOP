@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 
 import javax.annotation.Nonnull;
 
-public class ItemBase extends Item implements ItemModelProvider {
+public class ItemBase extends Item {
     private final String name;
 
     public ItemBase(String name) {
@@ -21,9 +21,8 @@ public class ItemBase extends Item implements ItemModelProvider {
         this.setMaxStackSize(maxSize);
     }
 
-    @Override
-    public void registerItemModel(Item item) {
-        ExtremeOreProcessing.proxy.registerItemRenderer(item, 0, name);
+    public void registerItemModel() {
+        ExtremeOreProcessing.proxy.registerItemRenderer(this, 0, name);
     }
 
     @Nonnull

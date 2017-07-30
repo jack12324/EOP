@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class CommonProxy {
 
     public EntityPlayer getPlayer(MessageContext context) {
-        return context.getServerHandler().playerEntity;
+        return context.getServerHandler().player;
     }
 
 

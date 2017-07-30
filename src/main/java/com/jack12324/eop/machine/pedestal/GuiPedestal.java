@@ -39,15 +39,15 @@ public class GuiPedestal extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String name = I18n.format(ModBlocks.pedestal.getUnlocalizedName() + ".name");
-        fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
-        fontRendererObj.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
+        fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 0x404040);
+        fontRenderer.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
 
         List<String> hoveringText;
         hoveringText = fb.drawText(mouseX, mouseY);
 
         // If hoveringText is not empty draw the hovering text
         if (hoveringText != null && !hoveringText.isEmpty()) {
-            drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRendererObj);
+            drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRenderer);
         }
     }
 

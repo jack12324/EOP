@@ -165,10 +165,6 @@ public class ModRecipes {
                 new ItemStack(Items.ENDER_EYE, 2), new ItemStack(Items.SHULKER_SHELL),
                 new FluidStack(InitFluids.fluidDragonSoul, 100), new FluidStack(InitFluids.fluidLiquidEnd, 100));
 
-        // God tier cactus spines
-        GameRegistry.addRecipe(new ShapedOreRecipe((ModItems.cactusSpine), "ab ", "   ", "   ", 'a', Items.IRON_SWORD,
-                'b', Blocks.CACTUS));
-
         RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.EMERALD),
                 new ItemStack(Items.FERMENTED_SPIDER_EYE));
         RecipeHolder.addActivationChamberRecipe(new ItemStack(Items.ARROW, 2), new ItemStack(Items.GLOWSTONE_DUST));

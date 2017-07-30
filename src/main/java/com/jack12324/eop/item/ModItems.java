@@ -5,180 +5,186 @@ import com.jack12324.eop.item.tool.*;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModItems {
 
-    public static ItemBase ingotTungsten;
-    public static ItemOreDict ingotNickel;
-    public static ItemOreDict ingotCobalt;
-    public static ItemBase ingotNickelTungstenAlloy;
-    public static ItemBase ingotIronTungstenAlloy;
-    public static ItemBase ingotCobaltTungstenAlloy;
-    public static ItemBase ingotTungstenCarbideAlloy;
-    public static ItemBase ingotFirestoneTungstenAlloy;
-    public static ItemBase ingotSoulInfusedTungsten;
+    public static ItemBase ingotTungsten= new ItemBase("ingot_tungsten");
+    public static ItemOreDict ingotNickel = new ItemOreDict("ingot_nickel", "ingotNickel");
+    public static ItemOreDict ingotCobalt =  new ItemOreDict("ingot_cobalt", "ingotCobalt");
+    public static ItemBase ingotNickelTungstenAlloy = new ItemBase("ingot_nickel_tungsten_alloy");
+    public static ItemBase ingotIronTungstenAlloy = new ItemBase("ingot_iron_tungsten_alloy");
+    public static ItemBase ingotCobaltTungstenAlloy = new ItemBase("ingot_cobalt_tungsten_alloy");
+    public static ItemBase ingotTungstenCarbideAlloy = new ItemBase("ingot_tungsten_carbide_alloy");
+    public static ItemBase ingotFirestoneTungstenAlloy = new ItemBase("ingot_firestone_tungsten_alloy");
+    public static ItemBase ingotSoulInfusedTungsten = new ItemBase("ingot_soul_infused_tungsten");
 
-    public static ItemBase dustFirestone;
-    public static ItemBase dustRedsoul;
+    public static ItemBase dustFirestone = new ItemBase("dust_firestone");
+    public static ItemBase dustRedsoul = new ItemBase("dust_redsoul");
 
-    public static ItemBase componentCrudeComponent;
-    public static ItemBase componentBasicComponent;
-    public static ItemBase componentAdvancedComponent;
-    public static ItemBase componentEliteComponent;
-    public static ItemBase componentEnergyModule;
+    public static ItemBase componentCrudeComponent = new ItemBase("component_crude_component");
+    public static ItemBase componentBasicComponent = new ItemBase("component_basic_component");
+    public static ItemBase componentAdvancedComponent = new ItemBase("component_advanced_component");
+    public static ItemBase componentEliteComponent = new ItemBase("component_elite_component");
+    public static ItemBase componentEnergyModule = new ItemBase("component_energy_module");
 
-    public static ModSword tungstenSword;
-    public static ModPickaxe tungstenPickaxe;
-    public static ModShovel tungstenShovel;
-    public static ModAxe tungstenAxe;
-    public static ModHoe tungstenHoe;
+    public static ModSword tungstenSword = new ModSword(ExtremeOreProcessing.tungstenToolMaterial, "sword_tungsten");
+    public static ModPickaxe tungstenPickaxe = new ModPickaxe(ExtremeOreProcessing.tungstenToolMaterial, "pickaxe_tungsten");
+    public static ModShovel tungstenShovel = new ModShovel(ExtremeOreProcessing.tungstenToolMaterial, "shovel_tungsten");
+    public static ModAxe tungstenAxe = new ModAxe(ExtremeOreProcessing.tungstenToolMaterial, "axe_tungsten");
+    public static ModHoe tungstenHoe = new ModHoe(ExtremeOreProcessing.tungstenToolMaterial, "hoe_tungsten");
 
-    public static ModArmor tungstenHelmet;
-    public static ModArmor tungstenChestplate;
-    public static ModArmor tungstenLeggings;
-    public static ModArmor tungstenBoots;
+    public static ModArmor tungstenHelmet = new ModArmor(ExtremeOreProcessing.tungstenArmorMaterial, EntityEquipmentSlot.HEAD, "helmet_tungsten");
+    public static ModArmor tungstenChestplate = new ModArmor(ExtremeOreProcessing.tungstenArmorMaterial, EntityEquipmentSlot.CHEST, "chestplate_tungsten");
+    public static ModArmor tungstenLeggings = new ModArmor(ExtremeOreProcessing.tungstenArmorMaterial, EntityEquipmentSlot.LEGS, "leggings_tungsten");
+    public static ModArmor tungstenBoots = new ModArmor(ExtremeOreProcessing.tungstenArmorMaterial, EntityEquipmentSlot.FEET, "boots_tungsten");
 
-    public static ItemBase activatedGoldDust;
-    public static ItemBase activatedIronDust;
-    public static ItemBase activatedNickelDust;
-    public static ItemBase activatedCobaltDust;
-    public static ItemBase activatedTungstenDust;
+    public static ItemBase activatedGoldDust = new ItemBase("activated_gold_dust");
+    public static ItemBase activatedIronDust = new ItemBase("activated_iron_dust");
+    public static ItemBase activatedNickelDust = new ItemBase("activated_nickel_dust");
+    public static ItemBase activatedCobaltDust = new ItemBase("activated_cobalt_dust");
+    public static ItemBase activatedTungstenDust = new ItemBase("activated_tungsten_dust");
 
-    public static ItemBase dormantGoldPowder;
-    public static ItemBase dormantIronPowder;
-    public static ItemBase dormantNickelPowder;
-    public static ItemBase dormantCobaltPowder;
-    public static ItemBase dormantTungstenPowder;
+    public static ItemBase dormantGoldPowder = new ItemBase("dormant_gold_powder");
+    public static ItemBase dormantIronPowder = new ItemBase("dormant_iron_powder");
+    public static ItemBase dormantNickelPowder = new ItemBase("dormant_nickel_powder");
+    public static ItemBase dormantCobaltPowder = new ItemBase("dormant_cobalt_powder");
+    public static ItemBase dormantTungstenPowder = new ItemBase("dormant_tungsten_powder");
 
-    public static ItemBase excitedGoldScraps;
-    public static ItemBase excitedIronScraps;
-    public static ItemBase excitedNickelScraps;
-    public static ItemBase excitedCobaltScraps;
-    public static ItemBase excitedTungstenScraps;
+    public static ItemBase excitedGoldScraps = new ItemBase("excited_gold_scraps");
+    public static ItemBase excitedIronScraps = new ItemBase("excited_iron_scraps");
+    public static ItemBase excitedNickelScraps = new ItemBase("excited_nickel_scraps");
+    public static ItemBase excitedCobaltScraps = new ItemBase("excited_cobalt_scraps");
+    public static ItemBase excitedTungstenScraps = new ItemBase("excited_tungsten_scraps");
 
-    public static ItemBase astralGoldSlivers;
-    public static ItemBase astralIronSlivers;
-    public static ItemBase astralNickelSlivers;
-    public static ItemBase astralCobaltSlivers;
-    public static ItemBase astralTungstenSlivers;
+    public static ItemBase astralGoldSlivers = new ItemBase("astral_gold_slivers");
+    public static ItemBase astralIronSlivers = new ItemBase("astral_iron_slivers");
+    public static ItemBase astralNickelSlivers = new ItemBase("astral_nickel_slivers");
+    public static ItemBase astralCobaltSlivers = new ItemBase("astral_cobalt_slivers");
+    public static ItemBase astralTungstenSlivers = new ItemBase("astral_tungsten_slivers");
 
-    public static ItemBase pureGoldEssence;
-    public static ItemBase pureIronEssence;
-    public static ItemBase pureNickelEssence;
-    public static ItemBase pureCobaltEssence;
-    public static ItemBase pureTungstenEssence;
+    public static ItemBase pureGoldEssence = new ItemBase("pure_gold_essence");
+    public static ItemBase pureIronEssence = new ItemBase("pure_iron_essence");
+    public static ItemBase pureNickelEssence = new ItemBase("pure_nickel_essence");
+    public static ItemBase pureCobaltEssence = new ItemBase("pure_cobalt_essence");
+    public static ItemBase pureTungstenEssence = new ItemBase("pure_tungsten_essence");
 
-    public static ItemBase speedUpgrade;
-    public static ItemBase energyUpgrade;
+    public static ItemBase speedUpgrade = new ItemBase("speed_upgrade", 10);
+    public static ItemBase energyUpgrade = new ItemBase("energy_upgrade", 10);
 
-    private static ItemBase dragonScale;
+    private static ItemBase dragonScale = new ItemBase("dragon_scale");
 
-    public static ItemBase cactusSpine;
-
-    public static void init() {
-
-        // ingots
-        ingotTungsten = register(new ItemBase("ingot_tungsten"));
-        ingotNickel = register(new ItemOreDict("ingot_nickel", "ingotNickel"));
-        ingotCobalt = register(new ItemOreDict("ingot_cobalt", "ingotCobalt"));
-
-        ingotNickelTungstenAlloy = register(new ItemBase("ingot_nickel_tungsten_alloy"));
-        ingotIronTungstenAlloy = register(new ItemBase("ingot_iron_tungsten_alloy"));
-        ingotCobaltTungstenAlloy = register(new ItemBase("ingot_cobalt_tungsten_alloy"));
-        ingotTungstenCarbideAlloy = register(new ItemBase("ingot_tungsten_carbide_alloy"));
-        ingotFirestoneTungstenAlloy = register(new ItemBase("ingot_firestone_tungsten_alloy"));
-        ingotSoulInfusedTungsten = register(new ItemBase("ingot_soul_infused_tungsten"));
-
-        // dusts
-        dustFirestone = register(new ItemBase("dust_firestone"));
-        dustRedsoul = register(new ItemBase("dust_redsoul"));
-
-        // crafting components
-        componentCrudeComponent = register(new ItemBase("component_crude_component"));
-        componentBasicComponent = register(new ItemBase("component_basic_component"));
-        componentAdvancedComponent = register(new ItemBase("component_advanced_component"));
-        componentEliteComponent = register(new ItemBase("component_elite_component"));
-        componentEnergyModule = register(new ItemBase("component_energy_module"));
-
-        // armor
-        tungstenHelmet = register(
-                new ModArmor(ExtremeOreProcessing.tungstenArmorMaterial, EntityEquipmentSlot.HEAD, "helmet_tungsten"));
-        tungstenChestplate = register(new ModArmor(ExtremeOreProcessing.tungstenArmorMaterial,
-                EntityEquipmentSlot.CHEST, "chestplate_tungsten"));
-        tungstenLeggings = register(new ModArmor(ExtremeOreProcessing.tungstenArmorMaterial, EntityEquipmentSlot.LEGS,
-                "leggings_tungsten"));
-        tungstenBoots = register(
-                new ModArmor(ExtremeOreProcessing.tungstenArmorMaterial, EntityEquipmentSlot.FEET, "boots_tungsten"));
-
-        // cobaltHelmet = register(new
-        // ModArmor(ExtremeOreProcessing.cobaltArmorMaterial,
-        // EntityEquipmentSlot.HEAD, "helmet_cobalt"));
-
-        // tools
-        tungstenSword = register(new ModSword(ExtremeOreProcessing.tungstenToolMaterial, "sword_tungsten"));
-        tungstenPickaxe = register(new ModPickaxe(ExtremeOreProcessing.tungstenToolMaterial, "pickaxe_tungsten"));
-        tungstenAxe = register(new ModAxe(ExtremeOreProcessing.tungstenToolMaterial, "axe_tungsten"));
-        tungstenShovel = register(new ModShovel(ExtremeOreProcessing.tungstenToolMaterial, "shovel_tungsten"));
-        tungstenHoe = register(new ModHoe(ExtremeOreProcessing.tungstenToolMaterial, "hoe_tungsten"));
-
-
-        // Activated Dusts
-        activatedGoldDust = register(new ItemBase("activated_gold_dust"));
-        activatedIronDust = register(new ItemBase("activated_iron_dust"));
-        activatedNickelDust = register(new ItemBase("activated_nickel_dust"));
-        activatedCobaltDust = register(new ItemBase("activated_cobalt_dust"));
-        activatedTungstenDust = register(new ItemBase("activated_tungsten_dust"));
-
-        // Dormant Powders
-        dormantGoldPowder = register(new ItemBase("dormant_gold_powder"));
-        dormantIronPowder = register(new ItemBase("dormant_iron_powder"));
-        dormantNickelPowder = register(new ItemBase("dormant_nickel_powder"));
-        dormantCobaltPowder = register(new ItemBase("dormant_cobalt_powder"));
-        dormantTungstenPowder = register(new ItemBase("dormant_tungsten_powder"));
-
-        // Excited Scraps
-        excitedGoldScraps = register(new ItemBase("excited_gold_scraps"));
-        excitedIronScraps = register(new ItemBase("excited_iron_scraps"));
-        excitedNickelScraps = register(new ItemBase("excited_nickel_scraps"));
-        excitedCobaltScraps = register(new ItemBase("excited_cobalt_scraps"));
-        excitedTungstenScraps = register(new ItemBase("excited_tungsten_scraps"));
-
-        // Astral Slivers
-        astralGoldSlivers = register(new ItemBase("astral_gold_slivers"));
-        astralIronSlivers = register(new ItemBase("astral_iron_slivers"));
-        astralNickelSlivers = register(new ItemBase("astral_nickel_slivers"));
-        astralCobaltSlivers = register(new ItemBase("astral_cobalt_slivers"));
-        astralTungstenSlivers = register(new ItemBase("astral_tungsten_slivers"));
-
-        // Astral Slivers
-        pureGoldEssence = register(new ItemBase("pure_gold_essence"));
-        pureIronEssence = register(new ItemBase("pure_iron_essence"));
-        pureNickelEssence = register(new ItemBase("pure_nickel_essence"));
-        pureCobaltEssence = register(new ItemBase("pure_cobalt_essence"));
-        pureTungstenEssence = register(new ItemBase("pure_tungsten_essence"));
-
-        // upgrades
-        speedUpgrade = register(new ItemBase("speed_upgrade", 10));
-        energyUpgrade = register(new ItemBase("energy_upgrade", 10));
-
-        // God tier scales
-        dragonScale = register(new ItemBase("dragon_scale"));
-
-        // God tier cactus spines
-        cactusSpine = register(new ItemBase("cactus_spine"));
-
+    public static void register(IForgeRegistry<Item> registry) {
+        registry.registerAll(
+                ingotTungsten,
+                ingotNickel,
+                ingotCobalt,
+                ingotNickelTungstenAlloy,
+                ingotIronTungstenAlloy,
+                ingotCobaltTungstenAlloy,
+                ingotTungstenCarbideAlloy,
+                ingotFirestoneTungstenAlloy,
+                ingotSoulInfusedTungsten,
+                dustFirestone,
+                dustRedsoul,
+                componentCrudeComponent,
+                componentBasicComponent,
+                componentAdvancedComponent,
+                componentEliteComponent,
+                componentEnergyModule,
+                tungstenSword,
+                tungstenPickaxe,
+                tungstenShovel,
+                tungstenAxe,
+                tungstenHoe,
+                tungstenHelmet,
+                tungstenChestplate,
+                tungstenLeggings,
+                tungstenBoots,
+                activatedGoldDust,
+                activatedIronDust,
+                activatedNickelDust,
+                activatedCobaltDust,
+                activatedTungstenDust,
+                dormantGoldPowder,
+                dormantIronPowder,
+                dormantNickelPowder,
+                dormantCobaltPowder,
+                dormantTungstenPowder,
+                excitedGoldScraps,
+                excitedIronScraps,
+                excitedNickelScraps,
+                excitedCobaltScraps,
+                excitedTungstenScraps,
+                astralGoldSlivers,
+                astralIronSlivers,
+                astralNickelSlivers,
+                astralCobaltSlivers,
+                astralTungstenSlivers,
+                pureGoldEssence,
+                pureIronEssence,
+                pureNickelEssence,
+                pureCobaltEssence,
+                pureTungstenEssence,
+                speedUpgrade,
+                energyUpgrade,
+                dragonScale
+        );
     }
 
-
-    private static <T extends Item> T register(T item) {
-        GameRegistry.register(item);
-
-        if (item instanceof ItemModelProvider) {
-            ((ItemModelProvider) item).registerItemModel(item);
-        }
-        if (item instanceof ItemOreDictionary) {
-            ((ItemOreDictionary) item).initOreDict();
-        }
-        return item;
+    public static void registerModels() {
+                ingotTungsten.registerItemModel();
+                ingotNickel.registerItemModel();
+                ingotCobalt.registerItemModel();
+                ingotNickelTungstenAlloy.registerItemModel();
+                ingotIronTungstenAlloy.registerItemModel();
+                ingotCobaltTungstenAlloy.registerItemModel();
+                ingotTungstenCarbideAlloy.registerItemModel();
+                ingotFirestoneTungstenAlloy.registerItemModel();
+                ingotSoulInfusedTungsten.registerItemModel();
+                dustFirestone.registerItemModel();
+                dustRedsoul.registerItemModel();
+                componentCrudeComponent.registerItemModel();
+                componentBasicComponent.registerItemModel();
+                componentAdvancedComponent.registerItemModel();
+                componentEliteComponent.registerItemModel();
+                componentEnergyModule.registerItemModel();
+                tungstenSword.registerItemModel();
+                tungstenPickaxe.registerItemModel();
+                tungstenShovel.registerItemModel();
+                tungstenAxe.registerItemModel();
+                tungstenHoe.registerItemModel();
+                tungstenHelmet.registerItemModel();
+                tungstenChestplate.registerItemModel();
+                tungstenLeggings.registerItemModel();
+                tungstenBoots.registerItemModel();
+                activatedGoldDust.registerItemModel();
+                activatedIronDust.registerItemModel();
+                activatedNickelDust.registerItemModel();
+                activatedCobaltDust.registerItemModel();
+                activatedTungstenDust.registerItemModel();
+                dormantGoldPowder.registerItemModel();
+                dormantIronPowder.registerItemModel();
+                dormantNickelPowder.registerItemModel();
+                dormantCobaltPowder.registerItemModel();
+                dormantTungstenPowder.registerItemModel();
+                excitedGoldScraps.registerItemModel();
+                excitedIronScraps.registerItemModel();
+                excitedNickelScraps.registerItemModel();
+                excitedCobaltScraps.registerItemModel();
+                excitedTungstenScraps.registerItemModel();
+                astralGoldSlivers.registerItemModel();
+                astralIronSlivers.registerItemModel();
+                astralNickelSlivers.registerItemModel();
+                astralCobaltSlivers.registerItemModel();
+                astralTungstenSlivers.registerItemModel();
+                pureGoldEssence.registerItemModel();
+                pureIronEssence.registerItemModel();
+                pureNickelEssence.registerItemModel();
+                pureCobaltEssence.registerItemModel();
+                pureTungstenEssence.registerItemModel();
+                speedUpgrade.registerItemModel();
+                energyUpgrade.registerItemModel();
+                dragonScale.registerItemModel();
     }
 }

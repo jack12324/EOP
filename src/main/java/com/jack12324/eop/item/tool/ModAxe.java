@@ -1,10 +1,9 @@
 package com.jack12324.eop.item.tool;
 
 import com.jack12324.eop.ExtremeOreProcessing;
-import com.jack12324.eop.item.ItemModelProvider;
 import net.minecraft.item.Item;
 
-public class ModAxe extends net.minecraft.item.ItemAxe implements ItemModelProvider {
+public class ModAxe extends net.minecraft.item.ItemAxe {
 
     private final String name;
 
@@ -16,8 +15,7 @@ public class ModAxe extends net.minecraft.item.ItemAxe implements ItemModelProvi
         super.setCreativeTab(ExtremeOreProcessing.creativeTab);
     }
 
-    @Override
-    public void registerItemModel(Item item) {
+    public void registerItemModel() {
         ExtremeOreProcessing.proxy.registerItemRenderer(this, 0, name);
     }
 

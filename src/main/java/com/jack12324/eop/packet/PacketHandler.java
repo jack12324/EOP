@@ -46,8 +46,7 @@ public class PacketHandler {
         @Override
         public void handleData(NBTTagCompound compound, MessageContext context) {
             Coord4D coord4D = Coord4D.read(compound);
-            World worldServer = FMLCommonHandler.instance().getMinecraftServerInstance()
-                    .worldServerForDimension(coord4D.dimensionId);
+            World worldServer = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(coord4D.dimensionId);
             TileEntity tile = coord4D.getTileEntity(worldServer);
             if (tile != null && tile instanceof IButtonUse) {
                 ((IButtonUse) tile).onButtonPress(compound.getInteger("buttonID"));
@@ -64,8 +63,7 @@ public class PacketHandler {
 
             if (!player.world.isRemote) {
                 EntityPlayerMP playerMP = (EntityPlayerMP) player;
-                World worldServer = FMLCommonHandler.instance().getMinecraftServerInstance()
-                        .worldServerForDimension(coord4D.dimensionId);
+                World worldServer = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(coord4D.dimensionId);
                 if (coord4D.getTileEntity(worldServer) instanceof TETickingMachine) {
                     playerMP.closeContainer();
                     playerMP.getNextWindowId();
