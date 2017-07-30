@@ -7,12 +7,15 @@ import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.packet.PacketHandler;
 import com.jack12324.eop.proxy.CommonProxy;
 import com.jack12324.eop.recipe.ModRecipes;
+import com.jack12324.eop.util.FluidStateMapper;
 import com.jack12324.eop.world.ModWorldGeneration;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
@@ -26,8 +29,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static com.jack12324.eop.fluids.InitFluids.*;
 
 @Mod(modid = ExtremeOreProcessing.modID, name = ExtremeOreProcessing.name, version = ExtremeOreProcessing.version)
 public class ExtremeOreProcessing {
@@ -66,16 +72,39 @@ public class ExtremeOreProcessing {
             InitFluids.registerItemBlocks(event.getRegistry());
         }
         @SubscribeEvent
-        public static void registerItems(ModelRegistryEvent event) {
-            ModItems.registerModels();
-            ModBlocks.registerModels();
-            InitFluids.registerFluidModels();
-        }
-        @SubscribeEvent
         public static void registerBlocks(RegistryEvent.Register<Block> event) {
             ModBlocks.register(event.getRegistry());
             InitFluids.register(event.getRegistry());
         }
+    }
+    @Mod.EventBusSubscriber(value = Side.CLIENT, modid = modID)
+     public static class ModelHandler{
+        @SubscribeEvent
+        public static void registerModels(ModelRegistryEvent event) {
+            ModItems.registerModels();
+            ModBlocks.registerModels();
+            registerFluidModels();
+
+
+        }
+        public static void registerFluidModels() {
+             registerFluidModels(fluidDragonSoul);
+              registerFluidModels(fluidScreamingLava);
+             registerFluidModels(fluidStarWater);
+             registerFluidModels(fluidLiquidEnd);
+        }
+
+    private static void registerFluidModels(final Fluid fluid){
+
+        Block block = fluid.getBlock();
+        Item item = Item.getItemFromBlock(block);
+        FluidStateMapper mapper = new FluidStateMapper(fluid);
+        ModelBakery.registerItemVariants(item);
+        ModelLoader.setCustomMeshDefinition(item, mapper);
+        ModelLoader.setCustomStateMapper(block, mapper);
+    }
+
+
     }
 
     @Mod.EventHandler

@@ -1,5 +1,6 @@
 package com.jack12324.eop.block;
 
+import com.jack12324.eop.fluids.InitFluids;
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.activationChamber.BlockActivationChamber;
 import com.jack12324.eop.machine.catalystInfuser.BlockCatalystInfuser;
