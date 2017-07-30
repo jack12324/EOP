@@ -1,0 +1,12 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "eop:block_firestone"
+		}
+	],
+	"result": {
+		"item": "eop:dust_firestone",
+		"count": 9
+	}
+}

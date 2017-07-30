@@ -1,28 +1,28 @@
 {
   "forge_marker": 1,
   "variants": {
-    "starwater": {
+    "star_water": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "starwater"
+        "fluid": "star_water"
       }
     },
-    "screaminglava": {
+    "screaming_lava": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "screaminglava"
+        "fluid": "screaming_lava"
       }
     },
-    "dragonsoul": {
+    "dragon_soul": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "dragonsoul"
+        "fluid": "dragon_soul"
       }
     },
-    "liquidend": {
+    "liquid_end": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "liquidend"
+        "fluid": "liquid_end"
       }
     }
   }

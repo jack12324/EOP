@@ -92,30 +92,32 @@ public class ModBlocks {
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {
-                oreTungsten.createItemBlock();
-                oreNickel.createItemBlock();
-                oreCobalt.createItemBlock();
-                oreFirestone.createItemBlock();
-                oreRedsoul.createItemBlock();
-                blockTungsten.createItemBlock();
-                blockNickel.createItemBlock();
-                blockCobalt.createItemBlock();
-                blockFirestone.createItemBlock();
-                blockRedsoul.createItemBlock();
-                blockCrudeMachineFrame.createItemBlock();
-                blockBasicMachineFrame.createItemBlock();
-                blockAdvancedMachineFrame.createItemBlock();
-                blockEliteMachineFrame.createItemBlock();
-                activationChamber.createItemBlock();
-                equalizingSmelter.createItemBlock();
-                disablingPress.createItemBlock();
-                particleExciter.createItemBlock();
-                pedestal.createItemBlock();
-                catalystInfuser.createItemBlock();
-                dualCatalystInfuser.createItemBlock();
-                endericPurifier.createItemBlock();
-                starHardener.createItemBlock();
-                triCatalystInfuser.createItemBlock();
+        registry.registerAll(
+                oreTungsten.createItemBlock(),
+                oreNickel.createItemBlock(),
+                oreCobalt.createItemBlock(),
+                oreFirestone.createItemBlock(),
+                oreRedsoul.createItemBlock(),
+                blockTungsten.createItemBlock(),
+                blockNickel.createItemBlock(),
+                blockCobalt.createItemBlock(),
+                blockFirestone.createItemBlock(),
+                blockRedsoul.createItemBlock(),
+                blockCrudeMachineFrame.createItemBlock(),
+                blockBasicMachineFrame.createItemBlock(),
+                blockAdvancedMachineFrame.createItemBlock(),
+                blockEliteMachineFrame.createItemBlock(),
+                activationChamber.createItemBlock(),
+                equalizingSmelter.createItemBlock(),
+                disablingPress.createItemBlock(),
+                particleExciter.createItemBlock(),
+                pedestal.createItemBlock(),
+                catalystInfuser.createItemBlock(),
+                dualCatalystInfuser.createItemBlock(),
+                endericPurifier.createItemBlock(),
+                starHardener.createItemBlock(),
+                triCatalystInfuser.createItemBlock()
+        );
 
     }
 

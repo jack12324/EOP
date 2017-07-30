@@ -87,15 +87,15 @@ tile.pedestal.name=Egg Extractor
 tile.star_hardener.name=Star Hardener
 tile.tri_catalyst_infuser.name=Tri Catalyst Infuser
 
-tile.eop.block_screaming_lava.name=Screaming Lava
-tile.eop.block_star_water.name=Star Water
-tile.eop.block_liquid_end.name=Liquid End
-tile.eop.block_dragon_soul.name=Dragon Soul
+tile.block_screaming_lava.name=Screaming Lava
+tile.block_star_water.name=Star Water
+tile.block_liquid_end.name=Liquid End
+tile.block_dragon_soul.name=Dragon Soul
 
-fluid.eop.screaminglava=Screaming Lava
-fluid.eop.starwater=Star Water
-fluid.eop.liquidend=Liquid End
-fluid.eop.dragonsoul=Dragon Soul
+fluid.eop.screaming_lava=Screaming Lava
+fluid.eop.star_water=Star Water
+fluid.eop.liquid_end=Liquid End
+fluid.eop.dragon_soul=Dragon Soul
 
 item.dragon_scale.name=Dragon Scale
 item.cactus_spine.name=Cactus Spine

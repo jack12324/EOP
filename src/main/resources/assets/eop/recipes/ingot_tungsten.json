@@ -1,0 +1,12 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "eop:block_tungsten"
+		}
+	],
+	"result": {
+		"item": "eop:ingot_tungsten",
+		"count": 9
+	}
+}

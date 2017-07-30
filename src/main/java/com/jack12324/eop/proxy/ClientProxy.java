@@ -27,25 +27,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        ExtremeOreProcessing.LOGGER.info("PreInitializing ClientProxy...");
 
-        this.registerCustomFluidBlockRenderer(InitFluids.fluidStarWater);
-        this.registerCustomFluidBlockRenderer(InitFluids.fluidScreamingLava);
-        this.registerCustomFluidBlockRenderer(InitFluids.fluidLiquidEnd);
-        this.registerCustomFluidBlockRenderer(InitFluids.fluidDragonSoul);
-
-    }
-
-    /**
-     * (Excerpted from Tinkers' Construct)
-     */
-    private void registerCustomFluidBlockRenderer(Fluid fluid) {
-        Block block = fluid.getBlock();
-        Item item = Item.getItemFromBlock(block);
-        FluidStateMapper mapper = new FluidStateMapper(fluid);
-        ModelBakery.registerItemVariants(item);
-        ModelLoader.setCustomMeshDefinition(item, mapper);
-        ModelLoader.setCustomStateMapper(block, mapper);
     }
 
     @Override

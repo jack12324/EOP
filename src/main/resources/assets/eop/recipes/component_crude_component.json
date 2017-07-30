@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" a ",
+		"bcb",
+		"dbd"
+	],
+	"key": {
+		"a": {
+		    "item": "minecraft:coal"
+		},
+		"b": {
+			"item": "eop:ingot_tungsten_carbide_alloy"
+		},
+		"c": {
+			"item": "minecraft:stone"
+		},
+		"d": {
+			"item": "minecraft:cobblestone"
+		}
+	},
+	"result": {
+		"item": "eop:component_crude_component"
+	}
+}

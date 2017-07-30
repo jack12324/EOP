@@ -69,7 +69,7 @@ public class ExtremeOreProcessing {
         public static void registerItems(ModelRegistryEvent event) {
             ModItems.registerModels();
             ModBlocks.registerModels();
-            InitFluids.registerModels();
+            InitFluids.registerFluidModels();
         }
         @SubscribeEvent
         public static void registerBlocks(RegistryEvent.Register<Block> event) {

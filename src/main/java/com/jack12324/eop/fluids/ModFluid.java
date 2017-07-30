@@ -3,6 +3,7 @@ package com.jack12324.eop.fluids;
 import com.jack12324.eop.ExtremeOreProcessing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 class ModFluid extends Fluid {
 

@@ -3,6 +3,7 @@ package com.jack12324.eop.jei.advancedMachines;
 import com.jack12324.eop.recipe.recipes.AdvancedRecipe;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -11,7 +12,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-class AdvancedMachineRecipeWrapper extends BlankRecipeWrapper {
+class AdvancedMachineRecipeWrapper implements IRecipeWrapper {
 
     private final List<ItemStack> inputs = new ArrayList<>();
     private final FluidStack inFluid;
@@ -22,12 +23,6 @@ class AdvancedMachineRecipeWrapper extends BlankRecipeWrapper {
         this.inFluid = recipe.getInFluidStack();
         this.output = recipe.getOutputStack();
         this.inputs.add(recipe.getBaseStack());
-
-    }
-
-    @Override
-    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-        super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 
     }
 

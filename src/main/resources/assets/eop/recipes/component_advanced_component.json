@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" a ",
+		"bcb",
+		"dbd"
+	],
+	"key": {
+		"a": {
+		    "item": "eop:ingot_cobalt"
+		},
+		"b": {
+			"item": "eop:ingot_nickel_tungsten_alloy"
+		},
+		"c": {
+			"item": "minecraft:lapis_block"
+		},
+		"d": {
+			"item": "eop:component_basic_component"
+		}
+	},
+	"result": {
+		"item": "eop:component_advanced_component"
+	}
+}

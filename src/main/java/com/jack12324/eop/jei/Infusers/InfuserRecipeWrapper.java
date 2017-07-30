@@ -3,6 +3,7 @@ package com.jack12324.eop.jei.Infusers;
 import com.jack12324.eop.recipe.recipes.InfuserRecipe;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class InfuserRecipeWrapper extends BlankRecipeWrapper {
+class InfuserRecipeWrapper implements IRecipeWrapper {
 
     private final List<ItemStack> inputs;
     private final FluidStack inFluid;
@@ -22,12 +23,6 @@ class InfuserRecipeWrapper extends BlankRecipeWrapper {
         this.inputs = new ArrayList<>(Arrays.asList(recipe.getInputStacks()));
         this.inFluid = recipe.getInFluidStack();
         this.outFluid = recipe.getOutFluidStack();
-
-    }
-
-    @Override
-    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-        super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 
     }
 

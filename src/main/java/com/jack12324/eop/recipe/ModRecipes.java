@@ -57,58 +57,10 @@ public class ModRecipes {
         }
     }
 
-    private static void armorToolRecipes(ModArmor helmet, ModArmor chestplate, ModArmor leggings, ModArmor boots,
-                                         ModSword sword, ModPickaxe pickaxe, ModAxe axe, ModShovel shovel, ModHoe hoe, ItemBase material) {
-        GameRegistry.addShapedRecipe(new ItemStack(helmet), "aaa", "a a", 'a', material);
-        GameRegistry.addShapedRecipe(new ItemStack(chestplate), "a a", "aaa", "aaa", 'a', material);
-        GameRegistry.addShapedRecipe(new ItemStack(leggings), "aaa", "a a", "a a", 'a', material);
-        GameRegistry.addShapedRecipe(new ItemStack(boots), "a a", "a a", 'a', material);
-
-        GameRegistry.addShapedRecipe(new ItemStack(sword), " a ", " a ", " b ", 'a', material, 'b', Items.STICK);
-        GameRegistry.addShapedRecipe(new ItemStack(pickaxe), "aaa", " b ", " b ", 'a', material, 'b', Items.STICK);
-        GameRegistry.addShapedRecipe(new ItemStack(axe), "aa ", "ab ", " b ", 'a', material, 'b', Items.STICK);
-        GameRegistry.addShapedRecipe(new ItemStack(shovel), " a ", " b ", " b ", 'a', material, 'b', Items.STICK);
-        GameRegistry.addShapedRecipe(new ItemStack(hoe), "aa ", " b ", " b ", 'a', material, 'b', Items.STICK);
-
-    }
-
     public static void init() {
         createFurnaceList();
-        // block to ingots
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.ingotTungsten, 9), ModBlocks.blockTungsten);
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.ingotCobalt, 9), ModBlocks.blockCobalt));
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dustFirestone, 9), ModBlocks.blockFirestone);
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dustRedsoul, 9), ModBlocks.blockRedsoul);
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.ingotNickel, 9), ModBlocks.blockNickel));
-
-        // ingots to block
-        GameRegistry.addRecipe(
-                new ShapedOreRecipe((ModBlocks.blockCobalt), "aaa", "aaa", "aaa", 'a', ModItems.ingotCobalt));
-        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.blockFirestone), "aaa", "aaa", "aaa", 'a',
-                ModItems.dustFirestone);
-        GameRegistry
-                .addRecipe(new ShapedOreRecipe(ModBlocks.blockNickel, "aaa", "aaa", "aaa", 'a', ModItems.ingotNickel));
-        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.blockRedsoul), "aaa", "aaa", "aaa", 'a',
-                ModItems.dustRedsoul);
-        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.blockTungsten), "aaa", "aaa", "aaa", 'a',
-                ModItems.ingotTungsten);
-
-        // components
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.componentCrudeComponent), " a ", "bcb", "dbd", 'a',
-                Items.COAL, 'b', ModItems.ingotTungstenCarbideAlloy, 'c', Blocks.STONE, 'd', Blocks.COBBLESTONE);
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.componentBasicComponent), " a ", "bcb", "dbd", 'a',
-                Items.REDSTONE, 'b', ModItems.ingotIronTungstenAlloy, 'c', ModBlocks.blockFirestone, 'd',
-                ModItems.componentCrudeComponent);
-        GameRegistry.addRecipe(new ShapedOreRecipe(ModItems.componentAdvancedComponent, " a ", "bcb", "dbd", 'a',
-                ModItems.ingotCobalt, 'b', ModItems.ingotNickelTungstenAlloy, 'c', Blocks.LAPIS_BLOCK, 'd',
-                ModItems.componentBasicComponent));
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.componentEliteComponent), " a ", "bcb", "dbd", 'a',
-                Items.ENDER_EYE, 'b', ModItems.ingotCobaltTungstenAlloy, 'c', Items.EMERALD, 'd',
-                ModItems.componentAdvancedComponent);
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.componentEnergyModule), "aba", "aca", "aaa", 'a',
-                ModItems.ingotTungsten, 'b', Items.GOLD_INGOT, 'c', ModBlocks.blockFirestone);
-
         // machine frames
+        /*
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.blockCrudeMachineFrame), "aba", "bcb", "ada", 'a',
                 ModItems.ingotTungsten, 'b', ModItems.componentCrudeComponent, 'c', Blocks.OBSIDIAN, 'd',
                 ModItems.componentEnergyModule);
@@ -135,6 +87,7 @@ public class ModRecipes {
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.catalystInfuser), "aaa", "bcb", "ded", 'a',
                 ModItems.ingotIronTungstenAlloy, 'b', ModItems.componentBasicComponent, 'c', Blocks.GOLD_BLOCK, 'd',
                 ModItems.ingotNickelTungstenAlloy, 'e', ModBlocks.blockBasicMachineFrame);
+
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.particleExciter), "aba", "cdc", "efe", 'a',
                 ModItems.ingotNickelTungstenAlloy, 'b', Items.DIAMOND, 'c', ModItems.componentAdvancedComponent, 'd',
                 Blocks.GOLD_BLOCK, 'e', ModItems.ingotCobaltTungstenAlloy, 'f', ModBlocks.blockAdvancedMachineFrame);
@@ -142,7 +95,7 @@ public class ModRecipes {
         // armor and tools
         armorToolRecipes(ModItems.tungstenHelmet, ModItems.tungstenChestplate, ModItems.tungstenLeggings,
                 ModItems.tungstenBoots, ModItems.tungstenSword, ModItems.tungstenPickaxe, ModItems.tungstenAxe,
-                ModItems.tungstenShovel, ModItems.tungstenHoe, ModItems.ingotTungsten);
+                ModItems.tungstenShovel, ModItems.tungstenHoe, ModItems.ingotTungsten);*/
 
         // smelting
         GameRegistry.addSmelting(ModBlocks.oreCobalt, new ItemStack(ModItems.ingotCobalt), 0.7f);

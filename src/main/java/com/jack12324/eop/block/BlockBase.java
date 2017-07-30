@@ -1,11 +1,13 @@
 package com.jack12324.eop.block;
 
+import com.google.common.base.Preconditions;
 import com.jack12324.eop.ExtremeOreProcessing;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +31,10 @@ public class BlockBase extends Block {
     }
 
     public Item createItemBlock() {
-        return new ItemBlock(this);
+        final ItemBlock itemBlock = new ItemBlock(this);
+        final ResourceLocation registryName = Preconditions.checkNotNull(this.getRegistryName());
+        itemBlock.setRegistryName(registryName);
+        return itemBlock;
     }
 
     @Nonnull

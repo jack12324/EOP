@@ -4,6 +4,7 @@ import com.jack12324.eop.machine.disablingPress.TileEntityDisablingPress;
 import com.jack12324.eop.recipe.recipes.DPRecipe;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,7 +13,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-class disablingPressRecipeWrapper extends BlankRecipeWrapper {
+class disablingPressRecipeWrapper implements IRecipeWrapper {
 
     private final ItemStack input;
     private final ItemStack output;
@@ -22,12 +23,6 @@ class disablingPressRecipeWrapper extends BlankRecipeWrapper {
         this.input = recipe.getInputStack();
         this.output = recipe.getOutputStack();
         this.base = recipe.getBaseStack();
-
-    }
-
-    @Override
-    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-        super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 
     }
 

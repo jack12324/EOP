@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
@@ -184,7 +185,7 @@ public abstract class TEPowered extends TEInventory {
                     return this.getFuelTime(i);
             }
 
-            return net.minecraftforge.fml.common.registry.GameRegistry.getFuelValue(stack);
+            return ForgeEventFactory.getItemBurnTime(stack);
         }
     }
 
