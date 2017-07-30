@@ -78,6 +78,19 @@ public class RecipeHandler {
         return items;
     }
 
+    public static ArrayList<Item> getBaseInItems(ArrayList<EOPRecipe> recipes) {
+        ArrayList<Item> items = new ArrayList<>();
+
+        for (EOPRecipe recipe : recipes) {
+            if (recipe instanceof IBaseRecipe) {
+                Item item = ((IBaseRecipe) recipe).getBaseStack().getItem();
+                if (!items.contains(item))
+                    items.add(item);
+            }
+        }
+        return items;
+    }
+
     public static Collection<? extends Fluid> getOutFluids(ArrayList<EOPRecipe> recipeList) {
         ArrayList<Fluid> fluids = new ArrayList<>();
         for (EOPRecipe recipe : recipeList) {

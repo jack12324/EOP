@@ -280,6 +280,11 @@ public abstract class TEPowered extends TEInventory {
                 return false;
         }
 
+        for (int indexes : this.slotHelper.getBase()) {
+            if (index == indexes && !RecipeHandler.getBaseInItems(this.getRecipeList()).contains(stack.getItem()))
+                return false;
+        }
+
         for (int indexes : this.slotHelper.getFuel()) {
             if (index == indexes && getFuelBurnTime(stack) <= 0)
                 return false;

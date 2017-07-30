@@ -60,7 +60,24 @@ public class GuiEqualizingSmelter extends GuiBase {
         double dustProgress = tileEntity.fractionOfDustProgress();
         int yOffset = (int) ((1.0 - dustProgress) * guiValues.getOther()[5]);
         drawTexturedModalRect(guiLeft + guiValues.getOther()[0], guiTop + guiValues.getOther()[1] + yOffset, guiValues.getOther()[2], guiValues.getOther()[3] + yOffset,
-                guiValues.getOther()[5], guiValues.getOther()[5] - yOffset);
+                guiValues.getOther()[4], guiValues.getOther()[5] - yOffset);
+    }
+
+    @Override
+    public void drawProgressBar() {
+        for (int i = 0; i < GuiValues.EQUALIZINGSMELTER.getProgress().length; i += 6) {
+            // get cook progress as a double between 0 and 1
+            double cookProgress = tileEntity.fractionOfProgressTimeComplete(i);
+            // draw the cook progress bar
+            if (i == 0 || i == 12)
+                drawTexturedModalRect(guiLeft + guiValues.getProgress()[i], guiTop + guiValues.getProgress()[i + 1], guiValues.getProgress()[i + 2],
+                        guiValues.getProgress()[i + 3], (int) (cookProgress * guiValues.getProgress()[i + 4]), guiValues.getProgress()[i + 5]);
+            else {
+                int xOffset = (int) ((1.0 - cookProgress) * guiValues.getProgress()[i + 4]);
+                drawTexturedModalRect(guiLeft + guiValues.getProgress()[i] + xOffset, guiTop + guiValues.getProgress()[i + 1], guiValues.getProgress()[i + 2] + xOffset,
+                        guiValues.getProgress()[i + 3], guiValues.getProgress()[i + 4] - xOffset, guiValues.getProgress()[i + 5]);
+            }
+        }
     }
 
     @Override

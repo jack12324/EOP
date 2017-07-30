@@ -137,7 +137,7 @@ public class GuiBase extends GuiContainer {
         powerBar.draw();
     }
 
-    private void drawProgressBar() {
+    public void drawProgressBar() {
         for (int i = 0; i < this.guiValues.getProgress().length; i += 6) {
             // get cook progress as a double between 0 and 1
             double cookProgress = tileEntity.fractionOfProgressTimeComplete(i / 6);

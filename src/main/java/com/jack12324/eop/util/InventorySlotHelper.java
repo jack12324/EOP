@@ -49,7 +49,7 @@ public class InventorySlotHelper {
         }
     }
 
-    private int[] getBase() {
+    public int[] getBase() {
         return base;
     }
 
