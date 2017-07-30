@@ -270,11 +270,11 @@ public abstract class TEPowered extends TEInventory {
      */
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        for (int indexes : this.slotHelper.getUpgrade()) {
-            if (index == indexes && (stack.getItem() != ModItems.energyUpgrade || stack.getItem() != ModItems.energyUpgrade))
+        if (this.slotHelper.getUpgradeSlotIndex(0) == index && stack.getItem() != ModItems.speedUpgrade)
+            return false;
+        if (this.slotHelper.getUpgradeSlotIndex(1) == index && stack.getItem() != ModItems.energyUpgrade)
                 return false;
-        }
-        // cant insert into output slot
+
         for (int indexes : this.slotHelper.getOut()) {
             if (index == indexes)
                 return false;
@@ -371,7 +371,7 @@ public abstract class TEPowered extends TEInventory {
     public int secondsOfFuelRemaining() {
         if (burnTimeRemaining <= 0 || fuelMultiplier <= 0)
             return 0;
-        return (int) (burnTimeRemaining / (20 * fuelMultiplier * BASE_TICKS_NEEDED / getTicksNeeded()));
+        return burnTimeRemaining / (20 * fuelMultiplier);//BASE_TICKS_NEEDED / getTicksNeeded())); TODO do something to make fuel multiplier work
     }
 
     protected void setInProgressTime(int index, int value) {
