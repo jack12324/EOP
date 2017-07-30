@@ -274,6 +274,16 @@ public abstract class TEPowered extends TEInventory {
             if (index == indexes && (stack.getItem() != ModItems.energyUpgrade || stack.getItem() != ModItems.energyUpgrade))
                 return false;
         }
+        // cant insert into output slot
+        for (int indexes : this.slotHelper.getOut()) {
+            if (index == indexes)
+                return false;
+        }
+
+        for (int indexes : this.slotHelper.getFuel()) {
+            if (index == indexes && getFuelBurnTime(stack) <= 0)
+                return false;
+        }
         for (int indexes : this.slotHelper.getIn()) {
             if (index == indexes && !RecipeHandler.getInItems(this.getRecipeList()).contains(stack.getItem()))
                 return false;

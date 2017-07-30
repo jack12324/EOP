@@ -155,9 +155,13 @@ public class GuiBase extends GuiContainer {
     }
 
     private List<String> fluidText(int mouseX, int mouseY) {
-
-        List<String> hoveringText = new ArrayList<>(fluidBar.drawText(mouseX, mouseY));
-        return hoveringText.isEmpty() ? fluidOutBar.drawText(mouseX, mouseY) : hoveringText;
+        List<String> hoveringText = new ArrayList<>();
+        if (fluid) {
+            hoveringText = new ArrayList<>(fluidBar.drawText(mouseX, mouseY));
+            if (hoveringText.isEmpty() && fluidOut)
+                hoveringText = new ArrayList<>(fluidOutBar.drawText(mouseX, mouseY));
+        }
+        return hoveringText;
     }
 
     private List<String> progressText(int mouseX, int mouseY) {
