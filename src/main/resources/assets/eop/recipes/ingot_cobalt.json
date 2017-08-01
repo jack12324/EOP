@@ -2,7 +2,7 @@
 	"type": "minecraft:crafting_shapeless",
 	"ingredients": [
 		{
-			"item": "eop:cobalt"
+			"item": "eop:block_cobalt"
 		}
 	],
 	"result": {

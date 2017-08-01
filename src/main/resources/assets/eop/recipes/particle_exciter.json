@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aca",
+    "beb",
+    "ddd"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:blaze_rod"
+    },
+    "b": {
+      "item": "eop:component_advanced_component"
+    },
+    "c": {
+      "item": "eop:block_cobalt"
+    },
+    "d": {
+      "item": "eop:ingot_nickel_tungsten_alloy"
+    },
+    "e": {
+      "item": "eop:block_advanced_machine_frame"
+    }
+  },
+  "result": {
+    "item": "eop:particle_exciter"
+  }
+}

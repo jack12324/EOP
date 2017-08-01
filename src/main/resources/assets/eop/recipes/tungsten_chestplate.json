@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I I",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "eop:ingot_tungsten"
+    }
+  },
+  "result": {
+    "item": "eop:chestplate_tungsten"
+  }
+}

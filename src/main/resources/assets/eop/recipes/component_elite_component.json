@@ -1,22 +1,25 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"pattern": [
-		"aba",
-		"aca",
-		"aaa"
+      " a ",
+      "bcb",
+      "dbd"
 	],
 	"key": {
 		"a": {
-		    "item": "eop:ingot_tungsten"
+          "item": "minecraft:ender_pearl"
 		},
 		"b": {
-			"item": "minecraft:gold_ingot"
+          "item": "eop:ingot_cobalt_tungsten_alloy"
 		},
 		"c": {
-			"item": "eop:block_firestone"
+          "item": "minecraft:emerald"
+        },
+      "d": {
+        "item": "eop:component_advanced_component"
 		}
 	},
 	"result": {
-		"item": "eop:component_energy_module"
+      "item": "eop:component_elite_component"
 	}
 }

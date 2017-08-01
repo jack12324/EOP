@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    " I ",
+    " s "
+  ],
+  "key": {
+    "I": {
+      "item": "eop:ingot_tungsten"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "eop:sword_tungsten"
+  }
+}

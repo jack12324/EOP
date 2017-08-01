@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aba",
+    "bcb",
+    "ada"
+  ],
+  "key": {
+    "a": {
+      "item": "eop:ingot_tungsten"
+    },
+    "b": {
+      "item": "eop:component_crude_component"
+    },
+    "c": {
+      "item": "minecraft:obsidian"
+    },
+    "d": {
+      "item": "eop:component_energy_module"
+    }
+  },
+  "result": {
+    "item": "eop:block_crude_machine_frame"
+  }
+}

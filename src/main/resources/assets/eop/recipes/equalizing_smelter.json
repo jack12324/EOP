@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aca",
+    "beb",
+    "dad"
+  ],
+  "key": {
+    "a": {
+      "item": "eop:ingot_tungsten"
+    },
+    "b": {
+      "item": "eop:component_crude_component"
+    },
+    "c": {
+      "item": "minecraft:iron_block"
+    },
+    "d": {
+      "item": "eop:ingot_tungsten_carbide_alloy"
+    },
+    "e": {
+      "item": "eop:block_crude_machine_frame"
+    }
+  },
+  "result": {
+    "item": "eop:equalizing_smelter"
+  }
+}

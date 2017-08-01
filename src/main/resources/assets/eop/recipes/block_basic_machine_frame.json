@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aba",
+    "bcb",
+    "ada"
+  ],
+  "key": {
+    "a": {
+      "item": "eop:ingot_firestone_tungsten_alloy"
+    },
+    "b": {
+      "item": "eop:component_basic_component"
+    },
+    "c": {
+      "item": "eop:block_crude_machine_frame"
+    },
+    "d": {
+      "item": "eop:component_energy_module"
+    }
+  },
+  "result": {
+    "item": "eop:block_basic_machine_frame"
+  }
+}

@@ -7,13 +7,14 @@
 	],
 	"key": {
 		"a": {
-		    "item": "minecraft:coal"
+			"item": "minecraft:flint"
 		},
 		"b": {
 			"item": "eop:ingot_tungsten_carbide_alloy"
 		},
 		"c": {
-			"item": "minecraft:stone"
+			"item": "minecraft:stone",
+			"data": 32767
 		},
 		"d": {
 			"item": "minecraft:cobblestone"

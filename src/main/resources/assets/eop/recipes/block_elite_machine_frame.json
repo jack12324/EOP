@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aba",
+    "bcb",
+    "ada"
+  ],
+  "key": {
+    "a": {
+      "item": "eop:ingot_soul_infused_tungsten"
+    },
+    "b": {
+      "item": "eop:component_elite_component"
+    },
+    "c": {
+      "item": "eop:block_advanced_machine_frame"
+    },
+    "d": {
+      "item": "eop:component_energy_module"
+    }
+  },
+  "result": {
+    "item": "eop:block_elite_machine_frame"
+  }
+}

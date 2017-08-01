@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ada",
+    " c ",
+    "ccc"
+  ],
+  "key": {
+    "a": {
+      "item": "eop:dragon_scale"
+    },
+    "c": {
+      "item": "minecraft:obsidian"
+    },
+    "d": {
+      "item": "minecraft:dragon_egg"
+    }
+  },
+  "result": {
+    "item": "eop:pedestal"
+  }
+}

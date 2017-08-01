@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aca",
+    "beb",
+    "ddd"
+  ],
+  "key": {
+    "a": {
+      "item": "eop:dust_firestone"
+    },
+    "b": {
+      "item": "eop:component_crude_component"
+    },
+    "c": {
+      "item": "eop:block_nickel"
+    },
+    "d": {
+      "item": "eop:ingot_tungsten_carbide_alloy"
+    },
+    "e": {
+      "item": "eop:block_crude_machine_frame"
+    }
+  },
+  "result": {
+    "item": "eop:activation_chamber"
+  }
+}

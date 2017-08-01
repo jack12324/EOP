@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aca",
+    "beb",
+    "ddd"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:bucket"
+    },
+    "b": {
+      "item": "eop:component_elite_component"
+    },
+    "c": {
+      "item": "minecraft:emerald_block"
+    },
+    "d": {
+      "item": "eop:ingot_soul_infused_tungsten"
+    },
+    "e": {
+      "item": "eop:block_elite_machine_frame"
+    }
+  },
+  "result": {
+    "item": "eop:tri_catalyst_infuser"
+  }
+}

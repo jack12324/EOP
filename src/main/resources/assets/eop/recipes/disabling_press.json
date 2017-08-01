@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aca",
+    "beb",
+    "ddd"
+  ],
+  "key": {
+    "a": [
+      {
+        "item": "minecraft:brown_mushroom"
+      },
+      {
+        "item": "minecraft:red_mushroom"
+      }
+    ],
+    "b": {
+      "item": "eop:component_basic_component"
+    },
+    "c": {
+      "item": "minecraft:gold_block"
+    },
+    "d": {
+      "item": "eop:ingot_firestone_tungsten_alloy"
+    },
+    "e": {
+      "item": "eop:block_basic_machine_frame"
+    }
+  },
+  "result": {
+    "item": "eop:disabling_press"
+  }
+}
