@@ -18,7 +18,7 @@ import java.io.IOException;
 public class GuiUpgrade extends GuiContainer {
 
     private final ResourceLocation BG_TEXTURE = new ResourceLocation(ExtremeOreProcessing.modID,
-            "textures/gui/upgradeScreenGui.png");
+            "textures/gui/upgrade_screen_gui.png");
     private final TileEntity tileEntity;
 
     public GuiUpgrade(Container serverGuiElement, TileEntity tileEntity) {
@@ -48,13 +48,22 @@ public class GuiUpgrade extends GuiContainer {
         GlStateManager.color(1, 1, 1, 1);
         mc.getTextureManager().bindTexture(BG_TEXTURE);
         // gui base
-        drawTexturedModalRect(guiLeft, guiTop, 0, 0, 20, 20);
+        drawTexturedModalRect(guiLeft, guiTop, 0, 0, getXSize(), getYSize());
     }
 
     @Override
     public void initGui() {
         super.initGui();
         this.buttonList.add(new GuiButton(70, guiLeft - 30, guiTop, 30, 20, "Exit"));
+
+        this.buttonList.add(new GuiButton(71, guiLeft + 96, guiTop + 32, 20, 20, ""));
+        this.buttonList.add(new GuiButton(72, guiLeft + 76, guiTop + 32, 20, 20, ""));
+        this.buttonList.add(new GuiButton(73, guiLeft + 116, guiTop + 32, 20, 20, ""));
+        this.buttonList.add(new GuiButton(74, guiLeft + 96, guiTop + 12, 20, 20, ""));
+        this.buttonList.add(new GuiButton(75, guiLeft + 96, guiTop + 52, 20, 20, ""));
+        this.buttonList.add(new GuiButton(76, guiLeft + 116, guiTop + 12, 20, 20, ""));
+
+
     }
 
 }

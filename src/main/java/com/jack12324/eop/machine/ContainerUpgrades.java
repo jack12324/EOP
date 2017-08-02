@@ -15,14 +15,14 @@ public class ContainerUpgrades extends MachineContainer {
 
     protected void addUpgradeSlots(TEInventory te) {
         addSlotToContainer(
-                new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(0), 20, 20, ModItems.speedUpgrade) {
+                new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(0), 26, 34, ModItems.speedUpgrade) {
                     @Override
                     public void onSlotChanged() {
                         te.markDirty();
                     }
                 });
         addSlotToContainer(
-                new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(1), 40, 20, ModItems.energyUpgrade) {
+                new SlotSpecific(te.slots, te.slotHelper.getUpgradeSlotIndex(1), 44, 34, ModItems.energyUpgrade) {
                     @Override
                     public void onSlotChanged() {
                         te.markDirty();

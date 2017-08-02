@@ -87,7 +87,7 @@ public class GuiBase extends GuiContainer {
         mc.getTextureManager().bindTexture(BG_TEXTURE);
 
         // gui base
-        drawTexturedModalRect(guiLeft, guiTop, 0, 0, this.guiValues.getWidth(), this.guiValues.getHeight());
+        drawTexturedModalRect(guiLeft, guiTop, 0, 0, this.guiValues.getWidth() + 1, this.guiValues.getHeight() + 1);
         if (fuel)
             this.drawFuelBar();
         this.drawProgressBar();
@@ -177,6 +177,14 @@ public class GuiBase extends GuiContainer {
         return temp;
     }
 
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
+
+
     protected List<String> otherText(int mouseX, int mouseY) {
         return null;
     }
@@ -184,7 +192,7 @@ public class GuiBase extends GuiContainer {
     @Override
     public void initGui() {
         super.initGui();
-        this.buttonList.add(new GuiButton(69, guiLeft + this.guiValues.getWidth() + 1, guiTop, 30, 20, "Upgrades"));
+        this.buttonList.add(new GuiButton(69, guiLeft - 50, guiTop + this.guiValues.getHeight() - 20, 50, 20, "Upgrades"));
         powerBar = new PowerBar(tileEntity, this.guiValues.getPower()[0] + guiLeft, this.guiValues.getPower()[1] + guiTop);
         if (fluid)
             fluidBar = new FluidBar(((TEFluidUser) tileEntity).inTank, guiLeft + this.guiValues.getInTank()[0], guiTop + this.guiValues.getInTank()[1]);

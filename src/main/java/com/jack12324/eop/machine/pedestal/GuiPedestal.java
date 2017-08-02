@@ -52,6 +52,13 @@ public class GuiPedestal extends GuiContainer {
     }
 
     @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
+
+    @Override
     public void initGui() {
         super.initGui();
         int FLUID_YPOS = 21;

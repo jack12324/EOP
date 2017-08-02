@@ -67,7 +67,7 @@ public class GuiEqualizingSmelter extends GuiBase {
     public void drawProgressBar() {
         for (int i = 0; i < GuiValues.EQUALIZINGSMELTER.getProgress().length; i += 6) {
             // get cook progress as a double between 0 and 1
-            double cookProgress = tileEntity.fractionOfProgressTimeComplete(i);
+            double cookProgress = tileEntity.fractionOfProgressTimeComplete(i / 6);
             // draw the cook progress bar
             if (i == 0 || i == 12)
                 drawTexturedModalRect(guiLeft + guiValues.getProgress()[i], guiTop + guiValues.getProgress()[i + 1], guiValues.getProgress()[i + 2],
