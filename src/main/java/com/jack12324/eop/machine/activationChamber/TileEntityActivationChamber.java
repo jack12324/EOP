@@ -4,6 +4,7 @@ import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.IButtonUse;
+import com.jack12324.eop.machine.ISideIO;
 import com.jack12324.eop.machine.TEPowered;
 import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
@@ -11,12 +12,13 @@ import com.jack12324.eop.util.InventorySlotHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TileEntityActivationChamber extends TEPowered implements IButtonUse {
+public class TileEntityActivationChamber extends TEPowered implements IButtonUse, ISideIO {
 
     public static final List<Item> fuel = new ArrayList<>(
             Arrays.asList(ModItems.dustFirestone, Item.getItemFromBlock(ModBlocks.blockFirestone)));
@@ -84,9 +86,9 @@ public class TileEntityActivationChamber extends TEPowered implements IButtonUse
             case 5:
                 val = state.getValue(BlockActivationChamber.BACKIO);
             default:
-                val = 5;
+                val = 4;
         }
-        return val == 5 ? 0 : val + 1;
+        return val == 4 ? 0 : val + 1;
     }
 
     private void setSidesFromState(IBlockState state) {
@@ -110,6 +112,27 @@ public class TileEntityActivationChamber extends TEPowered implements IButtonUse
 
         compound.setIntArray("SideIO", this.sideIO);
         super.writeSyncableNBT(compound, shouldSync);
+
+    }
+
+    @Override
+    public int getSideVal(EnumFacing side) {
+        switch (side) {
+            case UP:
+                return sideIO[3];
+            case DOWN:
+                return sideIO[4];
+            case EAST:
+                return sideIO[1];
+            case WEST:
+                return sideIO[2];
+            case NORTH:
+                return sideIO[0];
+            case SOUTH:
+                return sideIO[5];
+            default:
+                return -1;
+        }
 
     }
 }

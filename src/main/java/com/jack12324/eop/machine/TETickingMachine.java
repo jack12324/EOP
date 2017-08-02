@@ -4,6 +4,7 @@ import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.packet.PacketHandler;
 import com.jack12324.eop.packet.PacketServerToClient;
 import com.jack12324.eop.util.Coord4D;
+import com.jack12324.eop.util.HelpfulMethods;
 import com.jack12324.eop.util.compat.TeslaForgeUnitsWrapper;
 import com.jack12324.eop.util.compat.TeslaUtil;
 import net.minecraft.block.state.IBlockState;
@@ -193,6 +194,39 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
         this.ticksElapsed++;
 
         if (!this.world.isRemote) {
+            if (this instanceof ISideIO) {
+
+                EnumFacing[] sides = EnumFacing.values();
+                for (EnumFacing side : sides) {
+                    TileEntity tile = this.tilesAround[side.ordinal()];
+                    if (tile != null) {
+                        HelpfulMethods.doItemPull(tile, this, side);
+                        HelpfulMethods.doItemPush(this, tile, side);
+                    }
+
+                }
+                if (this instanceof TEFluidUser) {
+                    TEFluidUser handler = (TEFluidUser) this;
+
+                    for (EnumFacing side : sides) {
+                        TileEntity tile = this.tilesAround[side.ordinal()];
+                        if (tile != null) {
+                            HelpfulMethods.doFluidPull(tile, this, side);
+                        }
+
+                    }
+                    if (this instanceof TEFluidProducer)
+                        for (EnumFacing side : sides) {
+                            TileEntity tile = this.tilesAround[side.ordinal()];
+                            if (tile != null) {
+                                HelpfulMethods.doFluidPush(this, tile, side);
+                            }
+
+                        }
+
+
+                }
+            }
 
             if (!this.hasSavedDataOnChangeOrWorldStart) {
                 if (this.shouldSaveDataOnChangeOrWorldStart()) {

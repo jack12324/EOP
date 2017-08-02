@@ -29,7 +29,7 @@
         "y": 180
       },
       "west": {
-        "y": 270
+        "y": 170
       },
       "east": {
         "y": 90
@@ -51,25 +51,20 @@
       },
       "1": {
         "textures": {
-          "up": "eop:blocks/machine_vert_disabled"
+          "up": "eop:blocks/machine_vert_item_in"
         }
       },
       "2": {
         "textures": {
-          "up": "eop:blocks/machine_vert_item_in"
+          "up": "eop:blocks/machine_vert_item_out"
         }
       },
       "3": {
         "textures": {
-          "up": "eop:blocks/machine_vert_item_out"
-        }
-      },
-      "4": {
-        "textures": {
           "up": "eop:blocks/machine_vert_fluid_in"
         }
       },
-      "5": {
+      "4": {
         "textures": {
           "up": "eop:blocks/machine_vert_fluid_out"
         }
@@ -79,29 +74,23 @@
       "0": {
         "textures": {
           "up": "eop:blocks/machine_bottom"
-        }
-      },
+        },
       "1": {
-        "textures": {
-          "up": "eop:blocks/machine_vert_disabled"
-        }
-      },
-      "2": {
         "textures": {
           "up": "eop:blocks/machine_vert_item_in"
         }
       },
-      "3": {
+      "2": {
         "textures": {
           "up": "eop:blocks/machine_vert_item_out"
         }
       },
-      "4": {
+      "3": {
         "textures": {
           "up": "eop:blocks/machine_vert_fluid_in"
         }
       },
-      "5": {
+      "4": {
         "textures": {
           "up": "eop:blocks/machine_vert_fluid_out"
         }
@@ -115,25 +104,20 @@
       },
       "1": {
         "textures": {
-          "up": "eop:blocks/machine_side_disabled"
+          "up": "eop:blocks/machine_side_item_in"
         }
       },
       "2": {
         "textures": {
-          "up": "eop:blocks/machine_side_item_in"
+          "up": "eop:blocks/machine_side_item_out"
         }
       },
       "3": {
         "textures": {
-          "up": "eop:blocks/machine_side_item_out"
-        }
-      },
-      "4": {
-        "textures": {
           "up": "eop:blocks/machine_side_fluid_in"
         }
       },
-      "5": {
+      "4": {
         "textures": {
           "up": "eop:blocks/machine_side_fluid_out"
         }
@@ -147,25 +131,20 @@
       },
       "1": {
         "textures": {
-          "up": "eop:blocks/machine_side_disabled"
+          "up": "eop:blocks/machine_side_item_in"
         }
       },
       "2": {
         "textures": {
-          "up": "eop:blocks/machine_side_item_in"
+          "up": "eop:blocks/machine_side_item_out"
         }
       },
       "3": {
         "textures": {
-          "up": "eop:blocks/machine_side_item_out"
-        }
-      },
-      "4": {
-        "textures": {
           "up": "eop:blocks/machine_side_fluid_in"
         }
       },
-      "5": {
+      "4": {
         "textures": {
           "up": "eop:blocks/machine_side_fluid_out"
         }
@@ -179,25 +158,20 @@
       },
       "1": {
         "textures": {
-          "up": "eop:blocks/machine_side_disabled"
+          "up": "eop:blocks/machine_side_item_in"
         }
       },
       "2": {
         "textures": {
-          "up": "eop:blocks/machine_side_item_in"
+          "up": "eop:blocks/machine_side_item_out"
         }
       },
       "3": {
         "textures": {
-          "up": "eop:blocks/machine_side_item_out"
-        }
-      },
-      "4": {
-        "textures": {
           "up": "eop:blocks/machine_side_fluid_in"
         }
       },
-      "5": {
+      "4": {
         "textures": {
           "up": "eop:blocks/machine_side_fluid_out"
         }

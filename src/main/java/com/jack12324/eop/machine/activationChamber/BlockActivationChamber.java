@@ -19,12 +19,12 @@ import javax.annotation.Nullable;
 public class BlockActivationChamber extends BlockTE<TileEntityActivationChamber> {
 
 
-    public static final PropertyInteger FRONTIO = PropertyInteger.create("front", 0, 5);
-    public static final PropertyInteger LEFTIO = PropertyInteger.create("left", 0, 5);
-    public static final PropertyInteger RIGHTIO = PropertyInteger.create("right", 0, 5);
-    public static final PropertyInteger TOPIO = PropertyInteger.create("top", 0, 5);
-    public static final PropertyInteger BOTTOMIO = PropertyInteger.create("bottom", 0, 5);
-    public static final PropertyInteger BACKIO = PropertyInteger.create("back", 0, 5);
+    public static final PropertyInteger FRONTIO = PropertyInteger.create("front", 0, 4);
+    public static final PropertyInteger LEFTIO = PropertyInteger.create("left", 0, 4);
+    public static final PropertyInteger RIGHTIO = PropertyInteger.create("right", 0, 4);
+    public static final PropertyInteger TOPIO = PropertyInteger.create("top", 0, 4);
+    public static final PropertyInteger BOTTOMIO = PropertyInteger.create("bottom", 0, 4);
+    public static final PropertyInteger BACKIO = PropertyInteger.create("back", 0, 4);
 
     @Nonnull
     @Override

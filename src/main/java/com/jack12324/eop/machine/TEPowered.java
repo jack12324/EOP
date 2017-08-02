@@ -92,18 +92,6 @@ public abstract class TEPowered extends TEInventory {
     }
 
     /**
-     * Returns true if automation can insert the given item in the given slot
-     * from the given side.
-     */
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        for (int i : this.slotHelper.getOut()) {
-            if (i == index)
-                return false;
-        }
-        return this.isItemValidForSlot(index, itemStackIn);
-    }
-
-    /**
      * determines if the item in the input slot can be activated and if there is
      * a place to put it afterwards. ie an open output slot
      */

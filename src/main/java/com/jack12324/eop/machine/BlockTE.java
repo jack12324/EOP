@@ -72,7 +72,7 @@ public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>
         if (!world.isRemote) {
             TileEntity te = world.getTileEntity(pos);
             if (te != null) {
-                if (!this.tryUseItemOnTank(player, hand, world, pos, null) && this.getGui() != -1) {
+                if (!this.tryUseItemOnTank(player, hand, world, pos, par6) && this.getGui() != -1) {
                     player.openGui(ExtremeOreProcessing.instance, this.getGui(), world, pos.getX(), pos.getY(),
                             pos.getZ());
                 }
