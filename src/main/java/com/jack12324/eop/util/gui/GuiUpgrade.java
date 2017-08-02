@@ -38,9 +38,16 @@ public class GuiUpgrade extends GuiContainer {
             compound = pos.write(compound);
             compound.setInteger("guiID", ModGuiHandler.getTileGui(tileEntity));
             PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_UPGRADE_BUTTON));
-        } else {
+        } else if (button.id >= 71 && button.id <= 76) {
+
+            NBTTagCompound compound = new NBTTagCompound();
+            Coord4D pos = new Coord4D(tileEntity.getPos(), tileEntity.getWorld());
+            compound = pos.write(compound);
+            compound.setInteger("guiID", ModGuiHandler.getTileGui(tileEntity));
+            PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_TOGGLE_BUTTON));
+        } else
             super.actionPerformed(button);
-        }
+
     }
 
     @Override

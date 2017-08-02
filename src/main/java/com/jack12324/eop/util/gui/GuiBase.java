@@ -68,10 +68,9 @@ public class GuiBase extends GuiContainer {
             compound = pos.write(compound);
             compound.setInteger("guiID", ModGuiHandler.UPGRADES);
             PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_UPGRADE_BUTTON));
-        } else {
+        } else
             super.actionPerformed(button);
         }
-    }
 
 
     private void drawFuelBar() {

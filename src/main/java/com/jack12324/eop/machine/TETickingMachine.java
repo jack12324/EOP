@@ -151,7 +151,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
         }
     }
 
-    final void sendTileUpdate() {
+    public final void sendTileUpdate() {
         if (this.world != null && !this.world.isRemote) {
             NBTTagCompound compound = new NBTTagCompound();
             this.writeSyncableNBT(compound, true);

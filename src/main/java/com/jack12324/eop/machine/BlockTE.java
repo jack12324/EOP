@@ -25,14 +25,16 @@ import javax.annotation.Nonnull;
 
 public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE> {
 
-    private static final PropertyDirection PROPERTYFACING = PropertyDirection.create("facing",
+    protected static final PropertyDirection PROPERTYFACING = PropertyDirection.create("facing",
             EnumFacing.Plane.HORIZONTAL);
 
     public static final PropertyBool PROPERTYACTIVE = PropertyBool.create("on");
 
+
     protected BlockTE(Material material, String name) {
         super(material, name);
     }
+
 
     @Nonnull
     @Override
