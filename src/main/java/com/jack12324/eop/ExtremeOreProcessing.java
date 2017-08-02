@@ -118,6 +118,8 @@ public class ExtremeOreProcessing {
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGuiHandler());
         PacketHandler.init();
         proxy.preInit(event);
+
+        LOGGER.info(name + ": preInit complete");
     }
 
     @Mod.EventHandler
