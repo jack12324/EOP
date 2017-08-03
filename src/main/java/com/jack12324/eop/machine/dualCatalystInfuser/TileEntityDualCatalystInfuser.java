@@ -4,6 +4,7 @@ import com.jack12324.eop.machine.TEFluidProducer;
 import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
+import net.minecraft.util.EnumFacing;
 
 import java.util.ArrayList;
 
@@ -16,5 +17,11 @@ public class TileEntityDualCatalystInfuser extends TEFluidProducer {
     @Override
     public ArrayList<EOPRecipe> getRecipeList() {
         return RecipeHolder.DUALCATALYSTINFUSERRECIPES;
+    }
+
+    @Override
+    protected int getSideIndex(EnumFacing side) {
+        int index = super.getSideIndex(side);
+        return index == 2 ? 3 : index;
     }
 }

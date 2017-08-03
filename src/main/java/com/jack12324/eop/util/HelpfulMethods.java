@@ -72,9 +72,9 @@ public class HelpfulMethods {
                     if (extractResult != null && !extractResult.isEmpty()) {
                         for (int j = 0; j < handlerTo.getSlots(); j++) {
                             insertResult = handlerTo.insertItem(j, extractResult, true);
-                            if (insertResult != null) {
+                            if (insertResult != null && insertResult.getCount() != extractResult.getCount()) {
                                 handlerTo.insertItem(j, extractResult, false);
-                                handlerFrom.extractItem(i, insertResult.getCount(), false);
+                                handlerFrom.extractItem(i, extractResult.getCount() - insertResult.getCount(), false);
                                 break;
                             }
                         }
@@ -104,9 +104,9 @@ public class HelpfulMethods {
                     if (extractResult != null && !extractResult.isEmpty()) {
                         for (int j = 0; j < handlerTo.getSlots(); j++) {
                             insertResult = handlerTo.insertItem(j, extractResult, true);
-                            if (insertResult != null) {
+                            if (insertResult != null && insertResult.getCount() != extractResult.getCount()) {
                                 handlerTo.insertItem(j, extractResult, false);
-                                handlerFrom.extractItem(i, insertResult.getCount(), false);
+                                handlerFrom.extractItem(i, extractResult.getCount() - insertResult.getCount(), false);
                                 break;
                             }
                         }

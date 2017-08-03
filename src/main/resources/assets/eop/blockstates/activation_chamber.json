@@ -29,7 +29,7 @@
         "y": 180
       },
       "west": {
-        "y": 170
+        "y": 270
       },
       "east": {
         "y": 90
@@ -42,140 +42,6 @@
         }
       },
       "false": {}
-    },
-    "top": {
-      "0": {
-        "textures": {
-          "up": "eop:blocks/machine_bottom"
-        }
-      },
-      "1": {
-        "textures": {
-          "up": "eop:blocks/machine_vert_item_in"
-        }
-      },
-      "2": {
-        "textures": {
-          "up": "eop:blocks/machine_vert_item_out"
-        }
-      },
-      "3": {
-        "textures": {
-          "up": "eop:blocks/machine_vert_fluid_in"
-        }
-      },
-      "4": {
-        "textures": {
-          "up": "eop:blocks/machine_vert_fluid_out"
-        }
-      }
-    },
-    "bottom": {
-      "0": {
-        "textures": {
-          "up": "eop:blocks/machine_bottom"
-        },
-      "1": {
-        "textures": {
-          "up": "eop:blocks/machine_vert_item_in"
-        }
-      },
-      "2": {
-        "textures": {
-          "up": "eop:blocks/machine_vert_item_out"
-        }
-      },
-      "3": {
-        "textures": {
-          "up": "eop:blocks/machine_vert_fluid_in"
-        }
-      },
-      "4": {
-        "textures": {
-          "up": "eop:blocks/machine_vert_fluid_out"
-        }
-      }
-    },
-    "left": {
-      "0": {
-        "textures": {
-          "up": "eop:blocks/machine_side"
-        }
-      },
-      "1": {
-        "textures": {
-          "up": "eop:blocks/machine_side_item_in"
-        }
-      },
-      "2": {
-        "textures": {
-          "up": "eop:blocks/machine_side_item_out"
-        }
-      },
-      "3": {
-        "textures": {
-          "up": "eop:blocks/machine_side_fluid_in"
-        }
-      },
-      "4": {
-        "textures": {
-          "up": "eop:blocks/machine_side_fluid_out"
-        }
-      }
-    },
-    "right": {
-      "0": {
-        "textures": {
-          "up": "eop:blocks/machine_side"
-        }
-      },
-      "1": {
-        "textures": {
-          "up": "eop:blocks/machine_side_item_in"
-        }
-      },
-      "2": {
-        "textures": {
-          "up": "eop:blocks/machine_side_item_out"
-        }
-      },
-      "3": {
-        "textures": {
-          "up": "eop:blocks/machine_side_fluid_in"
-        }
-      },
-      "4": {
-        "textures": {
-          "up": "eop:blocks/machine_side_fluid_out"
-        }
-      }
-    },
-    "back": {
-      "0": {
-        "textures": {
-          "up": "eop:blocks/machine_side"
-        }
-      },
-      "1": {
-        "textures": {
-          "up": "eop:blocks/machine_side_item_in"
-        }
-      },
-      "2": {
-        "textures": {
-          "up": "eop:blocks/machine_side_item_out"
-        }
-      },
-      "3": {
-        "textures": {
-          "up": "eop:blocks/machine_side_fluid_in"
-        }
-      },
-      "4": {
-        "textures": {
-          "up": "eop:blocks/machine_side_fluid_out"
-        }
-      }
     }
   }
 }

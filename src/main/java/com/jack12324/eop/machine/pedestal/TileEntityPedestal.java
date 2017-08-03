@@ -2,7 +2,7 @@ package com.jack12324.eop.machine.pedestal;
 
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.BlockTE;
-import com.jack12324.eop.machine.TEInventory;
+import com.jack12324.eop.machine.TESideIO;
 import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
@@ -18,7 +18,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import java.util.ArrayList;
 
-public class TileEntityPedestal extends TEInventory {
+public class TileEntityPedestal extends TESideIO {
 
     private final ArrayList<Fluid> outFluid;
     private int oldFluidAmount;
@@ -133,6 +133,12 @@ public class TileEntityPedestal extends TEInventory {
         compound.setTag("inventory", slots.serializeNBT());
 
         super.writeSyncableNBT(compound, shouldSync);
+    }
+
+    @Override
+    protected int getSideIndex(EnumFacing side) {
+        int index = super.getSideIndex(side);
+        return (index == 2 || index == 3) ? 4 : index;
     }
 
 }

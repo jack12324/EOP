@@ -4,6 +4,7 @@ import com.jack12324.eop.machine.TEFluidUser;
 import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
+import net.minecraft.util.EnumFacing;
 
 import java.util.ArrayList;
 
@@ -16,5 +17,11 @@ public class TileEntityStarHardener extends TEFluidUser {
     @Override
     public ArrayList<EOPRecipe> getRecipeList() {
         return RecipeHolder.STARHARDENERRECIPES;
+    }
+
+    @Override
+    protected int getSideIndex(EnumFacing side) {
+        int index = super.getSideIndex(side);
+        return index > 3 ? 0 : index;
     }
 }

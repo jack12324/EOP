@@ -21,7 +21,7 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.ArrayList;
 import java.util.Map;
 
-public abstract class TEPowered extends TEInventory {
+public abstract class TEPowered extends TESideIO {
     private static final double BASE_TICKS_NEEDED = 200;
     private double ticksNeeded = BASE_TICKS_NEEDED;
     private static final double BASE_ENERGY_PER_TICK = 50;

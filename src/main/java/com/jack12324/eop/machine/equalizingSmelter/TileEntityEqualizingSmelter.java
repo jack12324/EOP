@@ -10,6 +10,7 @@ import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.ArrayList;
@@ -22,6 +23,12 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
     private int dustProgress = 0;
     private int oldDustProgress = 0;
     private static final int DUSTTICK = 4;
+
+    @Override
+    protected int getSideIndex(EnumFacing side) {
+        int index = super.getSideIndex(side);
+        return index > 2 ? 0 : index;
+    }
 
     public TileEntityEqualizingSmelter() {
         super("equalizing_smelter", new InventorySlotHelper(4, 4, 0, 0, 1));

@@ -5,12 +5,14 @@ import com.jack12324.eop.ModGuiHandler;
 import com.jack12324.eop.packet.PacketClientToServer;
 import com.jack12324.eop.packet.PacketHandler;
 import com.jack12324.eop.util.Coord4D;
+import com.jack12324.eop.util.EOPGuiButton;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
@@ -43,7 +45,7 @@ public class GuiUpgrade extends GuiContainer {
             NBTTagCompound compound = new NBTTagCompound();
             Coord4D pos = new Coord4D(tileEntity.getPos(), tileEntity.getWorld());
             compound = pos.write(compound);
-            compound.setInteger("guiID", ModGuiHandler.getTileGui(tileEntity));
+            compound.setInteger("buttonID", button.id);
             PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_TOGGLE_BUTTON));
         } else
             super.actionPerformed(button);
@@ -63,14 +65,21 @@ public class GuiUpgrade extends GuiContainer {
         super.initGui();
         this.buttonList.add(new GuiButton(70, guiLeft - 30, guiTop, 30, 20, "Exit"));
 
-        this.buttonList.add(new GuiButton(71, guiLeft + 96, guiTop + 32, 20, 20, ""));
-        this.buttonList.add(new GuiButton(72, guiLeft + 76, guiTop + 32, 20, 20, ""));
-        this.buttonList.add(new GuiButton(73, guiLeft + 116, guiTop + 32, 20, 20, ""));
-        this.buttonList.add(new GuiButton(74, guiLeft + 96, guiTop + 12, 20, 20, ""));
-        this.buttonList.add(new GuiButton(75, guiLeft + 96, guiTop + 52, 20, 20, ""));
-        this.buttonList.add(new GuiButton(76, guiLeft + 116, guiTop + 12, 20, 20, ""));
+        this.buttonList.add(new EOPGuiButton(71, guiLeft + 98, guiTop + 34, 16, 16, "", EnumFacing.NORTH, this.tileEntity));
+        this.buttonList.add(new EOPGuiButton(72, guiLeft + 70, guiTop + 34, 16, 16, "", EnumFacing.EAST, this.tileEntity));
+        this.buttonList.add(new EOPGuiButton(73, guiLeft + 116, guiTop + 34, 16, 16, "", EnumFacing.WEST, this.tileEntity));
+        this.buttonList.add(new EOPGuiButton(74, guiLeft + 98, guiTop + 16, 16, 16, "", EnumFacing.UP, this.tileEntity));
+        this.buttonList.add(new EOPGuiButton(75, guiLeft + 98, guiTop + 52, 16, 16, "", EnumFacing.DOWN, this.tileEntity));
+        this.buttonList.add(new EOPGuiButton(76, guiLeft + 116, guiTop + 16, 16, 16, "", EnumFacing.SOUTH, this.tileEntity));
 
 
+    }
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
     }
 
 }

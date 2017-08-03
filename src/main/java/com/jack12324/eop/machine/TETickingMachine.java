@@ -39,7 +39,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
 
     private final TileEntity[] tilesAround = new TileEntity[6];
 
-    private boolean hasSavedDataOnChangeOrWorldStart;
+    public boolean dataSaved;
 
     private Object teslaWrapper;
 
@@ -143,7 +143,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
         }
     }
 
-    private void saveDataOnChangeOrWorldStart() {
+    private void saveDataChange() {
         for (EnumFacing side : EnumFacing.values()) {
             BlockPos pos = this.pos.offset(side);
             if (this.world.isBlockLoaded(pos)) {
@@ -179,10 +179,6 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
         return !oldState.getBlock().isAssociatedBlock(newState.getBlock());
-    }
-
-    private boolean shouldSaveDataOnChangeOrWorldStart() {
-        return true;
     }
 
     @Override
@@ -228,12 +224,11 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
                 }
             }
 
-            if (!this.hasSavedDataOnChangeOrWorldStart) {
-                if (this.shouldSaveDataOnChangeOrWorldStart()) {
-                    this.saveDataOnChangeOrWorldStart();
-                }
+            if (!this.dataSaved) {
+                this.saveDataChange();
 
-                this.hasSavedDataOnChangeOrWorldStart = true;
+
+                this.dataSaved = true;
             }
         }
     }

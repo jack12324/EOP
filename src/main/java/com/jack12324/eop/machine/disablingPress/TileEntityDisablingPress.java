@@ -6,6 +6,7 @@ import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.util.EnumFacing;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +40,12 @@ public class TileEntityDisablingPress extends TEPowered {
     @Override
     public ArrayList<EOPRecipe> getRecipeList() {
         return RecipeHolder.DISABLINGPRESSRECIPES;
+    }
+
+    @Override
+    protected int getSideIndex(EnumFacing side) {
+        int index = super.getSideIndex(side);
+        return index > 2 ? 0 : index;
     }
 
 }
