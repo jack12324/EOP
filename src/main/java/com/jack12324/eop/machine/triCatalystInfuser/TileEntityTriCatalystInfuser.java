@@ -19,9 +19,16 @@ public class TileEntityTriCatalystInfuser extends TEFluidProducer {
         return RecipeHolder.TRICATALYSTINFUSERRECIPES;
     }
 
-    @Override
-    protected int getSideIndex(EnumFacing side) {
-        int index = super.getSideIndex(side);
-        return index == 2 ? 3 : index;
+    public void incrementSideVal(EnumFacing side) {
+        int val;
+        int index = this.getSideIndex(side);
+        if (index != -1) {
+            val = this.getSideVal(side);
+            if (val == 4)
+                this.sideIO[index] = 0;
+            else if (val == 1)
+                this.sideIO[index] = 3;
+            else this.sideIO[index] = val++;
+        }
     }
 }

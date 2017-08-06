@@ -24,10 +24,15 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
     private int oldDustProgress = 0;
     private static final int DUSTTICK = 4;
 
-    @Override
-    protected int getSideIndex(EnumFacing side) {
-        int index = super.getSideIndex(side);
-        return index > 2 ? 0 : index;
+    public void incrementSideVal(EnumFacing side) {
+        int val;
+        int index = this.getSideIndex(side);
+        if (index != -1) {
+            val = this.getSideVal(side);
+            if (val > 2)
+                this.sideIO[index] = 0;
+            else this.sideIO[index] = val++;
+        }
     }
 
     public TileEntityEqualizingSmelter() {

@@ -96,6 +96,17 @@ public abstract class BlockTE<TE extends TileEntity> extends BlockTileEntity<TE>
 
     }
 
+    @Override
+    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+        if (world instanceof World) {
+            TileEntity tile = world.getTileEntity(pos);
+            if (tile instanceof TETickingMachine) {
+                TETickingMachine te = (TETickingMachine) tile;
+                te.dataSaved = false;
+            }
+        }
+    }
+
     @Nonnull
     @Override
     public IBlockState withMirror(@Nonnull IBlockState state, Mirror mirror) {

@@ -34,6 +34,7 @@ public abstract class TEPowered extends TESideIO {
     private boolean hasBase;
     private final boolean usesFuel;
     private int oldEnergy;
+    private int energyDiff = 0;
 
     public final EOPEnergyStorage storage;
 
@@ -53,9 +54,14 @@ public abstract class TEPowered extends TESideIO {
         oldValues = new int[2 + inProgressTime.length];
     }
 
+    public int getEnergyDiff() {
+        return energyDiff;
+    }
+
     /**
      * handles fuel usage, also returns true if fuel is currently being used
      */
+
     private boolean burnFuel() {
         boolean inventoryChanged = false;
         boolean burning = false;
@@ -308,6 +314,7 @@ public abstract class TEPowered extends TESideIO {
     private void oldEnergyCheck() {
         if (this.oldEnergy != this.storage.getEnergyStored() && this.sendUpdateWithInterval()) {
             this.oldEnergy = this.storage.getEnergyStored();
+            this.energyDiff = this.storage.getEnergyStored() - this.oldEnergy;
             markDirty();
 
         }

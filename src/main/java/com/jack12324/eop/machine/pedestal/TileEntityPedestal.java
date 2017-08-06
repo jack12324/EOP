@@ -1,6 +1,5 @@
 package com.jack12324.eop.machine.pedestal;
 
-import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.machine.BlockTE;
 import com.jack12324.eop.machine.TESideIO;
 import com.jack12324.eop.recipe.RecipeHandler;
@@ -36,8 +35,8 @@ public class TileEntityPedestal extends TESideIO {
     };
     private int fillTick = 1;
 
-    TileEntityPedestal() {
-        super(new InventorySlotHelper(1, 0, 0, 0, 0), "pedestal");
+    public TileEntityPedestal() {
+        super(new InventorySlotHelper(new InventorySlotHelper(1, 0, 0, 0, 0), 2), "pedestal");
         this.outFluid = new ArrayList<>(RecipeHandler.getOutFluids(this.getRecipeList()));
     }
 
@@ -55,6 +54,7 @@ public class TileEntityPedestal extends TESideIO {
     private void oldFluidCheck() {
         if (this.oldFluidAmount != this.tank.getFluidAmount() && this.sendUpdateWithInterval()) {
             this.oldFluidAmount = this.tank.getFluidAmount();
+            this.markDirty();
         }
     }
     @Override
@@ -103,6 +103,7 @@ public class TileEntityPedestal extends TESideIO {
                 FluidStack result = RecipeHandler.getFluidStackOutput(this.getRecipeList(), new ItemStack[]{this.slots.getStackInSlot(0)}, null, null);
                 tank.fillInternal(result, true);
                 fillTick = 1;
+                markDirty();
             } else
                 fillTick++;
         }
@@ -113,7 +114,7 @@ public class TileEntityPedestal extends TESideIO {
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         for (int indexes : this.slotHelper.getUpgrade()) {
-            if (index == indexes && (stack.getItem() != ModItems.energyUpgrade || stack.getItem() != ModItems.energyUpgrade))
+            if (index == indexes)
                 return false;
         }
 
@@ -123,6 +124,7 @@ public class TileEntityPedestal extends TESideIO {
         }
         return true;
     }
+
 
     @Override
     public void writeSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
@@ -135,10 +137,17 @@ public class TileEntityPedestal extends TESideIO {
         super.writeSyncableNBT(compound, shouldSync);
     }
 
-    @Override
-    protected int getSideIndex(EnumFacing side) {
-        int index = super.getSideIndex(side);
-        return (index == 2 || index == 3) ? 4 : index;
+    public void incrementSideVal(EnumFacing side) {
+        int val;
+        int index = this.getSideIndex(side);
+        if (index != -1) {
+            val = this.getSideVal(side);
+            if (val == 1)
+                this.sideIO[index] = 4;
+            else if (val == 4)
+                this.sideIO[index] = 0;
+            else this.sideIO[index] = val++;
+        }
     }
 
 }

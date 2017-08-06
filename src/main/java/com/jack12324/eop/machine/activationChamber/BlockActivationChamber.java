@@ -2,31 +2,17 @@ package com.jack12324.eop.machine.activationChamber;
 
 import com.jack12324.eop.ModGuiHandler;
 import com.jack12324.eop.machine.BlockTE;
-import com.jack12324.eop.machine.TETickingMachine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockActivationChamber extends BlockTE<TileEntityActivationChamber> {
-
-    @Override
-    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
-        if (world instanceof World) {
-            TileEntity tile = world.getTileEntity(pos);
-            if (tile instanceof TETickingMachine) {
-                TETickingMachine te = (TETickingMachine) tile;
-                te.dataSaved = false;
-            }
-        }
-    }
 
 
     public BlockActivationChamber() {

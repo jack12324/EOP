@@ -10,7 +10,7 @@ public class TESideIO extends TEInventory implements IButtonUse, ISideIO {
         super(slots, name);
     }
 
-    private int[] sideIO = {0, 0, 0, 0, 0, 0};
+    public int[] sideIO = {0, 0, 0, 0, 0, 0};
 
     @Override
     public void onButtonPress(int buttonId) {
@@ -99,10 +99,10 @@ public class TESideIO extends TEInventory implements IButtonUse, ISideIO {
         int val;
         int index = this.getSideIndex(side);
         if (index != -1) {
-            val = this.sideIO[index];
+            val = this.getSideVal(side);
             if (val == 4)
                 this.sideIO[index] = 0;
-            else this.sideIO[index]++;
+            else this.sideIO[index] = val++;
         }
     }
 }

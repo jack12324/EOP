@@ -198,28 +198,9 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
                     if (tile != null) {
                         HelpfulMethods.doItemPull(tile, this, side);
                         HelpfulMethods.doItemPush(this, tile, side);
+                        HelpfulMethods.doFluidPull(tile, this, side);
+                        HelpfulMethods.doFluidPush(this, tile, side);
                     }
-
-                }
-                if (this instanceof TEFluidUser) {
-                    TEFluidUser handler = (TEFluidUser) this;
-
-                    for (EnumFacing side : sides) {
-                        TileEntity tile = this.tilesAround[side.ordinal()];
-                        if (tile != null) {
-                            HelpfulMethods.doFluidPull(tile, this, side);
-                        }
-
-                    }
-                    if (this instanceof TEFluidProducer)
-                        for (EnumFacing side : sides) {
-                            TileEntity tile = this.tilesAround[side.ordinal()];
-                            if (tile != null) {
-                                HelpfulMethods.doFluidPush(this, tile, side);
-                            }
-
-                        }
-
 
                 }
             }

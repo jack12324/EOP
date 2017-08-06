@@ -19,9 +19,14 @@ public class TileEntityParticleExciter extends TEFluidUser {
         return RecipeHolder.PARTICLEEXCITERRECIPES;
     }
 
-    @Override
-    protected int getSideIndex(EnumFacing side) {
-        int index = super.getSideIndex(side);
-        return index > 3 ? 0 : index;
+    public void incrementSideVal(EnumFacing side) {
+        int val;
+        int index = this.getSideIndex(side);
+        if (index != -1) {
+            val = this.getSideVal(side);
+            if (val > 3)
+                this.sideIO[index] = 0;
+            else this.sideIO[index] = val++;
+        }
     }
 }

@@ -4,8 +4,10 @@ import com.jack12324.eop.ModGuiHandler;
 import com.jack12324.eop.machine.TEFluidProducer;
 import com.jack12324.eop.machine.TEFluidUser;
 import com.jack12324.eop.machine.TEPowered;
+import com.jack12324.eop.machine.TETickingMachine;
 import com.jack12324.eop.machine.activationChamber.TileEntityActivationChamber;
 import com.jack12324.eop.machine.disablingPress.TileEntityDisablingPress;
+import com.jack12324.eop.machine.pedestal.TileEntityPedestal;
 import com.jack12324.eop.packet.PacketClientToServer;
 import com.jack12324.eop.packet.PacketHandler;
 import com.jack12324.eop.util.Coord4D;
@@ -29,7 +31,7 @@ import java.util.List;
 public class GuiBase extends GuiContainer {
 
     private final InventoryPlayer playerInv;
-    private final TEPowered tileEntity;
+    private TETickingMachine tileEntity;
     private final ResourceLocation BG_TEXTURE;
     private final GuiValues guiValues;
     private PowerBar powerBar;
@@ -39,7 +41,7 @@ public class GuiBase extends GuiContainer {
     private boolean fluidOut = false;
     private boolean fuel = false;
 
-    public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TEPowered tileEntity,
+    public GuiBase(Container inventorySlotsIn, InventoryPlayer playerInv, TETickingMachine tileEntity,
                    ResourceLocation resourceLocation, GuiValues guiValues) {
         super(inventorySlotsIn);
         this.playerInv = playerInv;
@@ -70,11 +72,11 @@ public class GuiBase extends GuiContainer {
             PacketHandler.NETWORK.sendToServer(new PacketClientToServer(compound, PacketHandler.GUI_UPGRADE_BUTTON));
         } else
             super.actionPerformed(button);
-        }
+    }
 
 
     private void drawFuelBar() {
-        double burnRemaining = tileEntity.fractionOfFuelRemaining();
+        double burnRemaining = ((TEPowered) tileEntity).fractionOfFuelRemaining();
         int yOffset = (int) ((1.0 - burnRemaining) * this.guiValues.getFuel()[5]);
         drawTexturedModalRect(guiLeft + this.guiValues.getFuel()[0], guiTop + this.guiValues.getFuel()[1] + yOffset, this.guiValues.getFuel()[2],
                 this.guiValues.getFuel()[3] + yOffset, this.guiValues.getFuel()[4], this.guiValues.getFuel()[5] - yOffset);
@@ -89,13 +91,15 @@ public class GuiBase extends GuiContainer {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, this.guiValues.getWidth() + 1, this.guiValues.getHeight() + 1);
         if (fuel)
             this.drawFuelBar();
-        this.drawProgressBar();
+        if (!(tileEntity instanceof TileEntityPedestal))
+            this.drawProgressBar();
         if (fluid)
             this.fluidBar.draw();
         if (fluidOut)
             this.fluidOutBar.draw();
         this.drawOther();
-        this.drawPowerBar();
+        if (!(tileEntity instanceof TileEntityPedestal))
+            this.drawPowerBar();
     }
 
     protected void drawOther() {
@@ -107,20 +111,24 @@ public class GuiBase extends GuiContainer {
         String name = tileEntity.getDisplayedName();
         drawTitleText(fontRenderer, name, playerInv.getDisplayName().getUnformattedText());
 
-        List<String> hoveringText = this.progressText(mouseX, mouseY);
+        List<String> hoveringText = new ArrayList<>();
+        if (!(tileEntity instanceof TileEntityPedestal))
+            hoveringText = this.progressText(mouseX, mouseY);
 
         if (hoveringText.isEmpty() && fuel && HelpfulMethods.isInRect(guiLeft + this.guiValues.getFuel()[0], guiTop + this.guiValues.getFuel()[1], this.guiValues.getFuel()[4], this.guiValues.getFuel()[5],
                 mouseX, mouseY)) {
             hoveringText.add("Fuel Time:");
-            hoveringText.add(tileEntity.secondsOfFuelRemaining() + "s");
+            hoveringText.add(((TEPowered) tileEntity).secondsOfFuelRemaining() + "s");
         }
         if (hoveringText.isEmpty()) {
-            hoveringText = powerBar.drawText(mouseX, mouseY);
+            if (!(tileEntity instanceof TileEntityPedestal)) {
+                hoveringText = powerBar.drawText(mouseX, mouseY);
+                if (hoveringText.isEmpty())
+                    hoveringText = this.fluidText(mouseX, mouseY);
+            }
+
             if (hoveringText.isEmpty()) {
-                hoveringText = this.fluidText(mouseX, mouseY);
-                if (hoveringText.isEmpty()) {
-                    hoveringText = this.otherText(mouseX, mouseY);
-                }
+                hoveringText = this.otherText(mouseX, mouseY);
             }
         }
         this.drawText(hoveringText, mouseX, mouseY);
@@ -139,7 +147,7 @@ public class GuiBase extends GuiContainer {
     public void drawProgressBar() {
         for (int i = 0; i < this.guiValues.getProgress().length; i += 6) {
             // get cook progress as a double between 0 and 1
-            double cookProgress = tileEntity.fractionOfProgressTimeComplete(i / 6);
+            double cookProgress = ((TEPowered) tileEntity).fractionOfProgressTimeComplete(i / 6);
             // draw the cook progress bar
             drawTexturedModalRect(guiLeft + this.guiValues.getProgress()[i], guiTop + this.guiValues.getProgress()[i + 1], this.guiValues.getProgress()[i + 2],
                     this.guiValues.getProgress()[i + 3], (int) (cookProgress * this.guiValues.getProgress()[i + 4]), this.guiValues.getProgress()[i + 5]);
@@ -169,7 +177,7 @@ public class GuiBase extends GuiContainer {
             if (HelpfulMethods.isInRect(guiLeft + this.guiValues.getProgress()[i], guiTop + this.guiValues.getProgress()[i + 1], this.guiValues.getProgress()[i + 4],
                     this.guiValues.getProgress()[i + 5], mouseX, mouseY)) {
                 temp.add("Progress:");
-                int cookPercentage = (int) (tileEntity.fractionOfProgressTimeComplete(i / 6) * 100);
+                int cookPercentage = (int) (((TEPowered) tileEntity).fractionOfProgressTimeComplete(i / 6) * 100);
                 temp.add(cookPercentage + "%");
             }
         }
@@ -192,7 +200,8 @@ public class GuiBase extends GuiContainer {
     public void initGui() {
         super.initGui();
         this.buttonList.add(new GuiButton(69, guiLeft - 50, guiTop + this.guiValues.getHeight() - 20, 50, 20, "Upgrades"));
-        powerBar = new PowerBar(tileEntity, this.guiValues.getPower()[0] + guiLeft, this.guiValues.getPower()[1] + guiTop);
+        if (!(tileEntity instanceof TileEntityPedestal))
+            powerBar = new PowerBar(((TEPowered) tileEntity), this.guiValues.getPower()[0] + guiLeft, this.guiValues.getPower()[1] + guiTop);
         if (fluid)
             fluidBar = new FluidBar(((TEFluidUser) tileEntity).inTank, guiLeft + this.guiValues.getInTank()[0], guiTop + this.guiValues.getInTank()[1]);
         if (fluidOut)
