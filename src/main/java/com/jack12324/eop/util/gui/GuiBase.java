@@ -157,7 +157,7 @@ public class GuiBase extends GuiContainer {
     private void drawText(List<String> hoveringText, int mouseX, int mouseY) {
         // If hoveringText is not empty draw the hovering text
         if (hoveringText != null && !hoveringText.isEmpty()) {
-            drawHoveringText(hoveringText, mouseX - guiLeft, mouseY - guiTop, fontRenderer);
+            drawHoveringText(hoveringText, this.guiValues.getWidth() - 6, 16, fontRenderer);
         }
     }
 

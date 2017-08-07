@@ -16,6 +16,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiUpgrade extends GuiContainer {
 
@@ -59,6 +61,23 @@ public class GuiUpgrade extends GuiContainer {
         // gui base
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, getXSize(), getYSize());
     }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+
+        List<String> hoveringText = new ArrayList<>();
+        for (GuiButton guibutton : this.buttonList) {
+            if (guibutton instanceof EOPGuiButton && guibutton.isMouseOver()) {
+                hoveringText.add(((EOPGuiButton) guibutton).getVal());
+            }
+        }
+
+        if (hoveringText != null && !hoveringText.isEmpty()) {
+            drawHoveringText(hoveringText, getXSize() - 6, 16, fontRenderer);
+        }
+
+    }
+
 
     @Override
     public void initGui() {

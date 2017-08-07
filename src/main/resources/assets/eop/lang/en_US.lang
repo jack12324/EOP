@@ -66,7 +66,6 @@ item.shovel_tungsten.name=Tungsten Shovel
 item.sword_tungsten.name=Tungsten Sword
 item.hoe_tungsten.name=Tungsten Hoe
 
-item.prickly_sword.name=Prickly Sword
 
 item.helmet_tungsten.name=Tungsten Helmet
 item.chestplate_tungsten.name=Tungsten Chestplate
@@ -98,6 +97,11 @@ fluid.eop.liquid_end=Liquid End
 fluid.eop.dragon_soul=Dragon Soul
 
 item.dragon_scale.name=Dragon Scale
-item.cactus_spine.name=Cactus Spine
 
 itemGroup.eop=EOP
+
+eop.text.d=Default
+eop.text.ii=Items In
+eop.text.io=Items Out
+eop.text.fi=Fluids In
+eop.text.fo=Fluids Out
