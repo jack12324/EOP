@@ -28,7 +28,7 @@ public class TileEntityTriCatalystInfuser extends TEFluidProducer {
                 this.sideIO[index] = 0;
             else if (val == 1)
                 this.sideIO[index] = 3;
-            else this.sideIO[index] = val++;
+            else this.sideIO[index] = val + 1;
         }
     }
 }

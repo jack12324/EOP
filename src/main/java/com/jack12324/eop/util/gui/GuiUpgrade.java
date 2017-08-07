@@ -66,7 +66,7 @@ public class GuiUpgrade extends GuiContainer {
         this.buttonList.add(new GuiButton(70, guiLeft - 30, guiTop, 30, 20, "Exit"));
 
         this.buttonList.add(new EOPGuiButton(71, guiLeft + 98, guiTop + 34, 16, 16, "", EnumFacing.NORTH, this.tileEntity));
-        this.buttonList.add(new EOPGuiButton(72, guiLeft + 70, guiTop + 34, 16, 16, "", EnumFacing.EAST, this.tileEntity));
+        this.buttonList.add(new EOPGuiButton(72, guiLeft + 80, guiTop + 34, 16, 16, "", EnumFacing.EAST, this.tileEntity));
         this.buttonList.add(new EOPGuiButton(73, guiLeft + 116, guiTop + 34, 16, 16, "", EnumFacing.WEST, this.tileEntity));
         this.buttonList.add(new EOPGuiButton(74, guiLeft + 98, guiTop + 16, 16, 16, "", EnumFacing.UP, this.tileEntity));
         this.buttonList.add(new EOPGuiButton(75, guiLeft + 98, guiTop + 52, 16, 16, "", EnumFacing.DOWN, this.tileEntity));

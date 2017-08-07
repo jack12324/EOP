@@ -47,9 +47,9 @@ public class TileEntityDisablingPress extends TEPowered {
         int index = this.getSideIndex(side);
         if (index != -1) {
             val = this.getSideVal(side);
-            if (val > 2)
+            if (val >= 2)
                 this.sideIO[index] = 0;
-            else this.sideIO[index] = val++;
+            else this.sideIO[index] = val + 1;
         }
     }
 

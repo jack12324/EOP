@@ -146,7 +146,7 @@ public class TileEntityPedestal extends TESideIO {
                 this.sideIO[index] = 4;
             else if (val == 4)
                 this.sideIO[index] = 0;
-            else this.sideIO[index] = val++;
+            else this.sideIO[index] = val + 1;
         }
     }
 

@@ -1,8 +1,6 @@
 package com.jack12324.eop.machine.equalizingSmelter;
 
-import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.item.ModItems;
-import com.jack12324.eop.machine.IButtonUse;
 import com.jack12324.eop.machine.IOPairs;
 import com.jack12324.eop.machine.TEPowered;
 import com.jack12324.eop.recipe.RecipeHolder;
@@ -15,7 +13,7 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.ArrayList;
 
-public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse, IOPairs {
+public class TileEntityEqualizingSmelter extends TEPowered implements IOPairs {
     private boolean furnaceMode = true;
     private boolean spreadMode = true;
     private boolean oldFurnaceMode = true;
@@ -29,9 +27,9 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
         int index = this.getSideIndex(side);
         if (index != -1) {
             val = this.getSideVal(side);
-            if (val > 2)
+            if (val >= 2)
                 this.sideIO[index] = 0;
-            else this.sideIO[index] = val++;
+            else this.sideIO[index] = val + 1;
         }
     }
 
@@ -83,7 +81,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IButtonUse
         else if (buttonId == 57)
             spreadMode = !spreadMode;
         else
-            ExtremeOreProcessing.LOGGER.warn(buttonId + " is not a valid button id for " + this.getDisplayedName());
+            super.onButtonPress(buttonId);
         this.oldModeCheck();
     }
 

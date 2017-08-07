@@ -102,7 +102,7 @@ public class TESideIO extends TEInventory implements IButtonUse, ISideIO {
             val = this.getSideVal(side);
             if (val == 4)
                 this.sideIO[index] = 0;
-            else this.sideIO[index] = val++;
+            else this.sideIO[index] = val + 1;
         }
     }
 }
