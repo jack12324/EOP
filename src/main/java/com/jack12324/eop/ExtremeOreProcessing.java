@@ -46,7 +46,7 @@ public class ExtremeOreProcessing {
     // basic Mod info
     public static final String modID = "eop";
     public static final String name = "Extreme Ore Processing";
-    public static final String version = "0.2.0";
+    public static final String version = "0.9.0";
     public static final EOPTab creativeTab = new EOPTab();
 
     public static final Logger LOGGER = LogManager.getLogger("Extreme Ore Processing");

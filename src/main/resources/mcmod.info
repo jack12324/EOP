@@ -1,0 +1,14 @@
+[
+{
+  "modid": "eop",
+  "name": "Extreme Ore Processing",
+  "description": "EOP is a mod designed to increase the efficiency of ore to ingot output",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Jack12324"],
+  "logoFile": "",
+  "screenshots": []
+}
+]
