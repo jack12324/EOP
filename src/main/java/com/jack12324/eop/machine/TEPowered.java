@@ -1,6 +1,7 @@
 package com.jack12324.eop.machine;
 
 import com.jack12324.eop.ExtremeOreProcessing;
+import com.jack12324.eop.config.Config;
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
@@ -22,10 +23,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class TEPowered extends TESideIO {
-    private static final double BASE_TICKS_NEEDED = 200;
-    private double ticksNeeded = BASE_TICKS_NEEDED;
-    private static final double BASE_ENERGY_PER_TICK = 50;
-    private double energyPerTick = BASE_ENERGY_PER_TICK;
+    private int ticksNeeded = Config.baseTicksNeeded;
+    private double energyPerTick = Config.baseEnergyPerTick;
     private int burnTimeInitialValue;
     private int burnTimeRemaining;
     private int[] inProgressTime;
@@ -198,7 +197,7 @@ public abstract class TEPowered extends TESideIO {
     /**
      * @return array of ItemStacks corresponding to input slots
      */
-    ItemStack[] getInputSlotItemStacks(int slotPair) {
+    protected ItemStack[] getInputSlotItemStacks(int slotPair) {
         if (this instanceof IOPairs && !this.EQSOverride()) {
             return ((IOPairs) this).getCurrentInputStacks(slotPair);
         } else {
@@ -244,7 +243,7 @@ public abstract class TEPowered extends TESideIO {
         return new ArrayList<>();
     }
 
-    private double getTicksNeeded() {
+    private int getTicksNeeded() {
         return ticksNeeded;
     }
 
@@ -346,7 +345,7 @@ public abstract class TEPowered extends TESideIO {
         this.hasBase = compound.getBoolean("hasBase");//todo probably dont need
         this.inProgressTime = compound.getIntArray("ProgressTime").clone();
         this.energyPerTick = compound.getDouble("energyPerTick");
-        this.ticksNeeded = compound.getDouble("ticksNeeded");
+        this.ticksNeeded = compound.getInteger("ticksNeeded");
 
         this.storage.readFromNBT(compound);
         super.readSyncableNBT(compound, shouldSync);
@@ -357,8 +356,8 @@ public abstract class TEPowered extends TESideIO {
     }
 
     private void resetUpgradeStats() {
-        ticksNeeded = UpgradeHelper.getTicks(this, BASE_TICKS_NEEDED);
-        energyPerTick = UpgradeHelper.getEnergyPerTick(this, BASE_ENERGY_PER_TICK);
+        ticksNeeded = UpgradeHelper.getTicks(this, Config.baseTicksNeeded);
+        energyPerTick = UpgradeHelper.getEnergyPerTick(this, Config.baseEnergyPerTick);
     }
 
     /**
@@ -533,7 +532,7 @@ public abstract class TEPowered extends TESideIO {
         compound.setInteger("burnTimeInitial", burnTimeInitialValue);
         compound.setBoolean("hasBase", this.hasBase);
         compound.setDouble("energyPerTick", energyPerTick);
-        compound.setDouble("ticksNeeded", getTicksNeeded());
+        compound.setInteger("ticksNeeded", getTicksNeeded());
 
         this.storage.writeToNBT(compound);
         super.writeSyncableNBT(compound, shouldSync);

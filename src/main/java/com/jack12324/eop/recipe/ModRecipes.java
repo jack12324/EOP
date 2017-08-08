@@ -41,7 +41,7 @@ public class ModRecipes {
         RecipeHolder.addDisablingPressRecipe(new ItemStack(scraps), new ItemStack(Blocks.SAND), new ItemStack(powder));
         RecipeHolder.addActivationChamberRecipe(new ItemStack(powder), new ItemStack(dust));
         RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(dust), new ItemStack(dust), new ItemStack(dust),
-                new ItemStack(dust), new ItemStack(ingot, 4));
+                new ItemStack(dust), new ItemStack(ingot, 4), new ItemStack(ModItems.dustFirestone, 2));
     }
 
     private static void createFurnaceList() {
@@ -75,11 +75,12 @@ public class ModRecipes {
                 new ItemStack(Items.ENDER_EYE, 2), new ItemStack(Items.SHULKER_SHELL),
                 new FluidStack(InitFluids.fluidDragonSoul, 100), new FluidStack(InitFluids.fluidLiquidEnd, 100));
 
-        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotNickel), new ItemStack(ModItems.ingotNickel), new ItemStack(ModItems.ingotNickelTungstenAlloy, 4));
-        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(Items.IRON_INGOT), new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.ingotIronTungstenAlloy, 4));
-        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.dustFirestone), new ItemStack(ModItems.dustFirestone), new ItemStack(ModItems.ingotFirestoneTungstenAlloy, 4));
-        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotCobalt), new ItemStack(ModItems.ingotCobalt), new ItemStack(ModItems.ingotCobaltTungstenAlloy, 4));
-        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.dustRedsoul), new ItemStack(ModItems.dustRedsoul), new ItemStack(ModItems.ingotSoulInfusedTungsten, 4));
+        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotNickel), new ItemStack(ModItems.ingotNickel), new ItemStack(ModItems.ingotNickelTungstenAlloy, 4), new ItemStack(ModItems.slag));
+        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(Items.IRON_INGOT), new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.ingotIronTungstenAlloy, 4), new ItemStack(ModItems.slag));
+        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.dustFirestone), new ItemStack(ModItems.dustFirestone), new ItemStack(ModItems.ingotFirestoneTungstenAlloy, 4), new ItemStack(ModItems.slag));
+        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotCobalt), new ItemStack(ModItems.ingotCobalt), new ItemStack(ModItems.ingotCobaltTungstenAlloy, 4), new ItemStack(ModItems.slag));
+        RecipeHolder.addEqualizingSmelterRecipe(new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.ingotTungsten), new ItemStack(ModItems.dustRedsoul), new ItemStack(ModItems.dustRedsoul), new ItemStack(ModItems.ingotSoulInfusedTungsten, 4), new ItemStack(ModItems.slag));
+
     }
 
 }

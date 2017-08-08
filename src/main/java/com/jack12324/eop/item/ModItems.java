@@ -4,7 +4,6 @@ import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.item.tool.*;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModItems {
@@ -21,6 +20,7 @@ public class ModItems {
 
     public static ItemBase dustFirestone = new ItemBase("dust_firestone");
     public static ItemBase dustRedsoul = new ItemBase("dust_redsoul");
+    public static ItemBase slag = new ItemBase("slag");
 
     public static ItemBase componentCrudeComponent = new ItemBase("component_crude_component");
     public static ItemBase componentBasicComponent = new ItemBase("component_basic_component");
@@ -72,7 +72,7 @@ public class ModItems {
     public static ItemBase speedUpgrade = new ItemBase("speed_upgrade", 10);
     public static ItemBase energyUpgrade = new ItemBase("energy_upgrade", 10);
 
-    private static ItemBase dragonScale = new ItemBase("dragon_scale");
+    public static ItemBase dragonScale = new ItemBase("dragon_scale");
 
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
@@ -128,7 +128,8 @@ public class ModItems {
                 pureTungstenEssence,
                 speedUpgrade,
                 energyUpgrade,
-                dragonScale
+                dragonScale,
+                slag
         );
     }
 
@@ -186,5 +187,6 @@ public class ModItems {
                 speedUpgrade.registerItemModel();
                 energyUpgrade.registerItemModel();
                 dragonScale.registerItemModel();
+        slag.registerItemModel();
     }
 }

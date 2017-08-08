@@ -146,6 +146,13 @@ public class RecipeHandler {
         return recipe == null ? null : ((IOneOutput) recipe).getOutputStack();
     }
 
+
+    public static ItemStack getEQSExtraOutput(ItemStack[] inputs) {
+        EOPRecipe recipe;
+        recipe = getRecipe(RecipeHolder.EQUALIZINGSMELTERRECIPES, inputs, null, null, false);
+        return recipe == null ? null : ((EQSRecipe) recipe).getExtraOutput();
+    }
+
     private static EOPRecipe getRecipe(ArrayList<EOPRecipe> recipeList, ItemStack[] inputs, ItemStack base, FluidStack inFluid, boolean ignoreFluidAmounts) {
         switch (recipeList.get(0).getType()) {
             case 0:

@@ -13,7 +13,7 @@ public class UpgradeHelper {
                 * Math.pow(10, 2 * fractionUpgrades(te, Upgrade.SPEED) - fractionUpgrades(te, Upgrade.ENERGY));
     }
 
-    public static double getTicks(TEPowered te, double baseTicksNeeded) {
+    public static int getTicks(TEPowered te, int baseTicksNeeded) {
         return (int) (baseTicksNeeded * Math.pow(10, -fractionUpgrades(te, Upgrade.SPEED)));
     }
 

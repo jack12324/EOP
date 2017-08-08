@@ -71,9 +71,9 @@ public class RecipeHolder {
     }
 
     public static void addEqualizingSmelterRecipe(ItemStack item1, ItemStack item2, ItemStack item3, ItemStack item4,
-                                                  ItemStack output) {
+                                                  ItemStack output, ItemStack extraOutput) {
         ItemStack[] items = {item1, item2, item3, item4};
-        EQUALIZINGSMELTERRECIPES.add(new EQSRecipe(items, output));
+        EQUALIZINGSMELTERRECIPES.add(new EQSRecipe(items, output, extraOutput));
     }
 
     public static void addPedestalRecipe(ItemStack input, FluidStack outFluid, int pedestalSpeed) {

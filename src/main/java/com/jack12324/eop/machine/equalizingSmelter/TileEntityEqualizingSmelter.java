@@ -1,8 +1,9 @@
 package com.jack12324.eop.machine.equalizingSmelter;
 
-import com.jack12324.eop.item.ModItems;
+import com.jack12324.eop.config.Config;
 import com.jack12324.eop.machine.IOPairs;
 import com.jack12324.eop.machine.TEPowered;
+import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
 import com.jack12324.eop.util.InventorySlotHelper;
@@ -20,7 +21,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IOPairs {
     private boolean oldSpreadMode = true;
     private int dustProgress = 0;
     private int oldDustProgress = 0;
-    private static final int DUSTTICK = 4;
+    private boolean extraOutputDisabled = Config.equalizingSmelterExtraOutputSpeed == 0;
 
     public void incrementSideVal(EnumFacing side) {
         int val;
@@ -143,19 +144,21 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IOPairs {
     @Override
     public void useItem(int IOSet) {
         super.useItem(IOSet);
-        if (!furnaceMode) {
+        if (!furnaceMode && !extraOutputDisabled) {
             dustProgress++;
-            if (dustProgress >= DUSTTICK) {
-                ItemStack result = new ItemStack(ModItems.dustFirestone);
-                ItemStack output = this.getInventory(this.slotHelper.getOtherSlotIndex(0));
+            if (dustProgress >= Config.equalizingSmelterExtraOutputSpeed) {
+                ItemStack result = RecipeHandler.getEQSExtraOutput(this.getInputSlotItemStacks(IOSet));
+                if (result != null && !result.isEmpty()) {
+                    ItemStack output = this.getInventory(this.slotHelper.getOtherSlotIndex(0));
 
-                if (output.isEmpty()) {
-                    this.setInventory(this.slotHelper.getOtherSlotIndex(0), result.copy());
-                } else if (output.getItem() == result.getItem()) {
-                    result.setCount(output.getCount() + 1);
-                    this.setInventory(this.slotHelper.getOtherSlotIndex(0), result);
+                    if (output.isEmpty()) {
+                        this.setInventory(this.slotHelper.getOtherSlotIndex(0), result.copy());
+                    } else if (output.getItem() == result.getItem()) {
+                        result.setCount(output.getCount() + 1);
+                        this.setInventory(this.slotHelper.getOtherSlotIndex(0), result);
+                    }
+                    dustProgress = 0;
                 }
-                dustProgress = 0;
             }
         }
     }

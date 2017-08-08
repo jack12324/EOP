@@ -2,6 +2,7 @@ package com.jack12324.eop;
 
 import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.client.EOPTab;
+import com.jack12324.eop.config.Config;
 import com.jack12324.eop.fluids.InitFluids;
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.packet.PacketHandler;
@@ -16,6 +17,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
@@ -32,6 +35,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.File;
 
 import static com.jack12324.eop.fluids.InitFluids.*;
 
@@ -52,6 +57,8 @@ public class ExtremeOreProcessing {
     public static final ItemArmor.ArmorMaterial tungstenArmorMaterial = EnumHelper.addArmorMaterial("TUNGSTEN",
             modID + ":tungsten", 35, new int[]{4, 9, 7, 4}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0f);
     public static boolean teslaLoaded;
+
+    public static Configuration config;
 
     @SidedProxy(serverSide = "com.jack12324.eop.proxy.CommonProxy", clientSide = "com.jack12324.eop.proxy.ClientProxy")
     public static CommonProxy proxy;
@@ -117,18 +124,25 @@ public class ExtremeOreProcessing {
         GameRegistry.registerWorldGenerator(new ModWorldGeneration(), 3);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGuiHandler());
         PacketHandler.init();
-        proxy.preInit(event);
+        File directory = event.getModConfigurationDirectory();
+        config = new Configuration(new File(directory.getPath(), "eop.cfg"));
+        Config.readConfig();
 
         LOGGER.info(name + ": preInit complete");
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+
         ModRecipes.init();
+        MinecraftForge.EVENT_BUS.register(new Events());
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        if (config.hasChanged()) {
+            config.save();
+        }
 
     }
 

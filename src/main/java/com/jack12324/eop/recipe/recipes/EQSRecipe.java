@@ -9,10 +9,12 @@ public class EQSRecipe implements EOPRecipe, IMultipleInputRecipe, IOneOutput {
 
     private final ItemStack[] inputs;
     private final ItemStack output;
+    private final ItemStack extraOutput;
 
-    public EQSRecipe(ItemStack[] inputs, ItemStack output) {
+    public EQSRecipe(ItemStack[] inputs, ItemStack output, ItemStack extraOutput) {
         this.inputs = inputs;
         this.output = output;
+        this.extraOutput = extraOutput;
     }
 
     @Override
@@ -23,6 +25,10 @@ public class EQSRecipe implements EOPRecipe, IMultipleInputRecipe, IOneOutput {
     @Override
     public ItemStack[] getInputStacks() {
         return inputs;
+    }
+
+    public ItemStack getExtraOutput() {
+        return extraOutput;
     }
 
     @Override

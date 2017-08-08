@@ -1,6 +1,7 @@
 package com.jack12324.eop.machine;
 
 import com.jack12324.eop.ExtremeOreProcessing;
+import com.jack12324.eop.config.Config;
 import com.jack12324.eop.packet.PacketHandler;
 import com.jack12324.eop.packet.PacketServerToClient;
 import com.jack12324.eop.util.Coord4D;
@@ -168,7 +169,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
     }
 
     protected boolean sendUpdateWithInterval() {
-        if (this.ticksElapsed % 5 == 0) {
+        if (this.ticksElapsed % Config.updateTick == 0) {
             this.sendTileUpdate();
             return true;
         } else {

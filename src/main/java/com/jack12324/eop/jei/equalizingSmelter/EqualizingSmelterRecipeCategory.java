@@ -2,7 +2,6 @@ package com.jack12324.eop.jei.equalizingSmelter;
 
 import com.jack12324.eop.ExtremeOreProcessing;
 import com.jack12324.eop.block.ModBlocks;
-import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.jei.EOPRecipeCategory;
 import com.jack12324.eop.recipe.recipes.EQSRecipe;
 import mezz.jei.api.IGuiHelper;
@@ -100,7 +99,7 @@ public class EqualizingSmelterRecipeCategory extends EOPRecipeCategory<EQSRecipe
 
         if (ingredients.getOutputs(ItemStack.class).size() > 0) {
             guiItemStacks.set(4, ingredients.getOutputs(ItemStack.class).get(0));
-            guiItemStacks.set(5, new ItemStack(ModItems.dustFirestone));
+            guiItemStacks.set(5, ingredients.getOutputs(ItemStack.class).get(1));
         }
 
     }
