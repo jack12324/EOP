@@ -11,11 +11,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class Events {
     @SubscribeEvent
     public void onDragonDrop(LivingDropsEvent event) {
-        if (event.getEntity() instanceof EntityDragon) {
-            BlockPos pos = new BlockPos(event.getEntity());
-            ItemStack stack = new ItemStack(ModItems.dragonScale);
+        if (event.getEntityLiving() instanceof EntityDragon) {
+            BlockPos pos = new BlockPos(event.getEntityLiving());
+            ItemStack stack = new ItemStack(ModItems.dragonScale, 1 + event.getLootingLevel());
             EntityItem drop = new EntityItem(event.getEntity().getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), stack);
             event.getDrops().add(drop);
+
+
         }
     }
 }
