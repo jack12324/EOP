@@ -82,7 +82,7 @@ tile.dual_catalyst_infuser.name=Dual Catalyst Infuser
 tile.enderic_purifier.name=Enderic Purifier
 tile.equalizing_smelter.name=Equalizing Smelter
 tile.particle_exciter.name=Particle Exciter
-tile.pedestal.name=Egg Extractor
+tile.pedestal.name=Extraction Pedestal
 tile.star_hardener.name=Star Hardener
 tile.tri_catalyst_infuser.name=Tri Catalyst Infuser
 
@@ -105,3 +105,15 @@ eop.text.ii=Items In
 eop.text.io=Items Out
 eop.text.fi=Fluids In
 eop.text.fo=Fluids Out
+
+eop.jeidesc.dragonscale=Dragonscales can be aquired from killing the ender dragon.\nBy default one will be dropped per kill but this can be increased with looting
+eop.jeidesc.tile.activation_chamber=The activation chamber is used to produce activated dust from either ore or dormant powder. for each ore used, two activated dust are produced. The activation chamber runs off of rf power and uses firestone dust or blocks as fuel.
+eop.jeidesc.tile.catalyst_infuser=The Catalyst infuser is the basic tier of three such devices which infuse items with a fluid. The catalyst infuser is used to make screaming lava by default, infusing lava with a ghast tear. It requires power to run.
+eop.jeidesc.tile.disabling_press=The disabling press produces dormant powder from either ore or excited slivers, as well as a base ingredient (sand by default). If ore is used three dormant powder are created per operation. It runs off of power and uses mushrooms as a fuel.
+eop.jeidesc.tile.dual_catalyst_infuser=The dual catalyst infuser is the second tier of infusers. The dual catalyst infuser is used to make star water by default, infusing water with a nether star and ten nether quartz. It requires power to run.
+eop.jeidesc.tile.enderic_purifier=The enderic purifier is the final machine in ore production. It takes power, liquid end,  endstone as a base, and ore to produce pure essence. It produces these at a rate of six per ore.
+eop.jeidesc.tile.equalizing_smelter=The equalizing smelter is the most basic ore processing machine in this mod, it has two modes: Furnace and Equalizing. In furnace mode the eqs will operate like any other furnace, consuming 50rf/t (default value) for each slot that is currently being used to smelt items. In equalizing mode all four input slots work together to complete recipes, this also uses 50rf/t by default. Equalizing mode is used for smelting four activated dust into four ingots, or to create alloys. The equalizing smelter also comes with a spread option toggled by a gui button. When spread is active the machine will evenly disperse its contents among the input slots.
+eop.jeidesc.tile.particle_exciter=The particle exciter is the first EOP machine to use fluids in ore processing. The particle exciter takes power, screaming lava, netherrack as a base, and either ore or astral shards to produce excited slivers. It produces these at a rate of four per ore.
+eop.jeidesc.tile.pedestal=The extraction pedestal is used to generate dragon soul. It requires a dragon egg to produce this fluid but nothing else.
+eop.jeidesc.tile.star_hardener=The star hardener takes power, starwater,  obsidian as a base, and either ore or pure essence to produce astral shards. It produces these at a rate of five per ore.
+eop.jeidesc.tile.tri_catalyst_infuser=The tri catalyst infuser is the final tier of infusers. The tri catalyst infuser is used to make liquid end by default, infusing dragon soul with 3 popped chorus fruit, two ender eye, and one skulker shell. It requires power to run.

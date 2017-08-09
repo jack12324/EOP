@@ -1,6 +1,7 @@
 package com.jack12324.eop.jei;
 
 import com.jack12324.eop.block.ModBlocks;
+import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.jei.Infusers.CatalystInfuserRecipeCategory;
 import com.jack12324.eop.jei.Infusers.DualCatalystInfuserRecipeCategory;
 import com.jack12324.eop.jei.Infusers.TriCatalystInfuserRecipeCategory;
@@ -27,6 +28,7 @@ import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -71,7 +73,13 @@ public class JEIExtremeOreProcessingPlugin implements IModPlugin {
         registryIn.addRecipeClickArea(GuiEndericPurifier.class, GuiValues.ENDERICPURIFIER.getProgress()[0], GuiValues.ENDERICPURIFIER.getProgress()[1], GuiValues.ENDERICPURIFIER.getProgress()[4], GuiValues.ENDERICPURIFIER.getProgress()[5], "eop.enderic_purifier");
         registryIn.addRecipeClickArea(GuiParticleExciter.class, GuiValues.PARTICLEEXCITER.getProgress()[0], GuiValues.PARTICLEEXCITER.getProgress()[1], GuiValues.PARTICLEEXCITER.getProgress()[4], GuiValues.PARTICLEEXCITER.getProgress()[5], "eop.particle_exciter");
         registryIn.addRecipeClickArea(GuiStarHardener.class, GuiValues.STARHARDENER.getProgress()[0], GuiValues.STARHARDENER.getProgress()[1], GuiValues.STARHARDENER.getProgress()[4], GuiValues.STARHARDENER.getProgress()[5], "eop.star_hardener");
-        registryIn.addRecipeClickArea(GuiEqualizingSmelter.class, GuiValues.EQUALIZINGSMELTER.getProgress()[0], GuiValues.EQUALIZINGSMELTER.getProgress()[1], GuiValues.EQUALIZINGSMELTER.getProgress()[4], GuiValues.EQUALIZINGSMELTER.getProgress()[5], "eop.equalizing_smelter");
+        for (int i = 0; i < 4; i++)
+            registryIn.addRecipeClickArea(GuiEqualizingSmelter.class, GuiValues.EQUALIZINGSMELTER.getProgress()[i * 6], GuiValues.EQUALIZINGSMELTER.getProgress()[i * 6 + 1], GuiValues.EQUALIZINGSMELTER.getProgress()[i * 6 + 4], GuiValues.EQUALIZINGSMELTER.getProgress()[i * 6 + 5], "eop.equalizing_smelter");
+
+        registryIn.addIngredientInfo(new ItemStack(ModItems.dragonScale), ItemStack.class, "eop.jeidesc.dragonscale");
+        Block[] blocks = {ModBlocks.equalizingSmelter, ModBlocks.activationChamber, ModBlocks.disablingPress, ModBlocks.catalystInfuser, ModBlocks.dualCatalystInfuser, ModBlocks.triCatalystInfuser, ModBlocks.particleExciter, ModBlocks.endericPurifier, ModBlocks.starHardener, ModBlocks.pedestal};
+        for (Block block : blocks)
+            registryIn.addIngredientInfo(new ItemStack(block), ItemStack.class, "eop.jeidesc." + block.getUnlocalizedName());
     }
 
     @Override

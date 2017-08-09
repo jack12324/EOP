@@ -1,6 +1,6 @@
 package com.jack12324.eop.machine.equalizingSmelter;
 
-import com.jack12324.eop.config.Config;
+import com.jack12324.eop.config.EOPConfig;
 import com.jack12324.eop.machine.IOPairs;
 import com.jack12324.eop.machine.TEPowered;
 import com.jack12324.eop.recipe.RecipeHandler;
@@ -21,7 +21,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IOPairs {
     private boolean oldSpreadMode = true;
     private int dustProgress = 0;
     private int oldDustProgress = 0;
-    private boolean extraOutputDisabled = Config.equalizingSmelterExtraOutputSpeed == 0;
+    private boolean extraOutputDisabled = EOPConfig.machines.equalizingSmelterExtraOutputSpeed == 0;
 
     public void incrementSideVal(EnumFacing side) {
         int val;
@@ -146,7 +146,7 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IOPairs {
         super.useItem(IOSet);
         if (!furnaceMode && !extraOutputDisabled) {
             dustProgress++;
-            if (dustProgress >= Config.equalizingSmelterExtraOutputSpeed) {
+            if (dustProgress >= EOPConfig.machines.equalizingSmelterExtraOutputSpeed) {
                 ItemStack result = RecipeHandler.getEQSExtraOutput(this.getInputSlotItemStacks(IOSet));
                 if (result != null && !result.isEmpty()) {
                     ItemStack output = this.getInventory(this.slotHelper.getOtherSlotIndex(0));

@@ -1,7 +1,7 @@
 package com.jack12324.eop.machine;
 
 import com.jack12324.eop.ExtremeOreProcessing;
-import com.jack12324.eop.config.Config;
+import com.jack12324.eop.config.EOPConfig;
 import com.jack12324.eop.item.ModItems;
 import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class TEPowered extends TESideIO {
-    private int ticksNeeded = Config.baseTicksNeeded;
-    private double energyPerTick = Config.baseEnergyPerTick;
+    private int ticksNeeded = EOPConfig.machines.baseTicksNeeded;
+    private double energyPerTick = EOPConfig.machines.baseEnergyPerTick;
     private int burnTimeInitialValue;
     private int burnTimeRemaining;
     private int[] inProgressTime;
@@ -356,8 +356,8 @@ public abstract class TEPowered extends TESideIO {
     }
 
     private void resetUpgradeStats() {
-        ticksNeeded = UpgradeHelper.getTicks(this, Config.baseTicksNeeded);
-        energyPerTick = UpgradeHelper.getEnergyPerTick(this, Config.baseEnergyPerTick);
+        ticksNeeded = UpgradeHelper.getTicks(this, EOPConfig.machines.baseTicksNeeded);
+        energyPerTick = UpgradeHelper.getEnergyPerTick(this, EOPConfig.machines.baseEnergyPerTick);
     }
 
     /**
