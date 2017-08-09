@@ -40,14 +40,15 @@ import java.io.File;
 
 import static com.jack12324.eop.fluids.InitFluids.*;
 
-@Mod(modid = ExtremeOreProcessing.modID, name = ExtremeOreProcessing.name, version = ExtremeOreProcessing.version)
+@Mod(modid = ExtremeOreProcessing.modID, name = ExtremeOreProcessing.name, version = ExtremeOreProcessing.version, acceptedMinecraftVersions = ExtremeOreProcessing.mcversion)
 public class ExtremeOreProcessing {
     // test
     // basic Mod info
     public static final String modID = "eop";
     public static final String name = "Extreme Ore Processing";
-    public static final String version = "0.9.0";
+    public static final String version = "$(version)";
     public static final EOPTab creativeTab = new EOPTab();
+    public static final String mcversion = "$(mcversion)";
 
     public static final Logger LOGGER = LogManager.getLogger("Extreme Ore Processing");
 
