@@ -1,0 +1,30 @@
+{
+  "display": {
+    "description": {
+      "text": "Acquire a tungsten ingot",
+      "color": "white"
+    },
+    "title": {
+      "text": "Getting Started",
+      "color": "white"
+    },
+    "icon": {
+      "item": "eop:ingot_tungsten",
+      "data": 0
+    },
+    "background": "minecraft:textures/blocks/stone.png"
+  },
+  "criteria": {
+    "inv_changed-eop:ingot_tungsten": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "eop:ingot_tungsten",
+            "data": 0
+          }
+        ]
+      }
+    }
+  }
+}

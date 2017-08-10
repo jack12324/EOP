@@ -1,0 +1,39 @@
+{
+  "display": {
+    "description": {
+      "text": "Get astral tungsten slivers.",
+      "color": "white"
+    },
+    "title": {
+      "text": "Starstruck ",
+      "color": "white"
+    },
+    "icon": {
+      "item": "eop:star_hardener",
+      "data": 0
+    }
+  },
+  "criteria": {
+    "inv_changed-eop:astral_tungsten_slivers": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "eop:astral_tungsten_slivers",
+            "data": 0
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {},
+  "requirements": [
+    [
+      "inv_changed-eop:astral_tungsten_slivers"
+    ]
+  ],
+  "filename": 5,
+  "parent-count": 4,
+  "parent-type": "child",
+  "parent": "eop:EOP/ach4"
+}

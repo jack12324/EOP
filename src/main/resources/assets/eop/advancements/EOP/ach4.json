@@ -1,0 +1,39 @@
+{
+  "display": {
+    "description": {
+      "text": "Get excited tungsten scraps.",
+      "color": "white"
+    },
+    "title": {
+      "text": "Okay, now I'm getting excited",
+      "color": "white"
+    },
+    "icon": {
+      "item": "eop:particle_exciter",
+      "data": 0
+    }
+  },
+  "criteria": {
+    "inv_changed-eop:excited_tungsten_scraps": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "eop:excited_tungsten_scraps",
+            "data": 0
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {},
+  "requirements": [
+    [
+      "inv_changed-eop:excited_tungsten_scraps"
+    ]
+  ],
+  "filename": 4,
+  "parent-count": 3,
+  "parent-type": "child",
+  "parent": "eop:EOP/ach3"
+}

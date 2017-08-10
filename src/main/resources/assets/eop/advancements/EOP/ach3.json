@@ -1,0 +1,39 @@
+{
+  "display": {
+    "description": {
+      "text": "Use a dormant press to acquire tungsten powder.",
+      "color": "white"
+    },
+    "title": {
+      "text": "Feeling a little tired",
+      "color": "white"
+    },
+    "icon": {
+      "item": "eop:disabling_press",
+      "data": 0
+    }
+  },
+  "criteria": {
+    "inv_changed-eop:dormant_tungsten_powder": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "eop:dormant_tungsten_powder",
+            "data": 0
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {},
+  "requirements": [
+    [
+      "inv_changed-eop:dormant_tungsten_powder"
+    ]
+  ],
+  "filename": 3,
+  "parent-count": 2,
+  "parent-type": "child",
+  "parent": "eop:EOP/ach2"
+}

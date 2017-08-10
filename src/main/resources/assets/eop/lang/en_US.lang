@@ -18,8 +18,14 @@ item.component_basic_component.name=Basic Component
 item.component_crude_component.name=Crude Component
 item.component_elite_component.name=Elite Component
 item.component_energy_module.name=Energy Module
+
 item.dust_firestone.name=Firestone Dust
 item.dust_redsoul.name=Redsoul Dust
+
+item.energy_upgrade.name=Energy Upgrade
+item.speed_upgrade.name=Speed Upgrade
+item.slag.name=Slag
+
 item.ingot_cobalt.name=Cobalt Ingot
 item.ingot_firestone_tungsten_alloy.name=Firestone Tungsten Alloy
 item.ingot_cobalt_tungsten_alloy.name=Cobalt Tungsten Alloy

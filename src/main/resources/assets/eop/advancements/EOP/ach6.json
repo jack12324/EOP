@@ -1,0 +1,42 @@
+{
+  "display": {
+    "description": {
+      "text": "Pure tungsten essence",
+      "color": "white"
+    },
+    "title": {
+      "text": "Extreme",
+      "color": "white"
+    },
+    "frame": "challenge",
+    "icon": {
+      "item": "eop:enderic_purifier",
+      "data": 0
+    }
+  },
+  "criteria": {
+    "inv_changed-eop:pure_tungsten_essence": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "eop:pure_tungsten_essence",
+            "data": 0
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 1000
+  },
+  "requirements": [
+    [
+      "inv_changed-eop:pure_tungsten_essence"
+    ]
+  ],
+  "filename": 6,
+  "parent-count": 5,
+  "parent-type": "child",
+  "parent": "eop:EOP/ach5"
+}

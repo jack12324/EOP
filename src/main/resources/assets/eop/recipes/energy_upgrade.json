@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aba",
+    "bcb",
+    "aba"
+  ],
+  "key": {
+    "a": {
+      "item": "eop:component_energy_module"
+    },
+    "b": {
+      "item": "eop:component_advanced_component"
+    },
+    "c": {
+      "item": "eop:block_redsoul"
+    }
+  },
+  "result": {
+    "item": "eop:energy_upgrade"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "display": {
+    "description": {
+      "text": "Acquire activated tungsten dust.",
+      "color": "white"
+    },
+    "title": {
+      "text": "Activated",
+      "color": "white"
+    },
+    "icon": {
+      "item": "eop:activation_chamber",
+      "data": 0
+    }
+  },
+  "criteria": {
+    "inv_changed-eop:activated_tungsten_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "eop:activated_tungsten_dust",
+            "data": 0
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {},
+  "requirements": [
+    [
+      "inv_changed-eop:activated_tungsten_dust"
+    ]
+  ],
+  "filename": 2,
+  "parent-count": 1,
+  "parent-type": "child",
+  "parent": "eop:EOP/root"
+}
