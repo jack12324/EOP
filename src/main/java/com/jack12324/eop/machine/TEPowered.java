@@ -311,9 +311,9 @@ public abstract class TEPowered extends TESideIO {
     }
 
     private void oldEnergyCheck() {
-        if (this.oldEnergy != this.storage.getEnergyStored() && this.sendUpdateWithInterval()) {
+        this.energyDiff = this.storage.getEnergyStored() - this.oldEnergy;
+        if (energyDiff != 0 && this.sendUpdateWithInterval()) {
             this.oldEnergy = this.storage.getEnergyStored();
-            this.energyDiff = this.storage.getEnergyStored() - this.oldEnergy;
             markDirty();
 
         }
@@ -346,6 +346,7 @@ public abstract class TEPowered extends TESideIO {
         this.inProgressTime = compound.getIntArray("ProgressTime").clone();
         this.energyPerTick = compound.getDouble("energyPerTick");
         this.ticksNeeded = compound.getInteger("ticksNeeded");
+        this.energyDiff = compound.getInteger("energyDiff");
 
         this.storage.readFromNBT(compound);
         super.readSyncableNBT(compound, shouldSync);
@@ -533,6 +534,7 @@ public abstract class TEPowered extends TESideIO {
         compound.setBoolean("hasBase", this.hasBase);
         compound.setDouble("energyPerTick", energyPerTick);
         compound.setInteger("ticksNeeded", getTicksNeeded());
+        compound.setInteger("energyDiff", getEnergyDiff());
 
         this.storage.writeToNBT(compound);
         super.writeSyncableNBT(compound, shouldSync);

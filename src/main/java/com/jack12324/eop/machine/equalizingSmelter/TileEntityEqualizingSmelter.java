@@ -152,10 +152,9 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IOPairs {
                     ItemStack output = this.getInventory(this.slotHelper.getOtherSlotIndex(0));
 
                     if (output.isEmpty()) {
-                        this.setInventory(this.slotHelper.getOtherSlotIndex(0), result.copy());
+                        this.slots.setStackInSlot(this.slotHelper.getOtherSlotIndex(0), result.copy());
                     } else if (output.getItem() == result.getItem()) {
-                        result.setCount(output.getCount() + 1);
-                        this.setInventory(this.slotHelper.getOtherSlotIndex(0), result);
+                        output.grow(result.getCount());
                     }
                     dustProgress = 0;
                 }
