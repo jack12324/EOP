@@ -132,7 +132,7 @@ public abstract class TEPowered extends TESideIO {
      * Returns the amount of cook time completed on the currently cooking item.
      */
     public double fractionOfProgressTimeComplete(int index) {
-        double fraction = this.inProgressTime[index] / getTicksNeeded();
+        double fraction = (double) this.inProgressTime[index] / getTicksNeeded();
         return MathHelper.clamp(fraction, 0.0, 1.0);
     }
 
