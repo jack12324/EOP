@@ -44,7 +44,7 @@ public class TileEntityDualCatalystInfuser extends TEFluidProducer {
             return false;
 
         for (int indexes : this.slotHelper.getIn()) {
-            if (index == indexes && !RecipeHandler.getInItems(this.getRecipeList()).contains(stack.getItem()) && !hasFullStackOfItem(stack.getItem()))
+            if (index == indexes && (!RecipeHandler.getInItems(this.getRecipeList()).contains(stack.getItem()) || hasFullStackOfItem(stack.getItem())))
                 return false;
         }
         return true;

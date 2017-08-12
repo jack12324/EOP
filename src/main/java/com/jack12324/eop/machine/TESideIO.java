@@ -48,6 +48,7 @@ public class TESideIO extends TEInventory implements IButtonUse, ISideIO {
 
     @Override
     public int getSideVal(EnumFacing side) {
+
         switch (side) {
             case UP:
                 return sideIO[3];
@@ -104,5 +105,30 @@ public class TESideIO extends TEInventory implements IButtonUse, ISideIO {
                 this.sideIO[index] = 0;
             else this.sideIO[index] = val + 1;
         }
+    }
+
+    /**
+     * Used to get side that should be operated on based on rotation of tile
+     *
+     * @param inSide the basic direction
+     * @return the altered direction cooresponding to the tiles front
+     */
+    public EnumFacing getAlteredSide(EnumFacing inSide) {
+        EnumFacing side = inSide;
+        EnumFacing machineSide = this.world.getBlockState(this.pos).getValue(BlockTE.PROPERTYFACING);
+        if (!side.equals(EnumFacing.UP) && !side.equals(EnumFacing.DOWN)) {
+            switch (machineSide) {
+                case EAST:
+                    side = side.rotateYCCW();
+                    break;
+                case WEST:
+                    side = side.rotateY();
+                    break;
+                case SOUTH:
+                    side = side.getOpposite();
+                    break;
+            }
+        }
+        return side;
     }
 }

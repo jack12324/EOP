@@ -23,12 +23,13 @@ public class HelpfulMethods {
 
                 IFluidHandler handlerFrom = teFrom.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, sideTo.getOpposite());
                 IFluidHandler handlerTo = teTo.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, sideTo);
-                FluidStack drain = handlerFrom.drain(100, false);
-                if (drain != null) {
-                    int filled = handlerTo.fill(drain.copy(), true);
-                    handlerFrom.drain(filled, true);
+                if (handlerFrom != null && handlerTo != null) {
+                    FluidStack drain = handlerFrom.drain(100, false);
+                    if (drain != null) {
+                        int filled = handlerTo.fill(drain.copy(), true);
+                        handlerFrom.drain(filled, true);
+                    }
                 }
-
             }
 
 
@@ -44,14 +45,15 @@ public class HelpfulMethods {
 
                 IFluidHandler handlerFrom = teFrom.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, sideTo);
                 IFluidHandler handlerTo = teTo.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, sideTo.getOpposite());
-                FluidStack drain = handlerFrom.drain(100, false);
-                if (drain != null) {
-                    int filled = handlerTo.fill(drain.copy(), true);
-                    handlerFrom.drain(filled, true);
+                if (handlerFrom != null && handlerTo != null) {
+                    FluidStack drain = handlerFrom.drain(100, false);
+                    if (drain != null) {
+                        int filled = handlerTo.fill(drain.copy(), true);
+                        handlerFrom.drain(filled, true);
+                    }
+
                 }
-
             }
-
 
         }
 
@@ -67,26 +69,28 @@ public class HelpfulMethods {
                 IItemHandler handlerTo = teTo.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, sideTo.getOpposite());
                 ItemStack extractResult;
                 ItemStack insertResult;
-                for (int i = 0; i < handlerFrom.getSlots(); i++) {
-                    extractResult = handlerFrom.extractItem(i, 64, true);
-                    if (extractResult != null && !extractResult.isEmpty()) {
-                        for (int j = 0; j < handlerTo.getSlots(); j++) {
-                            insertResult = handlerTo.insertItem(j, extractResult, true);
-                            if (insertResult != null && insertResult.getCount() != extractResult.getCount()) {
-                                handlerTo.insertItem(j, extractResult, false);
-                                handlerFrom.extractItem(i, extractResult.getCount() - insertResult.getCount(), false);
-                                break;
+                if (handlerFrom != null && handlerTo != null) {
+                    for (int i = 0; i < handlerFrom.getSlots(); i++) {
+                        extractResult = handlerFrom.extractItem(i, 64, true);
+                        if (extractResult != null && !extractResult.isEmpty()) {
+                            for (int j = 0; j < handlerTo.getSlots(); j++) {
+                                insertResult = handlerTo.insertItem(j, extractResult, true);
+                                if (insertResult != null && insertResult.getCount() != extractResult.getCount()) {
+                                    handlerTo.insertItem(j, extractResult, false);
+                                    handlerFrom.extractItem(i, extractResult.getCount() - insertResult.getCount(), false);
+                                    break;
+                                }
                             }
                         }
+
                     }
 
                 }
 
-            }
-
 
         }
 
+        }
     }
 
     public static void doItemPull(TileEntity teFrom, TileEntity teTo, EnumFacing sideTo) {
@@ -99,15 +103,17 @@ public class HelpfulMethods {
                 IItemHandler handlerTo = teTo.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, sideTo.getOpposite());
                 ItemStack extractResult;
                 ItemStack insertResult;
-                for (int i = 0; i < handlerFrom.getSlots(); i++) {
-                    extractResult = handlerFrom.extractItem(i, 64, true);
-                    if (extractResult != null && !extractResult.isEmpty()) {
-                        for (int j = 0; j < handlerTo.getSlots(); j++) {
-                            insertResult = handlerTo.insertItem(j, extractResult, true);
-                            if (insertResult != null && insertResult.getCount() != extractResult.getCount()) {
-                                handlerTo.insertItem(j, extractResult, false);
-                                handlerFrom.extractItem(i, extractResult.getCount() - insertResult.getCount(), false);
-                                break;
+                if (handlerFrom != null && handlerTo != null) {
+                    for (int i = 0; i < handlerFrom.getSlots(); i++) {
+                        extractResult = handlerFrom.extractItem(i, 64, true);
+                        if (extractResult != null && !extractResult.isEmpty()) {
+                            for (int j = 0; j < handlerTo.getSlots(); j++) {
+                                insertResult = handlerTo.insertItem(j, extractResult, true);
+                                if (insertResult != null && insertResult.getCount() != extractResult.getCount()) {
+                                    handlerTo.insertItem(j, extractResult, false);
+                                    handlerFrom.extractItem(i, extractResult.getCount() - insertResult.getCount(), false);
+                                    break;
+                                }
                             }
                         }
                     }

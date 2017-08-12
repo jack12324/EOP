@@ -196,6 +196,7 @@ public abstract class TETickingMachine extends TileEntity implements ITickable {
                 EnumFacing[] sides = EnumFacing.values();
                 for (EnumFacing side : sides) {
                     TileEntity tile = this.tilesAround[side.ordinal()];
+                    side = ((ISideIO) this).getAlteredSide(side);
                     if (tile != null) {
                         HelpfulMethods.doItemPull(tile, this, side);
                         HelpfulMethods.doItemPush(this, tile, side);
