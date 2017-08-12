@@ -164,6 +164,13 @@ public class TileEntityEqualizingSmelter extends TEPowered implements IOPairs {
     }
 
     @Override
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        if (index == this.slotHelper.getOtherSlotIndex(0))
+            return false;
+        return super.isItemValidForSlot(index, stack);
+    }
+
+    @Override
     protected boolean useLogic(int IOSet) {
         boolean result = super.useLogic(IOSet);
         if (!furnaceMode) {
