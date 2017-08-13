@@ -314,6 +314,7 @@ public abstract class TEPowered extends TESideIO {
         this.energyDiff = this.storage.getEnergyStored() - this.oldEnergy;
         if (energyDiff != 0 && this.sendUpdateWithInterval()) {
             this.oldEnergy = this.storage.getEnergyStored();
+            this.energyDiff /= EOPConfig.updateTick;
             markDirty();
 
         }
@@ -392,10 +393,6 @@ public abstract class TEPowered extends TESideIO {
                 } else {
                     this.resetTime(0);
                 }
-                this.resetUpgradeStats();
-                oldEnergyCheck();
-                oldActiveCheck(active);
-                oldProgressTimeCheck();
             } else {
                 for (int i = 0; i < ((IOPairs) this).getIONumber(); i++) {
                     if (canUse(i)) {
@@ -408,12 +405,13 @@ public abstract class TEPowered extends TESideIO {
                     } else {
                         this.resetTime(i);
                     }
-                    this.resetUpgradeStats();
-                    this.oldActiveCheck(active);
-                    this.oldEnergyCheck();
-                    this.oldProgressTimeCheck();
                 }
             }
+
+            this.resetUpgradeStats();
+            this.oldActiveCheck(active);
+            this.oldEnergyCheck();
+            this.oldProgressTimeCheck();
         }
 
     }
