@@ -43,7 +43,7 @@ public abstract class TEInventory extends TETickingMachine {
 
     public final EOPItemStackHandler slots;
 
-    protected final InventorySlotHelper slotHelper;
+    public final InventorySlotHelper slotHelper;
 
     protected TEInventory(InventorySlotHelper slots, String name) {
         super(name);
@@ -68,6 +68,7 @@ public abstract class TEInventory extends TETickingMachine {
             @Override
             protected void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
+                invChange();
                 TEInventory.this.markDirty();
             }
         };
@@ -79,6 +80,8 @@ public abstract class TEInventory extends TETickingMachine {
                 return true;
         }
         return false;
+    }
+    protected void invChange(){
     }
 
     @Override
@@ -111,7 +114,7 @@ public abstract class TEInventory extends TETickingMachine {
         }
     }
 
-    private boolean shouldSyncSlots() {
+    protected boolean shouldSyncSlots() {
         return false;
     }
 

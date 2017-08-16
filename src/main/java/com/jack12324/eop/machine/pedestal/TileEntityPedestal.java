@@ -1,15 +1,18 @@
 package com.jack12324.eop.machine.pedestal;
 
 import com.jack12324.eop.machine.BlockTE;
+import com.jack12324.eop.machine.TEInventory;
 import com.jack12324.eop.machine.TESideIO;
 import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
+import com.jack12324.eop.util.EOPItemStackHandler;
 import com.jack12324.eop.util.InventorySlotHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -22,6 +25,8 @@ public class TileEntityPedestal extends TESideIO {
     private final ArrayList<Fluid> outFluid;
     private int oldFluidAmount;
     private boolean lastActive = false;
+    public long lastChangeTime;
+    public long oldChangeTime=0;
     final FluidTank tank = new FluidTank(1000) {
         @Override
         public boolean canDrain() {
@@ -33,6 +38,7 @@ public class TileEntityPedestal extends TESideIO {
             return false;
         }
     };
+
     private int fillTick = 1;
 
     public TileEntityPedestal() {
@@ -59,7 +65,8 @@ public class TileEntityPedestal extends TESideIO {
     }
     @Override
     public void readSyncableNBT(NBTTagCompound compound, boolean shouldSync) {
-        slots.deserializeNBT(compound.getCompoundTag("inventory"));
+        this.lastChangeTime= compound.getLong("lastChangeTime");
+        this.slots.deserializeNBT(compound.getCompoundTag("inventory"));
 
         NBTTagCompound tag = compound.getCompoundTag("tank");
         this.tank.readFromNBT(tag);
@@ -112,6 +119,11 @@ public class TileEntityPedestal extends TESideIO {
     }
 
     @Override
+    protected void invChange() {
+        lastChangeTime = world.getTotalWorldTime();
+    }
+
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         for (int indexes : this.slotHelper.getUpgrade()) {
             if (index == indexes)
@@ -132,7 +144,8 @@ public class TileEntityPedestal extends TESideIO {
         this.tank.writeToNBT(tag);
         compound.setTag("tank", tag);
 
-        compound.setTag("inventory", slots.serializeNBT());
+        compound.setTag("inventory", this.slots.serializeNBT());
+        compound.setLong("lastChangeTime",this.lastChangeTime);
 
         super.writeSyncableNBT(compound, shouldSync);
     }
@@ -150,4 +163,16 @@ public class TileEntityPedestal extends TESideIO {
         }
     }
 
+    @Override
+    protected boolean shouldSyncSlots() {
+        if(this.oldChangeTime != this.lastChangeTime){
+            this.oldChangeTime = this.lastChangeTime;
+            return true;
+        }
+        return super.shouldSyncSlots();
+    }
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        return new AxisAlignedBB(getPos(), getPos().add(1, 2, 1));
+    }
 }

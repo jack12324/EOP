@@ -4,6 +4,8 @@ import com.jack12324.eop.block.ModBlocks;
 import com.jack12324.eop.client.EOPTab;
 import com.jack12324.eop.fluids.InitFluids;
 import com.jack12324.eop.item.ModItems;
+import com.jack12324.eop.machine.pedestal.TESRPedestal;
+import com.jack12324.eop.machine.pedestal.TileEntityPedestal;
 import com.jack12324.eop.packet.PacketHandler;
 import com.jack12324.eop.proxy.CommonProxy;
 import com.jack12324.eop.recipe.ModRecipes;
@@ -21,6 +23,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -86,7 +89,7 @@ public class ExtremeOreProcessing {
             ModItems.registerModels();
             ModBlocks.registerModels();
             registerFluidModels();
-
+            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal.class, new TESRPedestal());
 
         }
         public static void registerFluidModels() {
