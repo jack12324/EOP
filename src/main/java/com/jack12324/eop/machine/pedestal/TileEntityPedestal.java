@@ -1,12 +1,10 @@
 package com.jack12324.eop.machine.pedestal;
 
 import com.jack12324.eop.machine.BlockTE;
-import com.jack12324.eop.machine.TEInventory;
 import com.jack12324.eop.machine.TESideIO;
 import com.jack12324.eop.recipe.RecipeHandler;
 import com.jack12324.eop.recipe.RecipeHolder;
 import com.jack12324.eop.recipe.recipeInterfaces.EOPRecipe;
-import com.jack12324.eop.util.EOPItemStackHandler;
 import com.jack12324.eop.util.InventorySlotHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -26,7 +24,6 @@ public class TileEntityPedestal extends TESideIO {
     private int oldFluidAmount;
     private boolean lastActive = false;
     public long lastChangeTime;
-    public long oldChangeTime=0;
     final FluidTank tank = new FluidTank(1000) {
         @Override
         public boolean canDrain() {
@@ -119,11 +116,6 @@ public class TileEntityPedestal extends TESideIO {
     }
 
     @Override
-    protected void invChange() {
-        lastChangeTime = world.getTotalWorldTime();
-    }
-
-    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         for (int indexes : this.slotHelper.getUpgrade()) {
             if (index == indexes)
@@ -161,15 +153,6 @@ public class TileEntityPedestal extends TESideIO {
                 this.sideIO[index] = 0;
             else this.sideIO[index] = val + 1;
         }
-    }
-
-    @Override
-    protected boolean shouldSyncSlots() {
-        if(this.oldChangeTime != this.lastChangeTime){
-            this.oldChangeTime = this.lastChangeTime;
-            return true;
-        }
-        return super.shouldSyncSlots();
     }
     @Override
     public AxisAlignedBB getRenderBoundingBox() {

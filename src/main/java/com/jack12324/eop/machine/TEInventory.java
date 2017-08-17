@@ -68,7 +68,6 @@ public abstract class TEInventory extends TETickingMachine {
             @Override
             protected void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                invChange();
                 TEInventory.this.markDirty();
             }
         };
@@ -80,8 +79,6 @@ public abstract class TEInventory extends TETickingMachine {
                 return true;
         }
         return false;
-    }
-    protected void invChange(){
     }
 
     @Override
