@@ -45,17 +45,17 @@ public class ExtremeOreProcessing {
     // basic Mod info
     public static final String modID = "eop";
     public static final String name = "Extreme Ore Processing";
-    public static final String version = "1.12-0.9.1";
+    public static final String version = "1.12.1-0.9.1";
     public static final EOPTab creativeTab = new EOPTab();
     public static final String mcversion = "@MCVERSION@";
 
     public static final Logger LOGGER = LogManager.getLogger("Extreme Ore Processing");
 
     // tool materials
-    public static final Item.ToolMaterial tungstenToolMaterial = EnumHelper.addToolMaterial("TUNGSTEN", 3, 2000, 10, 4,
+    public static final Item.ToolMaterial tungstenToolMaterial = EnumHelper.addToolMaterial("TUNGSTEN", 3, 1000, 10, 4,
             20);
     public static final ItemArmor.ArmorMaterial tungstenArmorMaterial = EnumHelper.addArmorMaterial("TUNGSTEN",
-            modID + ":tungsten", 35, new int[]{4, 9, 7, 4}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0f);
+            modID + ":tungsten", 35, new int[]{2, 4, 3, 2}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0f);
     public static boolean teslaLoaded;
 
     @SidedProxy(serverSide = "com.jack12324.eop.proxy.CommonProxy", clientSide = "com.jack12324.eop.proxy.ClientProxy")
@@ -114,7 +114,6 @@ public class ExtremeOreProcessing {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        // modItems needs to be before ModBlocks or drops won't work properly
         LOGGER.info(name + " is loading!");
 
         teslaLoaded = Loader.isModLoaded("tesla");
